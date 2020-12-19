@@ -1,0 +1,120 @@
+<div> <!-- INICIO CONTENEDOR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!-- INICIO BARRA DE NAVEGACIÓN -->
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img src="assets/images/logo.gif" width="30" height="30" class="d-inline-block " alt="">
+      <span class="title-logo">Bioinformatics-Evolution</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link nlinks"  [routerLink]="['/folding']">Folding<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item ">
+          <a class="nav-link nlinks" [routerLink]="['/login']">Login<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link nlinks"  [routerLink]="['/register']">Register<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle nlinks" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            User Name
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item dd-item" href="#">My profile</a>
+            <a class="dropdown-item dd-item" href="#">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item dd-item" href="#">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav> <!-- FIN BARRA DE NAVEGACIÓN -->
+</div> <!-- FIN CONTENEDOR PRINCIPAL -->
+
+<div class="container"> <!-- INICIO DEL CONTENEDOR PRINCIPAL -->
+  <router-outlet></router-outlet> <!-- CONTENIDO -->
+</div> <!-- FIN DEL CONTENEDOR PRINCIPAL -->
+
+<!-- Footer -->
+<footer class="bg-dark text-center text-lg-start mt-3">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Footer Content</h5>
+
+        <p class="text-light">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+          voluptatem veniam, est atque cumque eum delectus sint!
+        </p>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Links</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="#!" class="text-dark">Link 1</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 2</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 3</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 4</a>
+          </li>
+        </ul>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-0">Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!" class="text-light">Link 1</a>
+          </li>
+          <li>
+            <a href="#!" class="text-light">Link 2</a>
+          </li>
+          <li>
+            <a href="#!" class="text-light">Link 3</a>
+          </li>
+          <li>
+            <a href="#!" class="text-light">Link 4</a>
+          </li>
+        </ul>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3 text-light" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2020 Copyright:
+    <a class="text-light" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+

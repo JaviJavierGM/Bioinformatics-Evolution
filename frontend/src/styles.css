@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+.body {
+    background-image: url(./assets/images/intersection.png);
+}
+
+.title-logo {
+    font-size: 19px;
+    margin-left: 2px;
+}
+
+.nlinks {
+    font-size: 17px;
+}
+
+.dd-item{
+    font-size: 17px;
+}
+
+p{
+    font-size: 17px;
+}
+
+label { 
+    font-size: 17px;
+}
+

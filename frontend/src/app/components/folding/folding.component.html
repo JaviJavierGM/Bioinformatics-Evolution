@@ -1,0 +1,129 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+    <p>Enter the aminoacid or HP sequence of the protein to fold!</p>
+
+    <!-- FORMULARIO DE FOLDING -->
+    <form class="col-md-12 ml-0 pl-0 ">
+
+        <div class="form-group">
+            <label for="aminoacid">Aminoacid or HP Sequence</label>
+            <input type="text" name="aminoacid" class="form-control " />
+        </div>
+
+        <div class="form-row">
+            <!-- ESPACIO DEL PLEGAMIENTO -->
+            <div class="form-group col-md-6">
+                <label for="spacetype">Space Types</label>
+                <select id="spacetype" class="form-control">
+                    <option selected>2D Square</option>
+                    <option>2D Triangle</option>
+                    <option>3D Cubic</option>
+                </select>
+            </div>
+
+            <!-- ALGORITMO DE OPTIMIZACIÓN -->
+            <div class="form-group col-md-6">
+                <label for="optimization">Optimization Algorithms</label>
+                <select id="optimization" class="form-control">
+                    <option selected>Simple</option>
+                    <option>RankGA</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <!-- OPERADOR DE SELECCIÓN -->
+            <div class="form-group col-md-4">
+                <label for="selection-op">Selection Operator</label>
+                <select id="selection-op" class="form-control">
+                    <option selected>Roulette</option>
+                    <option>Tournament</option>
+                    <option>Top Percent</option>
+                    <option>Population Decimation</option>
+                </select>
+            </div>
+
+            <!-- OPERADOR DE CRUCE -->
+            <div class="form-group col-md-4">
+                <label for="crossover-op">CrossOver Operator</label>
+                <select id="crossover-op" class="form-control">
+                    <option selected>One-point</option>
+                    <option>Two-points</option>
+                    <option>Uniform</option>
+                </select>
+            </div>
+
+            <!-- OPERADOR DE MUTACIÓN -->
+            <div class="form-group col-md-4">
+                <label for="mutation-op">Mutation Operator</label>
+                <select id="mutation-op" class="form-control">
+                    <option selected>Predefined</option>
+                    <option>Random</option>
+                </select>
+            </div>
+        </div>
+        <hr />
+        <p>Parameters</p>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="conformations">Chose the number of conformations to generate</label>
+                <input type="number" name="conformations" class="form-control" value="100" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="times-algorithm">How many times do you want to run the evolutionary algorithm?</label>
+                <input type="number" name="times-algorithm" class="form-control" value="200" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="experiments">How many experiments do you want to do?</label>
+                <input type="number" name="experiments" class="form-control" value="1" />
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="sampling">Sampling value</label>
+                <input type="number" name="sampling" class="form-control" value="1" />
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="percent-tournament">Percent of individuals in the tournament</label>
+                <input type="number" name="percent-tournament" class="form-control" value="20" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="percent-best">Percent of the best individuals in the population</label>
+                <input type="number" name="percent-best" class="form-control" value="20" />
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="crossover-probability">CrossOver probability</label>
+                <input type="number" name="crossover-probability" class="form-control" value="1.0" />
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="min-mutation-probability">Minimum mutation probability</label>
+                <input type="number" name="min-mutation-probability" class="form-control" value="0.0" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="max-mutation-probability">Maximum mutation probability</label>
+                <input type="number" name="max-mutation-probability" class="form-control" value="0.01" />
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="proximity-pairing">Proximity pairing (%)</label>
+                <input type="number" name="proximity-pairing" class="form-control" value="0.01" />
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <input type="submit" value="Execute" class="btn btn-primary col-md-4" />
+        </div>
+        
+    </form>
+</div>
