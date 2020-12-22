@@ -21,10 +21,16 @@
 
       <ul class="navbar-nav navbar-right">
         <li class="nav-item ">
-          <a class="nav-link nlinks" [routerLink]="['/login']">Login<span class="sr-only">(current)</span></a>
+          <a class="nav-link nlinks" [routerLink]="['/login']">
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+            <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link nlinks"  [routerLink]="['/register']">Register<span class="sr-only">(current)</span></a>
+          <a class="nav-link nlinks"  [routerLink]="['/register']">
+            <i class="fas fa-user-plus"></i>
+            Register
+            <span class="sr-only">(current)</span></a>
         </li>
       </ul>
 
@@ -34,10 +40,19 @@
             User Name
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item dd-item" href="#">My profile</a>
-            <a class="dropdown-item dd-item" href="#">Settings</a>
+            <a class="dropdown-item dd-item" href="#">
+              <i class="fas fa-user"></i>
+              My profile
+            </a>
+            <a class="dropdown-item dd-item" href="#">
+              <i class="fas fa-users-cog"></i>
+              Settings
+            </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item dd-item" href="#">Logout</a>
+            <a class="dropdown-item dd-item" href="#">
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
+            </a>
           </div>
         </li>
       </ul>
@@ -57,7 +72,19 @@
     <div class="row">
       <!--Grid column-->
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase text-light">Footer Content</h5>
+        <h5 class="text-uppercase text-light"> Footer Content</h5>
+
+        <h1>
+          <a href="">
+            <i class="fab fa-facebook mr-5"></i>
+          </a>
+
+          <a href="">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </h1>
+
+        
 
         <p class="text-light">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
@@ -72,8 +99,13 @@
         <h5 class="text-uppercase">Links</h5>
 
         <ul class="list-unstyled mb-0">
-          <li>
-            <a href="#!" class="text-dark">Link 1</a>
+          <li class="li-footer">
+            <a href="#!" class="text-light mr-1">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <span class="text-light">
+              Ponce Rodriguez Milton.
+            </span>
           </li>
           <li>
             <a href="#!" class="text-dark">Link 2</a>
