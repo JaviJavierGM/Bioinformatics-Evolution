@@ -12,9 +12,17 @@
 
         <div class="form-row">
             <!-- ESPACIO DEL PLEGAMIENTO -->
-            <div class="form-group col-md-6">
-                <label for="spacetype">Space Types</label>
-                <select id="spacetype" class="form-control">
+            <div class="form-group col-md-4">
+                <label for="space-type">Space Types</label>
+                <select id="space-type" class="form-control">
+                    <option selected>Lattice space</option>
+                    <option >Correlational Network</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="dimension-type">Dimensions Types</label>
+                <select id="dimension-type" class="form-control">
                     <option selected>2D Square</option>
                     <option>2D Triangle</option>
                     <option>3D Cubic</option>
@@ -22,7 +30,7 @@
             </div>
 
             <!-- ALGORITMO DE OPTIMIZACIÓN -->
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <label for="optimization">Optimization Algorithms</label>
                 <select id="optimization" class="form-control">
                     <option selected>Simple</option>
