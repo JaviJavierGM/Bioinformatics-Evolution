@@ -18,18 +18,27 @@
             <!-- ESPACIO DEL PLEGAMIENTO -->
             <div class="form-group col-md-4">
                 <label for="space_type">Space Types</label>
-                <select name="space_type" class="form-control" #aminoacid="ngModel" [(ngModel)]="evolutionaryAlgorithm.space_type">
-                    <option value="lattice">Lattice space</option>
-                    <option value="correlational" selected>Correlational Network</option>
+                <select name="space_type" class="form-control" #space_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.space_type">
+                    <option value="lattice">Lattice Types</option>
+                    <option value="correlated" selected>Correlated Network</option>
                 </select>
             </div>
 
-            <div class="form-group col-md-4">
+            <div *ngIf="!isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
                 <select id="dimension_type" class="form-control">
                     <option selected>2D Square</option>
                     <option>2D Triangle</option>
                     <option>3D Cubic</option>
+                </select>
+            </div>
+
+            <div *ngIf="isCorrelational()" class="form-group col-md-4">
+                <label for="dimension_type">Dimensions Types</label>
+                <select id="dimension_type" class="form-control">
+                    <option selected>2D Square Correlated</option>
+                    <option>2D Triangle Correlated</option>
+                    <option>3D Cubic Correlated</option>
                 </select>
             </div>
 

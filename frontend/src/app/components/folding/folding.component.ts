@@ -23,4 +23,12 @@ export class FoldingComponent implements OnInit {
     console.log(this.evolutionaryAlgorithm);
   }
 
+  isCorrelational() {
+    if (this.evolutionaryAlgorithm.space_type == 'correlated') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
