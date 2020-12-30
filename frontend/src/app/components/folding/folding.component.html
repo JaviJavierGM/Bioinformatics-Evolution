@@ -18,9 +18,9 @@
             <!-- ESPACIO DEL PLEGAMIENTO -->
             <div class="form-group col-md-4">
                 <label for="space_type">Space Types</label>
-                <select id="space_type" class="form-control">
-                    <option selected>Lattice space</option>
-                    <option >Correlational Network</option>
+                <select name="space_type" class="form-control" #aminoacid="ngModel" [(ngModel)]="evolutionaryAlgorithm.space_type">
+                    <option value="lattice">Lattice space</option>
+                    <option value="correlational" selected>Correlational Network</option>
                 </select>
             </div>
 
