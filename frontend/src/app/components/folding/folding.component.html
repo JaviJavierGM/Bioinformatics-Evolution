@@ -26,19 +26,19 @@
 
             <div *ngIf="!isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
-                <select id="dimension_type" class="form-control">
-                    <option selected>2D Square</option>
-                    <option>2D Triangle</option>
-                    <option>3D Cubic</option>
+                <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type">
+                    <option value="2D_Square" selected>2D Square</option>
+                    <option value="2D_Triangle">2D Triangle</option>
+                    <option value="3D_Cubic">3D Cubic</option>
                 </select>
             </div>
 
             <div *ngIf="isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
-                <select id="dimension_type" class="form-control">
-                    <option selected>2D Square Correlated</option>
-                    <option>2D Triangle Correlated</option>
-                    <option>3D Cubic Correlated</option>
+                <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type">
+                    <option value="2D_Square_Correlated" selected>2D Square Correlated</option>
+                    <option value="2D_Triangle_Correlated">2D Triangle Correlated</option>
+                    <option value="3D_Cubic_Correlated">3D Cubic Correlated</option>
                 </select>
             </div>
 
