@@ -12,7 +12,7 @@ export class FoldingComponent implements OnInit {
 
   constructor() { 
     this.page_title = 'Protein folding';
-    this.evolutionaryAlgorithm = new EvolutionaryAlgorithm('', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    this.evolutionaryAlgorithm = new EvolutionaryAlgorithm('', 'lattice', '', '', '', '', '', 100, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   }
 
   ngOnInit(): void {
