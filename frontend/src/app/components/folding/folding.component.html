@@ -45,9 +45,9 @@
             <!-- ALGORITMO DE OPTIMIZACIÓN -->
             <div class="form-group col-md-4">
                 <label for="optimization">Optimization Algorithms</label>
-                <select id="optimization" class="form-control">
-                    <option selected>Simple</option>
-                    <option>RankGA</option>
+                <select name="optimization" class="form-control" #optimization="ngModel" [(ngModel)]="evolutionaryAlgorithm.optimization">
+                    <option value="simple">Simple</option>
+                    <option value="rankGA">RankGA</option>
                 </select>
             </div>
         </div>
@@ -56,30 +56,30 @@
             <!-- OPERADOR DE SELECCIÓN -->
             <div class="form-group col-md-4">
                 <label for="selection_op">Selection Operator</label>
-                <select id="selection_op" class="form-control">
-                    <option selected>Roulette</option>
-                    <option>Tournament</option>
-                    <option>Top Percent</option>
-                    <option>Population Decimation</option>
+                <select name="selection_op" class="form-control" #selection_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.selection_op">
+                    <option value="roulette">Roulette</option>
+                    <option value="tournament">Tournament</option>
+                    <option value="top_percent">Top Percent</option>
+                    <option value="population_decimation">Population Decimation</option>
                 </select>
             </div>
 
             <!-- OPERADOR DE CRUCE -->
             <div class="form-group col-md-4">
                 <label for="crossover_op">CrossOver Operator</label>
-                <select id="crossover_op" class="form-control">
-                    <option selected>One-point</option>
-                    <option>Two-points</option>
-                    <option>Uniform</option>
+                <select name="crossover_op" class="form-control" #crossover_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_op">
+                    <option value="one_point">One-point</option>
+                    <option value="two_points">Two-points</option>
+                    <option value="uniform">Uniform</option>
                 </select>
             </div>
 
             <!-- OPERADOR DE MUTACIÓN -->
             <div class="form-group col-md-4">
                 <label for="mutation_op">Mutation Operator</label>
-                <select id="mutation_op" class="form-control">
-                    <option selected>Predefined</option>
-                    <option>Random</option>
+                <select name="mutation_op" class="form-control" #mutation_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.mutation_op">
+                    <option value="predefined">Predefined</option>
+                    <option value="random">Random</option>
                 </select>
             </div>
         </div>
@@ -91,7 +91,7 @@
                 <input type="number" name="conformations" class="form-control" #conformations="ngModel" [(ngModel)]="evolutionaryAlgorithm.conformations" required pattern="[0-9]+" value="100"/>
 
                 <small *ngIf="!conformations.valid && conformations.touched" class="invalid-feedback d-block sml">
-                    The aminoacid is not valid.
+                    The conformations are not valid.
                 </small>
             </div>
 
