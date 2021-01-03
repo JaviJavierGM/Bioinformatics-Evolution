@@ -20,14 +20,14 @@
                 <label for="space_type">Space Types</label>
                 <select name="space_type" class="form-control" #space_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.space_type">
                     <option value="lattice">Lattice Types</option>
-                    <option value="correlated" selected>Correlated Network</option>
+                    <option value="correlated">Correlated Network</option>
                 </select>
             </div>
 
             <div *ngIf="!isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
                 <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type">
-                    <option value="2D_Square" selected>2D Square</option>
+                    <option value="2D_Square">2D Square</option>
                     <option value="2D_Triangle">2D Triangle</option>
                     <option value="3D_Cubic">3D Cubic</option>
                 </select>
@@ -36,7 +36,7 @@
             <div *ngIf="isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
                 <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type">
-                    <option value="2D_Square_Correlated" selected>2D Square Correlated</option>
+                    <option value="2D_Square_Correlated">2D Square Correlated</option>
                     <option value="2D_Triangle_Correlated">2D Triangle Correlated</option>
                     <option value="3D_Cubic_Correlated">3D Cubic Correlated</option>
                 </select>
@@ -88,7 +88,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="conformations">Chose the number of conformations to generate</label>
-                <input type="number" name="conformations" class="form-control" #conformations="ngModel" [(ngModel)]="evolutionaryAlgorithm.conformations" required pattern="[0-9]+" value="100"/>
+                <input type="number" name="conformations" class="form-control" #conformations="ngModel" [(ngModel)]="evolutionaryAlgorithm.conformations" required pattern="[0-9]+"/>
 
                 <small *ngIf="!conformations.valid && conformations.touched" class="invalid-feedback d-block sml">
                     The conformations are not valid.
@@ -97,53 +97,89 @@
 
             <div class="form-group col-md-6">
                 <label for="times_algorithm">How many times do you want to run the evolutionary algorithm?</label>
-                <input type="number" name="times_algorithm" class="form-control" value="200" />
+                <input type="number" name="times_algorithm" class="form-control" #times_algorithm="ngModel" [(ngModel)]="evolutionaryAlgorithm.times_algorithm" required pattern="[0-9]+"/>
+
+                <small *ngIf="!times_algorithm.valid && times_algorithm.touched" class="invalid-feedback d-block sml">
+                    The times to run the evolutionary algorithm are not valid.
+                </small>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="experiments">How many experiments do you want to do?</label>
-                <input type="number" name="experiments" class="form-control" value="1" />
+                <input type="number" name="experiments" class="form-control" #experiments="ngModel" [(ngModel)]="evolutionaryAlgorithm.experiments" required pattern="[0-9]+" />
+
+                <small *ngIf="!experiments.valid && experiments.touched" class="invalid-feedback d-block sml">
+                    The experiments are not valid.
+                </small>
             </div>
 
             <div class="form-group col-md-2">
                 <label for="sampling">Sampling value</label>
-                <input type="number" name="sampling" class="form-control" value="1" />
+                <input type="number" name="sampling" class="form-control" #sampling="ngModel" [(ngModel)]="evolutionaryAlgorithm.sampling" required pattern="[0-9]+" />
+
+                <small *ngIf="!sampling.valid && sampling.touched" class="invalid-feedback d-block sml">
+                    The value is not valid.
+                </small>
             </div>
 
             <div class="form-group col-md-5">
                 <label for="percent_tournament">Percent of individuals in the tournament</label>
-                <input type="number" name="percent_tournament" class="form-control" value="20" />
+                <input type="number" name="percent_tournament" class="form-control" #percent_tournament="ngModel" [(ngModel)]="evolutionaryAlgorithm.percent_tournament" required pattern="[0-9]+" />
+
+                <small *ngIf="!percent_tournament.valid && percent_tournament.touched" class="invalid-feedback d-block sml">
+                    The percent of individuals is not valid.
+                </small>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="percent_best">Percent of the best individuals in the population</label>
-                <input type="number" name="percent_best" class="form-control" value="20" />
+                <input type="number" name="percent_best" class="form-control" value="20" #percent_best="ngModel" [(ngModel)]="evolutionaryAlgorithm.percent_best" required pattern="[0-9]+"/>
+
+                <small *ngIf="!percent_best.valid && percent_best.touched" class="invalid-feedback d-block sml">
+                    The percent best is not valid.
+                </small>
             </div>
 
             <div class="form-group col-md-3">
                 <label for="crossover_probability">CrossOver probability</label>
-                <input type="number" name="crossover_probability" class="form-control" value="1.0" />
+                <input type="number" name="crossover_probability" step="0.1" class="form-control" #crossover_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_probability" required pattern="([0-9])(.[0-9]+)?" />
+
+                <small *ngIf="!crossover_probability.valid && crossover_probability.touched" class="invalid-feedback d-block sml">
+                    The crossover probability is not valid.
+                </small>
             </div>
 
             <div class="form-group col-md-4">
                 <label for="min_mutation_probability">Minimum mutation probability</label>
-                <input type="number" name="min_mutation_probability" class="form-control" value="0.0" />
+                <input type="number" name="min_mutation_probability" step="0.1" class="form-control" #min_mutation_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.min_mutation_probability" required pattern="([0-9])(.[0-9]+)?" />
+
+                <small *ngIf="!min_mutation_probability.valid && min_mutation_probability.touched" class="invalid-feedback d-block sml">
+                    The min mutation probability is not valid.
+                </small>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="max_mutation_probability">Maximum mutation probability</label>
-                <input type="number" name="max_mutation_probability" class="form-control" value="0.01" />
+                <input type="number" name="max_mutation_probability" step="0.01" class="form-control" #max_mutation_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.max_mutation_probability" required pattern="([0-9])(.[0-9]+)?" />
+
+                <small *ngIf="!max_mutation_probability.valid && max_mutation_probability.touched" class="invalid-feedback d-block sml">
+                    The max mutation probability is not valid.
+                </small>
             </div>
 
             <div class="form-group col-md-4">
                 <label for="proximity_pairing">Proximity pairing (%)</label>
-                <input type="number" name="proximity_pairing" class="form-control" value="0.01" />
+                <input type="number" name="proximity_pairing" step="0.01" class="form-control" #proximity_pairing="ngModel" [(ngModel)]="evolutionaryAlgorithm.proximity_pairing" />
+
+                <small *ngIf="!proximity_pairing.valid && proximity_pairing.touched" class="invalid-feedback d-block sml">
+                    The proximity pairing is not valid.
+                </small>
             </div>
         </div>
         <div class="form-row justify-content-center">
