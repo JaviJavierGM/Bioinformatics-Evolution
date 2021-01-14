@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PruebasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/welcome', function() {
+    return '<h1>Hola mundo</h1>';
+});
+
+Route::get('/pruebas/{name?}', function($name = null){
+    $text = '<h2>Texto desde una ruta !!</h2>';
+    $text .= 'Nombre: '.$name;
+
+    return view('pruebas', array(
+        'text' => $text
+    ));
+});
+
+Route::get('/animals', [PruebasController::class, 'index']);
