@@ -7,7 +7,7 @@
 
         <div class="form-group">
             <label for="aminoacid">Aminoacid or HP Sequence</label>
-            <input type="text" name="aminoacid" class="form-control" #aminoacid="ngModel" [(ngModel)]="evolutionaryAlgorithm.aminoacid" required pattern="[a-zA-Z]+" appAutoFocus/>
+            <input placeholder="Enter the aminoacid sequence " type="text" name="aminoacid" class="form-control" #aminoacid="ngModel" [(ngModel)]="evolutionaryAlgorithm.aminoacid" required pattern="[a-zA-Z]+" appAutoFocus/>
 
             <small *ngIf="!aminoacid.valid && aminoacid.touched" class="invalid-feedback d-block sml">
                 The aminoacid is not valid.
