@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { FoldingComponent } from './components/folding/folding.component';
+import { AutoFocusDirective } from './auto-focus.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FoldingComponent } from './components/folding/folding.component';
     RegisterComponent,
     HomeComponent,
     ErrorComponent,
-    FoldingComponent
+    FoldingComponent,
+    AutoFocusDirective
   ],
   imports: [
     BrowserModule,
