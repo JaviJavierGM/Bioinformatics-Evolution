@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/welcome', function() {
-    return '<h1>Hola mundo</h1>';
+    return '<h1>Hola mundo - Prueba 111</h1>';
 });
 
 Route::get('/pruebas/{name?}', function($name = null){
