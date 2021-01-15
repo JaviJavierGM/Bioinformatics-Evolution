@@ -1,11 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: absender;
+  src: url(assets/fonts/absender.ttf) format("opentype");
+}
+
 .body {
   background-image: url(./assets/images/paper_fibers.png);
 }
 
 .title-logo {
-  font-size: 19px;
+  letter-spacing: 1px;
+  font-size: 20px;
   margin-left: 2px;
+  font-family: absender;
+  color: #999C9F;
+}
+
+.title-logo:hover{
+  color: #cccecf;
 }
 
 .nlinks {
@@ -39,6 +52,7 @@ label {
 }
 
 /*FOOTER*/
+
 .footer-dark {
   padding:20px 0;
   color:#f0f9ff;
