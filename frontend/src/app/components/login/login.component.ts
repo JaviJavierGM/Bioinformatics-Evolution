@@ -9,7 +9,7 @@ export class LoginComponent implements OnInit {
   public page_title: string;
 
   constructor() { 
-    this.page_title = 'Identify yourself';
+    this.page_title = 'Welcome back!';
   }
 
   ngOnInit(): void {
