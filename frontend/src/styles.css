@@ -21,6 +21,22 @@
   color: #cccecf;
 }
 
+/* Adaptar tamaño del titulo para dispositivos moviles */
+
+@media (max-width: 455px) {
+  .title-logo {
+    letter-spacing: 1px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 370px) {
+  .title-logo {
+    letter-spacing: 1px;
+    font-size: 12px;
+  }
+}
+
 .nlinks {
   font-size: 17px;
 }
