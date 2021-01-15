@@ -188,3 +188,15 @@ h1 small {
 		opacity: .3
 	}
 }
+
+.bloque{
+	float: left;
+	margin-bottom: 700px;
+}
+
+@media (max-width: 800px) {
+	.bloque{
+		float: left;
+		margin-bottom: 100px;
+	}
+  }
