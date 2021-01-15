@@ -14,7 +14,7 @@
   font-size: 22px;
   margin-left: 2px;
   font-family: absender;
-  color: #999C9F;
+  color: #d0d0d0;
 }
 
 .title-logo:hover{
@@ -52,6 +52,7 @@
 
 .logo {
   margin-left: 28px;
+  margin-top: 1px;
 }
 
 p{
