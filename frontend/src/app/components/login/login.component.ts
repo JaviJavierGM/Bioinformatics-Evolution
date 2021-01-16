@@ -10,6 +10,11 @@ export class LoginComponent implements OnInit {
 
   constructor() { 
     this.page_title = 'Welcome back!';
+
+    // Instruccion para cerrar el menu desplegrable luego de seleccionar
+    // Pendiente de verificar como se usa jquery en angular
+    // $('.navbar-collapse').collapse('hide');
+
   }
 
   ngOnInit(): void {

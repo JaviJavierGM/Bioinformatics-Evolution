@@ -10,7 +10,6 @@
   
   .bg-image {
     margin-top: 50px;
-    /* background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200'); */
     background-image: url('../../../assets/images/image_login.jpg');
     background-size: cover;
     background-position: center;
