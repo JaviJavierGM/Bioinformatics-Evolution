@@ -1,3 +1,3 @@
 export var global = {
-    url: 'http://bioinformatics-evolution.com.devel/api/'
+    url: 'https://bioinformaticsevolution.000webhostapp.com/backend/api/'
 }
