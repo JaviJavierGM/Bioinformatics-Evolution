@@ -22,7 +22,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav navbar-right">
+      <ul class="navbar-nav navbar-right" *ngIf="!identity">
         <li class="nav-item ">
           <a class="nav-link nlinks" [routerLink]="['/login']">
             <i class="fas fa-sign-in-alt"></i>
@@ -37,10 +37,10 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav navbar-right">
+      <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle nlinks-end" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            User Name
+            {{identity.name + ' ' + identity.surname}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             
@@ -107,15 +107,17 @@
               </div>
               <div class="col item social">
                 <a href="#">
+                  <img src="../assets/images/uam.png" class="logo_uam">
+                </a> 
+
+                <a href="#">
                   <i class="fab fa-facebook-f" ></i>
                 </a>
+
                 <a href="#">
                   <i class="fab fa-twitter"></i>
-                </a>
-                <!-- <a href="#">
-                  <i class="fab fa-snapchat-ghost"></i>
-                </a> -->
-                <img src="../assets/images/logo_uam.png" class="logo_uam">
+                </a>                
+                
                 <a href="#">
                   <i class="fas fa-envelope"></i>
                 </a>
