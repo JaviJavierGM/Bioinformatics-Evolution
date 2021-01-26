@@ -11,6 +11,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { FoldingComponent } from './components/folding/folding.component';
 import { AutoFocusDirective } from './auto-focus.directive';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AutoFocusDirective } from './auto-focus.directive';
     HomeComponent,
     ErrorComponent,
     FoldingComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    ProjectsComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
