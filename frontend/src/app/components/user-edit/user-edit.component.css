@@ -1,0 +1,23 @@
+.avatar {
+    vertical-align: middle;
+    width: 350px;
+    border-radius: 50%;
+}
+
+@media (max-width: 800px){
+    .avatar {
+        width: 200px;
+    }
+}
+
+.separacion{
+    margin-left: 10px;
+}
+
+.profile_picture{
+    margin-top: 25px;
+}
+
+.login-heading {
+    font-weight: 400;
+}
