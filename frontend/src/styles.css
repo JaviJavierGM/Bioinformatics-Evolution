@@ -53,6 +53,10 @@
   font-size: 17px;
 }
 
+.separator {
+  width: 155px;
+}
+
 .logo {
   margin-left: 20px;
   margin-top: 1px;
