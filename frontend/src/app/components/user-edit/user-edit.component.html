@@ -1,1 +1,84 @@
-<p>user-edit works!</p>
+<div class="container">
+    <h1 class=" login-heading mb-4">Edit Profile</h1>
+    <hr>
+    <div class="row">
+
+        <!-- edit form column -->
+        <div class="col-md-7 personal-info">
+
+            <!-- <div class="alert alert-info alert-dismissable">
+                  <a class="panel-close close" data-dismiss="alert">×</a> 
+                  <i class="fa fa-coffee"></i>
+                  This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                </div> -->
+
+            <h3>Personal info</h3>
+
+            <form class="form-horizontal" role="form">
+
+                <div class="form-group">
+                    <!-- <label class="col-lg-3 control-label">Name:</label> -->
+                    <div class="col-lg-10">
+                        <input class="form-control" type="text" placeholder="John">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- <label class="col-lg-3 control-label">Surname:</label> -->
+                    <div class="col-lg-10">
+                        <input class="form-control" type="text" placeholder="Doe">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- <label class="col-lg-3 control-label">Descrition:</label> -->
+                    <div class="col-lg-10">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            placeholder="Hi! My name is John Doe :) And this is my description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- <label class="col-lg-3 control-label">Email:</label> -->
+                    <div class="col-lg-10">
+                        <input class="form-control" type="text" placeholder="johndoe@email.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- <label class="col-md-3 control-label">Password:</label> -->
+                    <div class="col-md-10">
+                        <input class="form-control" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- <label class="col-md-3 control-label">Confirm password:</label> -->
+                    <div class="col-md-10">
+                        <input class="form-control" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="button" class="btn btn-primary" value="Save Changes">
+                        <span class="separacion"></span>
+                        <input type="reset" class="btn btn-danger" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right column -->
+        <div class="col-md-5 profile_picture">
+            <div class="text-center">
+                <img src="../../../assets/images/profile_default_1.png" class="avatar img-circle" alt="avatar">
+
+                <h6>Upload a different photo...</h6>
+
+                <input type="file" class="form-control">
+            </div>
+        </div>
+
+    </div>
+</div>
+<hr>
