@@ -8,6 +8,10 @@
             <div class="col-md-9 col-lg-8 mx-auto">
               <h1 class=" login-heading mb-4">{{page_title}}</h1>
 
+              <div class="alert alert-danger" *ngIf="status == 'error'">
+                Login failed.                
+              </div>
+
               <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
                 <div class="form-group">
                   <input placeholder="Email address" type="email" name="email" class="form-control" #email="ngModel"

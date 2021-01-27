@@ -46,15 +46,19 @@
 
 .nlinks-end {
   font-size: 17px;
-  margin-right: 35px;
+  margin-right: 20px;
 }
 
 .dd-item{
   font-size: 17px;
 }
 
+.separator {
+  width: 155px;
+}
+
 .logo {
-  margin-left: 35px;
+  margin-left: 20px;
   margin-top: 1px;
 }
 
@@ -182,5 +186,4 @@ label {
 
 .logo_uam{
   height: 45px;
-  margin-bottom: 8px;
 }
