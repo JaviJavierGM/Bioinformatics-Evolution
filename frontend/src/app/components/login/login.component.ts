@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 
@@ -12,11 +13,14 @@ export class LoginComponent implements OnInit {
   public page_title: string;
   public user: User;
   public status: string;
+  public errors;
   public token;
   public identity;
 
   constructor(
-    private _userService: UserService
+    private _userService: UserService,
+    private _router: Router,
+    private _route: ActivatedRoute
   ) { 
     this.page_title = 'Welcome back!';
     this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
@@ -28,6 +32,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Se ejecuta siempre y cierra sesion solo cuando llega el parametro sure por la url 
+    this.logout();
   }
 
   onSubmit(form) {
@@ -48,6 +54,9 @@ export class LoginComponent implements OnInit {
               // Persistir datos del usuario identificado
               localStorage.setItem('token', this.token);
               localStorage.setItem('identity', JSON.stringify(this.identity));
+
+              // Redirecion a inicio
+              this._router.navigate(['folding']);
             },
             error => {
               this.status = 'error';
@@ -65,6 +74,23 @@ export class LoginComponent implements OnInit {
         console.log(<any>error);
       }
     );
+  }
+
+  logout() {
+    this._route.params.subscribe( params => {
+      let logout = +params['sure'];
+
+      if(logout == 1) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('identity');
+
+        this.identity = null;
+        this.token = null;
+
+        // Redirecion a inicio
+        this._router.navigate(['']);
+      }
+    });
   }
 
 }

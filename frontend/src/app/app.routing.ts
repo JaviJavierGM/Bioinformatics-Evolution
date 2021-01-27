@@ -17,6 +17,7 @@ import { Route } from '@angular/compiler/src/core';
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'logout/:sure', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'folding', component: FoldingComponent},
     {path: 'projects', component: ProjectsComponent},

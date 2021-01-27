@@ -17,11 +17,7 @@
                                 <div *ngFor="let item of errors">
                                     <hr/>
                                     <div>{{item}}</div>                                    
-                                </div>
-
-                                <div *ngIf="errors.email">{{errors.email}}</div> 
-                                <div *ngIf="errors.name">{{errors.name}}</div>
-                                <div *ngIf="errors.surname">{{errors.surname}}</div>                               
+                                </div>                        
                             </div>
 
                             <form class="" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
