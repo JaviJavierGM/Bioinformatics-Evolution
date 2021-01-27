@@ -1,0 +1,6 @@
+/*Redondear la imagen y que ocupe todo el circulo*/
+.image-koku{
+    clip-path: circle(50% at 50% 50%);
+    width: 200px;
+    height: 200px;
+}

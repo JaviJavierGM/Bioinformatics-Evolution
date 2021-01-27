@@ -28,6 +28,7 @@ class JwtAuth {
         // Generar el token con los datos del usuario identificado
         if($signup) {
             $token = array(
+                'role'      =>  $user->role,
                 'sub'       =>  $user->id,
                 'email'     =>  $user->email,
                 'name'      =>  $user->name,

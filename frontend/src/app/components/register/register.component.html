@@ -28,7 +28,7 @@
                                         pattern="[a-zA-Z]+" appAutoFocus />
 
                                     <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block sml">
-                                        The name is not valid.
+                                        The name isn't valid.
                                     </small>
                                 </div>
 
@@ -39,7 +39,7 @@
                                         pattern="[a-zA-Z]+" />
 
                                     <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">
-                                        The surname is not valid.
+                                        The surname isn't valid.
                                     </small>
                                 </div>
 
@@ -51,17 +51,17 @@
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
 
                                     <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
-                                        The email is not valid.
+                                        The email isn't valid.
                                     </small>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input type="password" name="password" placeholder="Enter your password."
-                                        class="form-control" #password="ngModel" [(ngModel)]="user.password" required />
+                                    minlength="6" class="form-control" #password="ngModel" [(ngModel)]="user.password" required />
 
                                     <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
-                                        The password is not valid.
+                                        The password isn't valid, required at least 6 characters.
                                     </small>
                                 </div>
 

@@ -56,7 +56,12 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('identity', JSON.stringify(this.identity));
 
               // Redirecion a inicio
-              this._router.navigate(['folding']);
+              if(this.identity.role == 'ROLE_USER') {
+                this._router.navigate(['folding']);
+              } else {
+                this._router.navigate(['']);
+              }
+              
             },
             error => {
               this.status = 'error';
