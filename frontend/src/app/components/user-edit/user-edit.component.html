@@ -10,10 +10,13 @@
                     <!-- Formulario de Ajustes-->
                     <div class="col-sm col-md">
                         <!-- Alerta Success -->
-                        <div class="alert alert-info alert-dismissable">
+                        <div class="alert alert-success alert-dismissable" *ngIf="status == 'success'">
                             <a class="panel-close close" data-dismiss="alert">×</a>
-                            <i class="fa fa-coffee"></i>
-                            This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                            Changes were successful!
+                        </div>
+                        <div class="alert alert-danger alert-dismissable" *ngIf="status == 'error'">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            Changes weren't made correctly!
                         </div>
 
                         <div class="form-group">
@@ -41,7 +44,7 @@
                         </div>
 
                         <div class="form-group">
-                            <textarea name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description" rows="3" placeholder="Hi! This is my description"></textarea>
+                            <textarea name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description" rows="3" ></textarea>
                         </div>                        
                     </div>
                     <!-- PICTURE  -->

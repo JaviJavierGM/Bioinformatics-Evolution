@@ -123,31 +123,42 @@ class ProfileController extends Controller
             // Sacar usuario identificado
             $user = $jwtAuth->checkToken($token, true);
 
-            // Validar los datos
+            // Validar los datos, en especial que no se repita el email,
+            // excepto en el usuario con el id marcado
             $validate = \Validator::make($params_array, [
                 'name'      =>  'required|alpha',
                 'surname'   =>  'required|alpha',
-                'email'     =>  'required|email|unique:users,'.$user->sub
+                'email'     =>  'required|email|unique:users,email,'.$user->sub
             ]);
 
-            // Quitar los campos que no quiero actualizar
-            unset($params_array['id']);
-            unset($params_array['role']);
-            unset($params_array['password']);
-            unset($params_array['created_at']);
-            unset($params_array['remember_token']);
+            if($validate->fails()){
+                $data = array(
+                    'code' => 400,
+                    'status' => 'error',
+                    'message' => "The email you are trying to use is already registered!"
+                );
+
+            }else{
+                // Quitar los campos que no quiero actualizar
+                unset($params_array['id']);
+                unset($params_array['role']);
+                unset($params_array['password']);
+                unset($params_array['created_at']);
+                unset($params_array['remember_token']);
+                
+                // Actualizar el usuario
+                $user_update = User::where('id', $user->sub)->update($params_array);
+
+                // Devolver array con el resultado
+                $data = array(
+                    'code' => 200,
+                    'status' => 'success',
+                    'user' => $user,
+                    'changes' => $params_array
+                );
+
+            } 
             
-            // Actualizar el usuario
-            $user_update = User::where('id', $user->sub)->update($params_array);
-
-            // Devolver array con el resultado
-            $data = array(
-                'code' => 200,
-                'status' => 'success',
-                'user' => $user,
-                'changes' => $params_array
-            );
-
         } else {
             $data = array(
                 'code' => 400,
