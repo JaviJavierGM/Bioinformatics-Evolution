@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-edit',
@@ -7,12 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserEditComponent implements OnInit {
   public page_title: string;
+  public user: User;
 
   constructor() { 
-    this.page_title = 'Edit Personal info!';
+    this.page_title = 'Edit personal information!';
+    this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(form) {
+    console.log(this.user);
   }
 
 }

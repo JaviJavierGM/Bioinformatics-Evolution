@@ -1,9 +1,10 @@
 <div class="container">
     <div class="col-md-12 mt-3 personal-info">
         <h2 class=" login-heading mb-4">{{page_title}}</h2>
+        <p>Modify your personal user data, and upload an avatar!!</p>
         <hr/>
 
-        <form>
+        <form #userEditForm="ngForm" (ngSubmit)="onSubmit(userEditForm)">
             <div class="container">
                 <div class="row">
                     <!-- Formulario de Ajustes-->
@@ -16,41 +17,42 @@
                         </div>
 
                         <div class="form-group">
-                            <input class="form-control" type="text" placeholder="John">
+                            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" required pattern="[a-zA-Z]+" placeholder="User name"/>
+
+                            <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+                                The name isn't valid.
+                            </small>
                         </div>
 
                         <div class="form-group">
-                            <input class="form-control" type="text" placeholder="Doe">
+                            <input type="text" name="surname" class="form-control" #surname="ngModel" [(ngModel)]="user.surname" required pattern="[a-zA-Z]+" placeholder="User surname"/>
+
+                            <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">
+                                The surname isn't valid.
+                            </small>
                         </div>
 
                         <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                placeholder="Hi! My name is John Doe :) And this is my description"></textarea>
+                            <input type="email" name="email" placeholder="Email address" class="form-control" #email="ngModel" [(ngModel)]="user.email" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="User email" />
+
+                            <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+                                The email isn't valid.
+                            </small>
                         </div>
 
                         <div class="form-group">
-                            <input class="form-control" type="text" placeholder="johndoe@email.com">
-                        </div>
-
-                        <div class="form-group">
-                            <input class="form-control" type="password"
-                                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="password"
-                                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
-                        </div>
+                            <textarea name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description" rows="3" placeholder="Hi! This is my description"></textarea>
+                        </div>                        
                     </div>
                     <!-- PICTURE  -->
                     <div class="col-sm col-md profile_picture">
                         <div class="form-group">
                             <div class="text-center">
-                                <img src="../../../assets/images/profile_default_1.png" class="avatar img-circle"
-                                    alt="avatar">
+                                <img src="../../../assets/images/profile_default_1.png" class="avatar img-circle" alt="avatar">
 
                                 <h6 class="mt-2 mb-2">Upload a different photo!</h6>
 
-                                <input type="file" class="form-control">
+                                <input type="file" name="image" class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -58,7 +60,7 @@
             </div>
 
             <div class="form-row justify-content-center">
-                <input type="submit" value="save changes" class="btn btn-lg btn-primary btn-block btn-settings text-uppercase font-weight-bold mt-2 mb-2 col-md-3" />
+                <input type="submit" value="save changes" class="btn btn-lg btn-primary btn-block btn-settings text-uppercase font-weight-bold mt-2 mb-2 col-md-3" [disabled]="userEditForm.invalid" />
             </div>
         </form>
     </div>
