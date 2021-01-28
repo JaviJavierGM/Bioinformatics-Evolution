@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+  public page_title: string;
 
-  constructor() { }
+  constructor() { 
+    this.page_title = 'Edit Personal info!';
+  }
 
   ngOnInit(): void {
   }
