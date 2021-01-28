@@ -1,7 +1,7 @@
 .avatar {
     vertical-align: middle;
-    width: 350px;
-    border-radius: 50%;
+    width: 250px;
+    clip-path: circle(50% at 50% 50%);
 }
 
 @media (max-width: 800px){
@@ -21,3 +21,10 @@
 .login-heading {
     font-weight: 400;
 }
+
+.btn-settings {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+    border-radius: 2rem;
+  }

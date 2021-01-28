@@ -1,64 +1,65 @@
 <div class="container">
     <div class="col-md-12 mt-3 personal-info">
         <h2 class=" login-heading mb-4">{{page_title}}</h2>
-        <hr>
-        <!-- <div class="alert alert-info alert-dismissable col-lg-10">
-            <a class="panel-close close" data-dismiss="alert">×</a> 
-            <i class="fa fa-coffee"></i>
-            This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div> -->
-        <form class="">
-            <!-- Formulario de Ajustes-->
-            <div class="col-md-6">
-                <div class="form-group">
-                        <input class="form-control" type="text" placeholder="John">                    
-                </div>
+        <hr/>
 
-                <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Doe">                    
-                </div>
+        <form>
+            <div class="container">
+                <div class="row">
+                    <!-- Formulario de Ajustes-->
+                    <div class="col-sm col-md">
+                        <!-- Alerta Success -->
+                        <div class="alert alert-info alert-dismissable">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-coffee"></i>
+                            This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                        </div>
 
-                <div class="form-group">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                            placeholder="Hi! My name is John Doe :) And this is my description"></textarea>                    
-                </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="John">
+                        </div>
 
-                <div class="form-group">
-                        <input class="form-control" type="text" placeholder="johndoe@email.com">                    
-                </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="Doe">
+                        </div>
 
-                <div class="form-group">                    
-                        <input class="form-control" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">                    
-                </div>
-                <div class="form-group">                    
-                        <input class="form-control" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">                    
+                        <div class="form-group">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="Hi! My name is John Doe :) And this is my description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="johndoe@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" type="password"
+                                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password"
+                                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        </div>
+                    </div>
+                    <!-- PICTURE  -->
+                    <div class="col-sm col-md profile_picture">
+                        <div class="form-group">
+                            <div class="text-center">
+                                <img src="../../../assets/images/profile_default_1.png" class="avatar img-circle"
+                                    alt="avatar">
+
+                                <h6 class="mt-2 mb-2">Upload a different photo!</h6>
+
+                                <input type="file" class="form-control">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-
-
-            <!-- PICTURE  -->
-            <div class="float-md-right col-md-5 profile_picture">
-                <div class="text-center">
-                    <img src="../../../assets/images/profile_default_1.png" class="avatar img-circle" alt="avatar">
-
-                    <h6>Upload a different photo...</h6>
-
-                    <input type="file" class="form-control">
-                </div>
-
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="form-group">
-                <label class="col-md-3 control-label"></label>
-                <div class="col-md-8">
-                    <input type="button" class="btn btn-primary" value="Save Changes">
-                    <span class="separacion"></span>
-                    <input type="reset" class="btn btn-danger" value="Cancel">
-                </div>
+            <div class="form-row justify-content-center">
+                <input type="submit" value="save changes" class="btn btn-lg btn-primary btn-block btn-settings text-uppercase font-weight-bold mt-2 mb-2 col-md-3" />
             </div>
         </form>
     </div>
 </div>
-<hr>
