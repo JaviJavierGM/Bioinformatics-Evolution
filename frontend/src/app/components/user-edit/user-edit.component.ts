@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { global } from "../../services/global";
 
 @Component({
   selector: 'app-user-edit',
@@ -14,6 +15,40 @@ export class UserEditComponent implements OnInit {
   public identity;
   public token;
   public status;
+  public url;
+
+  public afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg, .png, .gif, .jpeg",
+    maxSize: "20",
+    uploadAPI:  {
+      url: global.url+'user/upload',
+      method:"POST",
+      headers: {
+        "Authorization": this._userService.getToken()
+      },
+      params: {
+        'page': '1'
+      },
+      responseType: 'json',
+    },
+    theme: "attachPin",
+    hideProgressBar: false,
+    hideResetBtn: true,
+    hideSelectBtn: false,
+    fileNameIndex: true,
+
+    replaceTexts: {
+      selectFileBtn: 'Select Files',
+      resetBtn: 'Reset',
+      uploadBtn: 'Upload',
+      dragNDropBox: 'Drag N Drop',
+      attachPinBtn: 'Upload a different photo',
+      afterUploadMsg_success: 'Successfully Uploaded',
+      afterUploadMsg_error: 'Upload Failed',
+      sizeLimit: 'Size Limit'
+    }
+  };
 
   constructor(
     private _userService: UserService
@@ -22,6 +57,7 @@ export class UserEditComponent implements OnInit {
     this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.url = global.url;
     
     // Rellenar objeto usuario
     this.user = new User( 
@@ -74,6 +110,12 @@ export class UserEditComponent implements OnInit {
         // console.log(<any>error);
       }
     );
+  }
+
+  imageUpload(datos){
+    let data_obj = datos.body;
+    this.user.image = data_obj.image;
+  
   }
 
 }
