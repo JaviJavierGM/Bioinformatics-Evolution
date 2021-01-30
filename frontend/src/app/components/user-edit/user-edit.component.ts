@@ -54,7 +54,7 @@ export class UserEditComponent implements OnInit {
     private _userService: UserService
   ){ 
     this.page_title = 'Edit personal information!';
-    this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
+    this.user = new User(1, '', '', '', '', '', '', '');
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = global.url;
@@ -64,7 +64,7 @@ export class UserEditComponent implements OnInit {
       this.identity.sub, 
       this.identity.name, 
       this.identity.surname, 
-      'ROLE_USER', 
+      this.identity.role, 
       this.identity.email, 
       '', 
       this.identity.description, 
@@ -99,6 +99,7 @@ export class UserEditComponent implements OnInit {
           }
 
           this.identity = this.user;
+          console.log(this.identity);
           localStorage.setItem('identity', JSON.stringify(this.identity));
 
         }else{
