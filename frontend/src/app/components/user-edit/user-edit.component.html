@@ -52,10 +52,10 @@
                         <div class="form-group">
                             <div class="text-center">
                                 <div *ngIf="identity && identity.image">
-                                    <img src="{{url + 'user/image/' + identity.image }}" class="avatar img-circle" alt="avatar">
+                                    <img src="{{url + 'user/image/' + identity.image }}" class="avatar img-fluid mx-auto d-block" alt="avatar">
                                 </div>
                                 <div *ngIf="identity && identity.image == undefined">
-                                    <img src="../../../assets/images/profile_default_1.png" class="avatar img-circle" alt="avatar">
+                                    <img src="../../../assets/images/profile_default_1.png" class="avatar " alt="avatar">
                                 </div>                                
 
                                 <!-- <h6 class="mt-2 mb-2">Upload a different photo!</h6> -->
@@ -63,7 +63,6 @@
                                 <!-- <input type="file" name="image" class="form-control"/> -->
                                 <angular-file-uploader
                                     [config]="afuConfig"
-                                    [resetUpload]=resetVar
                                     (ApiResponse)="imageUpload($event)">
                                 </angular-file-uploader>
                             </div>

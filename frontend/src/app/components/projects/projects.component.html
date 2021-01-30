@@ -1,1 +1,24 @@
-<p>projects works!</p>
+<div class="container-fluid mt-3">
+    <h1 class="title_page_compos mb-4"> {{page_title}}</h1>
+    <p>Enter the aminoacid or HP sequence of the protein to fold!</p>
+    <hr/>
+
+    <div class="card-columns">
+        <article class="card w-100" *ngFor="let project of projects">
+            <div class="card-header">
+                <a [routerLink]="['projects']">
+                    <h3>{{project}}</h3>
+                </a>
+            </div>
+
+            <div class="card-body">
+                <!-- Imgen -->
+                <div class="project-post-image w-100" >
+                    <img src="https://via.placeholder.com/400x250" class="w-100" alt="project-image">
+                </div>
+                <!--  Botones -->
+            </div>
+        </article>
+    </div>
+
+</div>
