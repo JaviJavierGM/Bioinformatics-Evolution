@@ -199,4 +199,10 @@ h1 small {
 		float: left;
 		margin-bottom: 100px;
 	}
+
+	.sketch {
+		height: 350px;
+		min-width: 350px;
+	}
+
   }
