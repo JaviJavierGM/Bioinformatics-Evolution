@@ -16,39 +16,7 @@ export class UserEditComponent implements OnInit {
   public token;
   public status;
   public url;
-
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: ".jpg, .png, .gif, .jpeg",
-    maxSize: "20",
-    uploadAPI:  {
-      url: global.url+'user/upload',
-      method:"POST",
-      headers: {
-        "Authorization": this._userService.getToken()
-      },
-      params: {
-        'page': '1'
-      },
-      responseType: 'json',
-    },
-    theme: "attachPin",
-    hideProgressBar: false,
-    hideResetBtn: true,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-
-    replaceTexts: {
-      selectFileBtn: 'Select Files',
-      resetBtn: 'Reset',
-      uploadBtn: 'Upload',
-      dragNDropBox: 'Drag N Drop',
-      attachPinBtn: 'Upload a different photo',
-      afterUploadMsg_success: 'Successfully Uploaded',
-      afterUploadMsg_error: 'Upload Failed',
-      sizeLimit: 'Size Limit'
-    }
-  };
+  public afuConfig = this.initializeAfuConfig();
 
   constructor(
     private _userService: UserService
@@ -60,7 +28,15 @@ export class UserEditComponent implements OnInit {
     this.url = global.url;
     
     // Rellenar objeto usuario
-    this.user = new User( 
+    this.user = this.initializeUser();
+
+  }
+
+  ngOnInit(): void {
+  }
+
+  initializeUser(){
+    let user = new User( 
       this.identity.sub, 
       this.identity.name, 
       this.identity.surname, 
@@ -69,10 +45,43 @@ export class UserEditComponent implements OnInit {
       '', 
       this.identity.description, 
       this.identity.image);
-
+    return user;
   }
 
-  ngOnInit(): void {
+  initializeAfuConfig(){
+    let afuConfig = {
+      multiple: false,
+      formatsAllowed: ".jpg, .png, .gif, .jpeg",
+      maxSize: "20",
+      uploadAPI:  {
+        url: global.url+'user/upload',
+        method:"POST",
+        headers: {
+          "Authorization": this._userService.getToken()
+        },
+        params: {
+          'page': '1'
+        },
+        responseType: 'json',
+      },
+      theme: "attachPin",
+      hideProgressBar: false,
+      hideResetBtn: true,
+      hideSelectBtn: false,
+      fileNameIndex: true,
+
+      replaceTexts: {
+        selectFileBtn: 'Select Files',
+        resetBtn: 'Reset',
+        uploadBtn: 'Upload',
+        dragNDropBox: 'Drag N Drop',
+        attachPinBtn: 'Upload a different photo',
+        afterUploadMsg_success: 'Successfully Uploaded',
+        afterUploadMsg_error: 'Upload Failed',
+        sizeLimit: 'Size Limit'
+      }
+    };
+    return afuConfig;
   }
 
   onSubmit(form) {
