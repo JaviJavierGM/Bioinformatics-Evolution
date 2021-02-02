@@ -24,6 +24,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@tinymce/tinymce-angular": "^4.2.0",
     "angular-file-uploader": "7.0.3",
     "angular-froala-wysiwyg": "3.2.2",
     "bootstrap": "4.1.3",
