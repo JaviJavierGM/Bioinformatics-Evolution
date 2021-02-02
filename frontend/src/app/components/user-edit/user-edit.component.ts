@@ -117,7 +117,7 @@ export class UserEditComponent implements OnInit {
       },
       error => {
         this.status = 'error';
-        // console.log(<any>error);
+        console.log(<any>error);
       }
     );
   }

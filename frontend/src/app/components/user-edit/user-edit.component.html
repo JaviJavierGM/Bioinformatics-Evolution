@@ -43,9 +43,13 @@
                             </small>
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <textarea [froalaEditor] [(froalaModel)]="user.description" name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description" rows="3" ></textarea>
-                        </div>                        
+                        </div>-->
+
+                        <div class="form-group">
+                            <textarea name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description" rows="3" placeholder="Introduce una descripción!"></textarea>
+                        </div>                         
                     </div>
                     <!-- PICTURE  -->
                     <div class="col-sm col-md profile_picture">
