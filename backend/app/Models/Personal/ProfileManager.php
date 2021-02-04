@@ -148,4 +148,74 @@ class ProfileManager extends Model
         }
         return $data;
     }
+
+    public function upload($image){
+        
+        // Validacion de la imagen, pasando al validador todos los datos que vienen en la request
+        $validate = \Validator::make($this->params_array, [
+            'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
+        ]);
+
+        // Guardar imagen
+        if(!$image || $validate->fails()){
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => "The image hasn't been uploaded correctly"
+            );
+
+        }else{
+            $image_name = time().$image->getClientOriginalName();
+            \Storage::disk('users')->put($image_name, \File::get($image));
+
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'image' => $image_name
+            );        
+        }
+
+        return $data;
+    }
+
+    public function getImage($filename){
+
+        $isset = \Storage::disk('users')->exists($filename);
+
+        if($isset){
+            $file = \Storage::disk('users')->get($filename);
+            // return new Response($file, 200); -- NO BORRAR, HASTA DESPUES DE LAS PRUEBAS
+            return response($file, 200);
+
+        }else{
+            $data = array(
+                'code' => 404,
+                'status' => 'error',
+                'massage' => "The image doesn't exist"
+            ); 
+            return response()->json($data, $data['code']);
+        } 
+    }
+
+    public function detail($id){
+
+        $user = User::find($id);
+
+        if(is_object($user)){
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'user' => $user
+            );
+        }else{
+            $data = array(
+                'code' => 404,
+                'status' => 'error',
+                'massage' => "User doesn't exist"
+            ); 
+        }
+
+        return $data;
+    }
+
 }
