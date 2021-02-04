@@ -3,7 +3,7 @@ namespace App\Helpers;
 
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+use App\Models\Personal\User;
 
 class JwtAuth {
     public $key;

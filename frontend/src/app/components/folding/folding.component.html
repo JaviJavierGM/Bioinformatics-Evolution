@@ -1,6 +1,18 @@
 <div class="col-md-12 mt-3">
-    <h1 class="title_page_compos mb-4"> {{page_title}}</h1>
-    <p>Enter the aminoacid or HP sequence of the protein to fold!</p>
+    <h2 class="title_page_compos mb-4">{{page_title}}</h2>
+    
+
+
+    <div class="container">
+        <div class="row col-sm-12 p-0">
+            <p class="col-sm col-md">Enter the aminoacid or HP sequence of the protein to fold!</p>
+            
+            <button (click)="saveProject()" class="btn btn-lg btn-success btn-folding text-uppercase font-weight-bold col-md-3" *ngIf="identity && identity.role=='ROLE_USER'" [disabled]="foldingForm.invalid">
+                <i class="fas fa-save"></i>
+                Save as project
+            </button>
+        </div>
+    </div>
 
     <!-- FORMULARIO DE FOLDING -->
     <form class="col-md-12 ml-0 pl-0 " #foldingForm="ngForm" (ngSubmit)="onSubmit(foldingForm)">
@@ -10,7 +22,7 @@
             <input placeholder="Enter the aminoacid sequence " type="text" name="aminoacid" class="form-control" #aminoacid="ngModel" [(ngModel)]="evolutionaryAlgorithm.aminoacid" required pattern="[a-zA-Z]+" appAutoFocus/>
 
             <small *ngIf="!aminoacid.valid && aminoacid.touched" class="invalid-feedback d-block sml">
-                The aminoacid is not valid.
+                The aminoacid isn't valid.
             </small>
         </div>
 
@@ -184,8 +196,18 @@
                 </small>
             </div>
         </div>
-        <div class="form-row justify-content-center">
-            <input type="submit" value="Execute" class="btn btn-lg btn-primary btn-block btn-folding text-uppercase font-weight-bold mb-2 col-md-4" />
+
+        <!-- Botones -->
+        <div class="container">
+            <div class="row justify-content-center">  
+                <button type="submit" value="" class="btn btn-lg btn-primary btn-folding text-uppercase font-weight-bold mb-2 col-md-3 mr-2" [disabled]="foldingForm.invalid">
+                    <i class="fas fa-play-circle"></i>
+                    Execute
+                </button>              
+                <!--<input type="submit" value="Execute" class="btn btn-lg btn-primary btn-folding text-uppercase font-weight-bold mb-2 col-md-3 mr-2" />  -->            
+                <!--<input type="submit" value="Save as project" class="btn btn-lg btn-success btn-folding text-uppercase font-weight-bold mb-2 col-md-3" *ngIf="identity && identity.role=='ROLE_USER'"/>-->
+                
+            </div>
         </div>
         
     </form>

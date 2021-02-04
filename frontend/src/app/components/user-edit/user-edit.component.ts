@@ -17,6 +17,21 @@ export class UserEditComponent implements OnInit {
   public status;
   public url;
   public afuConfig = this.initializeAfuConfig();
+  public options_tiny = {
+    height: 275,
+    menubar: false,
+    plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table paste code help wordcount'
+    ],
+    toolbar:
+        'undo redo | formatselect fontselect| bold italic |\
+        fontsizeselect | underline strikethrough forecolor backcolor |  image media | removeformat |\
+        alignleft aligncenter alignright alignjustify |  \
+        bullist numlist outdent indent | help' 
+        
+  };
 
   constructor(
     private _userService: UserService

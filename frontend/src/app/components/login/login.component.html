@@ -14,6 +14,7 @@
 
               <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
                 <div class="form-group">
+                  <label for="email">Email</label>
                   <input placeholder="Email address" type="email" name="email" class="form-control" #email="ngModel"
                     [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" appAutoFocus />
 
@@ -23,6 +24,7 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="password">Password</label>
                   <input placeholder="Password" type="password" name="password" class="form-control" #password="ngModel"
                     [(ngModel)]="user.password" required />
 
