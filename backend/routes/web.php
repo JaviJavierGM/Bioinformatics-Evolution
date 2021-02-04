@@ -60,7 +60,7 @@ Route::get('/visualize/test', [VisualizeController::class, 'tests']);
     //Rutas del controlador de usuarios
 Route::post('/api/register', [ProfileController::class, 'register']);
 Route::post('/api/login', [ProfileController::class, 'login']);
-Route::put('/api/user/update', [ProfileController::class, 'update']);
+Route::post('/api/user/update', [ProfileController::class, 'update']);
 Route::post('/api/user/upload', [ProfileController::class, 'upload'])->middleware('api.auth');
 Route::get('/api/user/image/{filename}', [ProfileController::class, 'getImage']);
 Route::get('/api/user/datail/{id}', [ProfileController::class, 'detail']);
