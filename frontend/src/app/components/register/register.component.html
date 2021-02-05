@@ -9,7 +9,9 @@
                             <h1 class=" login-heading mb-4">{{page_title}}</h1>
 
                             <div class="alert alert-success" *ngIf="status == 'success'">
-                                Registration was successful, <a [routerLink]="['/login']">login here.</a>
+                                Registration was successful.
+                                <hr/>
+                                An email was sent to confirm the account.
                             </div>
 
                             <div class="alert alert-danger" *ngIf="status == 'error'">

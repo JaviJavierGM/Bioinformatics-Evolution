@@ -237,7 +237,7 @@ class ProfileManager extends Model
 
         // Si no encuentra un usuario manda error, de lo contrario lo verifica
         // y modifica la parte de la verificacion
-        if( ! $user ){
+        if(!$user){
             $data = array(
                 'status'    =>  'error',
                 'code'  =>  404,

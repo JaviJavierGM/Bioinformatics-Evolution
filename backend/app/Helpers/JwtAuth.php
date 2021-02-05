@@ -61,7 +61,7 @@ class JwtAuth {
                 $data = array(
                     'status' => 'error',
                     'code' =>  404,
-                    'message' => "The user hasn't verified his email "
+                    'message' => "The user hasn't verified his email."
                 );
             }else{
                 $data = array(

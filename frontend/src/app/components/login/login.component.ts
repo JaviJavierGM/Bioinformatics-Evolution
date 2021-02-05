@@ -49,8 +49,6 @@ export class LoginComponent implements OnInit {
           this._userService.signup(this.user, true).subscribe(
             response => {
               this.identity = response;
-              // console.log(this.token);
-              // console.log(this.identity);
 
               // Persistir datos del usuario identificado
               localStorage.setItem('token', this.token);
@@ -66,19 +64,19 @@ export class LoginComponent implements OnInit {
             },
             error => {
               this.status = 'error';
-              // console.log(<any>error);
+              console.log(<any>error);
             }
           );
 
         } else {
           this.status = 'error';
           this.message = response.message;
-          //console.log(response);
+          console.log(response);
         }
       },
       error => {
         this.status = 'error';
-        // console.log(<any>error);
+        console.log(<any>error);
       }
     );
   }
