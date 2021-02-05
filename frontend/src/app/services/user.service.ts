@@ -71,7 +71,7 @@ export class UserService {
 
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-        return this._http.put(this.url+'user/update', params, {headers: headers});
+        return this._http.post(this.url+'user/update', params, {headers: headers});
     }
 
 }
