@@ -15,3 +15,5 @@ updated_at  DATETIME DEFAULT NULL,
 remember_token  VARCHAR(255),
 CONSTRAINT pk_users PRIMARY KEY(id)
 )ENGINE=InnoDb;
+
+ALTER TABLE `users` ADD `confirmed` BOOLEAN NULL DEFAULT NULL AFTER `remember_token`, ADD `confirmation_code` VARCHAR(255) NULL DEFAULT NULL AFTER `confirmed`; 

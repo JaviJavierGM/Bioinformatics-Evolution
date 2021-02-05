@@ -71,7 +71,6 @@ class ProfileController extends Controller
     }
 
     public function getImage($filename){
-
         // Eviar y procesar datos en el modelo
         $profileManager = new ProfileManager(null, null);
         $image = $profileManager->getImage($filename);
@@ -79,13 +78,27 @@ class ProfileController extends Controller
         return $image;        
     }
 
-    public function detail($id){
-        
+    public function detail($id){   
         // Eviar y procesar datos en el modelo
         $profileManager = new ProfileManager(null, null);
         $data = $profileManager->detail($id);
 
         return response()->json($data, $data['code']);
+    }
+
+    public function verifyCode($code){
+        // Enviar y procesar datos en el modelo
+        $profileManager = new ProfileManager(null, null);
+        $data = $profileManager->verifyCode($code);
+        
+        return view('emails.confirmationResult')->with([
+            'status' => $data['status'],
+            'message' => $data['message']
+        ]);
+        
+        // Como regresa una vista con el resultado de la verificacion
+        // esto ya no es necesario
+        // return response()->json($data, $data['code']);
     }
 
 }

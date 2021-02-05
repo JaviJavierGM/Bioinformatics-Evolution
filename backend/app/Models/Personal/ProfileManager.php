@@ -5,6 +5,7 @@ namespace App\Models\Personal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Personal\User;
+use Illuminate\Support\Facades\Mail;
 
 class ProfileManager extends Model
 {
@@ -49,9 +50,11 @@ class ProfileManager extends Model
                 $user->email = $this->params_array['email'];
                 $user->password = $pwd;
                 $user->role = 'ROLE_USER';
+                $user->confirmation_code = time().'--'.str_shuffle('012345-6789abcdefgh-ijklmnopqrstuvwxyz-999404541das-5d4asd4as');
+                $user->confirmed = false;
 
                 // Guardar el usuario
-                $user->save();
+                $user->save();        
 
                 $data = array(
                     'status'    =>  'success',
@@ -59,6 +62,15 @@ class ProfileManager extends Model
                     'message'   =>  'The user has been created successfully',
                     'user'      =>  $user
                 );
+
+                // Enviar email  de confirmacion                
+                $data_email['confirmation_code'] = $user->confirmation_code;
+                $data_email['name'] = $user->name;
+
+                Mail::send('emails.confirmation_code', $data_email, function($message) use ($user){
+                    $message->to($user->email, $user->name)->subject('Hi! Please confirm your email from Bioinformatics Evolution');
+                });
+
             }
         } else {
             $data = array(
@@ -213,6 +225,34 @@ class ProfileManager extends Model
                 'status' => 'error',
                 'massage' => "User doesn't exist"
             ); 
+        }
+
+        return $data;
+    }
+    
+    public function verifyCode($code){
+        // Buscar usuario con el mismo codigo de verificacion
+        $user = new User;
+        $user = User::where('confirmation_code', $code)->first();
+
+        // Si no encuentra un usuario manda error, de lo contrario lo verifica
+        // y modifica la parte de la verificacion
+        if( ! $user ){
+            $data = array(
+                'status'    =>  'error',
+                'code'  =>  404,
+                'message'   =>  "The user to verify doesn't exist"
+            );
+        }else{
+            $user->confirmed = true;
+            $user->confirmation_code = null;
+            $user->save();
+
+            $data = array(
+                'status'    =>  'success',
+                'code'  =>  200,
+                'message'   =>  "User verified successfully "
+            );
         }
 
         return $data;

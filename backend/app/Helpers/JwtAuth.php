@@ -25,6 +25,11 @@ class JwtAuth {
             $signup = true;
         }
 
+        // Comprobar si el usuario NO esta verificado
+        if(!$user->confirmed){
+            $signup=false;
+        }
+
         // Generar el token con los datos del usuario identificado
         if($signup) {
             $token = array(
@@ -36,7 +41,8 @@ class JwtAuth {
                 'image'         =>  $user->image,
                 'description'   =>  $user->description,
                 'iat'           =>  time(),
-                'exp'           =>  time() + (7*24*60*60)
+                'exp'           =>  time() + (7*24*60*60),
+                'confirmed'     => $user->confirmed
             );
 
             $jwt = JWT::encode($token, $this->key, 'HS256');
@@ -50,11 +56,21 @@ class JwtAuth {
             }
 
         } else {
-            $data = array(
-                'status' => 'error',
-                'code' =>  404,
-                'message' => 'Failure login'
-            );
+            
+            if(!$user->confirmed){
+                $data = array(
+                    'status' => 'error',
+                    'code' =>  404,
+                    'message' => "The user hasn't verified his email "
+                );
+            }else{
+                $data = array(
+                    'status' => 'error',
+                    'code' =>  404,
+                    'message' => 'Failure login'
+                );
+            }
+
         }
 
         return $data;
