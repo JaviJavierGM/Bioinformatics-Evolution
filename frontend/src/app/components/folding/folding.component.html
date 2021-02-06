@@ -11,6 +11,46 @@
             </button>
         </div>
     </div>
+
+    <!--MODAL WINDOW-->
+    <!-- Large modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                Contendio del modal 
+                <div class="container">
+                    <div class="row">
+                        <div class="col border col-sm-5">
+                            <div *ngFor="let array of red_correlated_one">
+                                {{array}}
+                                
+                            </div>
+                        </div>
+                        <div class="col border">Column</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col border">Column</div>
+                        <div class="col border">Column</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- FIN MODAL WINDOW-->
     <hr/>
 
     <!-- FORMULARIO DE FOLDING -->
@@ -29,7 +69,7 @@
             <!-- ESPACIO DEL PLEGAMIENTO -->
             <div class="form-group col-md-4">
                 <label for="space_type">Space Types</label>
-                <select name="space_type" class="form-control" #space_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.space_type">
+                <select name="space_type" class="form-control" #space_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.space_type" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="lattice">Lattice Types</option>
                     <option value="correlated">Correlated Network</option>
                 </select>
@@ -37,7 +77,7 @@
 
             <div *ngIf="!isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
-                <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type">
+                <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="2D_Square">2D Square</option>
                     <option value="2D_Triangle">2D Triangle</option>
                     <option value="3D_Cubic">3D Cubic</option>
@@ -46,7 +86,7 @@
 
             <div *ngIf="isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
-                <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type">
+                <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="2D_Square_Correlated">2D Square Correlated</option>
                     <option value="2D_Triangle_Correlated">2D Triangle Correlated</option>
                     <option value="3D_Cubic_Correlated">3D Cubic Correlated</option>
@@ -56,7 +96,7 @@
             <!-- ALGORITMO DE OPTIMIZACIÓN -->
             <div class="form-group col-md-4">
                 <label for="optimization">Optimization Algorithms</label>
-                <select name="optimization" class="form-control" #optimization="ngModel" [(ngModel)]="evolutionaryAlgorithm.optimization_algorithm">
+                <select name="optimization" class="form-control" #optimization="ngModel" [(ngModel)]="evolutionaryAlgorithm.optimization_algorithm" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="simple">Simple</option>
                     <option value="rankGA">RankGA</option>
                 </select>
@@ -67,7 +107,7 @@
             <!-- OPERADOR DE SELECCIÓN -->
             <div class="form-group col-md-4">
                 <label for="selection_op">Selection Operator</label>
-                <select name="selection_op" class="form-control" #selection_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.selection_op">
+                <select name="selection_op" class="form-control" #selection_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.selection_op" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="roulette">Roulette</option>
                     <option value="tournament">Tournament</option>
                     <option value="top_percent">Top Percent</option>
@@ -78,7 +118,7 @@
             <!-- OPERADOR DE CRUCE -->
             <div class="form-group col-md-4">
                 <label for="crossover_op">CrossOver Operator</label>
-                <select name="crossover_op" class="form-control" #crossover_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_op">
+                <select name="crossover_op" class="form-control" #crossover_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_op" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="one_point">One-point</option>
                     <option value="two_points">Two-points</option>
                     <option value="uniform">Uniform</option>
@@ -88,7 +128,7 @@
             <!-- OPERADOR DE MUTACIÓN -->
             <div class="form-group col-md-4">
                 <label for="mutation_op">Mutation Operator</label>
-                <select name="mutation_op" class="form-control" #mutation_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.mutation_op">
+                <select name="mutation_op" class="form-control" #mutation_op="ngModel" [(ngModel)]="evolutionaryAlgorithm.mutation_op" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="predefined">Predefined</option>
                     <option value="random">Random</option>
                 </select>
@@ -101,15 +141,15 @@
                 <label for="">Other genetic techniques</label>
                 <br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="elitism" [(ngModel)]="evolutionaryAlgorithm.elitism" [ngModelOptions]="{standalone: true}"/>
+                    <input class="form-check-input" type="checkbox" name="elitism" [(ngModel)]="evolutionaryAlgorithm.elitism" [ngModelOptions]="{standalone: true}" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm == 'rankGA' "/>
                     <label class="form-check-label" for="elitism">Elitism</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="clamp_mutation" [(ngModel)]="evolutionaryAlgorithm.clamp_mutation" [ngModelOptions]="{standalone: true}" />
+                    <input class="form-check-input" type="checkbox" name="clamp_mutation" [(ngModel)]="evolutionaryAlgorithm.clamp_mutation" [ngModelOptions]="{standalone: true}" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm != 'rankGA'"/>
                     <label class="form-check-label" for="clamp_mutation">Clamp mutation</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="caterpillar_mutation" [(ngModel)]="evolutionaryAlgorithm.caterpillar_mutation" [ngModelOptions]="{standalone: true}" />
+                    <input class="form-check-input" type="checkbox" name="caterpillar_mutation" [(ngModel)]="evolutionaryAlgorithm.caterpillar_mutation" [ngModelOptions]="{standalone: true}" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm != 'rankGA'"/>
                     <label class="form-check-label" for="caterpillar_mutation">Caterpillar mutation</label>
                 </div>
             </div>
@@ -122,7 +162,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="conformations">Chose the number of conformations to generate</label>
-                <input type="number" name="conformations" class="form-control" #conformations="ngModel" [(ngModel)]="evolutionaryAlgorithm.conformations" required pattern="[0-9]+"/>
+                <input type="number" name="conformations" class="form-control" #conformations="ngModel" [(ngModel)]="evolutionaryAlgorithm.conformations" required pattern="[0-9]+" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
 
                 <small *ngIf="!conformations.valid && conformations.touched" class="invalid-feedback d-block sml">
                     The conformations are not valid.
@@ -131,7 +171,7 @@
 
             <div class="form-group col-md-6">
                 <label for="times_algorithm">How many times do you want to run the evolutionary algorithm?</label>
-                <input type="number" name="times_algorithm" class="form-control" #times_algorithm="ngModel" [(ngModel)]="evolutionaryAlgorithm.times_algorithm" required pattern="[0-9]+"/>
+                <input type="number" name="times_algorithm" class="form-control" #times_algorithm="ngModel" [(ngModel)]="evolutionaryAlgorithm.times_algorithm" required pattern="[0-9]+" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
 
                 <small *ngIf="!times_algorithm.valid && times_algorithm.touched" class="invalid-feedback d-block sml">
                     The times to run the evolutionary algorithm are not valid.
@@ -142,7 +182,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="experiments">How many experiments do you want to do?</label>
-                <input type="number" name="experiments" class="form-control" #experiments="ngModel" [(ngModel)]="evolutionaryAlgorithm.experiments" required pattern="[0-9]+" />
+                <input type="number" name="experiments" class="form-control" #experiments="ngModel" [(ngModel)]="evolutionaryAlgorithm.experiments" required pattern="[0-9]+" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
 
                 <small *ngIf="!experiments.valid && experiments.touched" class="invalid-feedback d-block sml">
                     The experiments are not valid.
@@ -151,7 +191,7 @@
 
             <div class="form-group col-md-2">
                 <label for="sampling">Sampling value</label>
-                <input type="number" name="sampling" class="form-control" #sampling="ngModel" [(ngModel)]="evolutionaryAlgorithm.sampling" required pattern="[0-9]+" />
+                <input type="number" name="sampling" class="form-control" #sampling="ngModel" [(ngModel)]="evolutionaryAlgorithm.sampling" required pattern="[0-9]+" [disabled]="evolutionaryAlgorithm.sampling == 1"/>
 
                 <small *ngIf="!sampling.valid && sampling.touched" class="invalid-feedback d-block sml">
                     The value is not valid.
@@ -160,7 +200,7 @@
 
             <div class="form-group col-md-5">
                 <label for="percent_tournament">Percent of individuals in the tournament</label>
-                <input type="number" name="percent_tournament" class="form-control" #percent_tournament="ngModel" [(ngModel)]="evolutionaryAlgorithm.percent_tournament" required pattern="[0-9]+" />
+                <input type="number" name="percent_tournament" class="form-control" #percent_tournament="ngModel" [(ngModel)]="evolutionaryAlgorithm.percent_tournament" required pattern="[0-9]+" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.selection_op != 'tournament'"/>
 
                 <small *ngIf="!percent_tournament.valid && percent_tournament.touched" class="invalid-feedback d-block sml">
                     The percent of individuals is not valid.
@@ -171,7 +211,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="percent_best">Percent of the best individuals in the population</label>
-                <input type="number" name="percent_best" class="form-control" value="20" #percent_best="ngModel" [(ngModel)]="evolutionaryAlgorithm.percent_best" required pattern="[0-9]+"/>
+                <input type="number" name="percent_best" class="form-control" value="20" #percent_best="ngModel" [(ngModel)]="evolutionaryAlgorithm.percent_best" required pattern="[0-9]+" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.selection_op != 'top_percent'"/>
 
                 <small *ngIf="!percent_best.valid && percent_best.touched" class="invalid-feedback d-block sml">
                     The percent best is not valid.
@@ -180,7 +220,7 @@
 
             <div class="form-group col-md-2">
                 <label for="crossover_probability">CrossOver probability</label>
-                <input type="number" name="crossover_probability" step="0.1" class="form-control" #crossover_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_probability" required pattern="([0-9])(.[0-9]+)?" />
+                <input type="number" name="crossover_probability" step="0.1" class="form-control" #crossover_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_probability" required pattern="([0-9])(.[0-9]+)?" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
 
                 <small *ngIf="!crossover_probability.valid && crossover_probability.touched" class="invalid-feedback d-block sml">
                     The crossover probability is not valid.
@@ -189,7 +229,7 @@
 
             <div class="form-group col-md-5">
                 <label for="min_mutation_probability">Minimum mutation probability</label>
-                <input type="number" name="min_mutation_probability" step="0.1" class="form-control" #min_mutation_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.min_mutation_probability" required pattern="([0-9])(.[0-9]+)?" />
+                <input type="number" name="min_mutation_probability" step="0.1" class="form-control" #min_mutation_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.min_mutation_probability" required pattern="([0-9])(.[0-9]+)?" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm != 'rankGA'"/>
 
                 <small *ngIf="!min_mutation_probability.valid && min_mutation_probability.touched" class="invalid-feedback d-block sml">
                     The min mutation probability is not valid.
@@ -200,7 +240,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="max_mutation_probability">Maximum mutation probability</label>
-                <input type="number" name="max_mutation_probability" step="0.01" class="form-control" #max_mutation_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.max_mutation_probability" required pattern="([0-9])(.[0-9]+)?" />
+                <input type="number" name="max_mutation_probability" step="0.01" class="form-control" #max_mutation_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.max_mutation_probability" required pattern="([0-9])(.[0-9]+)?" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm != 'rankGA'"/>
 
                 <small *ngIf="!max_mutation_probability.valid && max_mutation_probability.touched" class="invalid-feedback d-block sml">
                     The max mutation probability is not valid.
@@ -209,7 +249,7 @@
 
             <div class="form-group col-md-2">
                 <label for="proximity_pairing">Proximity pairing (%)</label>
-                <input type="number" name="proximity_pairing" step="0.01" class="form-control" #proximity_pairing="ngModel" [(ngModel)]="evolutionaryAlgorithm.proximity_pairing" />
+                <input type="number" name="proximity_pairing" step="0.01" class="form-control" #proximity_pairing="ngModel" [(ngModel)]="evolutionaryAlgorithm.proximity_pairing" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm != 'rankGA'"/>
 
                 <small *ngIf="!proximity_pairing.valid && proximity_pairing.touched" class="invalid-feedback d-block sml">
                     The proximity pairing is not valid.
@@ -218,8 +258,8 @@
            
             <div class="form-group col-md-5">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="final_fitness"  [(ngModel)]="finalFitness" [ngModelOptions]="{standalone: true}">
-                    <label class="form-check-label" for="inlineCheckbox1">I know te final fitness</label>
+                    <input class="form-check-input" type="checkbox" name="final_fitness"  [(ngModel)]="finalFitness" [ngModelOptions]="{standalone: true}" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
+                    <label class="form-check-label" for="inlineCheckbox1">I know the final fitness</label>
                 </div>
 
                 <input type="number" name="final-fitness" class="form-control mt-2" #proximity_pairing="ngModel" [(ngModel)]="evolutionaryAlgorithm.final_fitness" [disabled]="!finalFitness"/>

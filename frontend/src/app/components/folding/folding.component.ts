@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { EvolutionaryAlgorithm } from '../../models/evolutionaryAlgorithm';
 import { UserService } from '../../services/user.service';
 
@@ -8,12 +8,13 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./folding.component.css'],
   providers: [UserService]
 })
-export class FoldingComponent implements OnInit {
+export class FoldingComponent implements OnInit, DoCheck {
   public page_title: string;
   public evolutionaryAlgorithm: EvolutionaryAlgorithm;
   public finalFitness: boolean;
   public identity;
   public token;
+  public red_correlated_one;
 
   constructor(
     private _userService: UserService
@@ -23,10 +24,21 @@ export class FoldingComponent implements OnInit {
     this.evolutionaryAlgorithm = new EvolutionaryAlgorithm('', 'lattice', '2D_Square', 'simple', 'roulette', 'one_point', 'predefined', false, false, false, 100, 200, 1, 1, 20, 20, 1.0, 0.0, 0.01, 0.01, 28);
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+
+    this.red_correlated_one = new Array(
+      Array(0,1,0,0,1,1,0),
+      Array(0,1,0,0,1,1,0),
+      Array(0,1,0,0,1,1,0),
+      Array(0,1,0,0,1,1,0)
+    )
   }
 
   ngOnInit(): void {
     console.log("Plegamiento!!!");
+  }
+
+  ngDoCheck() {
+    this.isRankGaOptimization();
   }
 
   onSubmit(form) {
@@ -43,6 +55,14 @@ export class FoldingComponent implements OnInit {
 
   iknowTheFinalFitness() {
     this.finalFitness = true;
+  }
+
+  isRankGaOptimization() {
+    if(this.evolutionaryAlgorithm.optimization_algorithm == 'rankGA') {
+      this.evolutionaryAlgorithm.elitism = true;
+    } else {
+      this.evolutionaryAlgorithm.elitism = false;
+    }
   }
 
   saveProject() {
