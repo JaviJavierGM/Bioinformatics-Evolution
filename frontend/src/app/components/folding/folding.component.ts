@@ -14,7 +14,6 @@ export class FoldingComponent implements OnInit, DoCheck {
   public finalFitness: boolean;
   public identity;
   public token;
-  public red_correlated_one;
 
   constructor(
     private _userService: UserService
@@ -24,13 +23,6 @@ export class FoldingComponent implements OnInit, DoCheck {
     this.evolutionaryAlgorithm = new EvolutionaryAlgorithm('', 'lattice', '2D_Square', 'simple', 'roulette', 'one_point', 'predefined', false, false, false, 100, 200, 1, 1, 20, 20, 1.0, 0.0, 0.01, 0.01, 28);
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
-
-    this.red_correlated_one = new Array(
-      Array(0,1,0,0,1,1,0),
-      Array(0,1,0,0,1,1,0),
-      Array(0,1,0,0,1,1,0),
-      Array(0,1,0,0,1,1,0)
-    )
   }
 
   ngOnInit(): void {
@@ -69,5 +61,4 @@ export class FoldingComponent implements OnInit, DoCheck {
     console.log('Se guardara el proyecto en la DB');
     console.log(this.evolutionaryAlgorithm);
   }
-
 }
