@@ -4,11 +4,11 @@ namespace App\Models\EvolutionaryAlgorithm\CrossoverTypes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\EvolutionaryAlgorithm\CrossoverOperator;
 
-class UniformCrossoverOperator extends CrossoverOperator
+class Uniform extends Model
 {
     use HasFactory;
+
     private $cuts;
 
     public function __construct($parent_one, $parent_two, $crossover_probability) {

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\CrossoverOperator;
 
-class TwoPointsCrossoverOperator extends CrossoverOperator
+class TwoPoints extends CrossoverOperator
 {
     use HasFactory;
 
