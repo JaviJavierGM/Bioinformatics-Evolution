@@ -3,6 +3,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 
+// Declaramos las variables para jQuery
+declare var jQuery:any;
+declare var $:any;
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -27,8 +31,8 @@ export class LoginComponent implements OnInit {
     this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
 
     // Instruccion para cerrar el menu desplegrable luego de seleccionar
-    // Pendiente de verificar como se usa jquery en angular
-    // $('.navbar-collapse').collapse('hide');
+    // Pendiente de ---> REVISAR <---
+    $('.navbar-collapse').collapse('hide');
 
   }
 
