@@ -68,5 +68,8 @@ Route::get('/api/user/image/{filename}', [ProfileController::class, 'getImage'])
 Route::get('/api/user/datail/{id}', [ProfileController::class, 'detail']);
 Route::get('/api/user/verify/{code}', [ProfileController::class, 'verifyCode']);
 
+    //Rutas del controlador de projectos
+Route::resources(['/api/project' => ProjectController::class,]);
+
     //Rutas del controlador del algoritmo evolutivo
 Route::post('/api/EA', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);
