@@ -20,7 +20,7 @@ class EvolutionaryAlgorithmController extends Controller
         $params->parent_one = explode(',', $params->parent_one);
         $params->parent_two = explode(',', $params->parent_two);
 
-        $onePointCrossover = new OnePoint($params->parent_one, $params->parent_two, $params->crossover_probability);
+        $onePointCrossover = new Uniform($params->parent_one, $params->parent_two, $params->crossover_probability);
         $lengthHpString = sizeof($params->parent_one);
         $onePointCrossover->execute($lengthHpString);
 

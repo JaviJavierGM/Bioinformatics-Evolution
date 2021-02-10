@@ -4,8 +4,9 @@ namespace App\Models\EvolutionaryAlgorithm\CrossoverTypes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\EvolutionaryAlgorithm\CrossoverOperator;
 
-class Uniform extends Model
+class Uniform extends CrossoverOperator
 {
     use HasFactory;
 
