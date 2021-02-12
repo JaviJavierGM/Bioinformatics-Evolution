@@ -9,10 +9,7 @@ use App\Models\Personal\User;
 
 class ProfileController extends Controller
 {
-    public function tests(Request $request) {
-        return "Accion de pruebas de PROFILE-CONTROLLER";
-    }
-
+    
     public function register(Request $request) {
         // Recoger los datos del usuario por post
         $json = $request->input('json', null);

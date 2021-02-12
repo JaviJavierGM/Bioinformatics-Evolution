@@ -11,6 +11,33 @@ class Project extends Model
 
     protected $table = 'projects';
 
+    protected $fillable = [
+        'title',
+        'user_id',
+        'aminoacid',
+        'space_type',
+        'dimension_type',
+        'optimization_algorithm',
+        'selection_op',
+        'crossover_op',
+        'mutation_op',
+        'elitism',
+        'clamp_mutation',
+        'caterpillar_mutation',
+        'conformations',
+        'times_algorithm',
+        'experiments',
+        'sampling',
+        'percent_tournament',
+        'percent_best',
+        'crossover_probability',
+        'min_mutation_probability',
+        'max_mutation_probability',
+        'proximity_pairing',
+        'final_fitness',
+        'image',
+    ];
+
     // Relacion de muchos a uno
     public function user() {
         return $this->belongsTo('App\Models\Personal\User', 'user_id');

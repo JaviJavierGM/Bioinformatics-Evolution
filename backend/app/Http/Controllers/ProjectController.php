@@ -12,19 +12,15 @@ class ProjectController extends Controller
         $this->middleware('api.auth', ['except' => ['index','show']]);
     }
 
-    public function tests(Request $request) {
-        return "Accion de pruebas de PROJECT-CONTROLLER";
-    }
-
     public function index() {
         $projectsManager = new ProjectsManager();
         $projects = $projectsManager->index();
 
-        return response()->json([
+        return response()->json(array(
             'code' => 200,
             'status' => 'success',
             'projects' => $projects
-        ]);
+        )   , 200);
     }
 
     public function show($id) {
@@ -35,7 +31,7 @@ class ProjectController extends Controller
     }
 
     public function store(Request $request) {
-        // Recoger token
+        // Recoger el token de la cabecera HTTP
         $token = $request->header('Authorization', null);
 
         // Recoger los datos por post
@@ -48,6 +44,46 @@ class ProjectController extends Controller
         $data = $projectsManager->store($params, $params_array, $token);
 
         // Regresar respuesta Json.
+        return response()->json($data, $data['code']);
+    }
+
+    public function update($id, Request $request) {
+        // Recoger el token de la cabecera HTTP
+        $token = $request->header('Authorization', null);
+
+        // Recoger los datos por post
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+
+        // Enviar los datos al Modelo
+        $projectsManager = new ProjectsManager();
+        $data = $projectsManager->updateProject($id, $params_array, $token);
+
+        // Devolver respuesta en Json
+        return response()->json($data, $data['code']);
+    }
+
+    public function destroy($id, Request $request) {
+        // Recoger el token de la cabecera HTTP
+        $token = $request->header('Authorization', null);
+        
+        $projectsManager = new ProjectsManager();
+        $data = $projectsManager->destroyProject($id, $token);
+
+        // Devolver respuesta en Json
+        return response()->json($data, $data['code']);
+    }
+
+    public function upload(Request $request) {
+        // Recoger los datos
+        $image = $request->file('file0');
+        $params_array = $request->all();
+
+        // Enviar los datos al modelo
+        $projectsManager = new ProjectsManager();
+        $data = $projectsManager->uploadImage($params_array, $image);
+
+        // Devolver respuesta Json
         return response()->json($data, $data['code']);
     }
 }

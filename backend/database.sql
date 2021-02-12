@@ -43,6 +43,7 @@ CREATE TABLE projects(
     max_mutation_probability DOUBLE,
     proximity_pairing DOUBLE,
     final_fitness DOUBLE,
+    image VARCHAR(255) DEFAULT NULL,
     created_at DATETIME DEFAULT NULL,
     updated_at DATETIME DEFAULT NULL,
     CONSTRAINT pk_projects PRIMARY KEY(id),
