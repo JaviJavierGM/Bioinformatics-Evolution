@@ -4,6 +4,7 @@ namespace App\Models\Data;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
 use App\Models\Data\Project;
 use App\Helpers\JwtAuth;
 
@@ -226,6 +227,40 @@ class ProjectsManager extends Model
                 'image' => $image_name
             );
         }
+
+        return $data;
+    }
+
+    public function getImage($filename) {
+        // Comprobar si existe el fichero
+        $isset = \Storage::disk('projects')->exists($filename);
+        
+        if($isset) {            
+            // Conseguir la imagen
+            $file = \Storage::disk('projects')->get($filename);
+
+            // Devolver imagen
+            return new Response($file, 200);
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => "The file isn't exist!"
+            );
+        }
+        // Regresar respuesta de error
+        return response()->json($data, $data['code']);
+    }
+
+    public function getProjectsByUser($id) {
+        // Conseguir los projectos de usuario asociado al id
+        $projects = Project::where('user_id', $id)->get();
+
+        $data = array(
+            'code' => 200,
+            'status' => 'success',
+            'projects' => $projects  
+        );
 
         return $data;
     }

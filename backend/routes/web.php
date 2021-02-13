@@ -60,6 +60,8 @@ Route::get('/api/user/verify/{code}', [ProfileController::class, 'verifyCode']);
     //Rutas del controlador de projectos
 Route::resources(['/api/project' => ProjectController::class]);
 Route::post('/api/project/upload', [ProjectController::class, 'upload']);
+Route::get('/api/project/image/{filename}', [ProjectController::class, 'getImage']);
+Route::get('/api/project/user/{id}', [ProjectController::class, 'getProjectsByUser']);
 
     //Rutas del controlador del algoritmo evolutivo
 Route::post('/api/EA', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);

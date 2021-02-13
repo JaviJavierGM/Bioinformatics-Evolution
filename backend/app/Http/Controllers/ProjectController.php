@@ -9,7 +9,11 @@ use App\Models\Data\ProjectsManager;
 class ProjectController extends Controller
 {
     public function __construct() {
-        $this->middleware('api.auth', ['except' => ['index','show']]);
+        $this->middleware('api.auth', ['except' => [
+            'index', 
+            'show', 
+            'getImage'
+        ]]);
     }
 
     public function index() {
@@ -85,5 +89,21 @@ class ProjectController extends Controller
 
         // Devolver respuesta Json
         return response()->json($data, $data['code']);
+    }
+
+    public function getImage($filename) {
+        // Enviar los datos al modelo
+        $projectsManager = new ProjectsManager();
+        $image = $projectsManager->getImage($filename);
+
+        // Devolver respuesta en Json
+        return $image;
+    }
+
+    public function getProjectsByUser($id) {
+       $projectsManager = new ProjectsManager();
+       $data = $projectsManager->getProjectsByUser($id);
+
+       return response()->json($data, $data['code']);
     }
 }
