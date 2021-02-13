@@ -47,17 +47,6 @@ Route::get('/pruebas/{name?}', function($name = null){
 Route::get('/animals', [PruebasController::class, 'index']);
 
 //RUTAS DEL API
-    //Rutas de prueba
-Route::get('/administrative/test', [AdministrativeController::class, 'tests']);
-Route::get('/correlated_network/test', [CorrelatedNetworkController::class, 'tests']);
-Route::get('/folding/test', [FoldingController::class, 'tests']);
-Route::get('/graphic/test', [GraphicController::class, 'tests']);
-Route::get('/information/test', [InformationController::class, 'tests']);
-Route::get('/post/test', [PostController::class, 'tests']);
-Route::get('/profile/test', [ProfileController::class, 'tests']);
-Route::get('/project/test', [ProjectController::class, 'tests']);
-Route::get('/visualize/test', [VisualizeController::class, 'tests']);
-Route::post('/EA/test', [EvolutionaryAlgorithmController::class, 'tests']);
 
     //Rutas del controlador de usuarios
 Route::post('/api/register', [ProfileController::class, 'register']);
@@ -69,8 +58,12 @@ Route::get('/api/user/datail/{id}', [ProfileController::class, 'detail']);
 Route::get('/api/user/verify/{code}', [ProfileController::class, 'verifyCode']);
 
     //Rutas del controlador de projectos
-Route::resources(['/api/project' => ProjectController::class,]);
+Route::resources(['/api/project' => ProjectController::class]);
+Route::post('/api/project/upload', [ProjectController::class, 'upload']);
+Route::get('/api/project/image/{filename}', [ProjectController::class, 'getImage']);
+Route::get('/api/project/user/{id}', [ProjectController::class, 'getProjectsByUser']);
 
     //Rutas del controlador del algoritmo evolutivo
 Route::post('/api/EA', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);
 Route::post('/api/EA/ruleta', [EvolutionaryAlgorithmController::class, 'testRouletteSelection']);
+
