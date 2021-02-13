@@ -73,3 +73,4 @@ Route::resources(['/api/project' => ProjectController::class,]);
 
     //Rutas del controlador del algoritmo evolutivo
 Route::post('/api/EA', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);
+Route::post('/api/EA/ruleta', [EvolutionaryAlgorithmController::class, 'testRouletteSelection']);

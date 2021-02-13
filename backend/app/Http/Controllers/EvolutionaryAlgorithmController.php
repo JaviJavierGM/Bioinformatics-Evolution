@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\OnePoint;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\TwoPoints;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\Uniform;
+use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
+use App\Models\EvolutionaryAlgorithm\Generation;
+use App\Models\EvolutionaryAlgorithm\Conformation;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -64,5 +67,27 @@ class EvolutionaryAlgorithmController extends Controller
         }
         echo ']';
         die();
+    }
+
+    // -------- Probar la ruleta
+    public function testRouletteSelection(Request $request){
+
+        $generation = new Generation();
+
+        $conformation1 = new Conformation();
+        $conformation1->setFitness(-7);
+        $conformation2 = new Conformation();
+        $conformation2->setFitness(-1);
+        $conformation3 = new Conformation();
+        $conformation3->setFitness(-3);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3);
+
+        $generation->setConformations($arrayConformations);
+        
+        $roulette = new Roulette($generation);
+
+        $roulette->execute();
+        // die();
     }
 }
