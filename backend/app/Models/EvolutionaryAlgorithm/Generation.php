@@ -11,21 +11,15 @@ class Generation extends Model
     use HasFactory;
 
     public $conformations = array();
+    public $sizeGeneration;
 
-    public function __construct(){
-        
-    }
-
-    public function setConformations($conformations){
+    public function __construct($conformations){
         $this->conformations = $conformations;
+        $this->sizeGeneration = sizeof($this->conformations);
     }
 
     public function getConformations(){
         return $this->conformations;
-    }
-
-    public function add1Conformation($conformation){
-        array_push($generation, $conformation);
     }
 
     public function getTotalFitness(){
@@ -34,6 +28,10 @@ class Generation extends Model
             $totalFitness+= $conformation->getFitness();
         }
         return $totalFitness;
+    }
+
+    public function getSizeGeneration(){
+        return $this->sizeGeneration;
     }
 
 }

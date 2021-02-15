@@ -5,7 +5,6 @@ namespace App\Models\EvolutionaryAlgorithm\SelectionTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\SelectionOperator;
-// use App\Models\EvolutionaryAlgorithm\Generation;
 
 class Roulette extends SelectionOperator
 {
@@ -15,8 +14,14 @@ class Roulette extends SelectionOperator
         $this->generation = $generation;
     }
 
-    public function execute(){
-        $sizeGeneration = count($this->generation->getConformations());
+    public function execute($KSelectionTournamet=null){
+
+        if(!is_null($KSelectionTournamet)){
+            $sizeGeneration = $KSelectionTournamet;
+        }else{
+            $sizeGeneration = $this->generation->getSizeGeneration();
+        }
+
         $totalFitness = $this->generation->getTotalFitness() * -1;
 
         // Calcular el porcentaje de seleccion de cada conformacion de la generacion
@@ -25,22 +30,23 @@ class Roulette extends SelectionOperator
             array_push($arrayPercentSelection, ($conformation->getFitness() * -1 / $totalFitness ));
         }
 
-        var_dump($arrayPercentSelection);
+        // var_dump($arrayPercentSelection);
 
-        // Seleccionamos las conformaciones a cruzar
+        // Seleccionamos las conformaciones
         for($i=0; $i<$sizeGeneration; $i++){
             // Generamos el porcentaje de la ruleta que debemos buscar
             $random = $this->decimalRandom();
-            var_dump($random);
+            // var_dump($random);
             $flag = true;
             $j=0;
-            $sumPercentSelection = 0; // Guarda la suma de los porcentajes de las conformaciones
+            $sumPercentSelection = 0; // Guardara la suma de los porcentajes de las conformaciones
+
             // Buscamos la conformacion que pertenezca a ese porcentaje de la ruleta
-            while($flag && $j < $sizeGeneration){
+            while($flag && $j < $this->generation->getSizeGeneration()){
                 $sumPercentSelection += $arrayPercentSelection[$j];
                 if($sumPercentSelection >= $random){
                     // Si el porcentaje de seleccion de la conformacion corresponde con el generado
-                    // se guarda esa conformacion como en las conformaciones seleccionadas
+                    // se guarda esa conformacion en las conformaciones seleccionadas
                     array_push($this->selectedConformations, $this->generation->getConformations()[$j]);
                     $flag=false;
                 }else{
@@ -50,14 +56,14 @@ class Roulette extends SelectionOperator
             }            
         }
 
-        foreach($this->selectedConformations as $conformation){
-            var_dump($conformation->getFitness());
-        }
+        // foreach($this->selectedConformations as $conformation){
+        //     var_dump($conformation->getFitness());
+        // }
 
 
 
         
                 
-        die();
+        // die();
     }
 }

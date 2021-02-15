@@ -9,6 +9,7 @@ use App\Models\EvolutionaryAlgorithm\CrossoverTypes\Uniform;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 use App\Models\EvolutionaryAlgorithm\Generation;
 use App\Models\EvolutionaryAlgorithm\Conformation;
+use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -72,22 +73,57 @@ class EvolutionaryAlgorithmController extends Controller
     // -------- Probar la ruleta
     public function testRouletteSelection(Request $request){
 
-        $generation = new Generation();
+        $conformation1 = new Conformation(-7);
+        // $conformation1->setFitness(-7);
+        $conformation2 = new Conformation(-5);
+        // $conformation2->setFitness(-1);
+        $conformation3 = new Conformation(-1);
+        // $conformation3->setFitness(-3);
+        $conformation4 = new Conformation(-3);
+        // $conformation4->setFitness(-9);
+        $conformation5 = new Conformation(-6);
+        // $conformation5->setFitness(-23);
 
-        $conformation1 = new Conformation();
-        $conformation1->setFitness(-7);
-        $conformation2 = new Conformation();
-        $conformation2->setFitness(-1);
-        $conformation3 = new Conformation();
-        $conformation3->setFitness(-3);
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
 
-        $arrayConformations = array($conformation1, $conformation2, $conformation3);
-
-        $generation->setConformations($arrayConformations);
+        // $generation->setConformations($arrayConformations);
+        $generation = new Generation($arrayConformations);
+        
         
         $roulette = new Roulette($generation);
 
         $roulette->execute();
-        // die();
+
+        foreach($roulette->getSelectedConformations() as $conformation){
+            var_dump($conformation->getFitness());
+        }
+
+        echo "termino RULETA";
+        die();
+    }
+
+    // -------- Probar tournament selection
+    public function testTournamentSelection(Request $request){
+
+        $conformation1 = new Conformation(-7);
+        // $conformation1->setFitness(-7);
+        $conformation2 = new Conformation(-5);
+        // $conformation2->setFitness(-1);
+        $conformation3 = new Conformation(-1);
+        // $conformation3->setFitness(-3);
+        $conformation4 = new Conformation(-3);
+        // $conformation4->setFitness(-9);
+        $conformation5 = new Conformation(-6);
+        // $conformation5->setFitness(-23);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
+
+        // $generation->setConformations($arrayConformations);
+        $generation = new Generation($arrayConformations);
+
+        $tournament = new Tournament($generation, 90);
+
+        $tournament->execute();
+
     }
 }

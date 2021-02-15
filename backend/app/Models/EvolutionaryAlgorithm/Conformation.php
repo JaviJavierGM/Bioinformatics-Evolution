@@ -11,6 +11,10 @@ class Conformation extends Model
 
     public $fitness;
 
+    public function __construct($fitness){
+        $this->fitness = $fitness;
+    }
+
     public function getFitness(){
         return $this->fitness;
     }

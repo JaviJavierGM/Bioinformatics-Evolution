@@ -16,7 +16,7 @@ abstract class SelectionOperator extends Model
     abstract public function execute();
 
     public function getSelectedConformations(){
-        return $this->$selectedConformations;
+        return $this->selectedConformations;
     }
 
     public function make_seed() {

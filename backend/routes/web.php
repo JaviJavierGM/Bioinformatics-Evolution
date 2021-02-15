@@ -66,4 +66,5 @@ Route::get('/api/project/user/{id}', [ProjectController::class, 'getProjectsByUs
     //Rutas del controlador del algoritmo evolutivo
 Route::post('/api/EA', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);
 Route::post('/api/EA/ruleta', [EvolutionaryAlgorithmController::class, 'testRouletteSelection']);
+Route::post('/api/EA/torneo', [EvolutionaryAlgorithmController::class, 'testTournamentSelection']);
 
