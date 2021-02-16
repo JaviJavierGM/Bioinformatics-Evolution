@@ -17,57 +17,109 @@ class EvolutionaryAlgorithmController extends Controller
         return "Accion de pruebas de EVOLUTIONARY-ALGORITHM-CONTROLLER";
     }
 
+    public function testUniformCrossover(Request $request) {
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+
+        if (is_object($params)) {
+            $params->parent_one = explode(',', $params->parent_one);
+            $params->parent_two = explode(',', $params->parent_two);
+
+            $uniformCrossover = new Uniform($params->parent_one, $params->parent_two, $params->crossover_probability);
+            $lengthHpString = sizeof($params->parent_one);
+            $uniformCrossover->execute($lengthHpString);
+                
+            $child_one = $uniformCrossover->getChildrenOne();
+            $child_two = $uniformCrossover->getChildrenTwo();
+            die();
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'parent_one' => $params->parent_one,
+                'parent_two' => $params->parent_two,
+                'children_one' => $child_one,
+                'children_two' => $child_two
+            );
+            
+
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'Data not sending!'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
+
     public function testOnePointCrossover(Request $request) {
         $json = $request->input('json', null);
         $params = json_decode($json);
 
-        $params->parent_one = explode(',', $params->parent_one);
-        $params->parent_two = explode(',', $params->parent_two);
+        if (is_object($params)) {
+            $params->parent_one = explode(',', $params->parent_one);
+            $params->parent_two = explode(',', $params->parent_two);
 
-        $onePointCrossover = new Uniform($params->parent_one, $params->parent_two, $params->crossover_probability);
-        $lengthHpString = sizeof($params->parent_one);
-        $onePointCrossover->execute($lengthHpString);
+            $uniformCrossover = new OnePoint($params->parent_one, $params->parent_two, $params->crossover_probability);
+            $lengthHpString = sizeof($params->parent_one);
+            $uniformCrossover->execute($lengthHpString);
+                
+            $child_one = $uniformCrossover->getChildrenOne();
+            $child_two = $uniformCrossover->getChildrenTwo();
+            die();
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'parent_one' => $params->parent_one,
+                'parent_two' => $params->parent_two,
+                'children_one' => $child_one,
+                'children_two' => $child_two
+            );
+            
 
-        $child_one = $onePointCrossover->getChildrenOne();
-        $child_two = $onePointCrossover->getChildrenTwo();
-
-        echo '<br/>';
-
-        echo 'Parent One:  ';
-        echo '[ ';
-        for ($i=0; $i < sizeof($params->parent_one) ; $i++) {
-            echo  $params->parent_one[$i].' ';
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'Data not sending!'
+            );
         }
-        echo ']';
+        return response()->json($data, $data['code']);
+    }
 
-        echo '<br/>';
+    public function testTwoPointsCrossover(Request $request) {
+        $json = $request->input('json', null);
+        $params = json_decode($json);
 
-        echo 'Parent Two:  ';
-        echo '[ ';
-        for ($i=0; $i < sizeof($params->parent_two) ; $i++) { 
-            echo  $params->parent_two[$i].' ';
+        if (is_object($params)) {
+            $params->parent_one = explode(',', $params->parent_one);
+            $params->parent_two = explode(',', $params->parent_two);
+
+            $uniformCrossover = new TwoPoints($params->parent_one, $params->parent_two, $params->crossover_probability);
+            $lengthHpString = sizeof($params->parent_one);
+            $uniformCrossover->execute($lengthHpString);
+                
+            $child_one = $uniformCrossover->getChildrenOne();
+            $child_two = $uniformCrossover->getChildrenTwo();
+            die();
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'parent_one' => $params->parent_one,
+                'parent_two' => $params->parent_two,
+                'children_one' => $child_one,
+                'children_two' => $child_two
+            );
+            
+
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'Data not sending!'
+            );
         }
-        echo ']';
-
-        echo '<br/>';
-        echo '<br/>';
-
-        echo 'Children One:  ';
-        echo '[ ';
-        for ($i=0; $i < sizeof($child_one) ; $i++) { 
-            echo $child_one[$i].' ';
-        }
-        echo ']';
-
-        echo '<br>';
-
-        echo 'Children Two: ';
-        echo '[ ';
-        for ($i=0; $i < sizeof($child_two) ; $i++) { 
-            echo $child_two[$i].' ';
-        }
-        echo ']';
-        die();
+        return response()->json($data, $data['code']);
     }
 
     // -------- Probar la ruleta

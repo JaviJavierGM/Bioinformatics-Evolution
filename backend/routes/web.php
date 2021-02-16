@@ -64,7 +64,9 @@ Route::get('/api/project/image/{filename}', [ProjectController::class, 'getImage
 Route::get('/api/project/user/{id}', [ProjectController::class, 'getProjectsByUser']);
 
     //Rutas del controlador del algoritmo evolutivo
-Route::post('/api/EA', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);
+Route::post('/api/EA/uniform', [EvolutionaryAlgorithmController::class, 'testUniformCrossover']);
+Route::post('/api/EA/onepoint', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);
+Route::post('/api/EA/twopoints', [EvolutionaryAlgorithmController::class, 'testTwoPointsCrossover']);
 Route::post('/api/EA/ruleta', [EvolutionaryAlgorithmController::class, 'testRouletteSelection']);
 Route::post('/api/EA/torneo', [EvolutionaryAlgorithmController::class, 'testTournamentSelection']);
 
