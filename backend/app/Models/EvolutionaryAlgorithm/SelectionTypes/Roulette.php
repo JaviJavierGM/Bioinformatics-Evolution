@@ -17,9 +17,9 @@ class Roulette extends SelectionOperator
     public function execute($KSelectionTournamet=null){
 
         if(!is_null($KSelectionTournamet)){
-            $sizeGeneration = $KSelectionTournamet;
+            $conformationsToSelect = $KSelectionTournamet;
         }else{
-            $sizeGeneration = $this->generation->getSizeGeneration();
+            $conformationsToSelect = $this->generation->getSizeGeneration();
         }
 
         $totalFitness = $this->generation->getTotalFitness() * -1;
@@ -31,9 +31,10 @@ class Roulette extends SelectionOperator
         }
 
         // var_dump($arrayPercentSelection);
+        $sizeGeneration = $this->generation->getSizeGeneration();
 
         // Seleccionamos las conformaciones
-        for($i=0; $i<$sizeGeneration; $i++){
+        for($i=0; $i<$conformationsToSelect; $i++){
             // Generamos el porcentaje de la ruleta que debemos buscar
             $random = $this->decimalRandom();
             // var_dump($random);
@@ -42,7 +43,7 @@ class Roulette extends SelectionOperator
             $sumPercentSelection = 0; // Guardara la suma de los porcentajes de las conformaciones
 
             // Buscamos la conformacion que pertenezca a ese porcentaje de la ruleta
-            while($flag && $j < $this->generation->getSizeGeneration()){
+            while($flag && $j < $sizeGeneration){
                 $sumPercentSelection += $arrayPercentSelection[$j];
                 if($sumPercentSelection >= $random){
                     // Si el porcentaje de seleccion de la conformacion corresponde con el generado

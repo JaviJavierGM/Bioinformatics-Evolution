@@ -23,6 +23,8 @@ class Generation extends Model
     }
 
     public function getTotalFitness(){
+        // Nos regresa el fitness total de toda la generacion,
+        // pero con signo NEGATIVO
         $totalFitness=0;
         foreach($this->conformations as $conformation){
             $totalFitness+= $conformation->getFitness();

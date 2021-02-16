@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\OnePoint;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\TwoPoints;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\Uniform;
-use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 use App\Models\EvolutionaryAlgorithm\Generation;
 use App\Models\EvolutionaryAlgorithm\Conformation;
+use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
+use App\Models\EvolutionaryAlgorithm\SelectionTypes\TopPercent;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -125,5 +126,21 @@ class EvolutionaryAlgorithmController extends Controller
 
         $tournament->execute();
 
+    }
+
+    // -------- Probar top percent selection
+    public function testTopPercentSelection(Request $request){
+        $conformation1 = new Conformation(-7);
+        $conformation2 = new Conformation(-5);
+        $conformation3 = new Conformation(-0.2551544);
+        $conformation4 = new Conformation(-99);
+        $conformation5 = new Conformation(-1);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
+
+        $generation = new Generation($arrayConformations);
+
+        $topPercent = new TopPercent($generation, 90);
+        $topPercent->execute();
     }
 }
