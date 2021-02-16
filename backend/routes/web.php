@@ -69,4 +69,4 @@ Route::post('/api/EA/onepoint', [EvolutionaryAlgorithmController::class, 'testOn
 Route::post('/api/EA/twopoints', [EvolutionaryAlgorithmController::class, 'testTwoPointsCrossover']);
 Route::post('/api/EA/ruleta', [EvolutionaryAlgorithmController::class, 'testRouletteSelection']);
 Route::post('/api/EA/torneo', [EvolutionaryAlgorithmController::class, 'testTournamentSelection']);
-
+Route::post('/api/EA/top-percent', [EvolutionaryAlgorithmController::class, 'testTopPercentSelection']);

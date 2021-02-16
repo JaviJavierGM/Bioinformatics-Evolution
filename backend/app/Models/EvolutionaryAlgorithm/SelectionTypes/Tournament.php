@@ -7,15 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\SelectionOperator;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 
-use App\Models\EvolutionaryAlgorithm\Conformation;
-
-
 class Tournament extends SelectionOperator
 {
     use HasFactory;
 
     public $percent;
-    public $sublist = array();
 
     public function __construct($generation, $percent){
         $this->generation = $generation;

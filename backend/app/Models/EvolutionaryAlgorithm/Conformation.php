@@ -9,7 +9,8 @@ class Conformation extends Model
 {
     use HasFactory;
 
-    public $fitness;
+    public $fitness; // no mover de lugar (por la parte del ordenamiento)
+    // A partir de aqui, colocar los demás atributos
 
     public function __construct($fitness){
         $this->fitness = $fitness;
