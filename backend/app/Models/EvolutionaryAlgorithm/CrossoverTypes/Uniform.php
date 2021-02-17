@@ -10,24 +10,57 @@ class Uniform extends CrossoverOperator
 {
     use HasFactory;
 
-    private $cuts;
 
     public function __construct($parent_one, $parent_two, $crossover_probability) {
         $this->parent_one = $parent_one;
         $this->parent_two = $parent_two;
         $this->crossover_probability = $crossover_probability;
-        $this->cuts = array();
         srand($this->make_seed());
     }
 
     public function execute($lengthHpString) {
-        echo 'este es el metodo execute del operador genetico crossoverUniform';
+        echo 'Parent one: ';
+        $this->printArray($this->parent_one);
+        
+        echo 'Parent two: ';
+        $this->printArray($this->parent_two);
+
         if($this->crossover_probability > $this->decimalRandom()) {
-            for ($i=0; $i < $lengthHpString; $i++) { 
-                array_push($this->cuts, rand(0, 1));
+            $this->children_one = $this->generateChildren($lengthHpString);
+            $this->children_two = $this->generateChildren($lengthHpString);
+            echo '<br>';
+        } else {
+            echo '<br>La probailidad de cruce no es mayor que el numero random!<br>';
+
+            $this->children_one = $this->parent_one;
+            $this->children_two = $this->parent_two;
+            echo '<br>';
+        }
+        
+        echo 'Children one: ';
+        $this->printArray($this->children_one);
+        
+        echo 'Children two: ';
+        $this->printArray($this->children_two);
+    }
+
+    public function generateChildren($lengthHpString) {
+        $array = array();
+        echo '<br/> Seleccion del gen: [ ';
+        for ($i=0; $i < $lengthHpString; $i++) { 
+            $parentSelected = rand(0, 1);
+
+            echo $parentSelected.' ';
+
+            // Seleccion del padre que contribuirá el gen al hijo
+            if ($parentSelected == 0) {
+                $array[$i] = $this->parent_one[$i];
+            } else {
+                $array[$i] = $this->parent_two[$i];
             }
         }
-        var_dump($this->cuts);
-        die();
+        
+        echo ' ]<br/>';
+        return $array;
     }
 }

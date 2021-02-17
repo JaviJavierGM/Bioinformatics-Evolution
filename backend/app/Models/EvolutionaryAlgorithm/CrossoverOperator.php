@@ -34,4 +34,12 @@ abstract class CrossoverOperator extends Model
         return rand(0, 1000000) / 1000000;
     }
 
+    public function printArray($array) {
+        echo '[ ';
+        for($i = 0; $i < sizeof($array); $i++) {
+            echo $array[$i].', ';
+        }
+        echo ' ]'.'<br/>';
+    }
+
 }

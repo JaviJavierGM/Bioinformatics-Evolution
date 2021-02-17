@@ -21,17 +21,22 @@ class TwoPoints extends CrossoverOperator
     }
 
     public function execute($lengthHpString) {
+        echo 'Parent one: ';
+        $this->printArray($this->parent_one);
+        
+        echo 'Parent two: ';
+        $this->printArray($this->parent_two);
+
         // Generar el punto de corte 
         if($this->crossover_probability > $this->decimalRandom()) {
             $this->cut_one = rand(0, $lengthHpString/2); 
-            //srand($this->make_seed()); 
-            $this->cut_two = rand(0, ($lengthHpString/2)-1 ) + ($lengthHpString/2);
-
+            $this->cut_two = rand(0, ($lengthHpString/2)-1) + (round($lengthHpString/2, null, PHP_ROUND_HALF_DOWN));
+            
             //$this->cut_one = 2;
             //$this->cut_two = 7;
 
-            echo 'La seccion de corte_one es: '.$this->cut_one.'<br/>';
-            echo 'La seccion de corte_two es: '.$this->cut_two.'<br/>';
+            echo '<br/>La seccion de corte_one es: '.$this->cut_one.'<br/>';
+            echo 'La seccion de corte_two es: '.$this->cut_two.'<br/><br/>';
 
             // Generar los dos nuevos hijos.
             for($i=0; $i < $this->cut_one; $i++) { 
@@ -52,5 +57,11 @@ class TwoPoints extends CrossoverOperator
             $this->children_one = $this->parent_one;
             $this->children_two = $this->parent_two;
         }
+
+        echo 'Children one: ';
+        $this->printArray($this->children_one);
+        
+        echo 'Children two: ';
+        $this->printArray($this->children_two);
     }
 }
