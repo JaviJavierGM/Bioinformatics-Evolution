@@ -57,6 +57,8 @@ class PopulationDecimation extends SelectionOperator
             var_dump($conformation->getFitness());
         }
 
+        unset($sizeGeneration, $sublist_L, $cut, $sublist_S);
+
         die();
 
     }
