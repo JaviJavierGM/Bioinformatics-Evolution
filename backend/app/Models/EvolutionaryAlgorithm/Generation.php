@@ -36,4 +36,19 @@ class Generation extends Model
         return $this->sizeGeneration;
     }
 
+    public function getOrderedConformations($order){
+        // Nos regresa una copia de las conformaciones ordenadas
+
+        $orderedConformations  = $this->conformations;
+        // Si order == true ordena en forma ascendente
+        if($order == true){
+            rsort($orderedConformations);
+        }else{
+            // order == false ordena en forma descendente
+            sort($orderedConformations);
+        }
+
+        return $orderedConformations;
+    }
+
 }

@@ -31,18 +31,19 @@ class Tournament extends SelectionOperator
         for($i=0; $i<$sizeGeneration; $i++){
             $roulette = new Roulette($this->generation);
             $roulette->execute($k);
+            $sublist_S= $roulette->getSelectedConformations();
 
             echo "VARDUMP DESPUES RULETA ".$i." -----";
-            foreach($roulette->getSelectedConformations() as $conformation){
+            foreach($sublist_S as $conformation){
                 var_dump($conformation->getFitness());
             }
     
             // Buscamos la mejor conformacion de las seleccionadas con la ruleta
             // Inicializamos bestconformation con la primera posicion de las seleccionadas con la ruleta
-            $bestConformation = $roulette->getSelectedConformations()[0];
+            $bestConformation = $sublist_S[0];
     
             // Buscamos en todas las conformaciones seleccionadas si hay otra con un mejor fitness
-            foreach($roulette->getSelectedConformations() as $conformation){
+            foreach($sublist_S as $conformation){
                 if(($bestConformation->getFitness()*-1) < ($conformation->getFitness()*-1)){
                     // Si la hay, reemplazamos bestConformation por la conformacion encontrada
                     $bestConformation = $conformation;
@@ -57,6 +58,9 @@ class Tournament extends SelectionOperator
         foreach($this->selectedConformations as $conformation){
             var_dump($conformation->getFitness());
         }
+
+        // Borramos todas las variables creadas
+        unset($sizeGeneration, $k, $roulette, $bestConformation, $sublist_S);
 
 
         die();

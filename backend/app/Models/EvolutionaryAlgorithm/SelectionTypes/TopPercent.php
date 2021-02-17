@@ -8,6 +8,8 @@ use App\Models\EvolutionaryAlgorithm\SelectionOperator;
 
 class TopPercent extends SelectionOperator
 {
+    use HasFactory;
+
     public $percent;
 
     public function __construct($generation, $percent){
@@ -19,9 +21,13 @@ class TopPercent extends SelectionOperator
         $sizeGeneration = $this->generation->getSizeGeneration();
         $k = intval( ($this->percent / 100) * $sizeGeneration ); // k mejores coformaciones a seleccionar
 
-        // conformaciones de la generacion, ordenadas de forma ascendente
-        $sublist_L = $this->generation->getConformations(); 
-        sort($sublist_L);
+        // conformaciones de la generacion, ordenadas de forma descendente
+        $sublist_L = $this->generation->getOrderedConformations(false);
+        /* echo "Fitness de las conformaciones de la sublista L, ordenadas de forma descendente: "; 
+        for($i=0; $i<$sizeGeneration; $i++){
+            var_dump( $sublist_L[$i]->getFitness() );
+        }
+        echo "-------------- <br>"; */ 
 
         // sublista S con los mejores k conformaciones segun su fitness
         $sublist_S = array();
@@ -44,6 +50,9 @@ class TopPercent extends SelectionOperator
         foreach($this->selectedConformations as $conformation){
             var_dump($conformation->getFitness());
         }
+
+        // Borramos las variables
+        unset($sizeGeneration, $k, $sublist_L, $sublist_S);
 
         die();
 

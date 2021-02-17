@@ -11,6 +11,7 @@ use App\Models\EvolutionaryAlgorithm\Conformation;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\TopPercent;
+use App\Models\EvolutionaryAlgorithm\SelectionTypes\PopulationDecimation;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -75,26 +76,18 @@ class EvolutionaryAlgorithmController extends Controller
     public function testRouletteSelection(Request $request){
 
         $conformation1 = new Conformation(-7);
-        // $conformation1->setFitness(-7);
         $conformation2 = new Conformation(-5);
-        // $conformation2->setFitness(-1);
         $conformation3 = new Conformation(-1);
-        // $conformation3->setFitness(-3);
-        $conformation4 = new Conformation(-3);
-        // $conformation4->setFitness(-9);
-        $conformation5 = new Conformation(-6);
-        // $conformation5->setFitness(-23);
+        $conformation4 = new Conformation(-13);
+        $conformation5 = new Conformation(-99);
 
         $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
-
-        // $generation->setConformations($arrayConformations);
         $generation = new Generation($arrayConformations);
         
-        
         $roulette = new Roulette($generation);
-
         $roulette->execute();
 
+        echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON LA RULETA: <br>";
         foreach($roulette->getSelectedConformations() as $conformation){
             var_dump($conformation->getFitness());
         }
@@ -107,24 +100,16 @@ class EvolutionaryAlgorithmController extends Controller
     public function testTournamentSelection(Request $request){
 
         $conformation1 = new Conformation(-7);
-        // $conformation1->setFitness(-7);
         $conformation2 = new Conformation(-5);
-        // $conformation2->setFitness(-1);
         $conformation3 = new Conformation(-1);
-        // $conformation3->setFitness(-3);
         $conformation4 = new Conformation(-3);
-        // $conformation4->setFitness(-9);
         $conformation5 = new Conformation(-6);
-        // $conformation5->setFitness(-23);
 
         $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
-
-        // $generation->setConformations($arrayConformations);
         $generation = new Generation($arrayConformations);
 
-        $tournament = new Tournament($generation, 90);
-
-        $tournament->execute();
+        $tournament = new Tournament($generation, 50);
+         $tournament->execute();
 
     }
 
@@ -142,5 +127,22 @@ class EvolutionaryAlgorithmController extends Controller
 
         $topPercent = new TopPercent($generation, 90);
         $topPercent->execute();
+    }
+
+    // -------- Probar Population Decimation
+    public function testPopulationDecimation(Request $request){
+        $conformation1 = new Conformation(-7);
+        $conformation2 = new Conformation(-5);
+        $conformation3 = new Conformation(-0.2551544);
+        $conformation4 = new Conformation(-99);
+        $conformation5 = new Conformation(-1);
+        $conformation6 = new Conformation(-15);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+
+        $generation = new Generation($arrayConformations);
+
+        $popDecimation = new PopulationDecimation($generation);
+        $popDecimation->execute();
     }
 }
