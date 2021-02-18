@@ -12,6 +12,7 @@ use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\TopPercent;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\PopulationDecimation;
+use App\Models\EvolutionaryAlgorithm\OtherGeneticTechniques\Elitism;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -172,12 +173,13 @@ class EvolutionaryAlgorithmController extends Controller
         $conformation3 = new Conformation(-0.2551544);
         $conformation4 = new Conformation(-99);
         $conformation5 = new Conformation(-1);
+        $conformation6 = new Conformation(-15);
 
-        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
 
         $generation = new Generation($arrayConformations);
 
-        $topPercent = new TopPercent($generation, 90);
+        $topPercent = new TopPercent($generation, 30);
         $topPercent->execute();
     }
 
@@ -197,4 +199,34 @@ class EvolutionaryAlgorithmController extends Controller
         $popDecimation = new PopulationDecimation($generation);
         $popDecimation->execute();
     }
+
+    // -------- Probar Elitismo
+    public function testElitism(Request $request){
+        $conformation1 = new Conformation(-7);
+        $conformation2 = new Conformation(-5);
+        $conformation3 = new Conformation(-6);
+        $conformation4 = new Conformation(-9);
+        $conformation5 = new Conformation(-1);
+        $conformation6 = new Conformation(-10);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+
+        $generation = new Generation($arrayConformations);
+
+        $percentOfElitism = 50;
+
+        // $selectionOperator = "roulette";
+        // $selectionOperator = "tournament";
+        $selectionOperator = "top_percent";
+        // $selectionOperator = "population_decimation";
+
+        $percentOfSelectionOperator = 40;
+
+        $elitism = new Elitism($percentOfElitism, $generation, $selectionOperator, $percentOfSelectionOperator);
+        $elitism->execute();
+
+        die();
+
+    }
+
 }

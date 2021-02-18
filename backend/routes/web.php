@@ -71,3 +71,4 @@ Route::post('/api/EA/ruleta', [EvolutionaryAlgorithmController::class, 'testRoul
 Route::post('/api/EA/torneo', [EvolutionaryAlgorithmController::class, 'testTournamentSelection']);
 Route::post('/api/EA/top-percent', [EvolutionaryAlgorithmController::class, 'testTopPercentSelection']);
 Route::post('/api/EA/pop-decimation', [EvolutionaryAlgorithmController::class, 'testPopulationDecimation']);
+Route::post('/api/EA/elitismo', [EvolutionaryAlgorithmController::class, 'testElitism']);

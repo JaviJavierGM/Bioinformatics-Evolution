@@ -18,17 +18,24 @@ class Tournament extends SelectionOperator
         $this->percent = $percent;
     }
 
-    public function execute(){
+    public function execute($conformationsToSelectParemeter=null){
         $sizeGeneration = $this->generation->getSizeGeneration();
-        $k = intval( ($this->percent / 100) * $sizeGeneration ); // son las k conformaciones a elegir con la ruleta
+        // Numero de conformaciones a seleccionar con el torneo
+        if(!is_null($conformationsToSelectParemeter)){
+            $conformationsToSelect = $conformationsToSelectParemeter;
+        }else{
+            $conformationsToSelect = $sizeGeneration;
+        }
+
+        $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // son las k conformaciones a elegir con la ruleta
 
         foreach($this->generation->getConformations() as $conformation){
             var_dump($conformation->getFitness());
         }
 
         // Ejecutamos el Tournament las veces necesarias para conseguir los elementos
-        // seleccionados para el cruce
-        for($i=0; $i<$sizeGeneration; $i++){
+        // necesarios para el cruce
+        for($i=0; $i<$conformationsToSelect; $i++){
             $roulette = new Roulette($this->generation);
             $roulette->execute($k);
             $sublist_S= $roulette->getSelectedConformations();
@@ -63,7 +70,7 @@ class Tournament extends SelectionOperator
         unset($sizeGeneration, $k, $roulette, $bestConformation, $sublist_S);
 
 
-        die();
+        // die();
     }
 
 }

@@ -17,10 +17,17 @@ class TopPercent extends SelectionOperator
         $this->percent = $percent;
     }
 
-    public function execute(){
+    public function execute($conformationsToSelectParemeter=null){
         $sizeGeneration = $this->generation->getSizeGeneration();
-        $k = intval( ($this->percent / 100) * $sizeGeneration ); // k mejores coformaciones a seleccionar
+        // Numero de conformaciones a seleccionar con el torneo
+        if(!is_null($conformationsToSelectParemeter)){
+            $conformationsToSelect = $conformationsToSelectParemeter;
+        }else{
+            $conformationsToSelect = $sizeGeneration;
+        }
 
+        $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // k mejores coformaciones a seleccionar
+        
         // conformaciones de la generacion, ordenadas de forma descendente
         $sublist_L = $this->generation->getOrderedConformations(false);
         /* echo "Fitness de las conformaciones de la sublista L, ordenadas de forma descendente: "; 
@@ -42,7 +49,7 @@ class TopPercent extends SelectionOperator
 
         // Seleccionamos las conformaciones necesarias para el cruce eligiendo de forma 
         // aleatoria un elemento de la sublista s y la agregamos a las conformaciones seleccionadas
-        for($i=0; $i<$sizeGeneration; $i++){
+        for($i=0; $i<$conformationsToSelect; $i++){
             $posRandom = rand(0, sizeof($sublist_S)-1);
             array_push($this->selectedConformations, $sublist_S[$posRandom]);
         }        
@@ -54,7 +61,7 @@ class TopPercent extends SelectionOperator
         // Borramos las variables
         unset($sizeGeneration, $k, $sublist_L, $sublist_S);
 
-        die();
+        // die();
 
     }
 }

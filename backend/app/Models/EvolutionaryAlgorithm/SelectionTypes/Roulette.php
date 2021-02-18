@@ -14,14 +14,14 @@ class Roulette extends SelectionOperator
         $this->generation = $generation;
     }
 
-    public function execute($KSelectionTournamet=null){
+    public function execute($conformationsToSelectParemeter=null){
         $sizeGeneration = $this->generation->getSizeGeneration();
-
-        if(!is_null($KSelectionTournamet)){
-            $conformationsToSelect = $KSelectionTournamet;
+        // Numero de conformaciones a seleccionar con la ruleta
+        if(!is_null($conformationsToSelectParemeter)){
+            $conformationsToSelect = $conformationsToSelectParemeter;
         }else{
-            $conformationsToSelect = $this->generation->getSizeGeneration();
-        }
+            $conformationsToSelect = $sizeGeneration;
+        }        
 
         $totalFitness = $this->generation->getTotalFitness() * -1;
         
@@ -30,13 +30,11 @@ class Roulette extends SelectionOperator
         // Ordenar las coformaciones de manera ascendente
         $orderedConformations = $this->generation->getOrderedConformations(true);
 
-        echo "Fitness de las conformaciones, ordenadas de forma ascendente: "; 
+        /* echo "Fitness de las conformaciones, ordenadas de forma ascendente: "; 
         for($i=0; $i<$sizeGeneration; $i++){
             var_dump( $orderedConformations[$i]->getFitness() );
         }
-        echo "-------------- <br>"; 
-
-        die();
+        echo "-------------- <br>"; */
 
         /* echo "Probabilidad de seleccion de las conformaciones, ordenado de forma ascendente: "; */ 
         // Calcular el porcentaje de seleccion de cada conformacion de la generacion

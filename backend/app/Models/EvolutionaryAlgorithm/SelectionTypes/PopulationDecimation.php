@@ -14,8 +14,14 @@ class PopulationDecimation extends SelectionOperator
         $this->generation = $generation;
     }
 
-    public function execute(){
+    public function execute($conformationsToSelectParemeter=null){
         $sizeGeneration = $this->generation->getSizeGeneration();
+        // Numero de conformaciones a seleccionar con el torneo
+        if(!is_null($conformationsToSelectParemeter)){
+            $conformationsToSelect = $conformationsToSelectParemeter;
+        }else{
+            $conformationsToSelect = $sizeGeneration;
+        }
 
         // conformaciones de la generacion, ordenadas de forma descendente
         $sublist_L = $this->generation->getOrderedConformations(false);
