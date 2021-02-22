@@ -10,6 +10,7 @@ import { FoldingComponent } from './components/folding/folding.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersManagementComponent } from './components/users-management/users-management.component';
+import { EngineComponent } from './components/engine/engine.component';
 import { ErrorComponent } from './components/error/error.component';
 import { Route } from '@angular/compiler/src/core';
 
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     {path: 'projects', component: ProjectsComponent},
     {path: 'settings', component: UserEditComponent},
     {path: 'users-management', component: UsersManagementComponent},
+    {path: 'engine', component: EngineComponent},
     {path: '**', component: ErrorComponent}
 ];
 
