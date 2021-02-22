@@ -17,6 +17,7 @@ import { AutoFocusDirective } from './auto-focus.directive';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersManagementComponent } from './components/users-management/users-management.component';
+import { EngineComponent } from './components/engine/engine.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { UsersManagementComponent } from './components/users-management/users-ma
     AutoFocusDirective,
     ProjectsComponent,
     UserEditComponent,
-    UsersManagementComponent
+    UsersManagementComponent,
+    EngineComponent
   ],
   imports: [
     BrowserModule,
