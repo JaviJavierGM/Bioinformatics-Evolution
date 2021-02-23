@@ -13,9 +13,13 @@ use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\TopPercent;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\PopulationDecimation;
 use App\Models\EvolutionaryAlgorithm\OtherGeneticTechniques\Elitism;
+<<<<<<< HEAD
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateSquarePoints;
 
 use App\Models\EvolutionaryAlgorithm\Point;
+=======
+use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
+>>>>>>> 341ee176b6e856b1df13c68f647ad29d6abfa6c7
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -204,7 +208,7 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     // -------- Probar Elitismo
-    public function testElitism(Request $request){
+    public function testElitism(Request $request) {
         $conformation1 = new Conformation(-7);
         $conformation2 = new Conformation(-5);
         $conformation3 = new Conformation(-6);
@@ -240,6 +244,15 @@ class EvolutionaryAlgorithmController extends Controller
         // $generateSquarePoints->generateSquarePoint(3, "LETRAXD", $previousPoint);
 
         $generateSquarePoints->doPoints(null, 1);
+    }
+    
+    public function testGenPoint() {
+    $hpString = 'HHHHH';
+
+    $generate = new GenerateCubePoints($hpString, 'correlated', 2);
+    $generate->initializeGeneration(6);
+    die();
+
     }
 
 }
