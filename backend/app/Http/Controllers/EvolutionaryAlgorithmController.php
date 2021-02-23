@@ -233,7 +233,7 @@ class EvolutionaryAlgorithmController extends Controller
     public function testGenPoint() {
     $hpString = 'HHHHH';
 
-    $generate = new GenerateCubePoints($hpString);
+    $generate = new GenerateCubePoints($hpString, 'correlated', 2);
     $generate->initializeGeneration(6);
     die();
 
