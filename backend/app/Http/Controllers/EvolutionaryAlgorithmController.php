@@ -13,6 +13,9 @@ use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\TopPercent;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\PopulationDecimation;
 use App\Models\EvolutionaryAlgorithm\OtherGeneticTechniques\Elitism;
+use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateSquarePoints;
+
+use App\Models\EvolutionaryAlgorithm\Point;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -227,6 +230,16 @@ class EvolutionaryAlgorithmController extends Controller
 
         die();
 
+    }
+
+    // -------- Generate Square Points
+    public function testGenerateSquarePoints(){
+        $generateSquarePoints = new GenerateSquarePoints();
+        $previousPoint = new Point(10, 5, 0, 0, "h");
+
+        // $generateSquarePoints->generateSquarePoint(3, "LETRAXD", $previousPoint);
+
+        $generateSquarePoints->doPoints(null, 1);
     }
 
 }
