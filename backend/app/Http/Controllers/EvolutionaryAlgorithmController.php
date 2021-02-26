@@ -133,7 +133,7 @@ class EvolutionaryAlgorithmController extends Controller
 
         $conformation1 = new Conformation(-7);
         $conformation2 = new Conformation(-5);
-        $conformation3 = new Conformation(-1);
+        $conformation3 = new Conformation(-4);
         $conformation4 = new Conformation(-13);
         $conformation5 = new Conformation(-99);
 
@@ -144,11 +144,10 @@ class EvolutionaryAlgorithmController extends Controller
         $roulette->execute();
 
         echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON LA RULETA: <br>";
-        foreach($roulette->getSelectedConformations() as $conformation){
-            var_dump($conformation->getFitness());
+        for($i=0; $i<$generation->getSizeGeneration(); $i++){
+            echo "selectedConformation[".$i."] = ".$roulette->getSelectedConformations()[$i]->getFitness()." <br>";
         }
 
-        echo "termino RULETA";
         die();
     }
 
@@ -165,8 +164,14 @@ class EvolutionaryAlgorithmController extends Controller
         $generation = new Generation($arrayConformations);
 
         $tournament = new Tournament($generation, 50);
-         $tournament->execute();
+        $tournament->execute();
 
+        echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON EL TORNEO: <br>";
+        for($i=0; $i<$generation->getSizeGeneration(); $i++){
+            echo "selectedConformation[".$i."] = ".$tournament->getSelectedConformations()[$i]->getFitness()." <br>";
+        }
+
+        die();
     }
 
     // -------- Probar top percent selection
@@ -182,15 +187,22 @@ class EvolutionaryAlgorithmController extends Controller
 
         $generation = new Generation($arrayConformations);
 
-        $topPercent = new TopPercent($generation, 30);
+        $topPercent = new TopPercent($generation, 70);
         $topPercent->execute();
+
+        echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON TOP PERCENT: <br>";
+        for($i=0; $i<$generation->getSizeGeneration(); $i++){
+            echo "selectedConformation[".$i."] = ".$topPercent->getSelectedConformations()[$i]->getFitness()." <br>";
+        }
+        
+        die();
     }
 
     // -------- Probar Population Decimation
     public function testPopulationDecimation(Request $request){
         $conformation1 = new Conformation(-7);
         $conformation2 = new Conformation(-5);
-        $conformation3 = new Conformation(-0.2551544);
+        $conformation3 = new Conformation(-1);
         $conformation4 = new Conformation(-99);
         $conformation5 = new Conformation(-1);
         $conformation6 = new Conformation(-15);
@@ -201,6 +213,13 @@ class EvolutionaryAlgorithmController extends Controller
 
         $popDecimation = new PopulationDecimation($generation);
         $popDecimation->execute();
+
+        echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON POP DECIMATION: <br>";
+        for($i=0; $i<$generation->getSizeGeneration(); $i++){
+            echo "selectedConformation[".$i."] = ".$popDecimation->getSelectedConformations()[$i]->getFitness()." <br>";
+        }
+
+        die();
     }
 
     // -------- Probar Elitismo
@@ -216,11 +235,11 @@ class EvolutionaryAlgorithmController extends Controller
 
         $generation = new Generation($arrayConformations);
 
-        $percentOfElitism = 50;
+        $percentOfElitism = 40;
 
-        // $selectionOperator = "roulette";
+        $selectionOperator = "roulette";
         // $selectionOperator = "tournament";
-        $selectionOperator = "top_percent";
+        // $selectionOperator = "top_percent";
         // $selectionOperator = "population_decimation";
 
         $percentOfSelectionOperator = 40;

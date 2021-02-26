@@ -33,6 +33,13 @@ class Elitism extends Model
         $percentConformationsElitism = round( (($this->percentOfElitism / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN);
         $orderedConformations = $this->generation->getOrderedConformations(false);
 
+        echo " > Fitness de las conformaciones, ordenadas de forma descendente: <br>"; 
+        for($i=0; $i<$sizeGeneration; $i++){
+            echo "conformations[".$i."] = ".$orderedConformations[$i]->getFitness()." <br>";
+        }
+
+        echo " > Porcentaje de conformaciones a salvar con elitismo: ".$this->percentOfElitism."% que son ".$percentConformationsElitism." conformaciones <br>";
+
         // Guardamos el numero de mejores conformaciones obtenidas con el elitismo,
         // en las conformaciones seleccionadas
         for($i=0; $i<$percentConformationsElitism; $i++){
@@ -59,9 +66,10 @@ class Elitism extends Model
                 break;
         }
 
-        echo "Conformaciones seleccionadas, luego de aplicar un por centaje: ".$this->percentOfElitism."% de elitismo y ".$this->selectionOperator." ";
+        echo " > Fitness de las Conformaciones seleccionadas, luego de aplicar un porcentaje: ".$this->percentOfElitism."% de elitismo y ".$this->selectionOperator." <br>";
         for($i=0; $i<$sizeGeneration; $i++){
-            var_dump($this->selectedConformations[$i]->getFitness());
+            // var_dump($this->selectedConformations[$i]->getFitness());
+            echo "selectedConformation[".$i."]= ".$this->selectedConformations[$i]->getFitness()."<br>";
         }
 
         unset($sizeGeneration, $percentConformationsElitism, $orderedConformations);
@@ -102,7 +110,7 @@ class Elitism extends Model
     }
 
     public function casePopulationDecimation($sizeGeneration, $percentConformationsElitism){
-        echo "Pendiente XD";
+        echo "Pendiente!";
     }
 
 }

@@ -19,6 +19,8 @@ class Tournament extends SelectionOperator
     }
 
     public function execute($conformationsToSelectParemeter=null){
+        echo "------------------------------------------------------------ <br>";
+        echo "----> Operador Tournament <br>";
         $sizeGeneration = $this->generation->getSizeGeneration();
         // Numero de conformaciones a seleccionar con el torneo
         if(!is_null($conformationsToSelectParemeter)){
@@ -28,22 +30,26 @@ class Tournament extends SelectionOperator
         }
 
         $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // son las k conformaciones a elegir con la ruleta
+        echo " > K conformaciones a elegir con la ruleta: ".$k." <br>";
 
-        foreach($this->generation->getConformations() as $conformation){
-            var_dump($conformation->getFitness());
+        echo " > Fitness de las conformaciones de la generacion: <br>";
+        for($i=0; $i<$sizeGeneration; $i++){
+            echo "conformation[".$i."]= ".$this->generation->getConformations()[$i]->getFitness()." <br>";
         }
 
         // Ejecutamos el Tournament las veces necesarias para conseguir los elementos
         // necesarios para el cruce
         for($i=0; $i<$conformationsToSelect; $i++){
+            echo "<br> --- Ejecucion del torneo numero: ".$i." <br>";
             $roulette = new Roulette($this->generation);
             $roulette->execute($k);
             $sublist_S= $roulette->getSelectedConformations();
 
-            echo "VARDUMP DESPUES RULETA ".$i." -----";
-            foreach($sublist_S as $conformation){
-                var_dump($conformation->getFitness());
+            echo " fitness de la sublista S: <br>";
+            for($j=0; $j<$k; $j++){
+                echo "sublist_S[".$j."]= ".$sublist_S[$j]->getFitness()." <br>";
             }
+            
     
             // Buscamos la mejor conformacion de las seleccionadas con la ruleta
             // Inicializamos bestconformation con la primera posicion de las seleccionadas con la ruleta
@@ -57,20 +63,17 @@ class Tournament extends SelectionOperator
                 }
             }
 
+            echo " > La mejor conformacion encontrada de la sublista S es con fitness: ".$bestConformation->getFitness()."<br>";
+
             // Guardamos la mejor conformacion en las conformaciones seleccionadas
             array_push($this->selectedConformations, $bestConformation);
-        }
-
-        echo "VARDUMP FINALLLL -----";
-        foreach($this->selectedConformations as $conformation){
-            var_dump($conformation->getFitness());
         }
 
         // Borramos todas las variables creadas
         unset($sizeGeneration, $k, $roulette, $bestConformation, $sublist_S);
 
-
-        // die();
+        echo "<br>----> FIN Operador Tournament <br>";
+        echo "------------------------------------------------------------ <br>";
     }
 
 }

@@ -13,9 +13,16 @@ class Generation extends Model
     public $conformations = array();
     public $sizeGeneration;
 
-    public function __construct($conformations){
+    public function __construct($conformations) {
         $this->conformations = $conformations;
         $this->sizeGeneration = sizeof($this->conformations);
+
+        // Llena el campo positionIndex de las conformaciones
+        $i=0;
+        foreach($this->conformations as $conformation){
+            $conformation->setPositionIndex($i);
+            $i++;
+        }        
     }
 
     public function getConformations(){

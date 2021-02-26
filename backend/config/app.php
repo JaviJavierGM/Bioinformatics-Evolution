@@ -228,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JwtAuth' => App\Helpers\JwtAuth::class,
+        'Helpers' => App\Helpers\Helpers::class,
 
     ],
 

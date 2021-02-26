@@ -15,6 +15,8 @@ class PopulationDecimation extends SelectionOperator
     }
 
     public function execute($conformationsToSelectParemeter=null){
+        echo "------------------------------------------------------------ <br>";
+        echo "----> Operador Population decimation <br>";
         $sizeGeneration = $this->generation->getSizeGeneration();
         // Numero de conformaciones a seleccionar con el torneo
         if(!is_null($conformationsToSelectParemeter)){
@@ -26,11 +28,15 @@ class PopulationDecimation extends SelectionOperator
         // conformaciones de la generacion, ordenadas de forma descendente
         $sublist_L = $this->generation->getOrderedConformations(false);
 
-        echo "size generation (N): ".$sizeGeneration."<br>";
+        echo " > Fitness de las conformaciones de la sublista L, ordenadas de forma descendente: <br>"; 
+        for($i=0; $i<$sizeGeneration; $i++){
+            // var_dump( $sublist_L[$i]->getFitness() );
+            echo "conformations[".$i."] = ".$sublist_L[$i]->getFitness()." <br>";
+        }
 
         // Punto de corte para sublist_L
-        $cut = rand(($sizeGeneration / 2), $sizeGeneration);
-        var_dump($cut);
+        $cut = rand(($sizeGeneration / 2), $sizeGeneration-1);
+        echo " > Punto de corte: ".$cut."<br>";
         
         $sublist_S = array();
         for($i=0; $i<$cut; $i++){
@@ -38,18 +44,19 @@ class PopulationDecimation extends SelectionOperator
         }
 
         // Formamos el subconjunto S de C ($cut) elementos que será para obtener las conformaciones seleccionadas
-        echo "sublista S:";
-        foreach($sublist_S as $conformation){
-            var_dump($conformation->getFitness());
+        echo " > Sublista S: <br>";
+        for($i=0; $i<$cut; $i++){
+            // var_dump( $sublist_L[$i]->getFitness() );
+            echo "sublist_S[".$i."] = ".$sublist_L[$i]->getFitness()." <br>";
         }
+
 
         // Pasamos los primeros C ($cut) individuos de la lista S a las conformaciones selecciondas
         for($i=0; $i<$cut; $i++){
             array_push($this->selectedConformations, $sublist_S[$i]);
         }
 
-        echo "sizeGeneration - cut ";
-        var_dump($sizeGeneration - $cut);
+        echo " > Conformaciones faltantes, a elegir de forma aleatoria = ".($sizeGeneration - $cut)."<br>";
 
         // Completamos las conformaciones que faltan para tener el arreglo de conformaciones seleccionadas completo
         // generando una posicion aleatoria de 0 a C ($cut), que seria el tamaño de la lista S 
@@ -58,14 +65,9 @@ class PopulationDecimation extends SelectionOperator
             array_push($this->selectedConformations, $sublist_S[$posRandom]);
         }
 
-        echo "selected conformations: ";
-        foreach($this->selectedConformations as $conformation){
-            var_dump($conformation->getFitness());
-        }
-
         unset($sizeGeneration, $sublist_L, $cut, $sublist_S);
 
-        die();
-
+        echo "<br>----> FIN Operador Population decimation <br>";
+        echo "------------------------------------------------------------ <br>";
     }
 }
