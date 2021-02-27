@@ -17,6 +17,7 @@ use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateSquarePoints;
 use App\Models\EvolutionaryAlgorithm\Point;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
+use App\Models\EvolutionaryAlgorithm\Fitness;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -293,6 +294,30 @@ class EvolutionaryAlgorithmController extends Controller
             $data = array(
                 'code' => 404,
                 'status' => 'error',
+                'message' => "Data dosn't sending"
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function testFitness(Request $request) {
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+
+        if(is_object($params)) {
+            $points = array(2, 3, 4, 5);
+            $dimension = $params->dimension_type;
+            $function = $params->function_type;
+
+            $fitness = new Fitness($points, $dimension, $function);
+            $fts = $fitness->getFitness();
+            echo $fts;
+            die();
+        } else {
+            $data = array(
+                'code' => 404,
+                'Status' => 'error',
                 'message' => "Data dosn't sending"
             );
         }

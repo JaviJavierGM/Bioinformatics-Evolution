@@ -75,3 +75,4 @@ Route::post('/api/EA/elitismo', [EvolutionaryAlgorithmController::class, 'testEl
 Route::post('/api/EA/GenarateSquarePoints', [EvolutionaryAlgorithmController::class, 'testGenerateSquarePoints']);
 Route::post('/api/EA/gen-point', [EvolutionaryAlgorithmController::class, 'testGenPoint']);
 Route::post('/api/EA/randomMut', [EvolutionaryAlgorithmController::class, 'testRandomMutation']);
+Route::post('/api/EA/fitness', [EvolutionaryAlgorithmController::class, 'testFitness']);
