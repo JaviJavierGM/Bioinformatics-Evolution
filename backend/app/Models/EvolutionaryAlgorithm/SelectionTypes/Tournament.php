@@ -39,18 +39,25 @@ class Tournament extends SelectionOperator
 
         // Ejecutamos el Tournament las veces necesarias para conseguir los elementos
         // necesarios para el cruce
-        for($i=0; $i<$conformationsToSelect; $i++){
+        $i=0;
+        // for($i=0; $i<$conformationsToSelect; $i++){
+        while(sizeof($this->indexSelectedConformations) < $conformationsToSelect){
             echo "<br> --- Ejecucion del torneo numero: ".$i." <br>";
             $roulette = new Roulette($this->generation);
             $roulette->execute($k);
             $sublist_S= $roulette->getSelectedConformations();
+            $sublistINDEX_S= $roulette->getIndexSelectedConformations();
 
             echo " fitness de la sublista S: <br>";
             for($j=0; $j<$k; $j++){
                 echo "sublist_S[".$j."]= ".$sublist_S[$j]->getFitness()." <br>";
+                echo "conformations[".$j."] positionIndex = ".$sublist_S[$j]->getPositionIndex()." <br>";
             }
+
             
-    
+
+            var_dump($sublistINDEX_S);
+            $helpers = new \Helpers();
             // Buscamos la mejor conformacion de las seleccionadas con la ruleta
             // Inicializamos bestconformation con la primera posicion de las seleccionadas con la ruleta
             $bestConformation = $sublist_S[0];
@@ -66,7 +73,18 @@ class Tournament extends SelectionOperator
             echo " > La mejor conformacion encontrada de la sublista S es con fitness: ".$bestConformation->getFitness()."<br>";
 
             // Guardamos la mejor conformacion en las conformaciones seleccionadas
-            array_push($this->selectedConformations, $bestConformation);
+            // array_push($this->selectedConformations, $bestConformation);
+            $returnIndexOf = $helpers->indexOf($this->indexSelectedConformations, $bestConformation->getPositionIndex());
+            $returnLastIndexOf = $helpers->lastIndexOf($this->indexSelectedConformations, $bestConformation->getPositionIndex());
+
+            if( $returnIndexOf == $returnLastIndexOf ) {
+                echo "<br>--------------------> si entro idexOf == lastIndeOf <br>";
+                array_push($this->indexSelectedConformations, $bestConformation->getPositionIndex());
+                array_push($this->selectedConformations, $bestConformation);
+                // $flag=false;
+                // break;
+                $i++;
+            }
         }
 
         // Borramos todas las variables creadas

@@ -17,7 +17,7 @@ class Generation extends Model
         $this->conformations = $conformations;
         $this->sizeGeneration = sizeof($this->conformations);
 
-        // Llena el campo positionIndex de las conformaciones
+        // Llena el atributo positionIndex de las conformaciones
         $i=0;
         foreach($this->conformations as $conformation){
             $conformation->setPositionIndex($i);
