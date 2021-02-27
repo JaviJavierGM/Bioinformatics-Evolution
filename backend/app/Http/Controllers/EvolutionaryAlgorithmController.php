@@ -16,6 +16,7 @@ use App\Models\EvolutionaryAlgorithm\OtherGeneticTechniques\Elitism;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateSquarePoints;
 use App\Models\EvolutionaryAlgorithm\Point;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
+use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -268,6 +269,33 @@ class EvolutionaryAlgorithmController extends Controller
     $generate->initializeGeneration(6);
     die();
 
+    }
+
+    public function testRandomMutation(Request $request) {
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+
+        if(is_object($params)) {
+            $dimension_type = $params->dimension_type;
+            $mutation_probability = $params->mutation_probability;
+
+            $conformation = new Conformation(-59);
+
+            for($i=0; $i<100; $i++) {
+                $random = new Random($mutation_probability, $dimension_type);
+                $random->execute($conformation);
+            }
+            
+            die();
+        } else {
+            $data = array(
+                'code' => 404,
+                'status' => 'error',
+                'message' => "Data dosn't sending"
+            );
+        }
+
+        return response()->json($data, $data['code']);
     }
 
 }
