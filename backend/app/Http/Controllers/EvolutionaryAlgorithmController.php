@@ -137,8 +137,9 @@ class EvolutionaryAlgorithmController extends Controller
         $conformation3 = new Conformation(-4);
         $conformation4 = new Conformation(-13);
         $conformation5 = new Conformation(-99);
+        $conformation6 = new Conformation(-9);
 
-        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
         $generation = new Generation($arrayConformations);
         
         $roulette = new Roulette($generation);
@@ -160,8 +161,9 @@ class EvolutionaryAlgorithmController extends Controller
         $conformation3 = new Conformation(-1);
         $conformation4 = new Conformation(-3);
         $conformation5 = new Conformation(-6);
+        $conformation6 = new Conformation(-9);
 
-        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5);
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
         $generation = new Generation($arrayConformations);
 
         $tournament = new Tournament($generation, 50);

@@ -11,12 +11,17 @@ abstract class SelectionOperator extends Model
 
     public $generation;
     public $selectedConformations = array();
+    public $indexSelectedConformations = array();
 
     
     abstract public function execute();
 
     public function getSelectedConformations(){
         return $this->selectedConformations;
+    }
+
+    public function getIndexSelectedConformations(){
+        return $this->indexSelectedConformations;
     }
 
     public function make_seed() {
