@@ -26,11 +26,11 @@ class Fitness extends Model
         if($this->dimension_type == '2D_Square') { // Fitness para la dimension 2D Cuadrada
             echo '<br>Es un espacio 2d Square<br>';
             if($this->function_type == 'dill_model') { // Fitnes implentando la funcion del modelo de DILL
-                echo 'Entro a la funcion del modelo de DILL';
+                echo '<br/>Entro a la funcion del modelo de DILL<br/>';
                 $fitness = new Fitness2DSquare($this->points);
                 return $fitness->getFitnessDillModel();
             } else { // Fitnes implentando la funcion Convexa
-                echo 'Entro a la funcion Convexa';
+                echo '<br/>Entro a la funcion Convexa<br/>';
                 $fitness = new Fitness2DSquare($this->points);
                 return $fitness->getFitnessConvexFunction();
             }

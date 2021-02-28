@@ -23,7 +23,6 @@ class Fitness2DSquare extends Model
     }
 
     public function getFitnessDillModel() {
-        echo '<br>resultado del modelo de DIll<br>';
         $this->fitnessCount = 0;
         $this->alphaHH = 0.0;        
         $pointsSize = sizeof($this->points);
@@ -307,6 +306,29 @@ class Fitness2DSquare extends Model
 
     public function getFitnessConvexFunction() {
         echo '<br>resultado del modelo de la funcion convexa<br>';
+
+        $this->alphaHH = 0.0;        
+        $pointsSize = sizeof($this->points);
+
+        // Verificación del primer punto
+        $point = $this->points[0];
+        $this->nextPosition = $this->points[1]->getMovVectorValue();
+        if($point->getLetter() == 'H') {
+            if($this->nextPosition == 0) {
+                // Verificacion hacia atras
+                if($this->isH($point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                    //$this->alphaHH += valordealpha;
+                }
+            } elseif($this->nextPosition == 1) {
+
+            } elseif($this->nextPosition == 2) {
+
+            } elseif($this->nextPosition == 3) {
+
+            }
+        }
+        var_dump($this->nextPosition);
+        die();
     }
 
     private function isH($xValue, $yValue, $zValue) {
@@ -319,6 +341,18 @@ class Fitness2DSquare extends Model
             }
         }
         return $this->isHidro;
+    }
+
+    private function isP($xValue, $yValue, $zValue) {
+        $this->isPolar = false;
+
+        foreach ($this->points as $point) {
+            if(($this->compare($point->getValueX(), $xValue) == 0) && ($this->compare($point->getValueY(), $yValue) == 0) && ($this->compare($point->getValueZ(), $zValue) == 0) && ($point->getLetter() == 'P')) {
+                $this->isPolar = true;
+                break;
+            }
+        }
+        return $this->isPolar;
     }
 
     private function compare($firstValue, $secondValue) {
