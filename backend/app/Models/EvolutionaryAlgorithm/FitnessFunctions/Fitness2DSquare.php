@@ -304,30 +304,158 @@ class Fitness2DSquare extends Model
         return (int) ($this->alphaHH/2);
     }
 
-    public function getFitnessConvexFunction() {
-        echo '<br>resultado del modelo de la funcion convexa<br>';
-
+    public function getFitnessConvexFunction($alphaValue) {
         $this->alphaHH = 0.0;        
         $pointsSize = sizeof($this->points);
 
-        // Verificación del primer punto
+        // Verificación del primer Punto
         $point = $this->points[0];
         $this->nextPosition = $this->points[1]->getMovVectorValue();
         if($point->getLetter() == 'H') {
             if($this->nextPosition == 0) {
                 // Verificacion hacia atras
                 if($this->isH($point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
-                    //$this->alphaHH += valordealpha;
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia arriba
+                if($this->isH($point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia abajo
+                if($this->isH($point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
                 }
             } elseif($this->nextPosition == 1) {
+                // Verificacion hacia adelante
+                if($this->isH($point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
 
+                // Verificacion hacia arriba
+                if($this->isH($point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia abajo
+                if($this->isH($point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
             } elseif($this->nextPosition == 2) {
+                // Verificacion hacia adelante
+                if($this->isH($point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
 
+                // Verificacion hacia atras
+                if($this->isH($point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia abajo
+                if($this->isH($point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
             } elseif($this->nextPosition == 3) {
+                // Verificacion hacia adelante
+                if($this->isH($point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
 
+                // Verificacion hacia atras
+                if($this->isH($point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia arriba
+                if($this->isH($point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
             }
         }
-        var_dump($this->nextPosition);
+
+        // Verificación del ultimo Punto
+        $point = $this->points[$pointsSize - 1];
+        $this->actualPosition = $point->getMovVectorValue();
+        
+        if($point->getLetter() == 'H') {
+            if($this->actualPosition == 0) {
+                // Verificacion hacia adelante
+                if($this->isH($point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia arriba
+                if($this->isH($point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia abajo
+                if($this->isH($point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+            } elseif($this->actualPosition == 1) {
+                // Verificacion hacia atras
+                if($this->isH($point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia arriba
+                if($this->isH($point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia abajo
+                if($this->isH($point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+            } elseif($this->actualPosition == 2) {
+                // Verificacion hacia adelante
+                if($this->isH($point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia atras
+                if($this->isH($point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia arriba
+                if($this->isH($point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+            } elseif($this->actualPosition == 3) {
+                // Verificacion hacia adelante
+                if($this->isH($point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia atras
+                if($this->isH($point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+
+                // Verificacion hacia abajo
+                if($this->isH($point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                    $this->alphaHH += ($alphaValue - 1);
+                }
+            }
+        }
+
+        // Verificación de los puntos intermedios
+        for($i=1; $i < $pointsSize-1; $i++) {
+            $point = $this->points[$i];
+            if($point->getLetter() == 'H') {
+                $this->actualPosition = $point->getMovVectorValue();
+                $this->nextPosition = $this->points[$i+1]->getMovVectorValue();
+                if($this->actualPosition == 0) {
+                    // Me quede aca xD
+                }
+            }
+        }
+
+        var_dump($this->actualPosition);
         die();
     }
 

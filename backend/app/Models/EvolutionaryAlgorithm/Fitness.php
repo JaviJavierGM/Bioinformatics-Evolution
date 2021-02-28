@@ -32,7 +32,7 @@ class Fitness extends Model
             } else { // Fitnes implentando la funcion Convexa
                 echo '<br/>Entro a la funcion Convexa<br/>';
                 $fitness = new Fitness2DSquare($this->points);
-                return $fitness->getFitnessConvexFunction();
+                return $fitness->getFitnessConvexFunction(0.2);
             }
         } elseif($this->dimension_type == '2D_Triangle') { // Fitness para la dimension 2D Traignular
             echo '<br>Es un espacio 2d  Traingle<br>';
