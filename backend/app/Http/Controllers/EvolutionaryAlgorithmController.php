@@ -306,7 +306,8 @@ class EvolutionaryAlgorithmController extends Controller
         $params = json_decode($json);
 
         if(is_object($params)) {
-            $points = array(2, 3, 4, 5);
+            $points = array(new Point(1, 0, null, 'H', 0), new Point(0, 0, null, 'H', 0), new Point(1, 1, null, 'H', 1));
+            
             $dimension = $params->dimension_type;
             $function = $params->function_type;
 
