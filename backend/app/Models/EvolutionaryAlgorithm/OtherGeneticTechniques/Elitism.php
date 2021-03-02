@@ -40,14 +40,16 @@ class Elitism extends Model
 
         echo " > Porcentaje de conformaciones a salvar con elitismo: ".$this->percentOfElitism."% que son ".$percentConformationsElitism." conformaciones <br>";
 
+        $indexSelectedConformations = array();
+
         // Guardamos el numero de mejores conformaciones obtenidas con el elitismo,
         // en las conformaciones seleccionadas
         for($i=0; $i<$percentConformationsElitism; $i++){
-            array_push($this->selectedConformations, $orderedConformations[$i]);
+            // array_push($this->selectedConformations, $orderedConformations[$i]);
+            array_push($indexSelectedConformations, $orderedConformations[$i]->getPositionIndex());
         }
 
-        // Obtenemos las conformaciones faltantes por seleccionar con ayuda del operador
-        // de seleccion elegido
+        // Obtenemos las conformaciones que faltan por seleccionar con ayuda del operador de seleccion elegido
         switch ($this->selectionOperator) {
             case "roulette":
                 $this->caseRoulette($sizeGeneration, $percentConformationsElitism);
@@ -81,8 +83,9 @@ class Elitism extends Model
         $ruleta = new Roulette($this->generation);
         $ruleta->execute($sizeGeneration - $percentConformationsElitism);
         // Guardamos las conformaciones obtenidas con la ruleta, en las conformaciones seleccionadas
-        foreach($ruleta->getSelectedConformations() as $conformation){
-            array_push($this->selectedConformations, $conformation);
+        foreach($this->generation->getSelectedConformations() as $conformation){
+            // array_push($this->selectedConformations, $conformation);
+            array_push($indexSelectedConformations, $conformation->getPositionIndex());
         }
         unset($ruleta);
     }

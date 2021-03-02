@@ -12,6 +12,7 @@ class Generation extends Model
 
     public $conformations = array();
     public $sizeGeneration;
+    public $indexSelectedConformations = array();
 
     public function __construct($conformations) {
         $this->conformations = $conformations;
@@ -25,8 +26,27 @@ class Generation extends Model
         }        
     }
 
+    public function getCloneGeneration(){
+        // Nos devuelve la misma generacion, pero clonada,
+        // para evitar problemas de referencia
+        $copyConformations = array();
+
+        foreach($this->conformations as $conformation){
+            $temp = new Conformation($conformation->getPoints());
+            $temp->setFitness($conformation->getFitness());
+            array_push($copyConformations, $temp);
+        }
+
+        $cloneGeneration = new Generation($copyConformations);
+        return $cloneGeneration;
+    }
+
     public function getConformations(){
         return $this->conformations;
+    }
+
+    public function setConformations($conformations){
+        $this->conformations = $conformations;
     }
 
     public function getTotalFitness(){
@@ -56,6 +76,24 @@ class Generation extends Model
         }
 
         return $orderedConformations;
+    }
+
+    public function getIndexSelectedConformations(){
+        return $this->indexSelectedConformations;
+    }
+
+    public function setIndexSelectedConformations($arrayIndex){
+        $this->indexSelectedConformations = $arrayIndex;
+    }
+
+    public function getSelectedConformations(){
+        $size = sizeof($this->indexSelectedConformations);
+        $conformationsSelected = array();
+        for($i=0; $i<$size; $i++){
+            array_push($conformationsSelected, $this->conformations[$this->indexSelectedConformations[$i]]);
+        }
+
+        return $conformationsSelected;
     }
 
 }
