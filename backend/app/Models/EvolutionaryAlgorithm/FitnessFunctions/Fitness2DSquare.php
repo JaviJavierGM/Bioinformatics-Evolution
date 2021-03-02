@@ -5,6 +5,7 @@ namespace App\Models\EvolutionaryAlgorithm\FitnessFunctions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\Point;
+use App\Helpers\Helpers;
 
 class Fitness2DSquare extends Model
 {
@@ -590,6 +591,7 @@ class Fitness2DSquare extends Model
 
     private function getFitnessConvexFunctionPolar($alphaValue) {
         echo '<br/>Valor de alpha: '.$alphaValue.'<br/>';
+        echo 'ESTE ES EL RESULT: '.Helpers::isH($this->points, 2,3,3);
         return 2.5/2;
     }
 
