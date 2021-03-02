@@ -52,68 +52,76 @@ class Elitism extends Model
         // Obtenemos las conformaciones que faltan por seleccionar con ayuda del operador de seleccion elegido
         switch ($this->selectionOperator) {
             case "roulette":
-                $this->caseRoulette($sizeGeneration, $percentConformationsElitism);
+                $this->caseRoulette($sizeGeneration, $percentConformationsElitism, $indexSelectedConformations);
                 break;
 
             case "tournament":
-                $this->caseTournament($sizeGeneration, $percentConformationsElitism);
+                $this->caseTournament($sizeGeneration, $percentConformationsElitism, $indexSelectedConformations);
                 break;
 
             case "top_percent":
-                $this->caseTopPercent($sizeGeneration, $percentConformationsElitism);
+                $this->caseTopPercent($sizeGeneration, $percentConformationsElitism, $indexSelectedConformations);
                 break;
 
             case "population_decimation";
-                $this->casePopulationDecimation($sizeGeneration, $percentConformationsElitism);
+                $this->casePopulationDecimation($sizeGeneration, $percentConformationsElitism, $indexSelectedConformations);
                 break;
         }
 
+        // sort($indexSelectedConformations);
+        $this->generation->setIndexSelectedConformations($indexSelectedConformations);
+
         echo " > Fitness de las Conformaciones seleccionadas, luego de aplicar un porcentaje: ".$this->percentOfElitism."% de elitismo y ".$this->selectionOperator." <br>";
         for($i=0; $i<$sizeGeneration; $i++){
-            // var_dump($this->selectedConformations[$i]->getFitness());
-            echo "selectedConformation[".$i."]= ".$this->selectedConformations[$i]->getFitness()."<br>";
+            echo "selectedConformation[".$i."]= ".$this->generation->getSelectedConformations()[$i]->getFitness()."<br>";
         }
 
-        unset($sizeGeneration, $percentConformationsElitism, $orderedConformations);
+        unset($sizeGeneration, $percentConformationsElitism, $orderedConformations, $indexSelectedConformations);
 
     }
 
-    public function caseRoulette($sizeGeneration, $percentConformationsElitism){
+    public function caseRoulette($sizeGeneration, $percentConformationsElitism, &$indexSelectedConformations){
         // Utilizamos la ruleta para generar las conformaciones seleccionadas que hacen falta
         $ruleta = new Roulette($this->generation);
         $ruleta->execute($sizeGeneration - $percentConformationsElitism);
         // Guardamos las conformaciones obtenidas con la ruleta, en las conformaciones seleccionadas
-        foreach($this->generation->getSelectedConformations() as $conformation){
-            // array_push($this->selectedConformations, $conformation);
+        foreach($this->generation->getSelectedConformations() as $conformation){            
             array_push($indexSelectedConformations, $conformation->getPositionIndex());
         }
         unset($ruleta);
     }
 
-    public function caseTournament($sizeGeneration, $percentConformationsElitism){
+    public function caseTournament($sizeGeneration, $percentConformationsElitism, &$indexSelectedConformations){
         // Utilizamos tournament para generar las conformaciones seleccionadas que hacen falta
         $tournament = new Tournament($this->generation, $this->percentOfSelectionOperator);
         $tournament->execute($sizeGeneration - $percentConformationsElitism);
-        // Guardamos las conformaciones obtenidas con el toreno, en las conformaciones seleccionadas
-        foreach($tournament->getSelectedConformations() as $conformation){
-            array_push($this->selectedConformations, $conformation);
+        // Guardamos las conformaciones obtenidas con el torneo, en las conformaciones seleccionadas
+        foreach($this->generation->getSelectedConformations() as $conformation){
+            array_push($indexSelectedConformations, $conformation->getPositionIndex());
         }
         unset($tournament);
     }
 
-    public function caseTopPercent($sizeGeneration, $percentConformationsElitism){
-        // Utilizamos tournament para generar las conformaciones seleccionadas que hacen falta
+    public function caseTopPercent($sizeGeneration, $percentConformationsElitism, &$indexSelectedConformations){
+        // Utilizamos top percent para generar las conformaciones seleccionadas que hacen falta
         $topPercent = new TopPercent($this->generation, $this->percentOfSelectionOperator);
         $topPercent->execute($sizeGeneration - $percentConformationsElitism);
-        // Guardamos las conformaciones obtenidas con el toreno, en las conformaciones seleccionadas
-        foreach($topPercent->getSelectedConformations() as $conformation){
-            array_push($this->selectedConformations, $conformation);
+        // Guardamos las conformaciones obtenidas con el top percent, en las conformaciones seleccionadas
+        foreach($this->generation->getSelectedConformations() as $conformation){
+            array_push($indexSelectedConformations, $conformation->getPositionIndex());
         }
         unset($topPercent);
     }
 
-    public function casePopulationDecimation($sizeGeneration, $percentConformationsElitism){
-        echo "Pendiente!";
+    public function casePopulationDecimation($sizeGeneration, $percentConformationsElitism, &$indexSelectedConformations){
+        // Utilizamos pop decimation para generar las conformaciones seleccionadas que hacen falta
+        $popDecimation = new PopulationDecimation($this->generation);
+        $popDecimation->execute($sizeGeneration - $percentConformationsElitism);
+        // Guardamos las conformaciones obtenidas con el pop decimation, en las conformaciones seleccionadas
+        foreach($this->generation->getSelectedConformations() as $conformation){
+            array_push($indexSelectedConformations, $conformation->getPositionIndex());
+        }
+        unset($topPercent);
     }
 
 }

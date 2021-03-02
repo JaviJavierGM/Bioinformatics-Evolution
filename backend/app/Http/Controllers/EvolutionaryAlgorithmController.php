@@ -270,20 +270,20 @@ class EvolutionaryAlgorithmController extends Controller
 
         $percentOfElitism = 40;
 
-        $selectionOperator = "roulette";
+        // $selectionOperator = "roulette";
         // $selectionOperator = "tournament";
         // $selectionOperator = "top_percent";
-        // $selectionOperator = "population_decimation";
+        $selectionOperator = "population_decimation";
 
         $percentOfSelectionOperator = 40;
 
         $elitism = new Elitism($percentOfElitism, $generation, $selectionOperator, $percentOfSelectionOperator);
         $elitism->execute();
 
-        echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON ELITISMO: <br>";
-        for($i=0; $i<$generation->getSizeGeneration(); $i++){
-            echo "selectedConformation[".$i."] = ".$generation->getSelectedConformations()[$i]->getFitness()." <br>";
-        }
+        // echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON ELITISMO: <br>";
+        // for($i=0; $i<$generation->getSizeGeneration(); $i++){
+        //     echo "selectedConformation[".$i."] = ".$generation->getSelectedConformations()[$i]->getFitness()." <br>";
+        // }
 
     }
 
