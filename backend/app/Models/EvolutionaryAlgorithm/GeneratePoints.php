@@ -32,6 +32,7 @@ abstract class GeneratePoints extends Model
         // Arreglo que tendra las conformaciones iniciales.
         $conformations = array();
 
+        // Generacion de los puntos para cada confromacion de la generacion/poblacion inicial.
         for($i = 0; $i < $conformationsNumbers; $i++) {
             $pointsChildren = array();
             $this->points = array();

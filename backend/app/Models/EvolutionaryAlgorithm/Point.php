@@ -41,6 +41,14 @@ class Point extends Model
         return $this->zValue;
     }
 
+    public function getLetter() {
+        return $this->letter;
+    }
+
+    public function getMovVectorValue() {
+        return $this->movVectorValue;
+    }
+
     public function setMovVectorValue($movVectorValue) {
         $this->movVectorValue = $movVectorValue;
     }

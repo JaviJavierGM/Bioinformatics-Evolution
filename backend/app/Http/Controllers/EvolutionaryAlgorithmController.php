@@ -16,6 +16,8 @@ use App\Models\EvolutionaryAlgorithm\OtherGeneticTechniques\Elitism;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateSquarePoints;
 use App\Models\EvolutionaryAlgorithm\Point;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
+use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
+use App\Models\EvolutionaryAlgorithm\Fitness;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -302,6 +304,59 @@ class EvolutionaryAlgorithmController extends Controller
     $generate->initializeGeneration(6);
     die();
 
+    }
+
+    public function testRandomMutation(Request $request) {
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+
+        if(is_object($params)) {
+            $dimension_type = $params->dimension_type;
+            $mutation_probability = $params->mutation_probability;
+
+            $conformation = new Conformation(-59);
+
+            for($i=0; $i<100; $i++) {
+                $random = new Random($mutation_probability, $dimension_type);
+                $random->execute($conformation);
+            }
+            
+            die();
+        } else {
+            $data = array(
+                'code' => 404,
+                'status' => 'error',
+                'message' => "Data dosn't sending"
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function testFitness(Request $request) {
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+
+        if(is_object($params)) {
+            //$points = array(new Point(1, 0, null, 'H', 0), new Point(0, 0, null, 'H', 0), new Point(1, 1, null, 'H', 1));
+            $points = array(new Point(1, 0, null, 'P', 0), new Point(0, 0, null, 'H', 0), new Point(1, 1, null, 'P', 1));
+            
+            $dimension = $params->dimension_type;
+            $function = $params->function_type;
+
+            $fitness = new Fitness($points, $dimension, $function);
+            $fts = $fitness->getFitness();
+            echo $fts;
+            die();
+        } else {
+            $data = array(
+                'code' => 404,
+                'Status' => 'error',
+                'message' => "Data dosn't sending"
+            );
+        }
+
+        return response()->json($data, $data['code']);
     }
 
 }
