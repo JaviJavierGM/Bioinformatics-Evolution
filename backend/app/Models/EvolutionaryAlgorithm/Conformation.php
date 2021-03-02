@@ -9,12 +9,13 @@ class Conformation extends Model
 {
     use HasFactory;
 
-    public $fitness; // no mover de lugar (por la parte del ordenamiento)
+    private $fitness; // no mover de lugar (por la parte del ordenamiento)
     // A partir de aqui, colocar los demás atributos
-    public $positionIndex;
+    private $positionIndex;
+    private $points;
 
-    public function __construct($fitness){
-        $this->fitness = $fitness;
+    public function __construct($points){
+        $this->points = $points;
     }
 
     public function getFitness(){
@@ -25,12 +26,20 @@ class Conformation extends Model
         $this->fitness = $fitness;
     }
 
+    public function setFitnessTo0(){
+        $this->fitness = 0;
+    }
+
     public function setPositionIndex($position){
         $this->positionIndex = $position;
     }
 
     public function getPositionIndex(){
         return $this->positionIndex;
+    }
+
+    public function getPoints(){
+        return $this->points;
     }
 
 }

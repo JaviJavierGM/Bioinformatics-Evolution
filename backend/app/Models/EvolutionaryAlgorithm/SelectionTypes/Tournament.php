@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\SelectionOperator;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 
+use App\Models\EvolutionaryAlgorithm\Generation;
+use App\Models\EvolutionaryAlgorithm\Conformation;
+
 class Tournament extends SelectionOperator
 {
     use HasFactory;
@@ -19,79 +22,59 @@ class Tournament extends SelectionOperator
     }
 
     public function execute($conformationsToSelectParemeter=null){
-        echo "------------------------------------------------------------ <br>";
-        echo "----> Operador Tournament <br>";
         $sizeGeneration = $this->generation->getSizeGeneration();
         // Numero de conformaciones a seleccionar con el torneo
-        if(!is_null($conformationsToSelectParemeter)){
+        if( !is_null($conformationsToSelectParemeter) ) {
             $conformationsToSelect = $conformationsToSelectParemeter;
-        }else{
+        } else {
             $conformationsToSelect = $sizeGeneration;
         }
 
         $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // son las k conformaciones a elegir con la ruleta
-        echo " > K conformaciones a elegir con la ruleta: ".$k." <br>";
 
-        echo " > Fitness de las conformaciones de la generacion: <br>";
-        for($i=0; $i<$sizeGeneration; $i++){
-            echo "conformation[".$i."]= ".$this->generation->getConformations()[$i]->getFitness()." <br>";
-        }
+        $copyOfGeneration = $this->generation->getCloneGeneration();
+        
+        // Ejecutamos el Tournament las veces necesarias para conseguir las conformaciones
+        // necesarias para el cruce
+        $indexSelectedConformations = array();
+         while( sizeof($indexSelectedConformations) < $conformationsToSelect ) {
 
-        // Ejecutamos el Tournament las veces necesarias para conseguir los elementos
-        // necesarios para el cruce
-        $i=0;
-        // for($i=0; $i<$conformationsToSelect; $i++){
-        while(sizeof($this->indexSelectedConformations) < $conformationsToSelect){
-            echo "<br> --- Ejecucion del torneo numero: ".$i." <br>";
-            $roulette = new Roulette($this->generation);
+            $roulette = new Roulette($copyOfGeneration);
             $roulette->execute($k);
-            $sublist_S= $roulette->getSelectedConformations();
-            $sublistINDEX_S= $roulette->getIndexSelectedConformations();
-
-            echo " fitness de la sublista S: <br>";
-            for($j=0; $j<$k; $j++){
-                echo "sublist_S[".$j."]= ".$sublist_S[$j]->getFitness()." <br>";
-                echo "conformations[".$j."] positionIndex = ".$sublist_S[$j]->getPositionIndex()." <br>";
-            }
-
+            $sublist_S = $copyOfGeneration->getSelectedConformations();
             
-
-            var_dump($sublistINDEX_S);
-            $helpers = new \Helpers();
             // Buscamos la mejor conformacion de las seleccionadas con la ruleta
             // Inicializamos bestconformation con la primera posicion de las seleccionadas con la ruleta
             $bestConformation = $sublist_S[0];
     
             // Buscamos en todas las conformaciones seleccionadas si hay otra con un mejor fitness
-            foreach($sublist_S as $conformation){
-                if(($bestConformation->getFitness()*-1) < ($conformation->getFitness()*-1)){
+            foreach( $sublist_S as $conformation ) {
+                if( ($bestConformation->getFitness()*-1) < ($conformation->getFitness()*-1) ) {
                     // Si la hay, reemplazamos bestConformation por la conformacion encontrada
                     $bestConformation = $conformation;
                 }
             }
 
-            echo " > La mejor conformacion encontrada de la sublista S es con fitness: ".$bestConformation->getFitness()."<br>";
-
-            // Guardamos la mejor conformacion en las conformaciones seleccionadas
-            // array_push($this->selectedConformations, $bestConformation);
-            $returnIndexOf = $helpers->indexOf($this->indexSelectedConformations, $bestConformation->getPositionIndex());
-            $returnLastIndexOf = $helpers->lastIndexOf($this->indexSelectedConformations, $bestConformation->getPositionIndex());
+            $helpers = new \Helpers();            
+            $returnIndexOf = $helpers->indexOf($indexSelectedConformations, $bestConformation->getPositionIndex());
+            $returnLastIndexOf = $helpers->lastIndexOf($indexSelectedConformations, $bestConformation->getPositionIndex());
 
             if( $returnIndexOf == $returnLastIndexOf ) {
-                echo "<br>--------------------> si entro idexOf == lastIndeOf <br>";
-                array_push($this->indexSelectedConformations, $bestConformation->getPositionIndex());
-                array_push($this->selectedConformations, $bestConformation);
-                // $flag=false;
-                // break;
-                $i++;
+                // Guardamos la mejor conformacion en las conformaciones seleccionadas
+                array_push($indexSelectedConformations, $bestConformation->getPositionIndex());
+            } else {
+                $copyOfGeneration->getConformations()[$bestConformation->getPositionIndex()]->setFitnessTo0();
             }
+
+            // Borramos todas las variables creadas
+            unset($roulette, $sublist_S, $bestConformation, $helpers, $returnIndexOf, $returnLastIndexOf);
         }
 
-        // Borramos todas las variables creadas
-        unset($sizeGeneration, $k, $roulette, $bestConformation, $sublist_S);
+        sort($indexSelectedConformations);
+        $this->generation->setIndexSelectedConformations($indexSelectedConformations);
 
-        echo "<br>----> FIN Operador Tournament <br>";
-        echo "------------------------------------------------------------ <br>";
+        // Borramos todas las variables creadas
+        unset($sizeGeneration, $k, $roulette, $bestConformation, $sublist_S, $copyOfGeneration, $indexSelectedConformations);        
     }
 
 }
