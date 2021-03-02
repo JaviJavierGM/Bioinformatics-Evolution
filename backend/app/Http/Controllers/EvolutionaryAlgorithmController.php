@@ -18,6 +18,7 @@ use App\Models\EvolutionaryAlgorithm\Point;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Models\EvolutionaryAlgorithm\Fitness;
+use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\Simplex;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -285,6 +286,32 @@ class EvolutionaryAlgorithmController extends Controller
         //     echo "selectedConformation[".$i."] = ".$generation->getSelectedConformations()[$i]->getFitness()." <br>";
         // }
 
+    }
+
+    // -------- Probar couple formation SIMPLEX
+    public function testCoupleFormationSimplex(){
+
+        $conformation1 = new Conformation(null);
+        $conformation1->setFitness(-7);
+        $conformation2 = new Conformation(null);
+        $conformation2->setFitness(-5);
+        $conformation3 = new Conformation(null);
+        $conformation3->setFitness(-4);
+        $conformation4 = new Conformation(null);
+        $conformation4->setFitness(-13);
+        $conformation5 = new Conformation(null);
+        $conformation5->setFitness(-99);
+        $conformation6 = new Conformation(null);
+        $conformation6->setFitness(-9);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+        $generation = new Generation($arrayConformations);
+        
+        $roulette = new Roulette($generation);
+        $roulette->execute();
+
+        $simplex = new Simplex($generation);
+        $simplex->coupleFormation();
     }
 
     // -------- Generate Square Points

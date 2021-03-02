@@ -10,9 +10,12 @@ class Generation extends Model
 {
     use HasFactory;
 
-    public $conformations = array();
-    public $sizeGeneration;
-    public $indexSelectedConformations = array();
+    private $conformations = array();
+    private $sizeGeneration;
+    private $indexSelectedConformations = array();
+    private $parentsList = array();
+    // private $radioGiroP; // --> PENDIENTE QUE ES ESTE ATRIBUTO
+    // private $DmaxP; // --> PENDIENTE QUE ES ESTE ATRIBUTO
 
     public function __construct($conformations) {
         $this->conformations = $conformations;
@@ -26,7 +29,7 @@ class Generation extends Model
         }        
     }
 
-    public function getCloneGeneration(){
+    public function getCloneGeneration() {
         // Nos devuelve la misma generacion, pero clonada,
         // para evitar problemas de referencia
         $copyConformations = array();
@@ -41,11 +44,11 @@ class Generation extends Model
         return $cloneGeneration;
     }
 
-    public function getConformations(){
+    public function getConformations() {
         return $this->conformations;
     }
 
-    public function setConformations($conformations){
+    public function setConformations($conformations) {
         $this->conformations = $conformations;
     }
 
@@ -53,17 +56,17 @@ class Generation extends Model
         // Nos regresa el fitness total de toda la generacion,
         // pero con signo NEGATIVO
         $totalFitness=0;
-        foreach($this->conformations as $conformation){
+        foreach($this->conformations as $conformation) {
             $totalFitness+= $conformation->getFitness();
         }
         return $totalFitness;
     }
 
-    public function getSizeGeneration(){
+    public function getSizeGeneration() {
         return $this->sizeGeneration;
     }
 
-    public function getOrderedConformations($order){
+    public function getOrderedConformations($order) {
         // Nos regresa una copia de las conformaciones ordenadas
 
         $orderedConformations  = $this->conformations;
@@ -78,15 +81,15 @@ class Generation extends Model
         return $orderedConformations;
     }
 
-    public function getIndexSelectedConformations(){
+    public function getIndexSelectedConformations() {
         return $this->indexSelectedConformations;
     }
 
-    public function setIndexSelectedConformations($arrayIndex){
+    public function setIndexSelectedConformations($arrayIndex) {
         $this->indexSelectedConformations = $arrayIndex;
     }
 
-    public function getSelectedConformations(){
+    public function getSelectedConformations() {
         $size = sizeof($this->indexSelectedConformations);
         $conformationsSelected = array();
         for($i=0; $i<$size; $i++){
@@ -94,6 +97,14 @@ class Generation extends Model
         }
 
         return $conformationsSelected;
+    }
+
+    public function getParentsList() {
+        return $this->parentsList;
+    }
+
+    public function setParentsList($parentsList) {
+        $this->parentsList = $parentsList;
     }
 
 }

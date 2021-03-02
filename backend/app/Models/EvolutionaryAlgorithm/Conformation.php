@@ -13,6 +13,7 @@ class Conformation extends Model
     // A partir de aqui, colocar los demás atributos
     private $positionIndex;
     private $points;
+    private $parents;
 
     public function __construct($points){
         $this->points = $points;
@@ -40,6 +41,14 @@ class Conformation extends Model
 
     public function getPoints(){
         return $this->points;
+    }
+
+    public function getParents(){
+        return $this->parents;
+    }
+
+    public function setParents($parents){
+        $this->parents = $parents;
     }
 
 }

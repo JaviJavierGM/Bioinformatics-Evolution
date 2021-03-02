@@ -76,3 +76,4 @@ Route::post('/api/EA/GenarateSquarePoints', [EvolutionaryAlgorithmController::cl
 Route::post('/api/EA/gen-point', [EvolutionaryAlgorithmController::class, 'testGenPoint']);
 Route::post('/api/EA/randomMut', [EvolutionaryAlgorithmController::class, 'testRandomMutation']);
 Route::post('/api/EA/fitness', [EvolutionaryAlgorithmController::class, 'testFitness']);
+Route::post('/api/EA/coupleformation-simplex', [EvolutionaryAlgorithmController::class, 'testCoupleFormationSimplex']);
