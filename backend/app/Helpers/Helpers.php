@@ -51,14 +51,24 @@ class Helpers {
         $isHidro = false;
 
         foreach ($points as $point) {
-            echo '<br/> MovVectorValue: '.$point->getMovVectorValue().'<br/>';
             if((Helpers::compare($point->getValueX(), $xValue) == 0) && (Helpers::compare($point->getValueY(), $yValue) == 0) && (Helpers::compare($point->getValueZ(), $zValue) == 0) && ($point->getLetter() == 'H')) {
                 $isHidro = true;
-                echo 'Entro al if xD';
                 break;
             }
         }
         return $isHidro;
+    }
+
+    public static function isP($points, $xValue, $yValue, $zValue) {
+        $isPolar = false;
+
+        foreach ($points as $point) {
+            if((Helpers::compare($point->getValueX(), $xValue) == 0) && (Helpers::compare($point->getValueY(), $yValue) == 0) && (Helpers::compare($point->getValueZ(), $zValue) == 0) && ($point->getLetter() == 'P')) {
+                $isPolar = true;
+                break;
+            }
+        }
+        return $isPolar;
     }
 
     public static function compare($firstValue, $secondValue) {
