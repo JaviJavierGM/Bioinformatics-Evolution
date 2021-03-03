@@ -11,10 +11,6 @@ abstract class CoupleFormation extends Model
 
     private $generation;
 
-    public function __construct($generation) {
-        $this->generation = $generation;
-    }
-
     abstract public function coupleFormation();
 
     public function make_seed() {

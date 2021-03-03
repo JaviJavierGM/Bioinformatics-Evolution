@@ -9,7 +9,7 @@ abstract class SelectionOperator extends Model
 {
     use HasFactory;
 
-    public $generation;
+    private $generation;
     
     abstract public function execute();
 

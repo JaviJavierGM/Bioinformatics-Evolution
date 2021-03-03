@@ -12,6 +12,10 @@ class Parents extends Model
     private $parent1;
     private $parent2;
 
+    public function __construct(){
+        
+    }
+
     public function getParent1() {
         return $this->parent1;
     }
