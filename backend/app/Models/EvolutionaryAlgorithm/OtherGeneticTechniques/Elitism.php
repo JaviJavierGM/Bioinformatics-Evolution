@@ -68,7 +68,7 @@ class Elitism extends Model
                 break;
         }
 
-        // sort($indexSelectedConformations);
+        sort($indexSelectedConformations);
         $this->generation->setIndexSelectedConformations($indexSelectedConformations);
 
         echo " > Fitness de las Conformaciones seleccionadas, luego de aplicar un porcentaje: ".$this->percentOfElitism."% de elitismo y ".$this->selectionOperator." <br>";

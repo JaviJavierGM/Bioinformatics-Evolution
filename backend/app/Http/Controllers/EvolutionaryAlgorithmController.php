@@ -18,7 +18,7 @@ use App\Models\EvolutionaryAlgorithm\Point;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Models\EvolutionaryAlgorithm\Fitness;
-use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\Simplex;
+use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\SimplexCoupleFormation;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -310,8 +310,47 @@ class EvolutionaryAlgorithmController extends Controller
         $roulette = new Roulette($generation);
         $roulette->execute();
 
-        $simplex = new Simplex($generation);
+        echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON LA RULETA: <br>";
+        for($i=0; $i<$generation->getSizeGeneration(); $i++){
+            echo "selectedConformation[".$i."] = ".$generation->getSelectedConformations()[$i]->getFitness()." indexposition: ".$generation->getSelectedConformations()[$i]->getPositionIndex()." <br>";
+        }
+
+        // $conformation1 = new Conformation(null);
+        // $conformation1->setFitness(-7);
+        // $conformation2 = new Conformation(null);
+        // $conformation2->setFitness(-5);
+        // $conformation3 = new Conformation(null);
+        // $conformation3->setFitness(-4);
+        // $conformation4 = new Conformation(null);
+        // $conformation4->setFitness(-10);
+        // $conformation5 = new Conformation(null);
+        // $conformation5->setFitness(-1);
+        // $conformation6 = new Conformation(null);
+        // $conformation6->setFitness(-11);
+
+        // $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+
+        // $generation = new Generation($arrayConformations);
+
+        // $popDecimation = new PopulationDecimation($generation);
+        // $popDecimation->execute();
+
+        // echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON POP DECIMATION: <br>";
+        // for($i=0; $i<$generation->getSizeGeneration(); $i++){
+        //     echo "selectedConformation[".$i."] = ".$generation->getSelectedConformations()[$i]->getFitness()." indexposition: ".$generation->getSelectedConformations()[$i]->getPositionIndex()." <br>";
+        // }
+
+        $simplex = new SimplexCoupleFormation($generation);
         $simplex->coupleFormation();
+
+        $i=0;
+        foreach($generation->getParentsList() as $parent){
+            echo "<br> ----- Somos los padres ".$i." -----<br>";
+            echo "padre 1 (indice): ".$parent->getParent1()."<br>";
+            echo "padre 2 (indice): ".$parent->getParent2()."<br>";
+            $i++;
+        }
+
     }
 
     // -------- Generate Square Points
