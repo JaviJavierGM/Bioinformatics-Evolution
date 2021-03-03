@@ -53,10 +53,13 @@ class SimplexCoupleFormation extends CoupleFormation
                     unset($part2[$posRandom]);
                     $part2 = array_values($part2);
                 }
-                
+                                
             }            
             
             $this->generation->setParentsList($parents);
+
+            // Borrar variables
+            unset($indexSelected, $parents, $part2, $halfSize);
 
         } catch (Exception $e) {
             echo "<br> Exception -> message: ".$e->getMessage()."<br>";
