@@ -366,14 +366,22 @@ class EvolutionaryAlgorithmController extends Controller
 
         if(is_object($params)) {
             //$points = array(new Point(1, 0, null, 'H', 0), new Point(0, 0, null, 'H', 0), new Point(1, 1, null, 'H', 1));
-            $points = array(new Point(1, 0, null, 'P', 0), new Point(0, 0, null, 'H', 0), new Point(1, 1, null, 'P', 1));
+            $points = array(
+                new Point(1, 0, null, 'P', 0),
+                new Point(1, 2, null, 'P', 0),
+                new Point(0, 0, null, 'H', 0), 
+                new Point(1, 0, null, 'H', 2),
+                new Point(1, 0, null, 'H', 2),
+                new Point(1, 1, null, 'P', 1)
+            );
+            //$points = array(new Point(1, 0, null, 'P', 0), new Point(0, 0, null, 'P', 0), new Point(1, 0, null, 'P', 2));
             
             $dimension = $params->dimension_type;
             $function = $params->function_type;
 
             $fitness = new Fitness($points, $dimension, $function);
             $fts = $fitness->getFitness();
-            echo $fts;
+            echo '<br><br>Valor de fitness: '.$fts.'<br><br>';
             die();
         } else {
             $data = array(
