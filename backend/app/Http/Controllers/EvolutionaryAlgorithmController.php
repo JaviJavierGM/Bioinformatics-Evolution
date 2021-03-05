@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\Helpers;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\OnePoint;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\TwoPoints;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\Uniform;
@@ -404,8 +405,8 @@ class EvolutionaryAlgorithmController extends Controller
         $params = json_decode($json);
 
         if(is_object($params)) {
-            /* Puntos Para el 2D Cuadrado.
-            $points = array(
+            //Puntos Para el 2D Cuadrado.
+            /*$points = array(
                 new Point(1, 0, null, 'P', 0),
                 new Point(1, 2, null, 'P', 0),
                 new Point(0, 0, null, 'H', 0), 
@@ -414,6 +415,7 @@ class EvolutionaryAlgorithmController extends Controller
                 new Point(1, 1, null, 'P', 1)
             );*/
 
+            //Puntos para el 2D Triangular.
             $points = array(
                 new Point(1, 0, null, 'H', 0),
                 new Point(0, 0, null, 'H', 0),
