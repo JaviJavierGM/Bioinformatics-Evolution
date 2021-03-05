@@ -23,7 +23,7 @@ abstract class GeneratePoints extends Model
         $this->hpSecuence = $hpString;
         $this->typeSpace = $typeSpace;
         $this->correlatedMatrix = $correlatedMatrix;
-        $this->hpLength = strlen($this->hpSecuence);
+        $this->hpLength = strlen($this->hpSecuence);        
     }
 
     public function initializeGeneration($conformationsNumbers) {
@@ -59,13 +59,20 @@ abstract class GeneratePoints extends Model
         echo 'Este metodo genera los puntos';
 
         if($this->typeSpace == 'correlated') {
-            array_push($this->points, new Point(0, 0, 0, '', 0));
+            // Obtener el x & y en caso de ser correlated
+            // points.add(new Point(main.getBoard().getOrigen().x, main.getBoard().getOrigen().y, 0, 0, HPsec.charAt(0)));
+            array_push($this->points, new Point(1, 2, 0, $this->hpSecuence[0], 0));
         } else {
-            array_push($this->points, new Point(0, 0, 0, '', 0));
+            array_push($this->points, new Point(0, 0, 0, $this->hpSecuence[0], 0));
         }
 
-        for ($i=0; $i < $this->hpLength; $i++) {
-            $i = $this->doPoints($pointsChildren, $i);
+        // $this->points[0]->setValueX(2);
+        // $this->points[0]->setValueY(1);
+
+        for ($i=1; $i < $this->hpLength; $i++) {
+            echo "<br><br> ---- Estoy generando el punto ".$i." ---- <br><br>";
+            $i = $this->doPoints($pointsChildren, $i);            
+            var_dump($i);
         }
     }
     

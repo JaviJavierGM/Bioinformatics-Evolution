@@ -354,13 +354,35 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     // -------- Generate Square Points
-    public function testGenerateSquarePoints(){
-        $generateSquarePoints = new GenerateSquarePoints();
-        $previousPoint = new Point(10, 5, 0, 0, "h");
+    public function testGenerateSquarePoints(){        
+        // parametros de constructor point:
+        // $xValue, $yValue, $zValue, $letter, $movVectorValue
+        
+        // $hpString, $typeSpace, $correlatedMatrix
+        $hpString = "HPHP";
+        $typeSpace = "correlated";
+        $correlatedMatrix = array ();
 
-        // $generateSquarePoints->generateSquarePoint(3, "LETRAXD", $previousPoint);
+        for($i=0; $i<4; $i++){
+            array_push($correlatedMatrix, array(0,0,1));
+            print_r($correlatedMatrix[$i]);
+            echo "<br>";
+        }
 
-        $generateSquarePoints->doPoints(null, 1);
+        echo "<br>";
+
+        // $correlatedMatrix[2][0]=1;
+
+        for($i=0; $i<4; $i++){
+            for($j=0; $j<3; $j++){
+                echo $correlatedMatrix[$i][$j]." ";
+            }
+            echo "<br>";
+        }
+
+        $generateSquarePoints = new GenerateSquarePoints($hpString, $typeSpace, $correlatedMatrix);
+        $generateSquarePoints->initializeGeneration(2);
+
     }
 
     public function testGenPoint() {

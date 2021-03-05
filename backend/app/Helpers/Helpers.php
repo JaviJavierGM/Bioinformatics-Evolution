@@ -27,6 +27,26 @@ class Helpers {
         return $position;
     }
 
+    public static function indexOfString($haystack, $needle) {
+        // Encuentra la posición numérica de la primera 
+        // ocurrencia del needle (aguja) en el array haystack (pajar). 
+        $flag = true;
+        $sizeHaystack = strlen($haystack);
+        $i = 0;
+        $position = -1;
+
+        while($flag and $i < $sizeHaystack) {
+            if($haystack[$i] == $needle) {
+                $position = $i;
+                $flag = false;
+            }else {
+                $i++;
+            }
+        }
+
+        return $position;
+    }
+
     public function lastIndexOf($haystack, $needle) {
         // Encuentra la posición numérica de la ultima 
         // ocurrencia del needle (aguja) en el array haystack (pajar). 
@@ -79,6 +99,26 @@ class Helpers {
         } else {
             return 1;
         }
+    }
+
+    public static function isAvailable($points, $pointsC, $x, $y, $z) {
+        foreach($points as $point) {
+            $compareX = Helpers::compare($point->getValueX(), $x);
+            $compareY = Helpers::compare($point->getValueY(), $y);
+            $compareZ = Helpers::compare($point->getValueZ(), $z);
+            if($compareX == 0 && $compareY == 0 && $compareZ == 0){
+                return false;
+            }
+        }
+        foreach($pointsC as $point) {
+            $compareX = Helpers::compare($point->getValueX(), $x);
+            $compareY = Helpers::compare($point->getValueY(), $y);
+            $compareZ = Helpers::compare($point->getValueZ(), $z);
+            if($compareX == 0 && $compareY == 0 && $compareZ ==0){
+                return false;
+            }
+        } 
+        return true;
     }
 
 }
