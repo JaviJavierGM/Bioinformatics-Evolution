@@ -50,5 +50,20 @@ class Conformation extends Model
     public function setParents($parents){
         $this->parents = $parents;
     }
+    
+    public function getPointsJson() {
+        $points = array();
+        for ($i=0; $i < sizeof($this->points) ; $i++) { 
+            $point = array(
+                'xValue' => $this->points[$i]->getValueX(),
+                'yValue' => $this->points[$i]->getValuey(),
+                'zValue' => $this->points[$i]->getValueZ(),
+                'letter' => $this->points[$i]->getLetter(),
+                'movVectorValue' => $this->points[$i]->getMovVectorValue()
+            );
+            array_push($points, $point);
+        }
+        return $points;
+    }
 
 }
