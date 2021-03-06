@@ -37,7 +37,7 @@ abstract class GeneratePoints extends Model
             $pointsChildren = array();
             $this->points = array();
 
-            $this->generatePoints($pointsChildren);
+            $this->generatePoints($pointsChildren);        
 
             // $fitness = new Fitness(points)->getFitness();
             $fitness = 2;
@@ -48,6 +48,9 @@ abstract class GeneratePoints extends Model
 
             //array_push($conformations, new Conformation($this->points)); // Agregar la confromacion al array de conformaciones
         }
+
+        echo "<br><br> --------------------------------------------------------- YA ACABO ALV! <br><br>";
+        var_dump($this->points);
 
         $generation = new Generation($conformations);
         // calcular Dmaxp
@@ -61,8 +64,8 @@ abstract class GeneratePoints extends Model
         if($this->typeSpace == 'correlated') {
             // Obtener el x & y en caso de ser correlated
             // points.add(new Point(main.getBoard().getOrigen().x, main.getBoard().getOrigen().y, 0, 0, HPsec.charAt(0)));
-            array_push($this->points, new Point(1, 2, 0, $this->hpSecuence[0], 0));
-        } else {
+            array_push($this->points, new Point(0, 2, 0, $this->hpSecuence[0], 0));
+        } else {            
             array_push($this->points, new Point(0, 0, 0, $this->hpSecuence[0], 0));
         }
 
@@ -71,9 +74,11 @@ abstract class GeneratePoints extends Model
 
         for ($i=1; $i < $this->hpLength; $i++) {
             echo "<br><br> ---- Estoy generando el punto ".$i." ---- <br><br>";
+            // var_dump($i);
             $i = $this->doPoints($pointsChildren, $i);            
-            var_dump($i);
+            // var_dump($i);
         }
+        
     }
     
     abstract public function doPoints($points, $i);

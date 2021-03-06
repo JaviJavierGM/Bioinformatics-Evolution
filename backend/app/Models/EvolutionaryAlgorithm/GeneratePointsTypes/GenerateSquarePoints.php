@@ -58,12 +58,12 @@ class GenerateSquarePoints extends GeneratePoints
         echo 'Metodo doPoints Square <br>';
         
         $isOk = true;
-        $stringBuilder = ""; // StringBuilder sb = new StringBuilder();
+        $stringBuilder = "";
         $widthMatrix;
         $heightMatrix;
-        $pointsMatrix; //puntos
+        $pointsMatrix;
 
-        if ($this->typeSpace == "correlated") {
+        if ($this->typeSpace == "correlated") { // 2D Cuadrada sobre un espacio correlacionado
             echo "Space CORRELATED! <br>";
 
             $widthMatrix = sizeof($this->correlatedMatrix);
@@ -73,8 +73,7 @@ class GenerateSquarePoints extends GeneratePoints
             echo "heightMatrix = ".$heightMatrix."<br>";
 
             do {
-                switch (rand( 0, 3)) {
-                // switch (3) {  
+                switch (rand( 0, 3)) { 
                     
                     case 0: // Derecha
                         echo "doPoints - Case 0 - Derecha <br>";
@@ -208,29 +207,48 @@ class GenerateSquarePoints extends GeneratePoints
 
                 }
 
-                var_dump($stringBuilder);
+                // var_dump($stringBuilder);
+                // var_dump($isOk);
+                // var_dump(!$isOk);
 
                 $indexOfA = Helpers::indexOfString($stringBuilder, "a");
                 $indexOfB = Helpers::indexOfString($stringBuilder, "b");
                 $indexOfC = Helpers::indexOfString($stringBuilder, "c");
                 $indexOfD = Helpers::indexOfString($stringBuilder, "d");
 
+                // var_dump($this->points);
+
                 if($indexOfA != -1 && $indexOfB != -1 && $indexOfC != -1 && $indexOfD != -1) {
-                    switch($this->points[$i-1]->getMovVectorValue()) {
+
+                    // echo "<br><br> ---------IF INDEX OF i=".$i." --------<br><br>";
+
+                    switch($this->points[--$i]->getMovVectorValue()) {                        
                         case 0:
-                            $this->points[$i-1]->setWay0(false);
+                            var_dump($i);
+                            // die();
+                            $this->points[$i-1]->setWay0(false);                            
+                            // $this->points[$i]->setWay0(false);
                         break;
                         
                         case 1:
-                            $this->points[$i-1]->setWay1(false);
+                            var_dump($i);
+                            // die();
+                            $this->points[$i-1]->setWay1(false);                            
+                            // $this->points[$i]->setWay1(false);
                         break;
                         
                         case 2:
+                            var_dump($i);
+                            // die();
                             $this->points[$i-1]->setWay2(false);
+                            // $this->points[$i]->setWay2(false);
                         break;
                         
                         case 3:
-                            $this->points[$i-1]->setWay3(false);
+                            var_dump($i);
+                            // die();
+                            $this->points[$i-1]->setWay3(false);                            
+                            // $this->points[$i]->setWay3(false);
                         break;
                         
                         default:
@@ -238,9 +256,9 @@ class GenerateSquarePoints extends GeneratePoints
                         break;
                     }
 
-                    echo "---------------------------- se muere aca";
-                    var_dump($i);
-                    var_dump($this->points);
+                    // echo "---------------------------- se muere aca";
+                    // var_dump($i);
+                    // var_dump($this->points);
 
                     array_push($childPoints_C, $this->points[$i]);                    
                     unset($this->points[$i]);
@@ -251,7 +269,130 @@ class GenerateSquarePoints extends GeneratePoints
 
                 //echo "fin xd"; die();
 
-            } while (!$isOk);
+            } while ( !$isOk );
+            
+            return $i;
+
+        } else { // 2D Cuadrada sobre un espacio homogeneo
+            echo "homogeneous space! <br>";
+            
+            do {
+                
+                switch (rand( 0, 3)) {
+
+                    case 0:
+                        echo "doPoints - Case 0 <br>";
+                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX() + 1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
+
+                        if($this->points[$i-1]->isWay0() && $isAvailable) {
+                            array_push($this->points, $this->generateSquarePoint(0, $this->hpSecuence[$i], $this->points[$i-1]));
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "a";
+
+                        }
+
+                    break;
+
+                    case 1:
+                        echo "doPoints - Case 1 <br>";
+                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX() - 1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
+
+                        if($this->points[$i-1]->isWay1() && $isAvailable){
+                            array_push($this->points, $this->generateSquarePoint(1, $this->hpSecuence[$i], $this->points[$i-1]));
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "b";
+
+                        }
+
+                    break;
+
+                    case 2:
+                        echo "doPoints - Case 2 <br>";
+                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() + 1, $this->points[$i-1]->getValueZ());
+
+                        if($this->points[$i-1]->isWay2() && $isAvailable) {
+                            array_push($this->points, $this->generateSquarePoint(2, $this->hpSecuence[$i], $this->points[$i-1]));
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "c";
+
+                        }
+
+                    break;
+
+                    case 3:
+                        echo "doPoints - Case 3 <br>";
+                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() - 1, $this->points[$i-1]->getValueZ());
+
+                        if($this->points[$i-1]->isWay3() && $isAvailable) {
+                            array_push($this->points, $this->generateSquarePoint(3, $this->hpSecuence[$i], $this->points[$i-1]));
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "d";
+
+                        }
+
+                    break;
+
+                    default:
+                        echo "Default case";
+                    break;
+
+                }
+                
+                // Para indicar que en este paso hay un callejon sin salida
+                $indexOfA = Helpers::indexOfString($stringBuilder, "a");
+                $indexOfB = Helpers::indexOfString($stringBuilder, "b");
+                $indexOfC = Helpers::indexOfString($stringBuilder, "c");
+                $indexOfD = Helpers::indexOfString($stringBuilder, "d");
+
+                if($indexOfA != -1 && $indexOfB != -1 && $indexOfC != -1 && $indexOfD != -1) {
+                    echo "<br><br> ---------IF INDEX OF i=".$i." --------<br><br>";
+                    switch($this->points[--$i]->getMovVectorValue()) {
+
+                        case 0:
+                            $this->points[$i-1]->setWay0(false);
+                        break;
+
+                        case 1:
+                            $this->points[$i-1]->setWay1(false);
+                        break;
+
+                        case 2:
+                            $this->points[$i-1]->setWay2(false);
+                        break;
+
+                        case 3:
+                            $this->points[$i-1]->setWay3(false);
+                        break;
+
+                        default:
+                            echo "Default case";
+                        break;
+
+                    }
+
+                    array_push($childPoints_C, $this->points[$i]);                    
+                    unset($this->points[$i]);
+                    $this->points = array_values($this->points);
+                    $stringBuilder = "";
+
+                }
+
+            } while ( !$isOk);
+
+            echo "salio del dowhile <br>";
+            var_dump($stringBuilder);
             
             return $i;
 

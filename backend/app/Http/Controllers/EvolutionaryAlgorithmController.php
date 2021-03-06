@@ -362,6 +362,7 @@ class EvolutionaryAlgorithmController extends Controller
         // $hpString, $typeSpace, $correlatedMatrix
         $hpString = "HPHP";
         $typeSpace = "correlated";
+        $typeSpace = "homogeneous";
         $correlatedMatrix = array ();
 
         for($i=0; $i<4; $i++){
@@ -382,7 +383,7 @@ class EvolutionaryAlgorithmController extends Controller
         }
 
         $generateSquarePoints = new GenerateSquarePoints($hpString, $typeSpace, $correlatedMatrix);
-        $generateSquarePoints->initializeGeneration(2);
+        $generateSquarePoints->initializeGeneration(1);
 
     }
 
