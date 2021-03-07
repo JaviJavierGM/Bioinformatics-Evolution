@@ -53,16 +53,19 @@ class Conformation extends Model
     
     public function getPointsJson() {
         $points = array();
-        for ($i=0; $i < sizeof($this->points) ; $i++) { 
-            $point = array(
-                'xValue' => $this->points[$i]->getValueX(),
-                'yValue' => $this->points[$i]->getValuey(),
-                'zValue' => $this->points[$i]->getValueZ(),
-                'letter' => $this->points[$i]->getLetter(),
-                'movVectorValue' => $this->points[$i]->getMovVectorValue()
+        echo 'ENTRO';
+        foreach($this->points as $point) {
+            $point_json = array(
+                'xValue' => $point->getValueX(),
+                'yValue' => $point->getValueY(),
+                'zValue' => $point->getValueZ(),
+                'letter' => $point->getLetter(),
+                'movVectorValue' => $point->getMovVectorValue()
             );
-            array_push($points, $point);
+            
+            array_push($points, $point_json);
         }
+        
         return $points;
     }
 
