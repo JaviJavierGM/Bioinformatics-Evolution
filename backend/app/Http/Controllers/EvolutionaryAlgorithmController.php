@@ -439,7 +439,7 @@ class EvolutionaryAlgorithmController extends Controller
             );*/
 
             //Puntos para el 2D Triangular.
-            $points = array(
+            /*$points = array(
                 new Point(1.5, 0, null, 'P', 1),                
                 new Point(1, 0, null, 'H', 0),
                 new Point(0, 0, null, 'H', 0),
@@ -447,6 +447,17 @@ class EvolutionaryAlgorithmController extends Controller
                 new Point(0.5, 0, null, 'H', 0),
                 new Point(0, 1, null, 'H', 2),
                 new Point(1, 1, null, 'P', 0)
+            );*/
+
+            //Puntos para el 3D Cubico.
+            $points = array(
+                new Point(1.5, 0, null, 'H', 1),                
+                new Point(1, 0, null, 'H', 0),
+                new Point(0, 0, null, 'H', 0),
+                new Point(2.5, 0, null, 'H', 4),
+                new Point(0.5, 0, null, 'H', 0),
+                new Point(0, 1, null, 'H', 2),
+                new Point(1, 1, null, 'H', 0)
             );
             
             $dimension = $params->dimension_type;
