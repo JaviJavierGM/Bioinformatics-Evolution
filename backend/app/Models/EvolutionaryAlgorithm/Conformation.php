@@ -53,7 +53,7 @@ class Conformation extends Model
     
     public function getPointsJson() {
         $points = array();
-        echo 'ENTRO';
+        
         foreach($this->points as $point) {
             $point_json = array(
                 'xValue' => $point->getValueX(),

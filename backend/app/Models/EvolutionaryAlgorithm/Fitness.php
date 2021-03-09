@@ -27,7 +27,6 @@ class Fitness extends Model
     public function getFitness() {
         if($this->dimension_type == '2D_Square') {
             // Fitness para la dimension 2D Cuadrada
-
             if($this->function_type == 'dill_model') {
                 // Fitnes implentando la funcion del modelo de DILL
                 $fitness = new Fitness2DSquare($this->points);
@@ -38,8 +37,7 @@ class Fitness extends Model
                 return $fitness->getFitnessConvexFunction($this->alphaValue);
             }
         } elseif($this->dimension_type == '2D_Triangle') {
-            // Fitness para la dimension 2D Traignular
-            
+            // Fitness para la dimension 2D Traignular            
             if($this->function_type == 'dill_model') {
                 // Fitnes implentando la funcion del modelo de DILL
                 $fitness = new Fitness2DTriangle($this->points);
@@ -49,10 +47,19 @@ class Fitness extends Model
                 $fitness = new Fitness2DTriangle($this->points);
                 return $fitness->getFitnessConvexFunction($this->alphaValue);
             }
-        } elseif ($this->dimension_type == '3D_Cubic') { // Fitness para la dimension 3D Cubica
-            echo '<br>Es un espacio 3D Cubic<br>';
+        } elseif ($this->dimension_type == '3D_Cubic') {
+            // Fitness para la dimension 3D Cubica
+            if($this->function_type == 'dill_model') {
+                // Fitness implementando la funcion del modelo de DILL
+                $fitness = new Fitness3DCubic($this->points);
+                return $fitness->getFitnessDillModel();
+            } else {
+                // Fitness implementando la funcion convexa
+                $fitness = new Fitness3DCubic($this->points);
+                return $fitness->getFitnessConvexFunction($this->alphaValue);
+            }
         } else {
-            echo 'Fitness';
+            echo 'Default Fitness';
             return 0;
         }
     }
