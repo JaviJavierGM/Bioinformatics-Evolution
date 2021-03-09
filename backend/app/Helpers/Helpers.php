@@ -29,7 +29,7 @@ class Helpers {
 
     public static function indexOfString($haystack, $needle) {
         // Encuentra la posición numérica de la primera 
-        // ocurrencia del needle (aguja) en el array haystack (pajar). 
+        // ocurrencia del needle (aguja) en el string haystack (pajar). 
         $flag = true;
         $sizeHaystack = strlen($haystack);
         $i = 0;
