@@ -1295,35 +1295,623 @@ class Fitness3DCubic extends Model
                 
                 if($this->actualPosition == 0) {
                     if($this->nextPosition == 0) {
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
                     } elseif($this->nextPosition == 2) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                        
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
                     } elseif($this->nextPosition == 3) {
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                        
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
                     } elseif($this->nextPosition == 4) {
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                        
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
                     } elseif($this->nextPosition == 5) {
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                        
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
                     }
                 } elseif($this->actualPosition == 1) {
+                    if($this->nextPosition == 1) {
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 2) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 3) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 4) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 5) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    }
                 } elseif($this->actualPosition == 2) {
+                    if($this->nextPosition == 0) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 1) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 2) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 4) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 5) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    }
                 } elseif($this->actualPosition == 3) {
+                    if($this->nextPosition == 0) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 1) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 3) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 4) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 5) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    }
                 } elseif($this->actualPosition == 4) {
+                    if($this->nextPosition == 0) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 1) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 2) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 3) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la derecha
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()+1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 4) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    }
                 } elseif($this->actualPosition == 5) {
+                    if($this->nextPosition == 0) {
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
 
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 1) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 2) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 3) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    } elseif($this->nextPosition == 5) {
+                        // Verificación hacia adelante
+                        if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isH($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isH($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaHH += ($alphaValue - 1);
+                        }
+                    }
                 }
             }
         }
 
-        
-
-        var_dump($this->alphaHH);
-        die();
-        return -2 + $this->getFitnessConvexFunctionPolar($alphaValue);
+        $this->alphaHH /= 2;
+        $alpha = $this->alphaHH + $this->getFitnessConvexFunctionPolar($alphaValue);
+        return ($alpha);
     }
 
     private function getFitnessConvexFunctionPolar($alphaValue) {
