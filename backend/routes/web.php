@@ -74,6 +74,7 @@ Route::post('/api/EA/pop-decimation', [EvolutionaryAlgorithmController::class, '
 Route::post('/api/EA/elitismo', [EvolutionaryAlgorithmController::class, 'testElitism']);
 Route::post('/api/EA/GenarateSquarePoints', [EvolutionaryAlgorithmController::class, 'testGenerateSquarePoints']);
 Route::post('/api/EA/GenarateTrianglePoints', [EvolutionaryAlgorithmController::class, 'testGenerateTrianglePoints']);
+Route::post('/api/EA/GenarateCubePoints', [EvolutionaryAlgorithmController::class, 'testGenerateCubePoints']);
 Route::post('/api/EA/gen-point', [EvolutionaryAlgorithmController::class, 'testGenPoint']);
 Route::post('/api/EA/randomMut', [EvolutionaryAlgorithmController::class, 'testRandomMutation']);
 Route::post('/api/EA/fitness', [EvolutionaryAlgorithmController::class, 'testFitness']);

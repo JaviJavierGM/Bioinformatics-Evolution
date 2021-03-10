@@ -81,6 +81,6 @@ abstract class GeneratePoints extends Model
         
     }
     
-    abstract public function doPoints($points, $i);
+    abstract public function doPoints($childPoints_C, $i);
 
 }
