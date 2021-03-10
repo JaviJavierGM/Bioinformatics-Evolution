@@ -402,6 +402,20 @@ class EvolutionaryAlgorithmController extends Controller
 
     }
 
+    // -------- Generate Cube Points
+    public function testGenerateCubePoints() { 
+        echo "test Generate triangle points <br>";
+
+        $hpString = "HPHPHPHPHPHPHPHPHPHHP";
+        // $typeSpace = "correlated";
+        $typeSpace = "homogeneous";
+        $correlatedMatrix = array ();
+
+        $generateTrianglePoints = new GenerateCubePoints($hpString, $typeSpace, $correlatedMatrix);
+        $generateTrianglePoints->initializeGeneration(1);
+
+    }
+
     public function testGenPoint() {
     $hpString = 'HHHHH';
 

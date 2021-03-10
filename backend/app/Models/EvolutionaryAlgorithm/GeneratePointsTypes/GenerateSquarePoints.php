@@ -12,12 +12,7 @@ class GenerateSquarePoints extends GeneratePoints
 {
     use HasFactory;
 
-    // construct temporal --- borrar
-    // public function __construct(){
-    //     echo "generate points square construct! <br>";
-    // }
-
-    public function generateSquarePoint($movVectorValue, $letter, $previousPoint ) {        
+    public function generateSquarePoint($movVectorValue, $letter, $previousPoint) {        
         $point;
         switch ($movVectorValue) {
             case 0:
