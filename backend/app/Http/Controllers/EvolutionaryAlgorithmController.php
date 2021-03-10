@@ -20,6 +20,7 @@ use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Models\EvolutionaryAlgorithm\Fitness;
 use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\SimplexCoupleFormation;
+use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateTrianglePoints;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -361,7 +362,7 @@ class EvolutionaryAlgorithmController extends Controller
         
         // $hpString, $typeSpace, $correlatedMatrix
         $hpString = "HPHP";
-        $typeSpace = "correlated";
+        // $typeSpace = "correlated";
         $typeSpace = "homogeneous";
         $correlatedMatrix = array ();
 
@@ -384,6 +385,20 @@ class EvolutionaryAlgorithmController extends Controller
 
         $generateSquarePoints = new GenerateSquarePoints($hpString, $typeSpace, $correlatedMatrix);
         $generateSquarePoints->initializeGeneration(1);
+
+    }
+
+    // -------- Generate Triangle Points
+    public function testGenerateTrianglePoints() { 
+        echo "test Generate triangle points <br>";
+
+        $hpString = "HPHP";
+        // $typeSpace = "correlated";
+        $typeSpace = "homogeneous";
+        $correlatedMatrix = array ();
+
+        $generateTrianglePoints = new GenerateTrianglePoints($hpString, $typeSpace, $correlatedMatrix);
+        $generateTrianglePoints->initializeGeneration(1);
 
     }
 
