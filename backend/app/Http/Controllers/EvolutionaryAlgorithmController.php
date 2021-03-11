@@ -275,8 +275,8 @@ class EvolutionaryAlgorithmController extends Controller
 
         // $selectionOperator = "roulette";
         // $selectionOperator = "tournament";
-        // $selectionOperator = "top_percent";
-        $selectionOperator = "population_decimation";
+        $selectionOperator = "top_percent";
+        // $selectionOperator = "population_decimation";
 
         $percentOfSelectionOperator = 40;
 

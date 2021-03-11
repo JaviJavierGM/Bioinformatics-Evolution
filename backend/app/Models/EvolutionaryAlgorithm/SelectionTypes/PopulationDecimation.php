@@ -35,7 +35,7 @@ class PopulationDecimation extends SelectionOperator
             array_push($sublist_S, $sublist_L[$i]);
         }
         $indexSelectedConformations = array();
-        // Pasamos los primeros C ($cut) individuos de la lista S a las conformaciones selecciondas
+        // Pasamos los primeros C ($cut) individuos de la lista S a las conformaciones selecciondas        
         for($i=0; $i<$cut; $i++){
             array_push($indexSelectedConformations, $sublist_S[$i]->getPositionIndex());
         }
@@ -46,8 +46,15 @@ class PopulationDecimation extends SelectionOperator
             $posRandom = rand(0, $cut-1);
             array_push($indexSelectedConformations, $sublist_S[$posRandom]->getPositionIndex());
         }
+        
+        // Dejamos solo las conformaciones a seleccionar
+        for($i=sizeof($indexSelectedConformations); $i>$conformationsToSelect; $i--){
+            unset($indexSelectedConformations[$i]);
+            $indexSelectedConformations = array_values($indexSelectedConformations);
+        }
 
         sort($indexSelectedConformations);
+
         $this->generation->setIndexSelectedConformations($indexSelectedConformations);
 
         // Borramos las variables

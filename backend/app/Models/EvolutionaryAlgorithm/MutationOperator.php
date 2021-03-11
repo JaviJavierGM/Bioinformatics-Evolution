@@ -11,6 +11,7 @@ use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateTrianglePoints;
 abstract class MutationOperator extends Model
 {
     use HasFactory;
+    
     protected $mutation_probability;
     protected $dimension_type;
 

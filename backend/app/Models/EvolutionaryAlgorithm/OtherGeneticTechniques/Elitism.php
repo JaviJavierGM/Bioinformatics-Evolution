@@ -47,6 +47,8 @@ class Elitism extends Model
         for($i=0; $i<$percentConformationsElitism; $i++){
             // array_push($this->selectedConformations, $orderedConformations[$i]);
             array_push($indexSelectedConformations, $orderedConformations[$i]->getPositionIndex());
+            var_dump($orderedConformations[$i]->getPositionIndex());
+            var_dump($orderedConformations[$i]->getFitness());
         }
 
         // Obtenemos las conformaciones que faltan por seleccionar con ayuda del operador de seleccion elegido
@@ -69,6 +71,7 @@ class Elitism extends Model
         }
 
         sort($indexSelectedConformations);
+
         $this->generation->setIndexSelectedConformations($indexSelectedConformations);
 
         echo " > Fitness de las Conformaciones seleccionadas, luego de aplicar un porcentaje: ".$this->percentOfElitism."% de elitismo y ".$this->selectionOperator." <br>";
