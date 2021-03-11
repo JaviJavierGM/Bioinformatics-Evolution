@@ -14,7 +14,7 @@ class Tournament extends SelectionOperator
 {
     use HasFactory;
 
-    public $percent;
+    private $percent;
 
     public function __construct($generation, $percent){
         $this->generation = $generation;
