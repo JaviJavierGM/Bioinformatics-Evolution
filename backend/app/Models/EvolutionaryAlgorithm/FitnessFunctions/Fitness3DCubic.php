@@ -2753,15 +2753,112 @@ class Fitness3DCubic extends Model
                         }
                     }
                 } elseif($this->actualPosition == 5) {
+                    if($this->nextPosition == 0) {
+                        // Verificación hacia atras
+                        if(Helpers::isP($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
 
+                        // Verificación hacia arriba
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+                    } elseif($this->nextPosition == 1) {
+                        // Verificación hacia adelante
+                        if(Helpers::isP($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+                    } elseif($this->nextPosition == 2) {
+                        // Verificación hacia adelante
+                        if(Helpers::isP($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isP($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+                    } elseif($this->nextPosition == 3) {
+                        // Verificación hacia adelante
+                        if(Helpers::isP($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isP($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia la izquierda
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY(), $point->getValueZ()-1)) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+                    } elseif($this->nextPosition == 5) {
+                        // Verificación hacia adelante
+                        if(Helpers::isP($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia atras
+                        if(Helpers::isP($this->points, $point->getValueX()-1, $point->getValueY(), $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia arriba
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()+1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+
+                        // Verificación hacia abajo
+                        if(Helpers::isP($this->points, $point->getValueX(), $point->getValueY()-1, $point->getValueZ())) {
+                            $this->alphaPP += (-($alphaValue));
+                        }
+                    }
                 }
             }
-            
         }
-        var_dump($this->alphaPP);
-        die();
-        echo 'POLAR CONVEX xD <br>';
-
-        return -0.2;
+        
+        $this->alphaPP /= 2;
+        return $this->alphaPP;
     }
 }

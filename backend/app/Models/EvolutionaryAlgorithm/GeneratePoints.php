@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\Conformation;
 use App\Models\EvolutionaryAlgorithm\Generation;
+use App\Models\EvolutionaryAlgorithm\Fitness;
 use App\Models\EvolutionaryAlgorithm\Point;
 
 abstract class GeneratePoints extends Model
@@ -18,12 +19,18 @@ abstract class GeneratePoints extends Model
     protected $rand;
     protected $typeSpace;
     protected $correlatedMatrix;
+    protected $dimension_type;
+    protected $function_type;
+    protected $alphaValue;
 
-    public function __construct($hpString, $typeSpace, $correlatedMatrix) {
+    public function __construct($hpString, $typeSpace, $correlatedMatrix, $dimension_type, $function_type, $alphaValue) {
         $this->hpSecuence = $hpString;
         $this->typeSpace = $typeSpace;
         $this->correlatedMatrix = $correlatedMatrix;
-        $this->hpLength = strlen($this->hpSecuence);        
+        $this->hpLength = strlen($this->hpSecuence);    
+        $this->dimension_type = $dimension_type;
+        $this->function_type = $function_type;
+        $this->alphaValue = $alphaValue;    
     }
 
     public function initializeGeneration($conformationsNumbers) {
@@ -40,15 +47,24 @@ abstract class GeneratePoints extends Model
             $this->generatePoints($pointsChildren);        
 
             // $fitness = new Fitness(points)->getFitness();
-            $fitness = 2;
+            $fitness = new Fitness($this->points, $this->dimension_type, $this->function_type, $this->alphaValue);
+            $fitness = $fitness->getFitness();
+            echo '<strong>Fitnes del punto # </strong>'.($i+1).': '.$fitness.'<br>';
             if($fitness == 0) {
                 --$i;
                 continue;
             }
+            $conformation = new Conformation($this->points);
+            $conformation->setFitness($fitness);
 
-            //array_push($conformations, new Conformation($this->points)); // Agregar la confromacion al array de conformaciones
+            array_push($conformations, $conformation); // Agregar la confromacion al array de conformaciones
         }
 
+        var_dump($this->points);
+        for($i=0; $i<sizeof($conformations); $i++) {
+            echo 'Soy el punto numero #'.($i+1).'Mi fitness es: '.$conformations[$i]->getFitness().'<br>';
+        }
+        die();
         echo "<br><br> --------------------------------------------------------- YA ACABO ALV! <br><br>";
         var_dump($this->points);
 
