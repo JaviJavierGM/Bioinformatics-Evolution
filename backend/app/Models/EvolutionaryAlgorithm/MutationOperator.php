@@ -14,10 +14,14 @@ abstract class MutationOperator extends Model
     
     protected $mutation_probability;
     protected $dimension_type;
+    protected $space_type;
+    protected $correlatedMatrix;
 
-    public function __construct($mutation_probability, $dimension_type) {
+    public function __construct($mutation_probability, $dimension_type, $space_type, $correlatedMatrix) {
         $this->mutation_probability = $mutation_probability;
         $this->dimension_type = $dimension_type;
+        $this->space_type = $space_type;
+        $this->correlatedMatrix = $correlatedMatrix;
         srand($this->make_seed());
     }
 
@@ -46,5 +50,33 @@ abstract class MutationOperator extends Model
 
     public function decimalRandom() {
         return rand(0, 1000000) / 1000000;
+    }
+
+    public function checkSquareChildren($pointsChildrenCopy, $movVectorValue, $pointsChildren, $j) {
+        $isOk = false;
+        $stringBuilder = "";
+
+        if($this->space_type == 'correlated') {
+            $widthMatrix = sizeof($this->correlatedMatrix);
+            $heightMatrix = sizeof($this->correlatedMatrix[0]);
+            $pointsMatrix = $this->correlatedMatrix;
+            
+            do{
+                $generateSquarePoint = new GenerateSquarePoints(null, null, null, null, null, null);
+                $point = $generateSquarePoint->generateSquarePoint($movVectorValue, 'H', $pointsChildren[$j-1]);
+                
+                switch ($movVectorValue) {
+                    case 0:
+                        if((int)($pointsChildren[$j-1]->getValueX()) < ($widthMatrix-1)) {
+
+                        }
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            } while ( !$isOk );
+        }
     }
 }
