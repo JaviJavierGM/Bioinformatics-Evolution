@@ -21,6 +21,7 @@ use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Models\EvolutionaryAlgorithm\Fitness;
 use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\SimplexCoupleFormation;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateTrianglePoints;
+use App\Models\EvolutionaryAlgorithm\CorrelatedNetwork;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -414,6 +415,72 @@ class EvolutionaryAlgorithmController extends Controller
         $generateTrianglePoints = new GenerateCubePoints($hpString, $typeSpace, $correlatedMatrix);
         $generateTrianglePoints->initializeGeneration(1);
 
+    }
+
+    // -------- Test Read Matrix
+    public function testReadMatrix() { 
+        // $xValue, $yValue, $zValue, $letter, $movVectorValue
+        
+        // Seccion roja
+        // $point1 = new Point(0 , 0, null, null, null);
+        // $point2 = new Point(3 , 0, null, null, null);
+        // $point3 = new Point(0 , 2, null, null, null);
+        // $point4 = new Point(3 , 2, null, null, null);
+
+        // Seccion azul
+        // $point1 = new Point(1 , 2, null, null, null);
+        // $point2 = new Point(3 , 2, null, null, null);
+        // $point3 = new Point(1 , 3, null, null, null);
+        // $point4 = new Point(3 , 3, null, null, null);
+
+        // Nueva seccion
+        $point1 = new Point(0 , 0, null, null, null);
+        $point2 = new Point(700 , 0, null, null, null);
+        $point3 = new Point(0 , 700, null, null, null);
+        $point4 = new Point(700 , 700, null, null, null);
+
+        $correlatedNetwork = new CorrelatedNetwork(null, $point1, $point2, $point3, $point4);
+
+        $correlatedNetwork->readMatrix();
+
+    }
+
+    // -------- Test generar punto inicial
+    public function testStartingPoint() {
+        // Seccion roja
+        // $point1 = new Point(0 , 0, null, null, null);
+        // $point2 = new Point(3 , 0, null, null, null);
+        // $point3 = new Point(0 , 2, null, null, null);
+        // $point4 = new Point(3 , 2, null, null, null);
+
+        // chido
+        $point1 = new Point(0 , 0, null, null, null);
+        $point2 = new Point(0 , 3, null, null, null);
+        $point3 = new Point(0 , 2, null, null, null);
+        $point4 = new Point(2 , 3, null, null, null);
+
+        // Seccion azul
+        // $point1 = new Point(1 , 2, null, null, null);
+        // $point2 = new Point(3 , 2, null, null, null);
+        // $point3 = new Point(1 , 3, null, null, null);
+        // $point4 = new Point(3 , 3, null, null, null);
+
+        // chido
+        // $point1 = new Point(1 , 2, null, null, null);
+        // $point2 = new Point(1 , 4, null, null, null);
+        // $point3 = new Point(2 , 2, null, null, null);
+        // $point4 = new Point(2 , 4, null, null, null);
+
+        // Seccion amarilla
+        // $point1 = new Point(1 , 1, null, null, null);
+        // $point2 = new Point(1 , 2, null, null, null);
+        // $point3 = new Point(2 , 1, null, null, null);
+        // $point4 = new Point(2 , 2, null, null, null);
+
+        $correlatedNetwork = new CorrelatedNetwork(null, $point1, $point2, $point3, $point4);
+
+        $correlatedNetwork->readMatrix();
+        $correlatedNetwork->generateStartingPoint();
     }
 
     public function testGenPoint() {
