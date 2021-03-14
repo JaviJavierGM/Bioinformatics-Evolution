@@ -484,10 +484,10 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     public function testGenPoint() {
-    $hpString = 'HHHHH';
+    $hpString = 'HPHHHPPH';
 
-    $generate = new GenerateCubePoints($hpString, 'correlated', 2);
-    $generate->initializeGeneration(6);
+    $generate = new GenerateSquarePoints($hpString, 'homogeneous', null, '2D_Square', 'convex', 0.2);
+    $generate->initializeGeneration(8);
     die();
 
     }
@@ -553,6 +553,7 @@ class EvolutionaryAlgorithmController extends Controller
                 new Point(1.5, 0, 2, 'H', 0),
                 new Point(1.5, 1, 0, 'P', 0),          
                 new Point(1, 0, 0, 'H', 0),
+                new Point(1.5, 2, 0, 'P', 0),
                 new Point(0, 0, null, 'H', 0),
                 new Point(1, 0, 1, 'P', 0),
                 new Point(2.5, 0, null, 'H', 4),
