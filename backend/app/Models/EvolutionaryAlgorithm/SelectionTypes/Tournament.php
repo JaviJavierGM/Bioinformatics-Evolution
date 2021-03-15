@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\SelectionOperator;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
-
 use App\Models\EvolutionaryAlgorithm\Generation;
 use App\Models\EvolutionaryAlgorithm\Conformation;
+use App\Helpers\Helpers;
 
 class Tournament extends SelectionOperator
 {
@@ -55,9 +55,8 @@ class Tournament extends SelectionOperator
                 }
             }
 
-            $helpers = new \Helpers();            
-            $returnIndexOf = $helpers->indexOf($indexSelectedConformations, $bestConformation->getPositionIndex());
-            $returnLastIndexOf = $helpers->lastIndexOf($indexSelectedConformations, $bestConformation->getPositionIndex());
+            $returnIndexOf = Helpers::indexOf($indexSelectedConformations, $bestConformation->getPositionIndex());
+            $returnLastIndexOf = Helpers::lastIndexOf($indexSelectedConformations, $bestConformation->getPositionIndex());
 
             if( $returnIndexOf == $returnLastIndexOf ) {
                 // Guardamos la mejor conformacion en las conformaciones seleccionadas
@@ -67,7 +66,7 @@ class Tournament extends SelectionOperator
             }
 
             // Borramos todas las variables creadas
-            unset($roulette, $sublist_S, $bestConformation, $helpers, $returnIndexOf, $returnLastIndexOf);
+            unset($roulette, $sublist_S, $bestConformation, $returnIndexOf, $returnLastIndexOf);
         }
 
         sort($indexSelectedConformations);

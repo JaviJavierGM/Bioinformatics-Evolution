@@ -5,6 +5,7 @@ namespace App\Models\EvolutionaryAlgorithm\SelectionTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\SelectionOperator;
+use App\Helpers\Helpers;
 
 class Roulette extends SelectionOperator
 {
@@ -35,7 +36,6 @@ class Roulette extends SelectionOperator
         } 
 
         // Seleccionamos las conformaciones
-        $helpers = new \Helpers();
         $indexSelectedConformations = array();
         while( sizeof($indexSelectedConformations) < $conformationsToSelect ) {
             // Generamos el porcentaje de la ruleta que debemos buscar
@@ -54,8 +54,9 @@ class Roulette extends SelectionOperator
                     // se guarda esa conformacion en las conformaciones seleccionadas
 
                     // Verificamos si ya hemos agregado a lo mucho dos veces un mismo indice
-                    $returnIndexOf = $helpers->indexOf($indexSelectedConformations, $orderedConformations[$j]->getPositionIndex());
-                    $returnLastIndexOf = $helpers->lastIndexOf($indexSelectedConformations, $orderedConformations[$j]->getPositionIndex());
+                    $returnIndexOf = Helpers::indexOf($indexSelectedConformations, $orderedConformations[$j]->getPositionIndex());
+                    $returnLastIndexOf = Helpers::lastIndexOf($indexSelectedConformations, $orderedConformations[$j]->getPositionIndex());
+
 
                     if( $returnIndexOf == $returnLastIndexOf ) {
                         array_push($indexSelectedConformations, $orderedConformations[$j]->getPositionIndex());                        
@@ -73,7 +74,7 @@ class Roulette extends SelectionOperator
         $this->generation->setIndexSelectedConformations($indexSelectedConformations);
 
         // Borramos todas las variables creadas
-        unset($sizeGeneration, $conformationsToSelect, $totalFitness, $orderedConformations, $arrayPercentSelection, $helpers, $indexSelectedConformations);
+        unset($sizeGeneration, $conformationsToSelect, $totalFitness, $orderedConformations, $arrayPercentSelection, $indexSelectedConformations);
        
     }
 }

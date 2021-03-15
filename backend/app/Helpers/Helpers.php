@@ -7,7 +7,7 @@ class Helpers {
 
     }
 
-    public function indexOf($haystack, $needle) {
+    public static function indexOf($haystack, $needle) {
         // Encuentra la posición numérica de la primera 
         // ocurrencia del needle (aguja) en el array haystack (pajar). 
         $flag = true;
@@ -21,6 +21,25 @@ class Helpers {
                 $flag = false;
             }else {
                 $i++;
+            }
+        }
+
+        return $position;
+    }
+
+    public static function lastIndexOf($haystack, $needle) {
+        // Encuentra la posición numérica de la ultima 
+        // ocurrencia del needle (aguja) en el array haystack (pajar). 
+        $flag = true;
+        $i = sizeof($haystack)-1;
+        $position = -1;
+
+        while($flag and $i >= 0) {
+            if($haystack[$i] == $needle) {
+                $position = $i;
+                $flag = false;
+            }else {
+                $i--;
             }
         }
 
@@ -45,26 +64,6 @@ class Helpers {
         }
 
         return $position;
-    }
-
-    public function lastIndexOf($haystack, $needle) {
-        // Encuentra la posición numérica de la ultima 
-        // ocurrencia del needle (aguja) en el array haystack (pajar). 
-        $flag = true;
-        $i = sizeof($haystack)-1;
-        $position = -1;
-
-        while($flag and $i >= 0) {
-            if($haystack[$i] == $needle) {
-                $position = $i;
-                $flag = false;
-            }else {
-                $i--;
-            }
-        }
-
-        return $position;
-
     }
 
     public static function isH($points, $xValue, $yValue, $zValue) {

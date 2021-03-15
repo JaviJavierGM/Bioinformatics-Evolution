@@ -5,6 +5,7 @@ namespace App\Models\EvolutionaryAlgorithm\SelectionTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\SelectionOperator;
+use App\Helpers\Helpers;
 
 class TopPercent extends SelectionOperator
 {
@@ -34,8 +35,6 @@ class TopPercent extends SelectionOperator
         // sublista S con los mejores k conformaciones segun su fitness
         $sublist_S = array();
 
-        $helpers = new \Helpers();
-
         // Seleccionamos las conformaciones necesarias para el cruce eligiendo de forma 
         // aleatoria un elemento de la sublista s y la agregamos a las conformaciones seleccionadas
         $indexSelectedConformations = array();
@@ -53,8 +52,8 @@ class TopPercent extends SelectionOperator
             
             $posRandom = rand(0, sizeof($sublist_S)-1);
             
-            $returnIndexOf = $helpers->indexOf($indexSelectedConformations, $sublist_S[$posRandom]->getPositionIndex());
-            $returnLastIndexOf = $helpers->lastIndexOf($indexSelectedConformations, $sublist_S[$posRandom]->getPositionIndex());
+            $returnIndexOf = Helpers::indexOf($indexSelectedConformations, $sublist_S[$posRandom]->getPositionIndex());
+            $returnLastIndexOf = Helpers::lastIndexOf($indexSelectedConformations, $sublist_S[$posRandom]->getPositionIndex());
 
             if( $returnIndexOf == $returnLastIndexOf ) {
                 array_push($indexSelectedConformations, $sublist_S[$posRandom]->getPositionIndex());
