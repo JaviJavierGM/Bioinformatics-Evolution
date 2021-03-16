@@ -208,4 +208,59 @@ class Helpers {
         return $point;
     }
 
+    public static function generateCubePoint($movVectorValue, $letter, $previousPoint){
+        $point;
+        switch ($movVectorValue) {
+            
+            case 0:
+                $point = new Point($previousPoint->getValueX()+1, $previousPoint->getValueY(), $previousPoint->getValueZ(), $letter, 0);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay1(false);
+                break;
+            break;
+
+            case 1:
+                $point = new Point($previousPoint->getValueX()-1, $previousPoint->getValueY(), $previousPoint->getValueZ(), $letter, 1);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay0(false);
+                break;
+            break;
+            
+            case 2:
+                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY()+1, $previousPoint->getValueZ(), $letter, 2);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay3(false);
+                break;
+            break;
+
+            case 3:
+                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY()-1, $previousPoint->getValueZ(), $letter, 3);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay2(false);
+                break;
+            break;
+
+            case 4:
+                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY(), $previousPoint->getValueZ()+1, $letter, 4);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay5(false);
+                break;
+            break;
+
+            case 5:
+                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY(), $previousPoint->getValueZ()-1, $letter, 5);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay4(false);
+                break;
+            break;
+
+            default:
+                echo "Default case <br>";
+            break;
+
+        }
+
+        return $point;
+    }
+
 }

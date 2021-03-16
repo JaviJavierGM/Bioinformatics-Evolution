@@ -10,62 +10,7 @@ use App\Helpers\Helpers;
 
 class GenerateCubePoints extends GeneratePoints
 {
-    use HasFactory;
-
-    public function generateCubePoint($movVectorValue, $letter, $previousPoint){
-        $point;
-        switch ($movVectorValue) {
-            
-            case 0:
-                $point = new Point($previousPoint->getValueX()+1, $previousPoint->getValueY(), $previousPoint->getValueZ(), $letter, 0);
-                $point->setMovVectorValue($movVectorValue);
-                $point->setWay1(false);
-                break;
-            break;
-
-            case 1:
-                $point = new Point($previousPoint->getValueX()-1, $previousPoint->getValueY(), $previousPoint->getValueZ(), $letter, 1);
-                $point->setMovVectorValue($movVectorValue);
-                $point->setWay0(false);
-                break;
-            break;
-            
-            case 2:
-                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY()+1, $previousPoint->getValueZ(), $letter, 2);
-                $point->setMovVectorValue($movVectorValue);
-                $point->setWay3(false);
-                break;
-            break;
-
-            case 3:
-                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY()-1, $previousPoint->getValueZ(), $letter, 3);
-                $point->setMovVectorValue($movVectorValue);
-                $point->setWay2(false);
-                break;
-            break;
-
-            case 4:
-                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY(), $previousPoint->getValueZ()+1, $letter, 4);
-                $point->setMovVectorValue($movVectorValue);
-                $point->setWay5(false);
-                break;
-            break;
-
-            case 5:
-                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY(), $previousPoint->getValueZ()-1, $letter, 5);
-                $point->setMovVectorValue($movVectorValue);
-                $point->setWay4(false);
-                break;
-            break;
-
-            default:
-                echo "Default case <br>";
-            break;
-
-        }
-
-        return $point;
-    }
+    use HasFactory;    
 
     public function doPoints($childPoints_C, $i) {
         
@@ -75,14 +20,13 @@ class GenerateCubePoints extends GeneratePoints
         do {
 
             switch (rand( 0, 5)) {
-            // switch (5) {
 
                 case 0:
-                    echo "case 0 do points cubic <br>";
+                    
                     $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()+1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1] && $isAvailable) {
-                        array_push($this->points, $this->generateCubePoint(0, $this->hpSecuence[$i], $this->points[$i-1]));
+                        array_push($this->points, Helpers::generateCubePoint(0, $this->hpSecuence[$i], $this->points[$i-1]));
                         $isOk = true;
 
                     } else {
@@ -94,11 +38,11 @@ class GenerateCubePoints extends GeneratePoints
                 break;
 
                 case 1:
-                    echo "case 1 do points cubic <br>";
+                    
                     $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()-1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay1() && $isAvailable) {
-                        array_push($this->points, $this->generateCubePoint(1, $this->hpSecuence[$i], $this->points[$i-1]));
+                        array_push($this->points, Helpers::generateCubePoint(1, $this->hpSecuence[$i], $this->points[$i-1]));
                         $isOk = true;
 
                     } else {
@@ -110,11 +54,11 @@ class GenerateCubePoints extends GeneratePoints
                 break;
 
                 case 2:
-                    echo "case 2 do points cubic <br>";
+                    
                     $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY()+1, $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay2() && $isAvailable) {
-                        array_push($this->points, $this->generateCubePoint(2, $this->hpSecuence[$i], $this->points[$i-1]));
+                        array_push($this->points, Helpers::generateCubePoint(2, $this->hpSecuence[$i], $this->points[$i-1]));
                         $isOk = true;
 
                     } else {
@@ -126,11 +70,11 @@ class GenerateCubePoints extends GeneratePoints
                 break;
 
                 case 3:
-                    echo "case 3 do points cubic <br>";
+                    
                     $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY()-1, $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay3() && $isAvailable) {
-                        array_push($this->points, $this->generateCubePoint(3, $this->hpSecuence[$i], $this->points[$i-1]));
+                        array_push($this->points, Helpers::generateCubePoint(3, $this->hpSecuence[$i], $this->points[$i-1]));
                         $isOk = true;
 
                     } else {
@@ -142,11 +86,11 @@ class GenerateCubePoints extends GeneratePoints
                 break;
 
                 case 4:
-                    echo "case 4 do points cubic <br>";
+                    
                     $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ()+1);
 
                     if($this->points[$i-1]->isWay4() && $isAvailable) {
-                        array_push($this->points, $this->generateCubePoint(4, $this->hpSecuence[$i], $this->points[$i-1]));
+                        array_push($this->points, Helpers::generateCubePoint(4, $this->hpSecuence[$i], $this->points[$i-1]));
                         $isOk = true;
 
                     } else {
@@ -158,11 +102,11 @@ class GenerateCubePoints extends GeneratePoints
                 break;
 
                 case 5:
-                    echo "case 5 do points cubic <br>";
+                    
                     $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ()-1);
 
                     if($this->points[$i-1] && $isAvailable) {
-                        array_push($this->points, $this->generateCubePoint(5, $this->hpSecuence[$i], $this->points[$i-1]));
+                        array_push($this->points, Helpers::generateCubePoint(5, $this->hpSecuence[$i], $this->points[$i-1]));
                         $isOk = true;
 
                     } else {

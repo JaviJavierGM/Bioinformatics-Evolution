@@ -46,8 +46,8 @@ abstract class GeneratePoints extends Model
 
             $this->generatePoints($pointsChildren); 
             // Lineas para detener el proceso y solo verificar la generacion de puntos
-            // echo "<br><br> --------------------------------------------------------- YA ACABO ALV! <br><br>";
-            // var_dump($this->points);       die();
+            echo "<br><br> --------------------------------------------------------- YA ACABO ALV! <br><br>";
+            var_dump($this->points);       die();
 
             // $fitness = new Fitness(points)->getFitness();
             $fitness = new Fitness($this->points, $this->dimension_type, $this->function_type, $this->alphaValue);
