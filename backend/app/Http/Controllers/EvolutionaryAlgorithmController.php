@@ -363,8 +363,8 @@ class EvolutionaryAlgorithmController extends Controller
         
         // $hpString, $typeSpace, $correlatedMatrix
         $hpString = "HPHP";
-        // $typeSpace = "correlated";
-        $typeSpace = "homogeneous";
+        $typeSpace = "correlated";
+        // $typeSpace = "homogeneous";
         $correlatedMatrix = array ();
 
         for($i=0; $i<4; $i++){
@@ -384,7 +384,8 @@ class EvolutionaryAlgorithmController extends Controller
             echo "<br>";
         }
 
-        $generateSquarePoints = new GenerateSquarePoints($hpString, $typeSpace, $correlatedMatrix);
+        $generateSquarePoints = new GenerateSquarePoints($hpString, $typeSpace, $correlatedMatrix, null, null, null);
+        //public function __construct($hpString, $typeSpace, $correlatedMatrix, $dimension_type, $function_type, $alphaValue) {
         $generateSquarePoints->initializeGeneration(1);
 
     }
@@ -412,7 +413,7 @@ class EvolutionaryAlgorithmController extends Controller
         $typeSpace = "homogeneous";
         $correlatedMatrix = array ();
 
-        $generateTrianglePoints = new GenerateCubePoints($hpString, $typeSpace, $correlatedMatrix);
+        $generateTrianglePoints = new GenerateCubePoints($hpString, $typeSpace, $correlatedMatrix, null, null, null);
         $generateTrianglePoints->initializeGeneration(1);
 
     }
@@ -481,6 +482,49 @@ class EvolutionaryAlgorithmController extends Controller
 
         $correlatedNetwork->readMatrix();
         $correlatedNetwork->generateStartingPoint();
+    }
+
+    // -------- Test check square (crossover)
+    public function testCheckSquare() {
+        
+        $correlatedMatrix = array ();
+        for($i=0; $i<4; $i++){
+            // array_push($correlatedMatrix, array(0,0,1));
+            array_push($correlatedMatrix, array(1,1,1));
+
+            // print_r($correlatedMatrix[$i]);
+            // echo "<br>";
+        }
+
+        $conformation1 = new Conformation(null);
+        $conformation1->setFitness(-7);
+        $conformation2 = new Conformation(null);
+        $conformation2->setFitness(-5);
+        $conformation3 = new Conformation(null);
+        $conformation3->setFitness(-4);
+        $conformation4 = new Conformation(null);
+        $conformation4->setFitness(-10);
+        $conformation5 = new Conformation(null);
+        $conformation5->setFitness(-1);
+        $conformation6 = new Conformation(null);
+        $conformation6->setFitness(-11);
+        
+        $point1 = new Point(0, 0, 0, "H", 2);
+        $point2 = new Point(1, 1, 0, "P", 3);
+        $point3 = new Point(2, 2, 0, "H", 2);
+        $point4 = new Point(3, 3, 0, "P", 3);
+        
+        $childPoints_C = array($point1, $point2, $point3, $point4);
+        $pointsChildren = array($point1, $point2, $point3, $point4);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+
+        $generation = new Generation($arrayConformations);
+
+        $cruce = new OnePoint(null, null, null, "correlated", $correlatedMatrix, "HPHP", $generation);
+        // $lengthHpString = sizeof($params->parent_one);
+        // $cruce->execute($lengthHpString);
+        $cruce->checkSquareChildren($childPoints_C, 3, $pointsChildren, 1);
     }
 
     public function testGenPoint() {

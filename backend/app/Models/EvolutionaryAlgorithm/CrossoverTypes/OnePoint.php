@@ -12,11 +12,17 @@ class OnePoint extends CrossoverOperator
 
     private $cut;
 
-    public function __construct($parent_one, $parent_two, $crossover_probability) {
+    public function __construct($parent_one, $parent_two, $crossover_probability, $typeSpace, $correlatedMatrix, $hpSecuence, $generation) {
         $this->parent_one = $parent_one;
         $this->parent_two = $parent_two;
         $this->crossover_probability = $crossover_probability;
-        srand($this->make_seed()); 
+        srand($this->make_seed());
+
+        $this->typeSpace = $typeSpace;
+        $this->correlatedMatrix = $correlatedMatrix;
+        $this->hpSecuence = $hpSecuence;
+        $this->generation = $generation;        
+    
     }
 
     public function execute($lengthHpString) {

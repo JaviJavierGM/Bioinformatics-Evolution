@@ -359,6 +359,8 @@ class CorrelatedNetwork extends Model
 
         // var_dump($this->startingPoint);
 
+        var_dump($this->startingPoint);
+
         return $this->startingPoint;
 
     }

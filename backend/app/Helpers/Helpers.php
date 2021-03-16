@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers;
 
+use App\Models\EvolutionaryAlgorithm\Point;
+
 class Helpers {
 
     public function __construct() {
@@ -118,6 +120,43 @@ class Helpers {
             }
         } 
         return true;
+    }
+
+    public static function generateSquarePoint($movVectorValue, $letter, $previousPoint) {        
+        $point;
+        switch ($movVectorValue) {
+            case 0:
+                echo "generateSquarePoint - Case 0 <br>";
+                $point = new Point($previousPoint->getValueX()+1, $previousPoint->getValueY(), 0, $letter, 0);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay1(false);
+                break;
+
+            case 1:
+                echo "generateSquarePoint - Case 1 <br>";
+                $point = new Point($previousPoint->getValueX()-1, $previousPoint->getValueY(), 0, $letter, 1);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay0(false);
+                break;
+
+            case 2:
+                echo "generateSquarePoint - Case 2 <br>";
+                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY()+1, 0, $letter, 2);
+                $point->setWay3(false);
+                break;
+
+            case 3:
+                echo "generateSquarePoint - Case 3 <br>";
+                $point = new Point($previousPoint->getValueX(), $previousPoint->getValueY()-1, 0, $letter, 3);
+                $point->setWay2(false);
+                break;
+
+            default:
+                echo "generateSquarePoint - Default case";
+                break;
+        }
+
+        return $point;                
     }
 
 }
