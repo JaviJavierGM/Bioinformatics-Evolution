@@ -22,6 +22,8 @@ use App\Models\EvolutionaryAlgorithm\Fitness;
 use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\SimplexCoupleFormation;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateTrianglePoints;
 use App\Models\EvolutionaryAlgorithm\CorrelatedNetwork;
+use App\Models\EvolutionaryAlgorithm\Parents;
+use App\Models\EvolutionaryAlgorithm\MutationTypes\Predefined;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -586,6 +588,51 @@ class EvolutionaryAlgorithmController extends Controller
         }
 
         return response()->json($data, $data['code']);
+    }
+
+    public function testOpMutationPredefined(Request $request) {
+        echo 'Voy a invocar el operador de mutacion predefined<br>';
+        $parentsLst = array();
+        
+        $parents = new Parents();
+        $parents->setParent1(1);
+        $parents->setParent2(0);
+
+        $parents1 = new Parents();
+        $parents1->setParent1(8);
+        $parents1->setParent2(9);
+
+        $parents2 = new Parents();
+        $parents2->setParent1(5);
+        $parents2->setParent2(1);
+
+        array_push($parentsLst, $parents);
+        array_push($parentsLst, $parents1);
+        array_push($parentsLst, $parents2);
+
+        $conformation1 = new Conformation(null);
+        $conformation1->setFitness(-7);
+        $conformation2 = new Conformation(null);
+        $conformation2->setFitness(-5);
+        $conformation3 = new Conformation(null);
+        $conformation3->setFitness(-4);
+        $conformation4 = new Conformation(null);
+        $conformation4->setFitness(-10);
+        $conformation5 = new Conformation(null);
+        $conformation5->setFitness(-1);
+        $conformation6 = new Conformation(null);
+        $conformation6->setFitness(-11);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+
+        $gen = new Generation($arrayConformations);
+        $gen->setParentsList($parentsLst);
+
+        for($i=0; $i < sizeof($parentsLst); $i++) {
+            $predefined = Predefined::execute($gen, $i);
+        }
+        var_dump($predefined);
+        die();
     }
 
 }
