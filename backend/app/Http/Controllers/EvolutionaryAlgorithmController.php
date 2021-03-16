@@ -511,8 +511,8 @@ class EvolutionaryAlgorithmController extends Controller
         $conformation6 = new Conformation(null);
         $conformation6->setFitness(-11);
         
-        $point1 = new Point(0, 0, 0, "H", 2);
-        $point2 = new Point(1, 1, 0, "P", 3);
+        $point1 = new Point(1, 1, 0, "H", 2);
+        $point2 = new Point(2, 1, 0, "P", 3);
         $point3 = new Point(2, 2, 0, "H", 2);
         $point4 = new Point(3, 3, 0, "P", 3);
         
@@ -523,10 +523,10 @@ class EvolutionaryAlgorithmController extends Controller
 
         $generation = new Generation($arrayConformations);
 
-        $cruce = new OnePoint(null, null, null, "correlated", $correlatedMatrix, "HPHP", $generation);
+        $cruce = new OnePoint(null, null, null, "homogeneus", $correlatedMatrix, "HPHP", $generation);
         // $lengthHpString = sizeof($params->parent_one);
         // $cruce->execute($lengthHpString);
-        $cruce->checkSquareChildren($childPoints_C, 3, $pointsChildren, 1);
+        $cruce->checkSquareChildren($childPoints_C, 0, $pointsChildren, 1);
     }
 
     public function testGenPoint() {

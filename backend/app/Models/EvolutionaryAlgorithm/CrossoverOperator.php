@@ -167,18 +167,13 @@ abstract class CrossoverOperator extends Model
                     
                     case 3:
 
-                        echo "case3 <br>";
-
                         if( (int)($pointsChildren[$j-1]->getValueY()) > 0 ) {
-                            echo "IF 1 <br>";
                             $valueMatrix = $this->correlatedMatrix[(int)($pointsChildren[$j-1]->getValueX())][(int)($pointsChildren[$j-1]->getValueY() - 1)];
 
                             if(strcmp($valueMatrix, "1") == 0) {
-                                echo "IF 2 <br>";
                                 $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                                 if($pointsChildren[$j-1]->isWay3() && $isAvailable) {
-                                    echo "IF 3 <br>";
                                     array_push($pointsChildren, $point);
                                     $isOk = true;
 
@@ -200,8 +195,129 @@ abstract class CrossoverOperator extends Model
 
                         }
 
-                        var_dump($isOk, $stringBuilder);
-                        die();
+                    break;
+                    
+                    default:
+                        echo "Default case";
+                    break;
+                }
+
+                if( !$isOk ) {
+                    $movVectorValue = rand( 0, 3);
+                }
+
+                $indexOfA = Helpers::indexOfString($stringBuilder, "a");
+                $indexOfB = Helpers::indexOfString($stringBuilder, "b");
+                $indexOfC = Helpers::indexOfString($stringBuilder, "c");
+                $indexOfD = Helpers::indexOfString($stringBuilder, "d");
+
+                if($indexOfA != -1 && $indexOfB != -1 && $indexOfC != -1 && $indexOfD != -1) {
+                    
+                    switch($pointsChildren[--$j]->getMovVectorValue()) {
+                        case 0:
+                            $pointsChildren[$j-1]->setWay0(false);                            
+                        break;
+                        
+                        case 1:
+                            $pointsChildren[$j-1]->setWay1(false);                            
+                        break;
+                        
+                        case 2:
+                            $pointsChildren[$j-1]->setWay2(false);
+                        break;
+                        
+                        case 3:
+                            $pointsChildren[$j-1]->setWay3(false);                            
+                        break;
+                        
+                        default:
+                            echo "Default case";
+                        break;
+                    }
+
+                    array_push($childPoints_C, $pointsChildren[$j]);
+                    unset($pointsChildren[$j]);
+                    $pointsChildren = array_values($pointsChildren);
+                    $stringBuilder = "";
+
+                }
+
+            } while ( !$isOk );
+            
+            return $j;
+
+        } else {
+            echo "case homogeneo";
+
+            do {
+                $point = Helpers::generateSquarePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
+
+                switch ($movVectorValue) {
+                    
+                    case 0:
+
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        
+                        if($pointsChildren[$j-1]->isWay0() && $isAvailable) {
+                            array_push($pointsChildren, $point);
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "a";
+
+                        }
+
+                    break;
+
+
+                    case 1:
+
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        
+                        if($pointsChildren[$j-1]->isWay1() && $isAvailable) {
+                            array_push($pointsChildren, $point);
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "b";
+
+                        }
+
+                    break;
+
+
+                    case 2:
+
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        
+                        if($pointsChildren[$j-1]->isWay2() && $isAvailable) {
+                            array_push($pointsChildren, $point);
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "c";
+
+                        }                        
+
+                    break;
+
+
+                    case 3:
+                        
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        
+                        if($pointsChildren[$j-1]->isWay3() && $isAvailable) {
+                            array_push($pointsChildren, $point);
+                            $isOk = true;
+
+                        } else {
+                            $isOk = false;
+                            $stringBuilder .= "d";
+
+                        }                        
 
                     break;
                     
@@ -209,9 +325,50 @@ abstract class CrossoverOperator extends Model
                         echo "Default case";
                     break;
                 }
-            } while ( !$isOk );
 
-        } else {
+                if(!$isOk) {
+                    $movVectorValue = rand( 0, 3);
+                }
+
+                $indexOfA = Helpers::indexOfString($stringBuilder, "a");
+                $indexOfB = Helpers::indexOfString($stringBuilder, "b");
+                $indexOfC = Helpers::indexOfString($stringBuilder, "c");
+                $indexOfD = Helpers::indexOfString($stringBuilder, "d");
+
+                if($indexOfA != -1 && $indexOfB != -1 && $indexOfC != -1 && $indexOfD != -1) {                    
+                    
+                    switch($pointsChildren[--$j]->getMovVectorValue()) {
+                        case 0:
+                            $pointsChildren[$j-1]->setWay0(false);                            
+                        break;
+                        
+                        case 1:
+                            $pointsChildren[$j-1]->setWay1(false);                            
+                        break;
+                        
+                        case 2:
+                            $pointsChildren[$j-1]->setWay2(false);
+                        break;
+                        
+                        case 3:
+                            $pointsChildren[$j-1]->setWay3(false);                            
+                        break;
+                        
+                        default:
+                            echo "Default case";
+                        break;
+                    }
+
+                    array_push($childPoints_C, $pointsChildren[$j]);
+                    unset($pointsChildren[$j]);
+                    $pointsChildren = array_values($pointsChildren);
+                    $stringBuilder = "";
+
+                }
+
+            } while (!$isOk);
+
+            return $j;
 
         }
     }
