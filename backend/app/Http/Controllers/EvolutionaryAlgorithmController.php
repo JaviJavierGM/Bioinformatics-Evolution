@@ -401,7 +401,7 @@ class EvolutionaryAlgorithmController extends Controller
         $typeSpace = "homogeneous";
         $correlatedMatrix = array ();
 
-        $generateTrianglePoints = new GenerateTrianglePoints($hpString, $typeSpace, $correlatedMatrix);
+        $generateTrianglePoints = new GenerateTrianglePoints($hpString, $typeSpace, $correlatedMatrix, null, null, null);
         $generateTrianglePoints->initializeGeneration(1);
 
     }

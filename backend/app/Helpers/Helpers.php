@@ -122,7 +122,7 @@ class Helpers {
         return true;
     }
 
-    public static function generateSquarePoint($movVectorValue, $letter, $previousPoint) {        
+    public static function generateSquarePoint($movVectorValue, $letter, $previousPoint) {     
         $point;
         switch ($movVectorValue) {
             case 0:
@@ -157,6 +157,55 @@ class Helpers {
         }
 
         return $point;                
+    }
+    
+    public static function generateTrianglePoint($movVectorValue, $letter, $previousPoint) {
+        $point;
+        switch ($movVectorValue) {
+
+            case 0:               
+                $point = new Point($previousPoint->getValueX()+1, $previousPoint->getValueY(), 0, $letter, 0);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay1(false);
+            break;
+
+            case 1:
+                $point = new Point($previousPoint->getValueX()-1, $previousPoint->getValueY(), 0, $letter, 1);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay0(false);
+            break;
+
+            case 2:
+                $point = new Point($previousPoint->getValueX()+0.5, $previousPoint->getValueY()+1, 0, $letter, 2);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay5(false);                
+            break;
+
+            case 3:
+                $point = new Point($previousPoint->getValueX()+0.5, $previousPoint->getValueY()-1, 0, $letter, 3);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay4(false);                
+            break;
+
+            case 4:
+                $point = new Point($previousPoint->getValueX()-0.5, $previousPoint->getValueY()+1, 0, $letter, 4);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay3(false);
+            break;
+
+            case 5:
+                $point = new Point($previousPoint->getValueX()-0.5, $previousPoint->getValueY()-1, 0, $letter, 5);
+                $point->setMovVectorValue($movVectorValue);
+                $point->setWay2(false);
+            break;
+
+            default:
+                echo "Default case";
+            break;
+
+        }
+        
+        return $point;
     }
 
 }
