@@ -4,17 +4,11 @@ namespace App\Models\EvolutionaryAlgorithm\MutationTypes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\EvolutionaryAlgorithm\MutationOperator;
 
-class Predefined extends Model
+class Predefined extends MutationOperator
 {
     use HasFactory;
-    private $parentOne;
-    private $parentTwo;
-    private $temporalParent;
-
-    public function __construct() {
-        echo 'Soy el operador de mutación predefinido!';
-    }
 
     public static function execute($generation, $i) {
         $parents = array();
