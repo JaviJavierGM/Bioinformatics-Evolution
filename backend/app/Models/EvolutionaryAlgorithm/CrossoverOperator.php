@@ -21,7 +21,7 @@ abstract class CrossoverOperator extends Model
     public $generation;
     public $hpSecuence;
 
-    abstract public static function execute(
+    abstract public function execute(
         $lengthHpString,
         $crossover_probability,
         $spaceType,
@@ -41,12 +41,12 @@ abstract class CrossoverOperator extends Model
         return $this->children_two;
     }
 
-    public static function make_seed() {
+    public function make_seed() {
     list($usec, $sec) = explode(' ', microtime());
     return (float) $sec + ((float) $usec * 100000);
     }
 
-    public static function decimalRandom() {
+    public function decimalRandom() {
         return rand(0, 1000000) / 1000000;
     }
 
