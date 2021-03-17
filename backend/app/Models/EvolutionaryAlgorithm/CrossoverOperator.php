@@ -373,4 +373,114 @@ abstract class CrossoverOperator extends Model
         }
     }
 
+    public function checkTriangleChildren($childPoints_C, $movVectorValue, $pointsChildren, $j) {
+
+        $isOk = true;
+        $stringBuilder = "";
+
+        do {
+            
+            $point = Helpers::generateTrianglePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
+
+            switch ($movVectorValue) {
+                
+                case 0:
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay0() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "a";
+
+                    }
+
+                break;
+
+                case 1:
+                    # code...
+                break;
+
+                case 2:
+                    # code...
+                break;
+
+                case 3:
+                    # code...
+                break;
+
+                case 4:
+                    # code...
+                break;
+
+                case 5:
+                    # code...
+                break;
+                    
+                default:
+                    echo "Default Case";
+                break;
+
+            }
+
+            if(!$isOk) {
+                $movVectorValue = rand(0, 5);
+            }
+
+            $indexOfA = Helpers::indexOfString($stringBuilder, "a");
+            $indexOfB = Helpers::indexOfString($stringBuilder, "b");
+            $indexOfC = Helpers::indexOfString($stringBuilder, "c");
+            $indexOfD = Helpers::indexOfString($stringBuilder, "d");
+            $indexOfE = Helpers::indexOfString($stringBuilder, "e");
+            $indexOfF = Helpers::indexOfString($stringBuilder, "f");
+
+            if($indexOfA != -1 && $indexOfB != -1 && $indexOfC != -1 && $indexOfD != -1 && $indexOfE != -1 && $indexOfF != -1) {
+                switch($this->points[--$j]->getMovVectorValue()) {
+
+                    case 0:
+                        $this->points[$j-1]->setWay0(false);
+                    break;
+
+                    case 1:
+                        $this->points[$j-1]->setWay1(false);
+                    break;
+
+                    case 2:
+                        $this->points[$j-1]->setWay2(false);
+                    break;
+
+                    case 3:
+                        $this->points[$j-1]->setWay3(false);
+                    break;
+
+                    case 4:
+                        $this->points[$j-1]->setWay4(false);
+                    break;
+
+                    case 5:
+                        $this->points[$j-1]->setWay5(false);
+                    break;
+
+                    default:
+                        echo "Default case";
+                    break;
+                }
+
+                array_push($childPoints_C, $this->points[$j]);
+                unset($this->points[$j]);
+                $this->points = array_values($this->points);
+                $stringBuilder = "";
+
+            }
+
+        } while (!$isOk);
+
+        die();
+        return $j;
+
+    }
+
 }
