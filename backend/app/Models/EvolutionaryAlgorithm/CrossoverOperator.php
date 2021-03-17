@@ -21,7 +21,14 @@ abstract class CrossoverOperator extends Model
     public $generation;
     public $hpSecuence;
 
-    abstract public static function execute($lengthHpString);
+    abstract public static function execute(
+        $lengthHpString, $spaceType,
+        $pointsChildrenCopy,
+        $pointsParentOne,
+        $pointsParentTwo,
+        $newChildrenOne,
+        $newChildrenTwo
+    );
 
     public function getChildrenOne() {
         return $this->children_one;
