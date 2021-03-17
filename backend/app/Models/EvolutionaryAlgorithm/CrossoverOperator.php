@@ -58,7 +58,7 @@ abstract class CrossoverOperator extends Model
         echo ' ]'.'<br/>';
     }
 
-    public static function checkSquareChildren($childPoints_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkSquareChildren($childPoints_C, $movVectorValue, $pointsChildren, $j) {
         
         /* 
         int spaceType = main.getBoard().getSpaceType();
