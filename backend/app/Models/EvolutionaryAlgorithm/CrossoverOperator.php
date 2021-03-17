@@ -40,7 +40,7 @@ abstract class CrossoverOperator extends Model
         srand($this->make_seed());
     }
 
-    abstract public function execute();
+    abstract public function execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
 
     public function getChildrenOne() {
         return $this->children_one;

@@ -67,38 +67,9 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     public function testOnePointCrossover(Request $request) {
-        $json = $request->input('json', null);
-        $params = json_decode($json);
-
-        if (is_object($params)) {
-            $params->parent_one = explode(',', $params->parent_one);
-            $params->parent_two = explode(',', $params->parent_two);
-
-            $uniformCrossover = new OnePoint($params->parent_one, $params->parent_two, $params->crossover_probability);
-            $lengthHpString = sizeof($params->parent_one);
-            $uniformCrossover->execute($lengthHpString);
-                
-            $child_one = $uniformCrossover->getChildrenOne();
-            $child_two = $uniformCrossover->getChildrenTwo();
-            die();
-            $data = array(
-                'code' => 200,
-                'status' => 'success',
-                'parent_one' => $params->parent_one,
-                'parent_two' => $params->parent_two,
-                'children_one' => $child_one,
-                'children_two' => $child_two
-            );
-            
-
-        } else {
-            $data = array(
-                'code' => 400,
-                'status' => 'error',
-                'message' => 'Data not sending!'
-            );
-        }
-        return response()->json($data, $data['code']);
+        $hpString = 'HPPPH';
+        $onePointCrossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 0.9, null, 4);
+        
     }
 
     public function testTwoPointsCrossover(Request $request) {
