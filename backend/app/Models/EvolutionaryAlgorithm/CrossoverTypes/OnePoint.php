@@ -25,7 +25,7 @@ class OnePoint extends CrossoverOperator
     
     }
 
-    public static function execute(
+    public function execute(
         $lengthHpString,
         $crossover_probability, 
         $spaceType,
@@ -44,7 +44,7 @@ class OnePoint extends CrossoverOperator
 
         for($i=1; $i < $lengthHpString; $i++) {
             if($i < $cut) {
-                $i = OnePoint::checkSquareChildren()
+                //$i = OnePoint::checkSquareChildren()
             } else {
 
             }
