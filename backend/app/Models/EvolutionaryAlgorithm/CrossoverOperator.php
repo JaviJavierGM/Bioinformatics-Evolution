@@ -23,6 +23,7 @@ abstract class CrossoverOperator extends Model
 
     abstract public static function execute(
         $lengthHpString,
+        $crossover_probability,
         $spaceType,
         $pointsChildrenCopy,
         $pointsParentOne,

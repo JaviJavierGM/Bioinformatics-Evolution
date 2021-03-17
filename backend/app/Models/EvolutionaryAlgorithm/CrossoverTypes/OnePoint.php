@@ -26,7 +26,8 @@ class OnePoint extends CrossoverOperator
     }
 
     public static function execute(
-        $lengthHpString, 
+        $lengthHpString,
+        $crossover_probability, 
         $spaceType,
         $pointsChildrenCopy,
         $pointsParentOne,
