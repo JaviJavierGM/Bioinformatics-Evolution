@@ -10,46 +10,7 @@ class OnePoint extends CrossoverOperator
 {
     use HasFactory;
 
-    private $cut;
-
-    public function __construct($parent_one, $parent_two, $crossover_probability, $typeSpace, $correlatedMatrix, $hpSecuence, $generation) {
-        $this->parent_one = $parent_one;
-        $this->parent_two = $parent_two;
-        $this->crossover_probability = $crossover_probability;
-        srand($this->make_seed());
-
-        $this->typeSpace = $typeSpace;
-        $this->correlatedMatrix = $correlatedMatrix;
-        $this->hpSecuence = $hpSecuence;
-        $this->generation = $generation;        
-    
-    }
-
-    public function execute(
-        $lengthHpString,
-        $crossover_probability, 
-        $spaceType,
-        $dimensionType,
-        $pointsChildrenCopy,
-        $pointsParentOne,
-        $pointsParentTwo,
-        $newChildrenOne,
-        $newChildrenTwo
-    ) {
-        if($crossover_probability > OnePoint::decimalRandom()) {
-            $cut = rand(1, $lengthHpString-1);
-        } else {
-            $cut = $lengthHpString;
-        }
-
-        for($i=1; $i < $lengthHpString; $i++) {
-            if($i < $cut) {
-                //$i = OnePoint::checkSquareChildren()
-            } else {
-
-            }
-        }
-    }
+    public function execute(){}
 
     public function execute23($lengthHpString) {
         echo 'Parent one: ';

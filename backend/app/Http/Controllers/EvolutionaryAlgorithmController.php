@@ -523,9 +523,22 @@ class EvolutionaryAlgorithmController extends Controller
 
         $generation = new Generation($arrayConformations);
 
-        $cruce = new OnePoint(null, null, null, "homogeneus", $correlatedMatrix, "HPHP", $generation);
+        // $generation,
+        // $typeSpace,
+        // $typeDimension,
+        // $lengthHpString,
+        // $conformationsNumber,
+        // $crossoverProbability,
+        // $correlatedMatrix,
+        // $hpSecuence
+
+        // $cruce = new OnePoint(null, null, null, "homogeneus", $correlatedMatrix, "HPHP", $generation);
+        
+        $cruce = new OnePoint($generation, "correlated", "2D_Square", 4, 2, 0.5, $correlatedMatrix, "HPHP");
+
         // $lengthHpString = sizeof($params->parent_one);
         // $cruce->execute($lengthHpString);
+
         $cruce->checkSquareChildren($childPoints_C, 0, $pointsChildren, 1);
     }
 

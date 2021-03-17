@@ -15,7 +15,6 @@ abstract class CrossoverOperator extends Model
     protected $typeDimension;
     protected $lengthHpString;
     protected $conformationsNumber;
-    protected $cut;
     protected $crossoverProbability;
     protected $correlatedMatrix;
     protected $hpSecuence;
@@ -80,7 +79,7 @@ abstract class CrossoverOperator extends Model
         $heightMatrix;
 
         if($this->typeSpace == 'correlated') {            
-
+            echo "caso correlated";
             $widthMatrix = sizeof($this->correlatedMatrix);
             $heightMatrix = sizeof($this->correlatedMatrix[0]);
             
@@ -263,7 +262,7 @@ abstract class CrossoverOperator extends Model
                 }
 
             } while ( !$isOk );
-            
+            echo "termino"; die();
             return $j;
 
         } else {
@@ -387,7 +386,7 @@ abstract class CrossoverOperator extends Model
                 }
 
             } while (!$isOk);
-
+            echo "termino"; die();
             return $j;
 
         }
@@ -470,7 +469,7 @@ abstract class CrossoverOperator extends Model
 
                 case 4:
                     
-                    
+
 
                 break;
 
