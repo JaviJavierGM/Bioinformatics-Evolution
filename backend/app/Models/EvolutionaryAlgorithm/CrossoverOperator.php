@@ -12,6 +12,7 @@ abstract class CrossoverOperator extends Model
 
     protected $generation;
     protected $typeSpace;
+    protected $typeDimension;
     protected $lengthHpString;
     protected $conformationsNumber;
     protected $cut;
@@ -22,6 +23,7 @@ abstract class CrossoverOperator extends Model
     public function __construct(
         $generation,
         $typeSpace,
+        $typeDimension,
         $lengthHpString,
         $conformationsNumber,
         $crossoverProbability,
@@ -30,6 +32,7 @@ abstract class CrossoverOperator extends Model
     ) {
         $this->generation = $generation;
         $this->typeSpace = $typeSpace;
+        $this->typeDimension = $typeDimension;
         $this->lengthHpString = $lengthHpString;
         $this->conformationsNumber = $conformationsNumber;
         $this->crossoverProbability = $crossoverProbability;
