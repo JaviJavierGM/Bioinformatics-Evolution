@@ -10,7 +10,34 @@ class OnePoint extends CrossoverOperator
 {
     use HasFactory;
 
-    public function execute(){}
+    public function execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C) {
+        // Generacion del punto de corte de acuerdo a la probabilidad de cruze dada.
+        if($this->crossoverProbability > $this->decimalRandom()) {
+            $cut = rand(1, $this->lengthHpString-1);
+        } else {
+            $cut = $this->lengthHpString;
+        }
+
+        for ($j=1; $j < $this->lengthHpString; $j++) { 
+            if($j < $cut) {
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+
+                }
+            } else {
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+
+                }
+            }
+        }
+    }
 
     public function execute23($lengthHpString) {
         echo 'Parent one: ';
