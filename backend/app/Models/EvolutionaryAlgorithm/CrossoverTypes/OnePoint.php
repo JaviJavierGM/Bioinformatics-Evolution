@@ -25,7 +25,19 @@ class OnePoint extends CrossoverOperator
     
     }
 
-    public function execute($lengthHpString) {
+    public static function execute(
+        $lengthHpString, 
+        $spaceType,
+        $pointsChildrenCopy,
+        $pointsParentOne,
+        $pointsParentTwo,
+        $newChildrenOne,
+        $newChildrenTwo
+    ) {
+
+    }
+
+    public function execute23($lengthHpString) {
         echo 'Parent one: ';
         $this->printArray($this->parent_one);
         

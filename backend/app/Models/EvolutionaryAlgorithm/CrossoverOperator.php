@@ -22,7 +22,8 @@ abstract class CrossoverOperator extends Model
     public $hpSecuence;
 
     abstract public static function execute(
-        $lengthHpString, $spaceType,
+        $lengthHpString,
+        $spaceType,
         $pointsChildrenCopy,
         $pointsParentOne,
         $pointsParentTwo,
