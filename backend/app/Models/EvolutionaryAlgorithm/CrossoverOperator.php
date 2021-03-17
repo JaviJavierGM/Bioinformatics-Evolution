@@ -21,7 +21,17 @@ abstract class CrossoverOperator extends Model
     public $generation;
     public $hpSecuence;
 
-    abstract public function execute($lengthHpString);
+    abstract public static function execute(
+        $lengthHpString,
+        $crossover_probability,
+        $spaceType,
+        $dimensionType,
+        $pointsChildrenCopy,
+        $pointsParentOne,
+        $pointsParentTwo,
+        $newChildrenOne,
+        $newChildrenTwo
+    );
 
     public function getChildrenOne() {
         return $this->children_one;
@@ -31,12 +41,12 @@ abstract class CrossoverOperator extends Model
         return $this->children_two;
     }
 
-    public function make_seed() {
+    public static function make_seed() {
     list($usec, $sec) = explode(' ', microtime());
     return (float) $sec + ((float) $usec * 100000);
     }
 
-    public function decimalRandom() {
+    public static function decimalRandom() {
         return rand(0, 1000000) / 1000000;
     }
 
