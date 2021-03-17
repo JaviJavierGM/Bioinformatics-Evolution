@@ -29,13 +29,26 @@ class OnePoint extends CrossoverOperator
         $lengthHpString,
         $crossover_probability, 
         $spaceType,
+        $dimensionType,
         $pointsChildrenCopy,
         $pointsParentOne,
         $pointsParentTwo,
         $newChildrenOne,
         $newChildrenTwo
     ) {
+        if($crossover_probability > OnePoint::decimalRandom()) {
+            $cut = rand(1, $lengthHpString-1);
+        } else {
+            $cut = $lengthHpString;
+        }
 
+        for($i=1; $i < $lengthHpString; $i++) {
+            if($i < $cut) {
+                $i = OnePoint::checkSquareChildren()
+            } else {
+
+            }
+        }
     }
 
     public function execute23($lengthHpString) {

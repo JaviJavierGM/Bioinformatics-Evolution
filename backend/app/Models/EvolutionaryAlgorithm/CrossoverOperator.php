@@ -25,6 +25,7 @@ abstract class CrossoverOperator extends Model
         $lengthHpString,
         $crossover_probability,
         $spaceType,
+        $dimensionType,
         $pointsChildrenCopy,
         $pointsParentOne,
         $pointsParentTwo,
@@ -57,7 +58,7 @@ abstract class CrossoverOperator extends Model
         echo ' ]'.'<br/>';
     }
 
-    public function checkSquareChildren($childPoints_C, $movVectorValue, $pointsChildren, $j) {
+    public static function checkSquareChildren($childPoints_C, $movVectorValue, $pointsChildren, $j) {
         
         /* 
         int spaceType = main.getBoard().getSpaceType();
