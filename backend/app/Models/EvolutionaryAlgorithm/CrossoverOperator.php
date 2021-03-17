@@ -39,12 +39,12 @@ abstract class CrossoverOperator extends Model
         return $this->children_two;
     }
 
-    public function make_seed() {
+    public static function make_seed() {
     list($usec, $sec) = explode(' ', microtime());
     return (float) $sec + ((float) $usec * 100000);
     }
 
-    public function decimalRandom() {
+    public static function decimalRandom() {
         return rand(0, 1000000) / 1000000;
     }
 
