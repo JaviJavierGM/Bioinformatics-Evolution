@@ -10,28 +10,35 @@ abstract class CrossoverOperator extends Model
 {
     use HasFactory;
 
-    public $parent_one;
-    public $parent_two;
-    public $children_one;
-    public $children_two;
-    public $crossover_probability;
+    protected $generation;
+    protected $typeSpace;
+    protected $lengthHpString;
+    protected $conformationsNumber;
+    protected $cut;
+    protected $crossoverProbability;
+    protected $correlatedMatrix;
+    protected $hpSecuence;
 
-    public $typeSpace;
-    public $correlatedMatrix;
-    public $generation;
-    public $hpSecuence;
-
-    abstract public function execute(
+    public function __construct(
+        $generation,
+        $typeSpace,
         $lengthHpString,
-        $crossover_probability,
-        $spaceType,
-        $dimensionType,
-        $pointsChildrenCopy,
-        $pointsParentOne,
-        $pointsParentTwo,
-        $newChildrenOne,
-        $newChildrenTwo
-    );
+        $conformationsNumber,
+        $crossoverProbability,
+        $correlatedMatrix,
+        $hpSecuence
+    ) {
+        $this->generation = $generation;
+        $this->typeSpace = $typeSpace;
+        $this->lengthHpString = $lengthHpString;
+        $this->conformationsNumber = $conformationsNumber;
+        $this->crossoverProbability = $crossoverProbability;
+        $this->correlatedMatrix = $correlatedMatrix;
+        $this->hpSecuence = $hpSecuence;
+        srand($this->make_seed());
+    }
+
+    abstract public function execute();
 
     public function getChildrenOne() {
         return $this->children_one;
@@ -42,8 +49,8 @@ abstract class CrossoverOperator extends Model
     }
 
     public function make_seed() {
-    list($usec, $sec) = explode(' ', microtime());
-    return (float) $sec + ((float) $usec * 100000);
+        list($usec, $sec) = explode(' ', microtime());
+        return (float) $sec + ((float) $usec * 100000);
     }
 
     public function decimalRandom() {
