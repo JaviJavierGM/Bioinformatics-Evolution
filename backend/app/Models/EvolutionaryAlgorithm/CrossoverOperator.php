@@ -67,7 +67,7 @@ abstract class CrossoverOperator extends Model
         echo ' ]'.'<br/>';
     }
 
-    public function checkSquareChildren($childPoints_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkSquareChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
         
         /* 
         int spaceType = main.getBoard().getSpaceType();
@@ -79,7 +79,7 @@ abstract class CrossoverOperator extends Model
         $heightMatrix;
 
         if($this->typeSpace == 'correlated') {            
-            echo "caso correlated";
+            
             $widthMatrix = sizeof($this->correlatedMatrix);
             $heightMatrix = sizeof($this->correlatedMatrix[0]);
             
@@ -94,7 +94,7 @@ abstract class CrossoverOperator extends Model
                             $valueMatrix = $this->correlatedMatrix[(int)$pointsChildren[$j - 1]->getValueX() + 1][(int)$pointsChildren[$j-1]->getValueY()];
                             
                             if(strcmp($valueMatrix, "1") == 0) {                                
-                                $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                                $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                                 if($pointsChildren[$j-1]->isWay0() && $isAvailable) {                                    
                                     array_push($pointsChildren, $point);
@@ -126,7 +126,7 @@ abstract class CrossoverOperator extends Model
                             $valueMatrix = $this->correlatedMatrix[((int)($pointsChildren[$j-1]->getValueX())) - 1][((int)($pointsChildren[$j-1]->getValueY()))];
 
                             if(strcmp($valueMatrix, "1") == 0) {
-                                $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                                $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                                 if($pointsChildren[$j-1]->isWay1() && $isAvailable) {
                                     array_push($pointsChildren, $point);
@@ -158,7 +158,7 @@ abstract class CrossoverOperator extends Model
                             $valueMatrix = $this->correlatedMatrix[(int)$pointsChildren[$j-1]->getValueX()][(int)$pointsChildren[$j-1]->getValueY() + 1];
 
                             if(strcmp($valueMatrix, "1") == 0) {                                
-                                $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                                $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                                 if($pointsChildren[$j-1]->isWay2() && $isAvailable) {                                    
                                     array_push($pointsChildren, $point);
@@ -190,7 +190,7 @@ abstract class CrossoverOperator extends Model
                             $valueMatrix = $this->correlatedMatrix[(int)($pointsChildren[$j-1]->getValueX())][(int)($pointsChildren[$j-1]->getValueY() - 1)];
 
                             if(strcmp($valueMatrix, "1") == 0) {
-                                $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                                $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                                 if($pointsChildren[$j-1]->isWay3() && $isAvailable) {
                                     array_push($pointsChildren, $point);
@@ -254,7 +254,7 @@ abstract class CrossoverOperator extends Model
                         break;
                     }
 
-                    array_push($childPoints_C, $pointsChildren[$j]);
+                    array_push($pointsChildren_C, $pointsChildren[$j]);
                     unset($pointsChildren[$j]);
                     $pointsChildren = array_values($pointsChildren);
                     $stringBuilder = "";
@@ -262,12 +262,11 @@ abstract class CrossoverOperator extends Model
                 }
 
             } while ( !$isOk );
-            echo "termino"; die();
+            
             return $j;
 
         } else {
-            echo "case homogeneo";
-
+            
             do {
                 $point = Helpers::generateSquarePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
 
@@ -275,7 +274,7 @@ abstract class CrossoverOperator extends Model
                     
                     case 0:
 
-                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
                         
                         if($pointsChildren[$j-1]->isWay0() && $isAvailable) {
                             array_push($pointsChildren, $point);
@@ -292,7 +291,7 @@ abstract class CrossoverOperator extends Model
 
                     case 1:
 
-                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
                         
                         if($pointsChildren[$j-1]->isWay1() && $isAvailable) {
                             array_push($pointsChildren, $point);
@@ -309,7 +308,7 @@ abstract class CrossoverOperator extends Model
 
                     case 2:
 
-                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
                         
                         if($pointsChildren[$j-1]->isWay2() && $isAvailable) {
                             array_push($pointsChildren, $point);
@@ -326,7 +325,7 @@ abstract class CrossoverOperator extends Model
 
                     case 3:
                         
-                        $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                        $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
                         
                         if($pointsChildren[$j-1]->isWay3() && $isAvailable) {
                             array_push($pointsChildren, $point);
@@ -378,7 +377,7 @@ abstract class CrossoverOperator extends Model
                         break;
                     }
 
-                    array_push($childPoints_C, $pointsChildren[$j]);
+                    array_push($pointsChildren_C, $pointsChildren[$j]);
                     unset($pointsChildren[$j]);
                     $pointsChildren = array_values($pointsChildren);
                     $stringBuilder = "";
@@ -386,26 +385,29 @@ abstract class CrossoverOperator extends Model
                 }
 
             } while (!$isOk);
-            echo "termino"; die();
+            
             return $j;
 
         }
     }
 
-    public function checkTriangleChildren($childPoints_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkTriangleChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
 
         $isOk = true;
         $stringBuilder = "";
 
         do {
             
+            echo "mov vector value";
+            var_dump($movVectorValue);
+
             $point = Helpers::generateTrianglePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
 
             switch ($movVectorValue) {
                 
                 case 0:
                     
-                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                     if($pointsChildren[$j-1]->isWay0() && $isAvailable) {
                         array_push($pointsChildren, $point);
@@ -421,7 +423,7 @@ abstract class CrossoverOperator extends Model
 
                 case 1:
                     
-                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                     if($pointsChildren[$j-1]->isWay1() && $isAvailable) {
                         array_push($pointsChildren, $point);
@@ -437,7 +439,7 @@ abstract class CrossoverOperator extends Model
 
                 case 2:
                     
-                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                     if($pointsChildren[$j-1]->isWay2() && $isAvailable) {
                         array_push($pointsChildren, $point);
@@ -453,7 +455,7 @@ abstract class CrossoverOperator extends Model
 
                 case 3:
                     
-                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
                     if($pointsChildren[$j-1]->isWay3() && $isAvailable) {
                         array_push($pointsChildren, $point);
@@ -469,12 +471,34 @@ abstract class CrossoverOperator extends Model
 
                 case 4:
                     
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
 
+                    if($pointsChildren[$j-1]->isWay4() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "e";
+
+                    }
 
                 break;
 
                 case 5:
-                    # code...
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay5() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "f";
+
+                    }
+
                 break;
                     
                 default:
@@ -526,7 +550,7 @@ abstract class CrossoverOperator extends Model
                     break;
                 }
 
-                array_push($childPoints_C, $this->points[$j]);
+                array_push($pointsChildren_C, $this->points[$j]);
                 unset($this->points[$j]);
                 $this->points = array_values($this->points);
                 $stringBuilder = "";
@@ -535,6 +559,7 @@ abstract class CrossoverOperator extends Model
 
         } while (!$isOk);
 
+        var_dump($isOk, $stringBuilder, $j);
         die();
         return $j;
 

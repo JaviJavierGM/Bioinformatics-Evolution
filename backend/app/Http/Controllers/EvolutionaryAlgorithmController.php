@@ -523,15 +523,6 @@ class EvolutionaryAlgorithmController extends Controller
 
         $generation = new Generation($arrayConformations);
 
-        // $generation,
-        // $typeSpace,
-        // $typeDimension,
-        // $lengthHpString,
-        // $conformationsNumber,
-        // $crossoverProbability,
-        // $correlatedMatrix,
-        // $hpSecuence
-
         // $cruce = new OnePoint(null, null, null, "homogeneus", $correlatedMatrix, "HPHP", $generation);
         
         $cruce = new OnePoint($generation, "correlated", "2D_Square", 4, 2, 0.5, $correlatedMatrix, "HPHP");
@@ -540,6 +531,44 @@ class EvolutionaryAlgorithmController extends Controller
         // $cruce->execute($lengthHpString);
 
         $cruce->checkSquareChildren($childPoints_C, 0, $pointsChildren, 1);
+    }
+
+    // -------- Test check triangle (crossover)
+    public function testCheckTriangle() {        
+
+        $conformation1 = new Conformation(null);
+        $conformation1->setFitness(-7);
+        $conformation2 = new Conformation(null);
+        $conformation2->setFitness(-5);
+        $conformation3 = new Conformation(null);
+        $conformation3->setFitness(-4);
+        $conformation4 = new Conformation(null);
+        $conformation4->setFitness(-10);
+        $conformation5 = new Conformation(null);
+        $conformation5->setFitness(-1);
+        $conformation6 = new Conformation(null);
+        $conformation6->setFitness(-11);
+        
+        $point1 = new Point(1, 1, 0, "H", 2);
+        $point2 = new Point(2, 1, 0, "P", 3);
+        $point3 = new Point(2, 2, 0, "H", 2);
+        $point4 = new Point(3, 3, 0, "P", 3);
+        
+        $childPoints_C = array($point1, $point2, $point3, $point4);
+        $pointsChildren = array($point1, $point2, $point3, $point4);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+
+        $generation = new Generation($arrayConformations);
+
+        // $cruce = new OnePoint(null, null, null, "homogeneus", $correlatedMatrix, "HPHP", $generation);
+        
+        $cruce = new OnePoint($generation, "correlated", "2D_Triangle", 4, 2, 0.5, null, "HPHP");
+
+        // $lengthHpString = sizeof($params->parent_one);
+        // $cruce->execute($lengthHpString);
+
+        $cruce->checkTriangleChildren($childPoints_C, 1, $pointsChildren, 1);
     }
 
     public function testGenPoint() {

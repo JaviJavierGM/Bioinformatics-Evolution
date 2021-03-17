@@ -12,7 +12,7 @@ class GenerateSquarePoints extends GeneratePoints
 {
     use HasFactory;
 
-    public function doPoints($childPoints_C, $i) {
+    public function doPoints($pointsChildren_C, $i) {
         
         $isOk = true;
         $stringBuilder = "";
@@ -33,7 +33,7 @@ class GenerateSquarePoints extends GeneratePoints
                             $valueMatrix = $this->correlatedMatrix[(int)$this->points[$i-1]->getValueX() + 1][(int)$this->points[$i-1]->getValueY()];
                             
                             if(strcmp($valueMatrix, "1") == 0) {
-                                $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()+1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());;                                
+                                $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()+1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());;                                
                                                                                                         
                                 if( $this->points[$i-1]->isWay0() && $isAvailable) {                                    
                                     array_push($this->points, Helpers::generateSquarePoint(0, $this->hpSecuence[$i], $this->points[$i-1]));                                    
@@ -63,7 +63,7 @@ class GenerateSquarePoints extends GeneratePoints
                             $valueMatrix = $this->correlatedMatrix[ ((int)($this->points[$i-1]->getValueX())) - 1 ][ (int)($this->points[$i-1]->getValueY()) ];
 
                             if(strcmp($valueMatrix, "1") == 0) {
-                                $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()-1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());                                
+                                $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()-1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());                                
 
                                 if($this->points[$i-1]->isWay1() && $isAvailable) {
                                     array_push($this->points, Helpers::generateSquarePoint(1, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -93,7 +93,7 @@ class GenerateSquarePoints extends GeneratePoints
                             $valueMatrix = $this->correlatedMatrix[ (int)($this->points[$i-1]->getValueX()) ][ ((int)($this->points[$i-1]->getValueY()) + 1) ];                            
 
                             if(strcmp($valueMatrix, "1") == 0) {
-                                $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() + 1, $this->points[$i-1]->getValueZ());
+                                $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() + 1, $this->points[$i-1]->getValueZ());
 
                                 if($this->points[$i-1]->isWay2() && $isAvailable) {
                                     array_push($this->points, Helpers::generateSquarePoint(2, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -123,7 +123,7 @@ class GenerateSquarePoints extends GeneratePoints
                             $valueMatrix = $this->correlatedMatrix[ (int)($this->points[$i-1]->getValueX()) ][ ((int)($this->points[$i-1]->getValueY() - 1)) ];
 
                             if(strcmp($valueMatrix, "1") == 0) {
-                                $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() - 1, $this->points[$i-1]->getValueZ());
+                                $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() - 1, $this->points[$i-1]->getValueZ());
                                 
                                 if($this->points[$i-1]->isWay3() && $isAvailable) {
                                     array_push($this->points, Helpers::generateSquarePoint(3, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -183,7 +183,7 @@ class GenerateSquarePoints extends GeneratePoints
                         break;
                     }
 
-                    array_push($childPoints_C, $this->points[$i]);                    
+                    array_push($pointsChildren_C, $this->points[$i]);                    
                     unset($this->points[$i]);
                     $this->points = array_values($this->points);
                     $stringBuilder = "";
@@ -202,7 +202,7 @@ class GenerateSquarePoints extends GeneratePoints
 
                     case 0:
 
-                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX() + 1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
+                        $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX() + 1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
 
                         if($this->points[$i-1]->isWay0() && $isAvailable) {
                             array_push($this->points, Helpers::generateSquarePoint(0, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -218,7 +218,7 @@ class GenerateSquarePoints extends GeneratePoints
 
                     case 1:
 
-                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX() - 1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
+                        $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX() - 1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
 
                         if($this->points[$i-1]->isWay1() && $isAvailable){
                             array_push($this->points, Helpers::generateSquarePoint(1, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -234,7 +234,7 @@ class GenerateSquarePoints extends GeneratePoints
 
                     case 2:
 
-                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() + 1, $this->points[$i-1]->getValueZ());
+                        $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() + 1, $this->points[$i-1]->getValueZ());
 
                         if($this->points[$i-1]->isWay2() && $isAvailable) {
                             array_push($this->points, Helpers::generateSquarePoint(2, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -250,7 +250,7 @@ class GenerateSquarePoints extends GeneratePoints
 
                     case 3:
 
-                        $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() - 1, $this->points[$i-1]->getValueZ());
+                        $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX(), $this->points[$i-1]->getValueY() - 1, $this->points[$i-1]->getValueZ());
 
                         if($this->points[$i-1]->isWay3() && $isAvailable) {
                             array_push($this->points, Helpers::generateSquarePoint(3, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -302,7 +302,7 @@ class GenerateSquarePoints extends GeneratePoints
 
                     }
 
-                    array_push($childPoints_C, $this->points[$i]);                    
+                    array_push($pointsChildren_C, $this->points[$i]);                    
                     unset($this->points[$i]);
                     $this->points = array_values($this->points);
                     $stringBuilder = "";

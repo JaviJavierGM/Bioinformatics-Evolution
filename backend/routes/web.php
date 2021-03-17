@@ -82,5 +82,6 @@ Route::post('/api/EA/randomMut', [EvolutionaryAlgorithmController::class, 'testR
 Route::post('/api/EA/fitness', [EvolutionaryAlgorithmController::class, 'testFitness']);
 Route::post('/api/EA/coupleformation-simplex', [EvolutionaryAlgorithmController::class, 'testCoupleFormationSimplex']);
 Route::post('/api/EA/checksquare', [EvolutionaryAlgorithmController::class, 'testCheckSquare']);
+Route::post('/api/EA/checktriangle', [EvolutionaryAlgorithmController::class, 'testCheckTriangle']);
 Route::post('/api/EA/predefined', [EvolutionaryAlgorithmController::class, 'testOpMutationPredefined']);
 Route::post('/api/EA/random', [EvolutionaryAlgorithmController::class, 'testOpMutationRandom']);

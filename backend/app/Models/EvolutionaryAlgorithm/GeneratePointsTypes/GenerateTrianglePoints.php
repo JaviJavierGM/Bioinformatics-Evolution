@@ -12,7 +12,7 @@ class GenerateTrianglePoints extends GeneratePoints
 {
     use HasFactory;
     
-    public function doPoints($childPoints_C, $i) {
+    public function doPoints($pointsChildren_C, $i) {
         
         $isOk = true;
         $stringBuilder = "";        
@@ -23,7 +23,7 @@ class GenerateTrianglePoints extends GeneratePoints
 
                 case 0:
 
-                    $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()+1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
+                    $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()+1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay0() && $isAvailable) {
                         array_push($this->points, Helpers::generateTrianglePoint(0, $this->hpSecuence[$i], $this->points[$i-1]));                        
@@ -39,7 +39,7 @@ class GenerateTrianglePoints extends GeneratePoints
 
                 case 1:
                     
-                    $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()-1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
+                    $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()-1, $this->points[$i-1]->getValueY(), $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay1() && $isAvailable) {
                         array_push($this->points, Helpers::generateTrianglePoint(1, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -55,7 +55,7 @@ class GenerateTrianglePoints extends GeneratePoints
 
                 case 2:
                     
-                    $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()+0.5, $this->points[$i-1]->getValueY()+1, $this->points[$i-1]->getValueZ());
+                    $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()+0.5, $this->points[$i-1]->getValueY()+1, $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay2() && $isAvailable) {
                         array_push($this->points, Helpers::generateTrianglePoint(2, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -72,7 +72,7 @@ class GenerateTrianglePoints extends GeneratePoints
 
                 case 3:
                     
-                    $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()+0.5, $this->points[$i-1]->getValueY()-1, $this->points[$i-1]->getValueZ());
+                    $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()+0.5, $this->points[$i-1]->getValueY()-1, $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay3() && $isAvailable) {
                         array_push($this->points, Helpers::generateTrianglePoint(3, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -88,7 +88,7 @@ class GenerateTrianglePoints extends GeneratePoints
 
                 case 4:
                     
-                    $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()-0.5, $this->points[$i-1]->getValueY()+1, $this->points[$i-1]->getValueZ());
+                    $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()-0.5, $this->points[$i-1]->getValueY()+1, $this->points[$i-1]->getValueZ());
 
                     if($this->points[$i-1]->isWay4() && $isAvailable) {
                         array_push($this->points, Helpers::generateTrianglePoint(4, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -104,7 +104,7 @@ class GenerateTrianglePoints extends GeneratePoints
 
                 case 5:
                     
-                    $isAvailable = Helpers::isAvailable($this->points, $childPoints_C, $this->points[$i-1]->getValueX()-0.5, $this->points[$i-1]->getValueY()-1, $this->points[$i-1]->getValueZ());
+                    $isAvailable = Helpers::isAvailable($this->points, $pointsChildren_C, $this->points[$i-1]->getValueX()-0.5, $this->points[$i-1]->getValueY()-1, $this->points[$i-1]->getValueZ());
                     
                     if($this->points[$i-1]->isWay5() && $isAvailable){
                         array_push($this->points, Helpers::generateTrianglePoint(5, $this->hpSecuence[$i], $this->points[$i-1]));
@@ -160,7 +160,7 @@ class GenerateTrianglePoints extends GeneratePoints
                     break;
                 }
 
-                array_push($childPoints_C, $this->points[$i]);                    
+                array_push($pointsChildren_C, $this->points[$i]);                    
                 unset($this->points[$i]);
                 $this->points = array_values($this->points);
                 $stringBuilder = "";
