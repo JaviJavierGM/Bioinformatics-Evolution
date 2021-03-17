@@ -411,19 +411,57 @@ abstract class CrossoverOperator extends Model
                 break;
 
                 case 1:
-                    # code...
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay1() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "b";
+
+                    }
+
                 break;
 
                 case 2:
-                    # code...
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay2() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "c";
+
+                    }
+
                 break;
 
                 case 3:
-                    # code...
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $childPoints_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay3() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "d";
+
+                    }
+
                 break;
 
                 case 4:
-                    # code...
+                    
+                    
+
                 break;
 
                 case 5:
