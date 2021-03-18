@@ -21,7 +21,6 @@ class OnePoint extends CrossoverOperator
 
         // Generación del primer hijo.
         for ($j=1; $j < $this->lengthHpString; $j++) {
-            echo 'Entro en el J = '.$j.'<br>';
             if($j < $cut) {
                 if($this->typeDimension == '2D_Square') {
                     $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
@@ -43,6 +42,7 @@ class OnePoint extends CrossoverOperator
 
         $pointsChildren_C = array();
 
+        // Generación del primer punto del hijo #2.
         if($this->typeSpace == 'correlated') {
             array_push($newChildrenTwo, new Point($origenX = 0, $origenY = 0, 0, $pointsParentTwo[0]->getLetter(), 0));
         } else {
