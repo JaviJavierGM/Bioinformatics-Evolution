@@ -83,6 +83,8 @@ class EvolutionaryAlgorithmController extends Controller
         $newChildrenTwo = array();
         $pointsChildren_C = array();
 
+        array_push($newChildrenOne, new Point(0, 0, 0, $pointsParentOne[0]->getLetter(), 0));
+
         $hpString = 'HPPPHH';
         $crossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
         $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
