@@ -10,21 +10,26 @@ class Uniform extends CrossoverOperator
 {
     use HasFactory;
 
+    public function execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C) {
+        // Generacion de los puntos de corte.
+        $cuts = array();
+        
+        if($this->crossoverProbability > $this->decimalRandom()) {
+            echo 'Entro al de proba xD!!';
+            for ($i=0; $i < $this->lengthHpString; $i++) { 
+                array_push($cuts, rand(0, 1));
+            }
+        } else {
+            echo 'Entro al else xD!!';
+            for ($i=0; $i < $this->lengthHpString; $i++) { 
+                array_push($cuts, 0);
+            }
+        }
 
-    public function __construct($parent_one, $parent_two, $crossover_probability, $typeSpace, $correlatedMatrix, $hpSecuence, $generation) {
-        $this->parent_one = $parent_one;
-        $this->parent_two = $parent_two;
-        $this->crossover_probability = $crossover_probability;
-        srand($this->make_seed());
-
-        $this->typeSpace = $typeSpace;
-        $this->correlatedMatrix = $correlatedMatrix;
-        $this->hpSecuence = $hpSecuence;
-        $this->generation = $generation; 
-
+        var_dump($cuts);die();
     }
 
-    public function execute($lengthHpString) {
+    public function execute23($lengthHpString) {
         echo 'Parent one: ';
         $this->printArray($this->parent_one);
         

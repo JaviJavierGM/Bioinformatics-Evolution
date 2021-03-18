@@ -32,79 +32,90 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     public function testUniformCrossover(Request $request) {
-        $json = $request->input('json', null);
-        $params = json_decode($json);
+        $pointsParentOne = array(
+            new Point(1, 0, null, 'P', 0),
+            new Point(1, 2, null, 'P', 0),
+            new Point(0, 0, null, 'H', 0), 
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 1, null, 'P', 1)
+        );
 
-        if (is_object($params)) {
-            $params->parent_one = explode(',', $params->parent_one);
-            $params->parent_two = explode(',', $params->parent_two);
+        $pointsParentTwo = array(
+            new Point(1.5, 0, null, 'P', 1),                
+            new Point(1, 0, null, 'H', 0),
+            new Point(0, 0, null, 'H', 0),
+            new Point(2.5, 0, null, 'P', 4),
+            new Point(0.5, 0, null, 'H', 0),
+            new Point(0, 1, null, 'H', 2)
+        );
 
-            $uniformCrossover = new Uniform($params->parent_one, $params->parent_two, $params->crossover_probability);
-            $lengthHpString = sizeof($params->parent_one);
-            $uniformCrossover->execute($lengthHpString);
-                
-            $child_one = $uniformCrossover->getChildrenOne();
-            $child_two = $uniformCrossover->getChildrenTwo();
-            die();
-            $data = array(
-                'code' => 200,
-                'status' => 'success',
-                'parent_one' => $params->parent_one,
-                'parent_two' => $params->parent_two,
-                'children_one' => $child_one,
-                'children_two' => $child_two
-            );
-            
+        $newChildrenOne = array();
+        $newChildrenTwo = array();
+        $pointsChildren_C = array();
 
-        } else {
-            $data = array(
-                'code' => 400,
-                'status' => 'error',
-                'message' => 'Data not sending!'
-            );
-        }
-        return response()->json($data, $data['code']);
+        $hpString = 'HPPPHH';
+        $crossover = new Uniform(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 0.2, null, $hpString);
+        $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
+        //var_dump($childrens); die();
     }
 
     public function testOnePointCrossover(Request $request) {
-        $hpString = 'HPPPH';
-        $onePointCrossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 0.9, null, 4);
-        
+        $pointsParentOne = array(
+            new Point(1, 0, null, 'P', 0),
+            new Point(1, 2, null, 'P', 0),
+            new Point(0, 0, null, 'H', 0), 
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 1, null, 'P', 1)
+        );
+
+        $pointsParentTwo = array(
+            new Point(1.5, 0, null, 'P', 1),                
+            new Point(1, 0, null, 'H', 0),
+            new Point(0, 0, null, 'H', 0),
+            new Point(2.5, 0, null, 'P', 4),
+            new Point(0.5, 0, null, 'H', 0),
+            new Point(0, 1, null, 'H', 2)
+        );
+
+        $newChildrenOne = array();
+        $newChildrenTwo = array();
+        $pointsChildren_C = array();
+
+        $hpString = 'HPPPHH';
+        $crossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
+        $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
+        var_dump($childrens); die();
     }
 
     public function testTwoPointsCrossover(Request $request) {
-        $json = $request->input('json', null);
-        $params = json_decode($json);
+        $pointsParentOne = array(
+            new Point(1, 0, null, 'P', 0),
+            new Point(1, 2, null, 'P', 0),
+            new Point(0, 0, null, 'H', 0), 
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 1, null, 'P', 1)
+        );
 
-        if (is_object($params)) {
-            $params->parent_one = explode(',', $params->parent_one);
-            $params->parent_two = explode(',', $params->parent_two);
+        $pointsParentTwo = array(
+            new Point(1.5, 0, null, 'P', 1),                
+            new Point(1, 0, null, 'H', 0),
+            new Point(0, 0, null, 'H', 0),
+            new Point(2.5, 0, null, 'P', 4),
+            new Point(0.5, 0, null, 'H', 0),
+            new Point(0, 1, null, 'H', 2)
+        );
 
-            $uniformCrossover = new TwoPoints($params->parent_one, $params->parent_two, $params->crossover_probability);
-            $lengthHpString = sizeof($params->parent_one);
-            $uniformCrossover->execute($lengthHpString);
-                
-            $child_one = $uniformCrossover->getChildrenOne();
-            $child_two = $uniformCrossover->getChildrenTwo();
-            die();
-            $data = array(
-                'code' => 200,
-                'status' => 'success',
-                'parent_one' => $params->parent_one,
-                'parent_two' => $params->parent_two,
-                'children_one' => $child_one,
-                'children_two' => $child_two
-            );
-            
+        $newChildrenOne = array();
+        $newChildrenTwo = array();
+        $pointsChildren_C = array();
 
-        } else {
-            $data = array(
-                'code' => 400,
-                'status' => 'error',
-                'message' => 'Data not sending!'
-            );
-        }
-        return response()->json($data, $data['code']);
+        $hpString = 'HPPPHH';
+        $crossover = new TwoPoints(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
+        $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
+        //var_dump($childrens); die();
     }
 
     // -------- Probar la ruleta
