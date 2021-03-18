@@ -23,6 +23,7 @@ class OnePoint extends CrossoverOperator
         for ($j=1; $j < $this->lengthHpString; $j++) {
             if($j < $cut) {
                 if($this->typeDimension == '2D_Square') {
+                    // var_dump($newChildrenOne); die();
                     $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
                 } elseif($this->typeDimension == '2D_Triangle') {
                     $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);

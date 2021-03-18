@@ -69,10 +69,6 @@ abstract class CrossoverOperator extends Model
 
     public function checkSquareChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
         
-        /* 
-        int spaceType = main.getBoard().getSpaceType();
-        String[][] puntos = null; ----- $this->correlatedMatrix
-        */
         $isOk = true;
         $stringBuilder = "";
         $widthMatrix;
@@ -268,6 +264,11 @@ abstract class CrossoverOperator extends Model
         } else {
             
             do {
+                // var_dump($j);
+                // var_dump($this->hpSecuence[$j]);
+                // var_dump($pointsChildren[$j-1]);
+
+                // die();
                 $point = Helpers::generateSquarePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
 
                 switch ($movVectorValue) {
@@ -516,30 +517,30 @@ abstract class CrossoverOperator extends Model
             $indexOfF = Helpers::indexOfString($stringBuilder, "f");
 
             if($indexOfA != -1 && $indexOfB != -1 && $indexOfC != -1 && $indexOfD != -1 && $indexOfE != -1 && $indexOfF != -1) {
-                switch($this->points[--$j]->getMovVectorValue()) {
+                switch($pointsChildren[--$j]->getMovVectorValue()) {
 
                     case 0:
-                        $this->points[$j-1]->setWay0(false);
+                        $pointsChildren[$j-1]->setWay0(false);
                     break;
 
                     case 1:
-                        $this->points[$j-1]->setWay1(false);
+                        $pointsChildren[$j-1]->setWay1(false);
                     break;
 
                     case 2:
-                        $this->points[$j-1]->setWay2(false);
+                        $pointsChildren[$j-1]->setWay2(false);
                     break;
 
                     case 3:
-                        $this->points[$j-1]->setWay3(false);
+                        $pointsChildren[$j-1]->setWay3(false);
                     break;
 
                     case 4:
-                        $this->points[$j-1]->setWay4(false);
+                        $pointsChildren[$j-1]->setWay4(false);
                     break;
 
                     case 5:
-                        $this->points[$j-1]->setWay5(false);
+                        $pointsChildren[$j-1]->setWay5(false);
                     break;
 
                     default:
@@ -547,9 +548,9 @@ abstract class CrossoverOperator extends Model
                     break;
                 }
 
-                array_push($pointsChildren_C, $this->points[$j]);
-                unset($this->points[$j]);
-                $this->points = array_values($this->points);
+                array_push($pointsChildren_C, $pointsChildren[$j]);
+                unset($pointsChildren[$j]);
+                $pointsChildren = array_values($pointsChildren);
                 $stringBuilder = "";
 
             }
@@ -560,6 +561,171 @@ abstract class CrossoverOperator extends Model
 
     }
 
-    public function checkCubeChildren() {}
+    public function checkCubeChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
+
+        $isOk = true;
+        $stringBuilder = "";
+
+        do {
+            
+            switch ($movVectorValue) {
+                
+                case 0:
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay0() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "a";
+
+                    }
+
+                break;
+
+                case 1:
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay1() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "b";
+
+                    }
+                    
+                break;
+
+                case 2:
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay2() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "c";
+
+                    }
+                    
+                break;
+
+                case 3:
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay3() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "d";
+
+                    }
+                    
+                break;
+
+                case 4:
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay4() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "e";
+
+                    }
+                    
+                break;
+
+                case 5:
+                    
+                    $isAvailable = Helpers::isAvailable($pointsChildren, $pointsChildren_C, $point->getValueX(), $point->getValueY(), $point->getValueZ());
+
+                    if($pointsChildren[$j-1]->isWay5() && $isAvailable) {
+                        array_push($pointsChildren, $point);
+                        $isOk = true;
+
+                    } else {
+                        $isOk = false;
+                        $stringBuilder .= "f";
+
+                    }
+                    
+                break;
+                
+                default:
+                    echo "Default case";
+                break;
+                
+            }
+
+            if(!$isOk) {
+                $movVectorValue = rand(0, 5);
+            }
+
+            $indexOfA = Helpers::indexOfString($stringBuilder, "a");
+            $indexOfB = Helpers::indexOfString($stringBuilder, "b");
+            $indexOfC = Helpers::indexOfString($stringBuilder, "c");
+            $indexOfD = Helpers::indexOfString($stringBuilder, "d");
+            $indexOfE = Helpers::indexOfString($stringBuilder, "e");
+            $indexOfF = Helpers::indexOfString($stringBuilder, "f");
+
+            if($indexOfA != -1 && $indexOfB != -1 && $indexOfC != -1 && $indexOfD != -1 && $indexOfE != -1 && $indexOfF != -1) {
+                switch($pointsChildren[--$j]->getMovVectorValue()) {
+
+                    case 0:
+                        $pointsChildren[$j-1]->setWay0(false);
+                    break;
+
+                    case 1:
+                        $pointsChildren[$j-1]->setWay1(false);
+                    break;
+
+                    case 2:
+                        $pointsChildren[$j-1]->setWay2(false);
+                    break;
+
+                    case 3:
+                        $pointsChildren[$j-1]->setWay3(false);
+                    break;
+
+                    case 4:
+                        $pointsChildren[$j-1]->setWay4(false);
+                    break;
+
+                    case 5:
+                        $pointsChildren[$j-1]->setWay5(false);
+                    break;
+
+                    default:
+                        echo "Default case";
+                    break;
+                }
+
+                array_push($pointsChildren_C, $pointsChildren[$j]);
+                unset($pointsChildren[$j]);
+                $pointsChildren = array_values($pointsChildren);
+                $stringBuilder = "";
+
+            }
+
+        } while (!$isOk);
+
+        return $j;
+
+    }
 
 }
