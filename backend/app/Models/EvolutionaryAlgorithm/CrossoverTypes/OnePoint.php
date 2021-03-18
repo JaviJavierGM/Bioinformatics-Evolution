@@ -5,6 +5,7 @@ namespace App\Models\EvolutionaryAlgorithm\CrossoverTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\CrossoverOperator;
+use App\Models\EvolutionaryAlgorithm\Point;
 
 class OnePoint extends CrossoverOperator
 {
@@ -18,7 +19,9 @@ class OnePoint extends CrossoverOperator
             $cut = $this->lengthHpString;
         }
 
-        for ($j=1; $j < $this->lengthHpString; $j++) { 
+        // Generación del primer hijo.
+        for ($j=1; $j < $this->lengthHpString; $j++) {
+            echo 'Entro en el J = '.$j.'<br>';
             if($j < $cut) {
                 if($this->typeDimension == '2D_Square') {
                     $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
@@ -37,6 +40,42 @@ class OnePoint extends CrossoverOperator
                 }
             }
         }
+
+        $pointsChildren_C = array();
+
+        if($this->typeSpace == 'correlated') {
+            array_push($newChildrenTwo, new Point($origenX = 0, $origenY = 0, 0, $pointsParentTwo[0]->getLetter(), 0));
+        } else {
+            array_push($newChildrenTwo, new Point(0, 0, 0, $pointsParentTwo[0]->getLetter(), 0));
+        }
+
+        // Generación del segundo hijo.
+        for ($j=1; $j < $this->lengthHpString; $j++) {
+            if($j < $cut) {
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+
+                }
+            } else {
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+
+                }
+            }
+        }
+
+        $childrens = array(
+            'one' => $newChildrenOne,
+            'two' => $newChildrenTwo
+        );
+
+        return $childrens;
     }
 
     public function execute23($lengthHpString) {

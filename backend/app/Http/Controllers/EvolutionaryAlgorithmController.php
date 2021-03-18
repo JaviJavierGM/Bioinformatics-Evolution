@@ -67,9 +67,32 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     public function testOnePointCrossover(Request $request) {
-        $hpString = 'HPPPH';
-        $onePointCrossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 0.9, null, 4);
-        
+        $pointsParentOne = array(
+            new Point(1, 0, null, 'P', 0),
+            new Point(1, 2, null, 'P', 0),
+            new Point(0, 0, null, 'H', 0), 
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 0, null, 'H', 2),
+            new Point(1, 1, null, 'P', 1)
+        );
+
+        $pointsParentTwo = array(
+            new Point(1.5, 0, null, 'P', 1),                
+            new Point(1, 0, null, 'H', 0),
+            new Point(0, 0, null, 'H', 0),
+            new Point(2.5, 0, null, 'P', 4),
+            new Point(0.5, 0, null, 'H', 0),
+            new Point(0, 1, null, 'H', 2)
+        );
+
+        $newChildrenOne = array();
+        $newChildrenTwo = array();
+        $pointsChildren_C = array();
+
+        $hpString = 'HPPPHH';
+        $crossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
+        $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
+        var_dump($childrens); die();
     }
 
     public function testTwoPointsCrossover(Request $request) {
