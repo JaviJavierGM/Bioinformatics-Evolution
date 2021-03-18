@@ -153,7 +153,7 @@ class Helpers {
 
             default:
                 echo "Helpers - generateSquarePoint - Default case";
-                break;
+            break;
         }
 
         return $point;                

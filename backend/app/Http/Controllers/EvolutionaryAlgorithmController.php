@@ -74,7 +74,7 @@ class EvolutionaryAlgorithmController extends Controller
             new Point(1.5, 0, null, 'P', 1),                
             new Point(1, 0, null, 'H', 0),
             new Point(0, 0, null, 'H', 0),
-            new Point(2.5, 0, null, 'P', 4),
+            new Point(2.5, 0, null, 'P', 3),
             new Point(0.5, 0, null, 'H', 0),
             new Point(0, 1, null, 'H', 2)
         );

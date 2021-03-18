@@ -67,7 +67,7 @@ abstract class CrossoverOperator extends Model
         echo ' ]'.'<br/>';
     }
 
-    public function checkSquareChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkSquareChildren(&$pointsChildren_C, $movVectorValue, &$pointsChildren, $j) {
         
         $isOk = true;
         $stringBuilder = "";
@@ -264,11 +264,7 @@ abstract class CrossoverOperator extends Model
         } else {
             
             do {
-                // var_dump($j);
-                // var_dump($this->hpSecuence[$j]);
-                // var_dump($pointsChildren[$j-1]);
-
-                // die();
+                
                 $point = Helpers::generateSquarePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
 
                 switch ($movVectorValue) {
