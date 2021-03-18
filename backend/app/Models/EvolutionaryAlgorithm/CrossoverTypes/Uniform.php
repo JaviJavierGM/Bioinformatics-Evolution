@@ -15,18 +15,18 @@ class Uniform extends CrossoverOperator
         $cuts = array();
         
         if($this->crossoverProbability > $this->decimalRandom()) {
-            echo 'Entro al de proba xD!!';
             for ($i=0; $i < $this->lengthHpString; $i++) { 
                 array_push($cuts, rand(0, 1));
             }
         } else {
-            echo 'Entro al else xD!!';
             for ($i=0; $i < $this->lengthHpString; $i++) { 
                 array_push($cuts, 0);
             }
         }
 
-        var_dump($cuts);die();
+        for ($j=1; $j < $this->lengthHpString; $j++) { 
+            echo 'H';
+        }
     }
 
     public function execute23($lengthHpString) {

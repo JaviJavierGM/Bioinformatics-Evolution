@@ -14,12 +14,12 @@ class TwoPoints extends CrossoverOperator
         // Generacion de los 2 puntos de corte de acuerdo a la probabilidad de cruze dada.
         if($this->crossoverProbability > $this->decimalRandom()) {
             $cutOne = rand(0, ($this->lengthHpString/2)-1);
-            $cutTwo = rand(0, ($this->lengthHpString/2)-1) + (round($this->lengthHpString/2, null, PHP_ROUND_HALF_DOWN));
+            $cutTwo = rand(0, ($this->lengthHpString/2)-1) + intdiv($this->lengthHpString, 2);
         } else {
             $cutOne = $this->lengthHpString;
             $cutTwo = $this->lengthHpString;
         }
-        
+                
         // Generación del primer hijo.
         for($j=1; $j < $this->lengthHpString; $j++) {
             if($j < $cutOne) {

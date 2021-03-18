@@ -55,7 +55,7 @@ class EvolutionaryAlgorithmController extends Controller
         $pointsChildren_C = array();
 
         $hpString = 'HPPPHH';
-        $crossover = new Uniform(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 0.2, null, $hpString);
+        $crossover = new Uniform(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
         $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
         //var_dump($childrens); die();
     }
@@ -69,14 +69,15 @@ class EvolutionaryAlgorithmController extends Controller
             new Point(1, 0, null, 'H', 2),
             new Point(1, 1, null, 'P', 1)
         );
+       
 
         $pointsParentTwo = array(
-            new Point(1.5, 0, null, 'P', 1),                
-            new Point(1, 0, null, 'H', 0),
-            new Point(0, 0, null, 'H', 0),
-            new Point(2.5, 0, null, 'P', 3),
-            new Point(0.5, 0, null, 'H', 0),
-            new Point(0, 1, null, 'H', 2)
+            new Point(1, 0, null, 'P', 1),                
+            new Point(1, 1, null, 'H', 0),
+            new Point(0, 2, null, 'H', 0),
+            new Point(2, 0, null, 'P', 3),
+            new Point(0, 3, null, 'H', 0),
+            new Point(3, 1, null, 'H', 2)
         );
 
         $newChildrenOne = array();
@@ -86,9 +87,9 @@ class EvolutionaryAlgorithmController extends Controller
         array_push($newChildrenOne, new Point(0, 0, 0, $pointsParentOne[0]->getLetter(), 0));
 
         $hpString = 'HPPPHH';
-        $crossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
+        $crossover = new OnePoint(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 0.1, null, $hpString);
         $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
-        var_dump($childrens); die();
+        var_dump($childrens['one']); die();
     }
 
     public function testTwoPointsCrossover(Request $request) {

@@ -22,6 +22,7 @@ class OnePoint extends CrossoverOperator
         // Generación del primer hijo.
         for ($j=1; $j < $this->lengthHpString; $j++) {
             if($j < $cut) {
+                echo 'Iteracion #'.$j.', Entre al J < corte <br>';
                 if($this->typeDimension == '2D_Square') {
                     $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j); 
                 } elseif($this->typeDimension == '2D_Triangle') {
@@ -30,6 +31,7 @@ class OnePoint extends CrossoverOperator
 
                 }
             } else {
+                echo 'Iteracion #'.$j.', Entre al J >= corte <br>';
                 if($this->typeDimension == '2D_Square') {
                     $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);
                 } elseif($this->typeDimension == '2D_Triangle') {
