@@ -398,9 +398,6 @@ abstract class CrossoverOperator extends Model
 
         do {
             
-            echo "mov vector value";
-            var_dump($movVectorValue);
-
             $point = Helpers::generateTrianglePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
 
             switch ($movVectorValue) {
@@ -559,10 +556,10 @@ abstract class CrossoverOperator extends Model
 
         } while (!$isOk);
 
-        var_dump($isOk, $stringBuilder, $j);
-        die();
         return $j;
 
     }
+
+    public function checkCubeChildren() {}
 
 }
