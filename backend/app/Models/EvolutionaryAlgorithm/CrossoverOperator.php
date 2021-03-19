@@ -4,6 +4,8 @@ namespace App\Models\EvolutionaryAlgorithm;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\EvolutionaryAlgorithm\MutationTypes\Predefined;
+use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Helpers\Helpers;
 
 abstract class CrossoverOperator extends Model
@@ -18,6 +20,7 @@ abstract class CrossoverOperator extends Model
     protected $crossoverProbability;
     protected $correlatedMatrix;
     protected $hpSecuence;
+    protected $mutationType;
 
     public function __construct(
         $generation,
@@ -27,7 +30,8 @@ abstract class CrossoverOperator extends Model
         $conformationsNumber,
         $crossoverProbability,
         $correlatedMatrix,
-        $hpSecuence
+        $hpSecuence,
+        $mutationType
     ) {
         $this->generation = $generation;
         $this->typeSpace = $typeSpace;
@@ -37,7 +41,35 @@ abstract class CrossoverOperator extends Model
         $this->crossoverProbability = $crossoverProbability;
         $this->correlatedMatrix = $correlatedMatrix;
         $this->hpSecuence = $hpSecuence;
+        $this->mutationType = $mutationType;
         srand($this->make_seed());
+
+        // Generación de una nueva generacion hijos atravez de la generacion padre
+        $conformations = array();
+        for ($i=0; $i < $this->conformationsNumber; $i++) { 
+            $parentOne = 0;
+            $parentTwo = 0;
+ 
+            if($this->mutationType == 'predefined') { // Caso del operador genetico mutacion predefinido
+                $parents = Predefined::execute($this->generation, $i);
+            } else { // Caso del operador genetico mutacion random
+                $parents = Random::execute($this->generation, $i);
+            }
+
+            $parentOne = $parents['one'];
+            $parentTwo = $parents['two'];
+            $temporalParent = $parents['temp'];
+
+            $pointsParentOne = $this->generation->getConformations()[$parentOne]->getPoints();
+            $pointsParentTwo = $this->generation->getConformations()[$parentTwo]->getPoints();
+            $newChildrenOne = array();
+            $newChildrenTwo = array();
+            for ($m=0; $m < $this->lengthHpString; $m++) { 
+                $pointsParentOne[$m]->resetR();
+                $pointsParentTwo[$m]->resetR();
+            }
+            $pointsChildren_C = array();
+        }
     }
 
     abstract public function execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);

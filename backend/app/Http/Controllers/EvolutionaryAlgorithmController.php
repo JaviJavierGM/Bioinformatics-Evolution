@@ -40,24 +40,27 @@ class EvolutionaryAlgorithmController extends Controller
             new Point(1, 0, null, 'H', 2),
             new Point(1, 1, null, 'P', 1)
         );
+       
 
         $pointsParentTwo = array(
-            new Point(1.5, 0, null, 'P', 1),                
-            new Point(1, 0, null, 'H', 0),
-            new Point(0, 0, null, 'H', 0),
-            new Point(2.5, 0, null, 'P', 4),
-            new Point(0.5, 0, null, 'H', 0),
-            new Point(0, 1, null, 'H', 2)
+            new Point(1, 0, null, 'P', 1),                
+            new Point(1, 1, null, 'H', 0),
+            new Point(0, 2, null, 'H', 0),
+            new Point(2, 0, null, 'P', 3),
+            new Point(0, 3, null, 'H', 0),
+            new Point(3, 1, null, 'H', 2)
         );
 
         $newChildrenOne = array();
         $newChildrenTwo = array();
         $pointsChildren_C = array();
 
+        array_push($newChildrenOne, new Point(0, 0, 0, $pointsParentOne[0]->getLetter(), 0));
+
         $hpString = 'HPPPHH';
-        $crossover = new Uniform(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
+        $crossover = new Uniform(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString, 'predefined');
         $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
-        //var_dump($childrens); die();
+        var_dump($childrens); die();
     }
 
     public function testOnePointCrossover(Request $request) {
@@ -759,6 +762,52 @@ class EvolutionaryAlgorithmController extends Controller
         }
         
         die();
+    }
+
+    public function testCompleteCrossover() {
+        $parentsLst = array();
+        
+        $parents = new Parents();
+        $parents->setParent1(1);
+        $parents->setParent2(0);
+
+        $parents1 = new Parents();
+        $parents1->setParent1(8);
+        $parents1->setParent2(9);
+
+        $parents2 = new Parents();
+        $parents2->setParent1(5);
+        $parents2->setParent2(1);
+
+        array_push($parentsLst, $parents);
+        array_push($parentsLst, $parents1);
+        array_push($parentsLst, $parents2);
+
+        $conformation1 = new Conformation(null);
+        $conformation1->setFitness(-7);
+        $conformation2 = new Conformation(null);
+        $conformation2->setFitness(-5);
+        $conformation3 = new Conformation(null);
+        $conformation3->setFitness(-4);
+        $conformation4 = new Conformation(null);
+        $conformation4->setFitness(-10);
+        $conformation5 = new Conformation(null);
+        $conformation5->setFitness(-1);
+        $conformation6 = new Conformation(null);
+        $conformation6->setFitness(-11);
+
+        $arrayConformations = array($conformation1, $conformation2, $conformation3, $conformation4, $conformation5, $conformation6);
+
+        $gen = new Generation($arrayConformations);
+        $gen->setParentsList($parentsLst);
+
+        $newChildrenOne = array();
+        $newChildrenTwo = array();
+        $pointsChildren_C = array();
+
+        $hpString = 'HPPPHH';
+        $crossover = new TwoPoints(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
+        $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Models\EvolutionaryAlgorithm\CrossoverTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\CrossoverOperator;
+use App\Models\EvolutionaryAlgorithm\Point;
 
 class Uniform extends CrossoverOperator
 {
@@ -24,54 +25,63 @@ class Uniform extends CrossoverOperator
             }
         }
 
-        for ($j=1; $j < $this->lengthHpString; $j++) { 
-            echo 'H';
-        }
-    }
-
-    public function execute23($lengthHpString) {
-        echo 'Parent one: ';
-        $this->printArray($this->parent_one);
-        
-        echo 'Parent two: ';
-        $this->printArray($this->parent_two);
-
-        if($this->crossover_probability > $this->decimalRandom()) {
-            $this->children_one = $this->generateChildren($lengthHpString);
-            $this->children_two = $this->generateChildren($lengthHpString);
-            echo '<br>';
-        } else {
-            echo '<br>La probailidad de cruce no es mayor que el numero random!<br>';
-
-            $this->children_one = $this->parent_one;
-            $this->children_two = $this->parent_two;
-            echo '<br>';
-        }
-        
-        echo 'Children one: ';
-        $this->printArray($this->children_one);
-        
-        echo 'Children two: ';
-        $this->printArray($this->children_two);
-    }
-
-    public function generateChildren($lengthHpString) {
-        $array = array();
-        echo '<br/> Seleccion del gen: [ ';
-        for ($i=0; $i < $lengthHpString; $i++) { 
-            $parentSelected = rand(0, 1);
-
-            echo $parentSelected.' ';
-
-            // Seleccion del padre que contribuirá el gen al hijo
-            if ($parentSelected == 0) {
-                $array[$i] = $this->parent_one[$i];
+        // Generación del primer hijo
+        for ($j=1; $j < $this->lengthHpString; $j++) {
+            echo 'Entro a la iteración '.$j.'<br>';
+            if($cuts[$j] == 0) {
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                }
             } else {
-                $array[$i] = $this->parent_two[$i];
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);
+                }
             }
         }
-        
-        echo ' ]<br/>';
-        return $array;
+
+        $pointsChildren_C = array();
+
+        // Generación del primer punto del hijo #2.
+        if($this->typeSpace == 'correlated') {
+            array_push($newChildrenTwo, new Point($origenX = 0, $origenY = 0, 0, $pointsParentTwo[0]->getLetter(), 0));
+        } else {
+            array_push($newChildrenTwo, new Point(0, 0, 0, $pointsParentTwo[0]->getLetter(), 0));
+        }
+
+        // Generación del segundo hijo
+        for ($j=1; $j < $this->lengthHpString; $j++) { 
+            if($cuts[$j] == 0) {
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                }
+            } else {
+                if($this->typeDimension == '2D_Square') {
+                    $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '2D_Triangle') {
+                    $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                } elseif($this->typeDimension == '3D_Cubic') {
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenTwo, $j);
+                }
+            }
+        }
+
+        $childrens = array (
+            'one' => $newChildrenOne,
+            'two' => $newChildrenOne
+        );
+
+        return $childrens;
     }
 }

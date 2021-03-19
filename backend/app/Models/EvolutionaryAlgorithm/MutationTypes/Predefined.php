@@ -10,15 +10,16 @@ class Predefined extends MutationOperator
 {
     use HasFactory;
 
-    public static function execute($generation, $i) {
-        $parents = array();
+    public static function execute($generation, $i) {        
         $parentOne = $generation->getParentsList()[$i]->getParent1();
         $parentTwo = $generation->getParentsList()[$i]->getParent2();        
         $temporalParent = $generation->getParentsList()[$i];
 
-        array_push($parents, $parentOne);
-        array_push($parents, $parentTwo);
-        array_push($parents, $temporalParent);
+        $parents = array(
+            'one' => $parentOne,
+            'two' => $parentTwo,
+            'temp' => $temporalParent
+        );
 
         return $parents;
     }

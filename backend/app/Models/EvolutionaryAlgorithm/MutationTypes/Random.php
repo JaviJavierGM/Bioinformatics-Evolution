@@ -13,17 +13,14 @@ class Random extends MutationOperator
 
     public static function execute($generation, $i) {
         srand(Random::make_seed());
-        $parents = array();
         $temporalParent = new Parents();
         switch (rand(0, 1)) {
             case 0:
-                echo 'Entro en el caso 0<br>';
                 $parentOne = $generation->getParentsList()[$i]->getParent1();
                 $parentTwo = $generation->getParentsList()[$i]->getParent2();        
                 $temporalParent = $generation->getParentsList()[$i];
                 break;
             case 1:
-                echo 'Entro en el caso 1<br>';
                 $parentOne = $generation->getParentsList()[$i]->getParent2();
                 $parentTwo = $generation->getParentsList()[$i]->getParent1();        
                 $temporalParent->setParent1($parentOne);
@@ -34,9 +31,12 @@ class Random extends MutationOperator
                 echo 'Case Default Mutation Random<br>';
                 break;
         }
-        array_push($parents, $parentOne);
-        array_push($parents, $parentTwo);
-        array_push($parents, $temporalParent);
+        
+        $parents = array(
+            'one' => $parentOne,
+            'two' => $parentTwo,
+            'temp' => $temporalParent
+        );
 
         return $parents;
     }
