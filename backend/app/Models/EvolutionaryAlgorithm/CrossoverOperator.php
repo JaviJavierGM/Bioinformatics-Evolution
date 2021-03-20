@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Predefined;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
+use App\Models\EvolutionaryAlgorithm\Conformation;
 use App\Helpers\Helpers;
 
 abstract class CrossoverOperator extends Model
@@ -68,7 +69,27 @@ abstract class CrossoverOperator extends Model
                 $pointsParentOne[$m]->resetR();
                 $pointsParentTwo[$m]->resetR();
             }
+
             $pointsChildren_C = array();
+
+            // Generación del primer punto del hijo #1.
+            if($this->typeSpace == 'correlated') {
+                array_push($newChildrenOne, new Point($origenX = 0, $origenY = 0, 0, $pointsParentOne[0]->getLetter(), 0));
+            } else {
+                array_push($newChildrenOne, new Point(0, 0, 0, $pointsParentOne[0]->getLetter(), 0));
+            }
+
+            $childrens = $this->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
+            $newChildrenOne = $childrens['one'];
+            $newChildrenTwo = $childrens['two'];
+
+            $childrenOne = new Conformation($newChildrenOne);
+            $childrenOne->setParents($temporalParent);
+            array_push($conformations, $childrenOne);
+
+            $childrenTwo = new Conformation($newChildrenTwo);
+            $childrenTwo->setParents($temporalParent);
+            array_push($conformations, $childrenTwo);
         }
     }
 
