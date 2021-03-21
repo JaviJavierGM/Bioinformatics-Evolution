@@ -523,6 +523,7 @@ class EvolutionaryAlgorithmController extends Controller
 
     // -------- Test check triangle (crossover)
     // comentario prueba xDdxdxdx
+    // otra prueba dxdx
     public function testCheckTriangle() {        
 
         $conformation1 = new Conformation(null);
