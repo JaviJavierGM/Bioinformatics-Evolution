@@ -706,9 +706,9 @@ class EvolutionaryAlgorithmController extends Controller
 
         for($i=0; $i < sizeof($parentsLst); $i++) {
             $predefined = Predefined::execute($gen, $i);
-            $padre1 = $predefined[0];
-            $padre2 = $predefined[1];
-            $tempP = $predefined[2];
+            $padre1 = $predefined['one'];
+            $padre2 = $predefined['two'];
+            $tempP = $predefined['temp'];
 
             echo 'Padre 1: '.$padre1.', Padre 2: '.$padre2.'<br>';
         }
