@@ -26,6 +26,10 @@ class Roulette extends SelectionOperator
 
         $totalFitness = $this->generation->getTotalFitness() * -1;
 
+        if($totalFitness == 0){
+            return false;
+        }
+
         // Ordenar las coformaciones de manera ascendente
         $orderedConformations = $this->generation->getOrderedConformations(true);
 
@@ -76,5 +80,6 @@ class Roulette extends SelectionOperator
         // Borramos todas las variables creadas
         unset($sizeGeneration, $conformationsToSelect, $totalFitness, $orderedConformations, $arrayPercentSelection, $indexSelectedConformations);
        
+        return true;
     }
 }

@@ -14,10 +14,16 @@ class CorrelatedNetwork extends Model
 
     private $fileName;
     private $correlatedMatrix = array();       
-    private $point1;
-    private $point2;
-    private $point3;
-    private $point4;
+    // private $point1;
+    // private $point2;
+    // private $point3;
+    // private $point4;
+    
+    // points
+    private $upperLeft;
+    private $upperRight;
+    private $lowerLeft;
+    private $lowerRight;
     // -------------------------
     private $startingPoint; 
     private $width;
@@ -38,13 +44,7 @@ class CorrelatedNetwork extends Model
     }
 
     public function readMatrix(){
-
-        /*
         
-        Falta ordenar esta funcion despues de los de las dudas
-        
-        */
-
         echo "read matriz <br>";
         $contents = Storage::get('correlatedMatrixs/pruebaMatriz01.txt');
         // $contents = Storage::get('correlatedMatrixs/cp37.txt');
@@ -53,74 +53,18 @@ class CorrelatedNetwork extends Model
 
         $arrayTemp = array();
         $matrix = array();
-
-        
-
-        $upperLeft = $this->point1;
-        $upperRight = $this->point2;
-        
-        $lowerLeft = $this->point3;
-        $lowerRight = $this->point4;
-
-        // $ladoVertical = sqrt( pow( $lowerLeft->getValueX()-$upperLeft->getValueX() ,2) + pow( $lowerLeft->getValueY()-$upperLeft->getValueY() ,2)) +1;
-        // $ladoHorizontal = sqrt( pow( $upperRight->getValueX()-$upperLeft->getValueX() ,2) + pow( $upperRight->getValueY()-$upperLeft->getValueY() ,2)) +1;
-
-        // var_dump($ladoVertical);
-        // var_dump($ladoHorizontal); die();
-
-
-        // $elementsTOTAL = $ladoVertical * $ladoHorizontal;
-        $contElemts =0;
-
-        // var_dump($elementsTOTAL);
-        
-
-        $contadorVertical = 0;
-        $contadorHorizontal = -1;
-
-        $arrayTempMatrix = array();
-        $matrixFINAL = array();
         
         // Leer la matriz del archivo txt
         for($i=0; $i<strlen($contents); $i++){            
 
             if($contents[$i] == "\n"){
-
-                // if($contadorVertical >= $upperLeft->getValueY() && $contadorVertical <= $lowerLeft->getValueY()){
-                //     array_push($matrixFINAL, $arrayTempMatrix);
-                //     unset($arrayTempMatrix);
-                //     if(!isset($arrayTempMatrix))
-                //         $arrayTempMatrix = array();
-
-                //     if($contElemts == $elementsTOTAL)
-                //         break;
-                // }
-                // $contadorVertical++;
-                // $contadorHorizontal=-1;  
-
-                
                 array_push($matrix, $arrayTemp);
                 unset($arrayTemp);                
                 if(!isset($arrayTemp))
                     $arrayTemp = array();
-
-                
-            
-            }else{
-                
+            }else{                
                 if($contents[$i] == "0" || $contents[$i] == "1"){
                     array_push($arrayTemp, (int)$contents[$i]);
-                    
-                    // $contadorHorizontal++;
-
-                    // if($contadorVertical >= $upperLeft->getValueY() && $contadorVertical <= $lowerLeft->getValueY()){
-                    //     if($contadorHorizontal >= $upperLeft->getValueX() && $contadorHorizontal <= $upperRight->getValueX()){
-                    //         array_push($arrayTempMatrix, (int)$contents[$i]);
-                    //         $contElemts++;
-
-                    //     }
-                    // }
-
                 }                            
             }
             
@@ -128,20 +72,15 @@ class CorrelatedNetwork extends Model
 
         echo "<br> termino de leer matriz <br>";
 
-        // var_dump($contadorHorizontal);
-        // var_dump($contadorVertical);
-
-        //var_dump($matrixFINAL);
-        
-        // var_dump($matrix);
-
         // Copiar solo la parte seleccionada
+        unset($arrayTemp);
         $arrayTemp = array();
 
-        
-        $ladoVertical = (int)sqrt( pow( $lowerLeft->getValueX()-$upperLeft->getValueX() ,2) + pow( $lowerLeft->getValueY()-$upperLeft->getValueY() ,2)) +1;
-        $ladoHorizontal = (int)sqrt( pow( $upperRight->getValueX()-$upperLeft->getValueX() ,2) + pow( $upperRight->getValueY()-$upperLeft->getValueY() ,2)) +1;
+        $verticalSide = (int)sqrt( pow( $this->lowerLeft->getValueX()-$this->upperLeft->getValueX() ,2) + pow( $this->lowerLeft->getValueY()-$this->upperLeft->getValueY() ,2)) +1;
+        $horizontalSide  = (int)sqrt( pow( $this->upperRight->getValueX()-$this->upperLeft->getValueX() ,2) + pow( $this->upperRight->getValueY()-$this->upperLeft->getValueY() ,2)) +1;
 
+        var_dump($verticalSide);
+        die();
         // echo "lado vertical:";
         // var_dump($ladoVertical);
         // echo "lado horizontal:";
@@ -151,12 +90,12 @@ class CorrelatedNetwork extends Model
         // var_dump($this->point3->getValueX());
         // var_dump($this->point2->getValueY());
         
-        for($i=$this->point1->getValueX(); $i<$this->point1->getValueX()+$ladoVertical; $i++){
+        for($i=$this->point1->getValueX(); $i<$this->point1->getValueX()+$verticalSide; $i++){
 
             if(!isset($arrayTemp))
                 $arrayTemp = array();
 
-            for($j=$this->point1->getValueY(); $j<$this->point1->getValueY()+$ladoHorizontal; $j++){
+            for($j=$this->point1->getValueY(); $j<$this->point1->getValueY()+$horizontalSide; $j++){
                 array_push($arrayTemp, $matrix[$i][$j]);
             }
 

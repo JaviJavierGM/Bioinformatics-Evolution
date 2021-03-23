@@ -30,6 +30,12 @@ class Tournament extends SelectionOperator
             $conformationsToSelect = $sizeGeneration;
         }
 
+        $totalFitness = $this->generation->getTotalFitness() * -1;
+
+        if($totalFitness == 0){
+            return false;
+        }
+
         $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // son las k conformaciones a elegir con la ruleta
 
         $copyOfGeneration = $this->generation->getCloneGeneration();
@@ -73,7 +79,9 @@ class Tournament extends SelectionOperator
         $this->generation->setIndexSelectedConformations($indexSelectedConformations);
 
         // Borramos todas las variables creadas
-        unset($sizeGeneration, $k, $roulette, $bestConformation, $sublist_S, $copyOfGeneration, $indexSelectedConformations);        
+        unset($sizeGeneration, $k, $roulette, $bestConformation, $sublist_S, $copyOfGeneration, $indexSelectedConformations);
+        
+        return true;
     }
 
 }

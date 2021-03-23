@@ -28,6 +28,13 @@ class Elitism extends Model
     }
 
     public function execute(){
+
+        $totalFitness = $this->generation->getTotalFitness() * -1;
+
+        if($totalFitness == 0){
+            return false;
+        }
+
         $sizeGeneration = $this->generation->getSizeGeneration();
         // $percentConformationsElitism es el numero de conformaciones a preservar con el elitismo
         $percentConformationsElitism = round( (($this->percentOfElitism / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN);
@@ -80,6 +87,8 @@ class Elitism extends Model
         }
 
         unset($sizeGeneration, $percentConformationsElitism, $orderedConformations, $indexSelectedConformations);
+
+        return true;
 
     }
 

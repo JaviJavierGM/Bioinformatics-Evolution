@@ -246,15 +246,15 @@ class EvolutionaryAlgorithmController extends Controller
     public function testElitism(Request $request) {
         
         $conformation1 = new Conformation(null);
-        $conformation1->setFitness(-7);
+        $conformation1->setFitness(0);
         $conformation2 = new Conformation(null);
-        $conformation2->setFitness(-5);
+        $conformation2->setFitness(0);
         $conformation3 = new Conformation(null);
-        $conformation3->setFitness(-6);
+        $conformation3->setFitness(0);
         $conformation4 = new Conformation(null);
-        $conformation4->setFitness(-9);
+        $conformation4->setFitness(0);
         $conformation5 = new Conformation(null);
-        $conformation5->setFitness(-1);
+        $conformation5->setFitness(0);
         $conformation6 = new Conformation(null);
         $conformation6->setFitness(-10);
 
@@ -264,15 +264,15 @@ class EvolutionaryAlgorithmController extends Controller
 
         $percentOfElitism = 40;
 
-        // $selectionOperator = "roulette";
+        $selectionOperator = "roulette";
         // $selectionOperator = "tournament";
-        $selectionOperator = "top_percent";
+        // $selectionOperator = "top_percent";
         // $selectionOperator = "population_decimation";
 
         $percentOfSelectionOperator = 40;
 
         $elitism = new Elitism($percentOfElitism, $generation, $selectionOperator, $percentOfSelectionOperator);
-        $elitism->execute();
+        var_dump($elitism->execute());
 
         // echo "<br> FITNESS DE LAS CONFORMACIONES OBTENIDAS CON ELITISMO: <br>";
         // for($i=0; $i<$generation->getSizeGeneration(); $i++){

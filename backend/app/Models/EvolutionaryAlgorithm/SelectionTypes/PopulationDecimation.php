@@ -23,6 +23,12 @@ class PopulationDecimation extends SelectionOperator
             $conformationsToSelect = $sizeGeneration;
         }
 
+        $totalFitness = $this->generation->getTotalFitness() * -1;
+
+        if($totalFitness == 0){
+            return false;
+        }
+
         // conformaciones de la generacion, ordenadas de forma descendente
         $sublist_L = $this->generation->getOrderedConformations(false);
 
@@ -59,5 +65,7 @@ class PopulationDecimation extends SelectionOperator
 
         // Borramos las variables
         unset($sizeGeneration, $sublist_L, $cut, $sublist_S, $indexSelectedConformations);
+
+        return true;
     }
 }

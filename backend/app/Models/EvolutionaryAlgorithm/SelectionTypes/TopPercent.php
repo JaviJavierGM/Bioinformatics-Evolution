@@ -27,6 +27,12 @@ class TopPercent extends SelectionOperator
             $conformationsToSelect = $sizeGeneration;
         }
 
+        $totalFitness = $this->generation->getTotalFitness() * -1;
+
+        if($totalFitness == 0){
+            return false;
+        }
+
         $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // k mejores coformaciones a seleccionar
 
         // conformaciones de la generacion, ordenadas de forma descendente
@@ -70,5 +76,7 @@ class TopPercent extends SelectionOperator
 
         // Borramos las variables
         unset($sizeGeneration, $k, $sublist_L, $sublist_S, $indexSelectedConformations);
+
+        return true;
     }
 }
