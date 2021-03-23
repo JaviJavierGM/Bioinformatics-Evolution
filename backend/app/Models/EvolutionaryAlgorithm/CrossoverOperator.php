@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Predefined;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Models\EvolutionaryAlgorithm\Conformation;
+use App\Models\EvolutionaryAlgorithm\Generation;
 use App\Helpers\Helpers;
 
 abstract class CrossoverOperator extends Model
@@ -91,6 +92,15 @@ abstract class CrossoverOperator extends Model
             $childrenTwo->setParents($temporalParent);
             array_push($conformations, $childrenTwo);
         }
+
+        /* while() {
+            //Recorrer Best Conformations
+        } */
+
+        $newGeneration = new Generation($conformations);
+        //$newGeneration->setDmaxP();
+        //$newGeneration->setRadioGiroP();
+        return $newGeneration;
     }
 
     abstract public function execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);

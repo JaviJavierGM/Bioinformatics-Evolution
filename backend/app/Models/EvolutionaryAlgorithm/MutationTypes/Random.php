@@ -16,11 +16,13 @@ class Random extends MutationOperator
         $temporalParent = new Parents();
         switch (rand(0, 1)) {
             case 0:
+                echo 'Case 0<br>';
                 $parentOne = $generation->getParentsList()[$i]->getParent1();
                 $parentTwo = $generation->getParentsList()[$i]->getParent2();        
                 $temporalParent = $generation->getParentsList()[$i];
                 break;
             case 1:
+                echo 'Case 1<br>';
                 $parentOne = $generation->getParentsList()[$i]->getParent2();
                 $parentTwo = $generation->getParentsList()[$i]->getParent1();        
                 $temporalParent->setParent1($parentOne);
