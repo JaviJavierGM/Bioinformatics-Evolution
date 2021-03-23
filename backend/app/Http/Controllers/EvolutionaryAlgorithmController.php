@@ -756,9 +756,9 @@ class EvolutionaryAlgorithmController extends Controller
 
         for($i=0; $i < sizeof($parentsLst); $i++) {
             $random = Random::execute($gen, $i);
-            $padre1 = $random[0];
-            $padre2 = $random[1];
-            $tempP = $random[2];
+            $padre1 = $random['one'];
+            $padre2 = $random['two'];
+            $tempP = $random['temp'];
 
             echo 'Padre 1: <strong>'.$padre1.'</strong>, Padre 2: <strong>'.$padre2.'</strong><br><br>';
         }
