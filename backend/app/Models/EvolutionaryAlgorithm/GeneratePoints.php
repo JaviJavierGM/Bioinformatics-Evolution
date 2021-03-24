@@ -45,8 +45,9 @@ abstract class GeneratePoints extends Model
             $this->points = array();
 
             $this->generatePoints($pointsChildren); 
+            
             // Lineas para detener el proceso y solo verificar la generacion de puntos
-            echo "<br><br> --------------------------------------------------------- YA ACABO ALV! <br><br>";
+            echo "<br><br> --------------------------------------------------------- YA ACABO DE GENERAR PUNTOS! <br><br>";
             var_dump($this->points);       die();
 
             // $fitness = new Fitness(points)->getFitness();
@@ -67,9 +68,6 @@ abstract class GeneratePoints extends Model
         for($i=0; $i<sizeof($conformations); $i++) {
             echo 'Soy el punto numero #'.($i+1).'Mi fitness es: '.$conformations[$i]->getFitness().'<br>';
         }
-        die();
-        echo "<br><br> --------------------------------------------------------- YA ACABO ALV! <br><br>";
-        var_dump($this->points);
 
         $generation = new Generation($conformations);
         // calcular Dmaxp

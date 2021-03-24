@@ -359,11 +359,11 @@ class EvolutionaryAlgorithmController extends Controller
 
         for($i=0; $i<4; $i++){
             array_push($correlatedMatrix, array(0,0,1));
-            print_r($correlatedMatrix[$i]);
-            echo "<br>";
+            // print_r($correlatedMatrix[$i]);
+            // echo "<br>";
         }
 
-        echo "<br>";
+        // echo "<br>";
 
         // $correlatedMatrix[2][0]=1;
 
@@ -425,12 +425,18 @@ class EvolutionaryAlgorithmController extends Controller
         // $point4 = new Point(3 , 3, null, null, null);
 
         // Nueva seccion
-        $point1 = new Point(0 , 0, null, null, null);
-        $point2 = new Point(700 , 0, null, null, null);
-        $point3 = new Point(0 , 700, null, null, null);
-        $point4 = new Point(700 , 700, null, null, null);
+        // $point1 = new Point(0 , 0, null, null, null);
+        // $point2 = new Point(700 , 0, null, null, null);
+        // $point3 = new Point(0 , 700, null, null, null);
+        // $point4 = new Point(700 , 700, null, null, null);
 
-        $correlatedNetwork = new CorrelatedNetwork(null, $point1, $point2, $point3, $point4);
+        // Nueva seccion
+        $point1 = new Point(2 , 2, null, null, null);
+        $point2 = new Point(2 , 7, null, null, null);
+        $point3 = new Point(4 , 2, null, null, null);
+        $point4 = new Point(4 , 7, null, null, null);
+
+        $correlatedNetwork = new CorrelatedNetwork('pruebaMatriz01', $point1, $point2, $point3, $point4);
 
         $correlatedNetwork->readMatrix();
 
@@ -445,10 +451,10 @@ class EvolutionaryAlgorithmController extends Controller
         // $point4 = new Point(3 , 2, null, null, null);
 
         // chido
-        $point1 = new Point(0 , 0, null, null, null);
-        $point2 = new Point(0 , 3, null, null, null);
-        $point3 = new Point(0 , 2, null, null, null);
-        $point4 = new Point(2 , 3, null, null, null);
+        // $point1 = new Point(0 , 0, null, null, null);
+        // $point2 = new Point(0 , 3, null, null, null);
+        // $point3 = new Point(0 , 2, null, null, null);
+        // $point4 = new Point(2 , 3, null, null, null);
 
         // Seccion azul
         // $point1 = new Point(1 , 2, null, null, null);
@@ -468,7 +474,19 @@ class EvolutionaryAlgorithmController extends Controller
         // $point3 = new Point(2 , 1, null, null, null);
         // $point4 = new Point(2 , 2, null, null, null);
 
-        $correlatedNetwork = new CorrelatedNetwork(null, $point1, $point2, $point3, $point4);
+        // Nueva seccion
+        // $point1 = new Point(2 , 2, null, null, null);
+        // $point2 = new Point(2 , 7, null, null, null);
+        // $point3 = new Point(4 , 2, null, null, null);
+        // $point4 = new Point(4 , 7, null, null, null);
+
+        // Nueva seccion
+        $point1 = new Point(0 , 5, null, null, null);
+        $point2 = new Point(0 , 8, null, null, null);
+        $point3 = new Point(5 , 5, null, null, null);
+        $point4 = new Point(5 , 8, null, null, null);
+
+        $correlatedNetwork = new CorrelatedNetwork('pruebaMatriz01', $point1, $point2, $point3, $point4);
 
         $correlatedNetwork->readMatrix();
         $correlatedNetwork->generateStartingPoint();
