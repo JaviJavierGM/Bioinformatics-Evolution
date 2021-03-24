@@ -24,6 +24,7 @@ use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateTrianglePoints;
 use App\Models\EvolutionaryAlgorithm\CorrelatedNetwork;
 use App\Models\EvolutionaryAlgorithm\Parents;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Predefined;
+use App\Models\EvolutionaryAlgorithm\EvolutionaryAlgorithmTypes\Simple;
 
 class EvolutionaryAlgorithmController extends Controller
 {
@@ -828,6 +829,10 @@ class EvolutionaryAlgorithmController extends Controller
         $hpString = 'HPPPHH';
         $crossover = new TwoPoints(null, 'homogeneus', '2D_Square', strlen($hpString), 5, 1.0, null, $hpString);
         $childrens = $crossover->execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
+    }
+
+    public function testEASimple() {
+        $EA = new Simple(false, 5, 2, 0.5, 'tournament', null, 0.25, '2D_Square');
     }
 
 }

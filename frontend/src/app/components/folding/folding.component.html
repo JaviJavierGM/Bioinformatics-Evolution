@@ -81,9 +81,9 @@
             <div *ngIf="isCorrelational()" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
                 <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
-                    <option value="2D_Square_Correlated">2D Square Correlated</option>
-                    <option value="2D_Triangle_Correlated">2D Triangle Correlated</option>
-                    <option value="3D_Cubic_Correlated">3D Cubic Correlated</option>
+                    <option value="2D_Square">2D Square Correlated</option>
+                    <option value="2D_Triangle">2D Triangle Correlated</option>
+                    <option value="3D_Cubic">3D Cubic Correlated</option>
                 </select>
             </div>
 

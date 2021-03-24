@@ -85,3 +85,4 @@ Route::post('/api/EA/checksquare', [EvolutionaryAlgorithmController::class, 'tes
 Route::post('/api/EA/checktriangle', [EvolutionaryAlgorithmController::class, 'testCheckTriangle']);
 Route::post('/api/EA/predefined', [EvolutionaryAlgorithmController::class, 'testOpMutationPredefined']);
 Route::post('/api/EA/random', [EvolutionaryAlgorithmController::class, 'testOpMutationRandom']);
+Route::post('/api/EA/simple', [EvolutionaryAlgorithmController::class, 'testEASimple']);
