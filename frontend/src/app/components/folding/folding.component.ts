@@ -1,12 +1,13 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { EvolutionaryAlgorithm } from '../../models/evolutionaryAlgorithm';
+import { EvolutionaryAlgorithmService } from '../../services/evolutionaryAlgorithm.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-folding',
   templateUrl: './folding.component.html',
   styleUrls: ['./folding.component.css'],
-  providers: [UserService]
+  providers: [EvolutionaryAlgorithmService, UserService]
 })
 export class FoldingComponent implements OnInit, DoCheck {
   public page_title: string;
@@ -14,9 +15,11 @@ export class FoldingComponent implements OnInit, DoCheck {
   public finalFitness: boolean;
   public identity;
   public token;
+  public status;
 
   constructor(
-    private _userService: UserService
+    private _userService: UserService,
+    private _evolutionaryAlgorithmService: EvolutionaryAlgorithmService
   ) { 
     this.page_title = 'Protein folding';
     this.finalFitness = false;
@@ -34,7 +37,21 @@ export class FoldingComponent implements OnInit, DoCheck {
   }
 
   onSubmit(form) {
-    console.log(this.evolutionaryAlgorithm);
+    //console.log(this.evolutionaryAlgorithm);
+    this._evolutionaryAlgorithmService.execute(this.evolutionaryAlgorithm).subscribe(
+      response => {
+        if(response.status == "success") {
+          this.status = response.status;
+          console.log(response);
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        this.status = 'error';
+        console.log(<any>error);
+      }
+    );
   }
 
   isCorrelational() {

@@ -835,4 +835,26 @@ class EvolutionaryAlgorithmController extends Controller
         $EA = new Simple(false, 5, 2, 0.5, 'tournament', null, 0.25, '2D_Square');
     }
 
+    public function execute(Request $request) {
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+
+        if(empty($params_array)) {
+            $data = array(
+                'code' => 404,
+                'status' => 'error',
+                'message' => "Data dosn't sending"
+            );
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'message' => 'Data sending correctly!',
+                'params' => $params_array
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
 }
