@@ -8,7 +8,13 @@ use App\Models\EvolutionaryAlgorithm\SelectionTypes\Roulette;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\TopPercent;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\PopulationDecimation;
+use App\Models\EvolutionaryAlgorithm\CrossoverTypes\OnePoint;
+use App\Models\EvolutionaryAlgorithm\CrossoverTypes\TwoPoints;
+use App\Models\EvolutionaryAlgorithm\CrossoverTypes\Uniform;
 use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\SimplexCoupleFormation;
+use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
+use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateSquarePoints;
+use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateTrianglePoints;
 
 class Simple extends Model
 {
@@ -20,7 +26,7 @@ class Simple extends Model
     private $selectionOperator;
     private $currentExperiment;
     private $percent;
-    private $dimensionType;
+    private $experiments;
 
     public function __construct(
         $isKnowBestFitness,
@@ -29,8 +35,7 @@ class Simple extends Model
         $sampling,
         $selectionOperator,
         $currentExperiment,
-        $percent,
-        $dimensionType
+        $percent
     ) {
         $this->isKnowBestFitness = $isKnowBestFitness;
         $this->generationsNumber = $generationsNumber;
@@ -39,7 +44,6 @@ class Simple extends Model
         $this->selectionOperator = $selectionOperator;
         $this->currentExperiment = $currentExperiment;
         $this->percent = $percent;
-        $this->dimensionType = $dimensionType;
 
         // Caso de saber el mejor fitness del projecto
         if($this->isKnowBestFitness) {
@@ -52,8 +56,30 @@ class Simple extends Model
         return $execute;
     }
 
-    public function executeVersion1() {
+    public function executeVersion1(
+        $crossoverType, 
+        $spaceType, 
+        $dimensionType, 
+        $lengthHpString, 
+        $conformationsNumber, 
+        $crossoverProbability, 
+        $correlatedMatrix, 
+        $hpSecuence, 
+        $mutationType
+        ) {
         echo 'Esta es la version 1 xD la mmlona xD';
+        $this->currentExperiment = array();
+        $this->experiments = array();
+
+        // Generar  la generacion inicial
+        if($dimensionType == '2D_Square') {
+            //$generation = new GenerateSquarePoints()
+            
+        } elseif($dimensionType == '2D_Triangle') {
+
+        } elseif($dimensionType == '3D_Cubic') {
+
+        }
 
         $j = 1;
         for($i=0; $i < $this->generationsNumber; $i++) {
@@ -82,14 +108,53 @@ class Simple extends Model
             $coupleFormation = new SimplexCoupleFormation($generation);
             $coupleFormation->coupleFormation();
 
-            if($this->dimensionType == '2D_Square') {
+            if($crossoverType == 'one_point') {
+                array_push($this->currentExperiment, new OnePoint(
+                    $generation, 
+                    $spaceType, 
+                    $dimensionType, 
+                    $lengthHpString, 
+                    $conformationsNumber, 
+                    $crossoverProbability, 
+                    $correlatedMatrix, 
+                    $hpSecuence, 
+                    $mutationType
+                ));
+            } elseif($crossoverType == 'two_points') {
+                array_push($this->currentExperiment, new TwoPoints(
+                    $generation, 
+                    $spaceType, 
+                    $dimensionType, 
+                    $lengthHpString, 
+                    $conformationsNumber, 
+                    $crossoverProbability, 
+                    $correlatedMatrix, 
+                    $hpSecuence, 
+                    $mutationType
+                ));
+            } elseif($crossoverType == 'uniform') {
+                array_push($this->currentExperiment, new Uniform(
+                    $generation, 
+                    $spaceType, 
+                    $dimensionType, 
+                    $lengthHpString, 
+                    $conformationsNumber, 
+                    $crossoverProbability, 
+                    $correlatedMatrix, 
+                    $hpSecuence, 
+                    $mutationType
+                ));
+            }
 
-            } elseif($this->dimensionType == '2D_Triangle') {
-
-            } elseif($this->dimensionType == '3D_Cubic') {
-
+            if(($i % $this->sampling) == 0) {
+                for ($k=$j; $k < $i; $k++) { 
+                    echo 'Se debe modificar el arreglo de experimentos !!!<br>';
+                }
+                $j = $i + 1;
             }
         }
+
+        $experimentsSize = sizeof($this->experiments);
     }
 
     public function executeVersion2() {
