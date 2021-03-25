@@ -1,5 +1,5 @@
 // NECESSARY IMPORTS
-import { ModuleWithProviders } from '@angular/core';
+import { Component, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // COMPONENTS IMPORTS
@@ -11,8 +11,11 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersManagementComponent } from './components/users-management/users-management.component';
 import { EngineComponent } from './components/engine/engine.component';
+import { Engine3DComponent } from './components/engine3-d/engine3-d.component' ;
+//import { Folding2DComponent } from './components/folding2-d/folding2-d.component';
 import { ErrorComponent } from './components/error/error.component';
 import { Route } from '@angular/compiler/src/core';
+
 
 
 // DEFINE ROUTES
@@ -26,6 +29,8 @@ const appRoutes: Routes = [
     {path: 'settings', component: UserEditComponent},
     {path: 'users-management', component: UsersManagementComponent},
     {path: 'engine', component: EngineComponent},
+    //{path: 'engine2', component: Folding2DComponent},
+    {path: 'engine3d', component: Engine3DComponent},
     {path: '**', component: ErrorComponent}
 ];
 

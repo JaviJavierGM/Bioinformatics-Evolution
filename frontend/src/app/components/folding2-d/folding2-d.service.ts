@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'node_modules/three/examples/jsm/controls/OrbitControls'
 import {ElementRef, Injectable, NgZone, OnDestroy} from '@angular/core';
+import { MaterialLoader } from 'three';
 
 class Conformation {
   posX: number;
@@ -19,7 +20,7 @@ class Conformation {
 
 
 @Injectable({providedIn: 'root'})
-export class EngineService implements OnDestroy {
+export class Folding2DService implements OnDestroy {
   private canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
@@ -32,18 +33,18 @@ export class EngineService implements OnDestroy {
   private frameId: number = null;
   
   public constructor(private ngZone: NgZone) {
-    this.arrayAmi = new Array(new Conformation(-10,0,0,[1,0],'H'));
+    this.arrayAmi = new Array(new Conformation(-4,0,0,[1,0],'P'));
     this.arrayAmi.push(new Conformation(0,0,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(0,10,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation(10,10,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(10,20,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation(20,20,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation(0,0,4,[2,0],'P'));
+    this.arrayAmi.push(new Conformation(0,4,4,[1,0],'H'));
+    this.arrayAmi.push(new Conformation(0,4,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation(-4,4,0,[1,0],'P'));
     
   }
 
   public ngOnDestroy(): void {
     if (this.frameId != null) {
-      cancelAnimationFrame(this.frameId);
+      cancelAnimationFrame(this.frameId); 
     }
 
   }
@@ -64,35 +65,67 @@ export class EngineService implements OnDestroy {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
-      60, window.innerWidth / window.innerHeight, 50, 300
+      60, window.innerWidth / window.innerHeight, 10, 500
     );
-    this.camera.position.set(0,10,60);
+    this.camera.position.set(10,10,20);
     this.scene.add(this.camera);
-
+    
     this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.enableKeys = true;
-    this.controls.enableRotate = false;
-    this.controls.autoRotate=true;
+    //this.controls.enableKeys = false;
+    //this.controls.enableRotate = false;
 
       //Agrega luces
     for (var index = 0; index < this.arrayAmi.length; index++) {
-      this.light = new THREE.AmbientLight(0x0000ff);
+      this.light = new THREE.AmbientLight(0xffffff);
+
       this.light.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ );
-      this.scene.add(this.light);
+      //this.scene.add(this.light);
       
     }
 
-    
-
     //Material para H o P
-    const material = new THREE.MeshMatcapMaterial( {color: 'red'} );
-    const material_2 = new THREE.MeshToonMaterial({color:0xff4444})
+    //const material = new THREE.MeshMatcapMaterial( {color: 'red'} );
+    //const material = new THREE.MeshPhongMaterial();MeshToonMaterial
+    //const material = new THREE.MeshMatcapMaterial( {color: 'red'});
+    this.light = new THREE.AmbientLight(0xFFFFFF);
+    this.scene.add(this.light);
+
+    const material_2 = new THREE.MeshPhongMaterial({
+      color:0x2194ce,
+      emissive:0x2b2a2a,
+      specular:0x111111,
+      shininess:50,
+      wireframeLinewidth:10,
+      wireframe:true,
+      fog:true,
+      combine:THREE.MultiplyOperation,
+      reflectivity:1,
+      refractionRatio:.98
+
+    })
+    
+    material_2.opacity=1;
+    material_2.side=THREE.DoubleSide;
+    material_2.alphaTest=1;
+    material_2.visible=true;
+    const material = new THREE.MeshPhongMaterial({
+      color:0xce2121,
+      emissive:0x2b2a2a,
+      specular:0x111111,
+      shininess:100,
+      wireframeLinewidth:10,
+      wireframe:true,
+      fog:true,
+      combine:THREE.MultiplyOperation,
+      reflectivity:1,
+      refractionRatio:.98
+    })
     
     //Agrega esferas
 
     for (var index = 0; index < this.arrayAmi.length; index++) {
       
-      const geometry = new THREE.SphereGeometry(3, 20, 20 );
+      const geometry = new THREE.SphereGeometry(1, 20, 20 );
       if (this.arrayAmi[index].letter=='H') {
         this.cube = new THREE.Mesh(geometry, material);
         this.cube.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ);
@@ -111,7 +144,7 @@ export class EngineService implements OnDestroy {
       points.push(new THREE.Vector3(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ));
     }
     var pathBase = new THREE.CatmullRomCurve3(points);
-    var tgeometry = new THREE.TubeGeometry( pathBase, this.arrayAmi.length-1, .8, 20, false );
+    var tgeometry = new THREE.TubeGeometry( pathBase, this.arrayAmi.length-1, .2, 3, false );
     var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
     var tmesh = new THREE.Mesh( tgeometry, tmaterial );
     this.scene.add(tmesh);

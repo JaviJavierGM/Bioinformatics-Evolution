@@ -24,10 +24,19 @@
         <li class="nav-item " *ngIf="!identity || identity.role == 'ROLE_USER'">
           <a class="nav-link nlinks"  [routerLink]="['/engine']">
             <i class="fas fa-draw-polygon"></i>
-            Engine
+            Engine 2D
             <span class="sr-only">(current)</span>
           </a>
         </li>
+
+        <li class="nav-item " *ngIf="!identity || identity.role == 'ROLE_USER'">
+          <a class="nav-link nlinks"  [routerLink]="['/engine3d']">
+            <i class="fas fa-draw-polygon"></i>
+            Engine 3D
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
 
         <li class="nav-item " *ngIf="identity && identity.role == 'ROLE_ADMIN'">
           <a class="nav-link nlinks"  [routerLink]="['/users-management']">

@@ -18,6 +18,8 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersManagementComponent } from './components/users-management/users-management.component';
 import { EngineComponent } from './components/engine/engine.component';
+import { Folding2DComponent } from './components/folding2-d/folding2-d.component';
+import { Engine3DComponent } from './components/engine3-d/engine3-d.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { EngineComponent } from './components/engine/engine.component';
     ProjectsComponent,
     UserEditComponent,
     UsersManagementComponent,
-    EngineComponent
+    EngineComponent,
+    Folding2DComponent,
+    Engine3DComponent
   ],
   imports: [
     BrowserModule,
