@@ -13,6 +13,7 @@ export class FoldingComponent implements OnInit, DoCheck {
   public page_title: string;
   public evolutionaryAlgorithm: EvolutionaryAlgorithm;
   public finalFitness: boolean;
+  public generation;
   public identity;
   public token;
   public status;
@@ -23,7 +24,34 @@ export class FoldingComponent implements OnInit, DoCheck {
   ) { 
     this.page_title = 'Protein folding';
     this.finalFitness = false;
-    this.evolutionaryAlgorithm = new EvolutionaryAlgorithm('', 'lattice', '2D_Square', 'simple', 'roulette', 'one_point', 'predefined', false, false, false, 100, 200, 1, 1, 20, 20, 1.0, 0.0, 0.01, 0.01, 28, false, 'dill_model', 0.1, 0.01, 2);
+    this.evolutionaryAlgorithm = new EvolutionaryAlgorithm(
+      '', 
+      'lattice', 
+      '2D_Square', 
+      'simple', 
+      'roulette', 
+      'one_point', 
+      'predefined', 
+      false, 
+      false, 
+      false, 
+      100, 
+      200, 
+      1, 
+      1, 
+      20,
+      20, 
+      1.0, 
+      0.0, 
+      0.01, 
+      0.01, 
+      28, 
+      false, 
+      'dill_model',
+      0.1,
+      0.01,
+      2
+    );
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
   }
@@ -42,6 +70,7 @@ export class FoldingComponent implements OnInit, DoCheck {
       response => {
         if(response.status == "success") {
           this.status = response.status;
+          this.generation = response.generation;
           console.log(response);
         } else {
           this.status = 'error';
