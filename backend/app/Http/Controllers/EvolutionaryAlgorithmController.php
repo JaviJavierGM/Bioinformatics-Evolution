@@ -836,6 +836,7 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     public function execute(Request $request) {
+        /*
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
 
@@ -855,6 +856,36 @@ class EvolutionaryAlgorithmController extends Controller
         }
 
         return response()->json($data, $data['code']);
+        */
+        
+        $AESimple = new Simple(
+            "PPHPHHPH", // $hpSecuence,
+            "homogeneous", // $spaceType,
+            "2D_Triangle", // $dimensionType,
+            false, // $correlatedSelected,
+            null, // $fileNameCorrelatedNetwork,
+            null, // $pointsCorrelatedNetworkSelected,
+            "population_decimation", // $selectionOperator,
+            20, // $percentOfTournament,
+            null, // $percentOfTopPercent,
+            "uniform", // $crossoverType,
+            0.1, // $crossoverProbability,
+            "predefined", // $mutationType,
+            0.01, // $mutationProbability,
+            false, // $isKnowBestFitness,
+            null, // $fitnessValue,
+            10, // $conformationsNumber,
+            15, // $generationsNumber,
+            5, // $experimentsNumber,
+            1, // $sampling,
+            false, // $elitismSelected,
+            20, //$percentOfElitism,
+            "convex", // $functionType,
+            0.2 // $alphaValue
+        );
+
+        // $generate = new GenerateSquarePoints($hpString, 'homogeneous', null, '2D_Square', 'convex', 0.2);
+
     }
 
 }

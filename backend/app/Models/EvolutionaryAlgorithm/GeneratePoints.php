@@ -47,13 +47,14 @@ abstract class GeneratePoints extends Model
             $this->generatePoints($pointsChildren); 
             
             // Lineas para detener el proceso y solo verificar la generacion de puntos
-            echo "<br><br> --------------------------------------------------------- YA ACABO DE GENERAR PUNTOS! <br><br>";
-            var_dump($this->points);       die();
+            // echo "<br><br> --------------------------------------------------------- YA ACABO DE GENERAR PUNTOS! <br><br>";
+            // var_dump($this->points);       die();
 
             // $fitness = new Fitness(points)->getFitness();
             $fitness = new Fitness($this->points, $this->dimension_type, $this->function_type, $this->alphaValue);
             $fitness = $fitness->getFitness();
-            echo '<strong>Fitnes del punto # </strong>'.($i+1).': '.$fitness.'<br>';
+            // echo '<strong>Fitnes del punto # </strong>'.($i+1).': '.$fitness.'<br>';
+            // die();
             if($fitness == 0) {
                 --$i;
                 continue;
@@ -64,9 +65,9 @@ abstract class GeneratePoints extends Model
             array_push($conformations, $conformation); // Agregar la confromacion al array de conformaciones
         }
 
-        var_dump($this->points);
+        // var_dump($this->points);
         for($i=0; $i<sizeof($conformations); $i++) {
-            echo 'Soy el punto numero #'.($i+1).'Mi fitness es: '.$conformations[$i]->getFitness().'<br>';
+            // echo 'Soy el punto numero #'.($i+1).'Mi fitness es: '.$conformations[$i]->getFitness().'<br>';
         }
 
         $generation = new Generation($conformations);
@@ -76,7 +77,7 @@ abstract class GeneratePoints extends Model
     }
 
     public function generatePoints($pointsChildren) {
-        echo 'Este metodo genera los puntos';
+        // echo 'Este metodo genera los puntos';
 
         if($this->typeSpace == 'correlated') {
             // Obtener el x & y en caso de ser correlated
@@ -90,7 +91,7 @@ abstract class GeneratePoints extends Model
         // $this->points[0]->setValueY(1);
 
         for ($i=1; $i < $this->hpLength; $i++) {
-            echo "<br><br> ---- Estoy generando el punto ".$i." ---- <br><br>";
+            // echo "<br><br> ---- Estoy generando el punto ".$i." ---- <br><br>";
             // var_dump($i);
             $i = $this->doPoints($pointsChildren, $i);            
             // var_dump($i);

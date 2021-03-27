@@ -5,6 +5,7 @@ namespace App\Models\EvolutionaryAlgorithm\CrossoverTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\CrossoverOperator;
+use App\Models\EvolutionaryAlgorithm\Point;
 
 class TwoPoints extends CrossoverOperator
 {

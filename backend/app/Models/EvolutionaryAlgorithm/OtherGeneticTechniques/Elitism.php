@@ -40,12 +40,14 @@ class Elitism extends Model
         $percentConformationsElitism = round( (($this->percentOfElitism / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN);
         $orderedConformations = $this->generation->getOrderedConformations(false);
 
+        /*
         echo " > Fitness de las conformaciones, ordenadas de forma descendente: <br>"; 
         for($i=0; $i<$sizeGeneration; $i++){
             echo "conformations[".$i."] = ".$orderedConformations[$i]->getFitness()." <br>";
         }
 
         echo " > Porcentaje de conformaciones a salvar con elitismo: ".$this->percentOfElitism."% que son ".$percentConformationsElitism." conformaciones <br>";
+        */
 
         $indexSelectedConformations = array();
 
@@ -54,8 +56,8 @@ class Elitism extends Model
         for($i=0; $i<$percentConformationsElitism; $i++){
             // array_push($this->selectedConformations, $orderedConformations[$i]);
             array_push($indexSelectedConformations, $orderedConformations[$i]->getPositionIndex());
-            var_dump($orderedConformations[$i]->getPositionIndex());
-            var_dump($orderedConformations[$i]->getFitness());
+            // var_dump($orderedConformations[$i]->getPositionIndex());
+            // var_dump($orderedConformations[$i]->getFitness());
         }
 
         // Obtenemos las conformaciones que faltan por seleccionar con ayuda del operador de seleccion elegido
@@ -80,11 +82,13 @@ class Elitism extends Model
         sort($indexSelectedConformations);
 
         $this->generation->setIndexSelectedConformations($indexSelectedConformations);
-
+        
+        /*
         echo " > Fitness de las Conformaciones seleccionadas, luego de aplicar un porcentaje: ".$this->percentOfElitism."% de elitismo y ".$this->selectionOperator." <br>";
         for($i=0; $i<$sizeGeneration; $i++){
             echo "selectedConformation[".$i."]= ".$this->generation->getSelectedConformations()[$i]->getFitness()."<br>";
         }
+        */
 
         unset($sizeGeneration, $percentConformationsElitism, $orderedConformations, $indexSelectedConformations);
 

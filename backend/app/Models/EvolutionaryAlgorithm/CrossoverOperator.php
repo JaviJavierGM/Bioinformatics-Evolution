@@ -23,6 +23,7 @@ abstract class CrossoverOperator extends Model
     protected $correlatedMatrix;
     protected $hpSecuence;
     protected $mutationType;
+    protected $newGeneration;
 
     public function __construct(
         $generation,
@@ -48,7 +49,7 @@ abstract class CrossoverOperator extends Model
 
         // Generación de una nueva generacion hijos atravez de la generacion padre
         $conformations = array();
-        for ($i=0; $i < $this->conformationsNumber; $i++) { 
+        for ($i=0; $i < $this->conformationsNumber/2; $i++) { 
             $parentOne = 0;
             $parentTwo = 0;
  
@@ -97,10 +98,14 @@ abstract class CrossoverOperator extends Model
             //Recorrer Best Conformations
         } */
 
-        $newGeneration = new Generation($conformations);
+        $this->newGeneration = new Generation($conformations);
         //$newGeneration->setDmaxP();
-        //$newGeneration->setRadioGiroP();
-        return $newGeneration;
+        //$newGeneration->setRadioGiroP();        
+        // return $newGeneration;
+    }
+
+    public function getNewGeneration(){
+        return $this->newGeneration;
     }
 
     abstract public function execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
@@ -451,7 +456,7 @@ abstract class CrossoverOperator extends Model
         }
     }
 
-    public function checkTriangleChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkTriangleChildren(&$pointsChildren_C, $movVectorValue, &$pointsChildren, $j) {
 
         $isOk = true;
         $stringBuilder = "";
@@ -620,12 +625,14 @@ abstract class CrossoverOperator extends Model
 
     }
 
-    public function checkCubeChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkCubeChildren(&$pointsChildren_C, $movVectorValue, &$pointsChildren, $j) {
 
         $isOk = true;
         $stringBuilder = "";
 
         do {
+
+            $point = Helpers::generateCubePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
             
             switch ($movVectorValue) {
                 
