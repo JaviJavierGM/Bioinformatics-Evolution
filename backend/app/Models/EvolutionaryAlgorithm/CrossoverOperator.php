@@ -8,6 +8,7 @@ use App\Models\EvolutionaryAlgorithm\MutationTypes\Predefined;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Models\EvolutionaryAlgorithm\Conformation;
 use App\Models\EvolutionaryAlgorithm\Generation;
+use App\Models\EvolutionaryAlgorithm\Fitness;
 use App\Helpers\Helpers;
 
 abstract class CrossoverOperator extends Model
@@ -24,6 +25,8 @@ abstract class CrossoverOperator extends Model
     protected $hpSecuence;
     protected $mutationType;
     protected $newGeneration;
+    protected $functionType;
+    protected $alphaValue;
 
     public function __construct(
         $generation,
@@ -34,7 +37,9 @@ abstract class CrossoverOperator extends Model
         $crossoverProbability,
         $correlatedMatrix,
         $hpSecuence,
-        $mutationType
+        $mutationType,
+        $functionType,
+        $alphaValue
     ) {
         $this->generation = $generation;
         $this->typeSpace = $typeSpace;
@@ -45,6 +50,8 @@ abstract class CrossoverOperator extends Model
         $this->correlatedMatrix = $correlatedMatrix;
         $this->hpSecuence = $hpSecuence;
         $this->mutationType = $mutationType;
+        $this->functionType = $functionType;
+        $this->alphaValue = $alphaValue;
         srand($this->make_seed());
 
         // Generación de una nueva generacion hijos atravez de la generacion padre
@@ -87,10 +94,12 @@ abstract class CrossoverOperator extends Model
 
             $childrenOne = new Conformation($newChildrenOne);
             $childrenOne->setParents($temporalParent);
+            $childrenOne->setFitness(new Fitness($childrenOne->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue));
             array_push($conformations, $childrenOne);
 
             $childrenTwo = new Conformation($newChildrenTwo);
             $childrenTwo->setParents($temporalParent);
+            $childrenTwo->setFitness(new Fitness($childrenTwo->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue));
             array_push($conformations, $childrenTwo);
         }
 
