@@ -94,12 +94,14 @@ abstract class CrossoverOperator extends Model
 
             $childrenOne = new Conformation($newChildrenOne);
             $childrenOne->setParents($temporalParent);
-            $childrenOne->setFitness(new Fitness($childrenOne->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue));
+            $fitness = new Fitness($childrenOne->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue);
+            $childrenOne->setFitness($fitness->getFitness());
             array_push($conformations, $childrenOne);
 
             $childrenTwo = new Conformation($newChildrenTwo);
             $childrenTwo->setParents($temporalParent);
-            $childrenTwo->setFitness(new Fitness($childrenTwo->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue));
+            $fitness = new Fitness($childrenTwo->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue);
+            $childrenTwo->setFitness($fitness->getFitness());
             array_push($conformations, $childrenTwo);
         }
 
