@@ -196,11 +196,13 @@ class Simple extends EvolutionaryAlgorithm
                         $this->crossoverProbability, 
                         null, 
                         $this->hpSecuence, 
-                        $this->mutationType
+                        $this->mutationType,
+                        $this->functionType,
+                        $this->alphaValue
                     );
                     // var_dump($crossoverOnePoint->getNewGeneration()); die();
                     array_push($this->currentExperiment, $crossoverOnePoint->getNewGeneration());
-
+                    var_dump($crossoverOnePoint->getNewGeneration()); die();
                     echo "<br> NUEVA GENERACION <br>";
                     $cont=0;
                     foreach($crossoverOnePoint->getNewGeneration()->getConformations() as $conformation){
