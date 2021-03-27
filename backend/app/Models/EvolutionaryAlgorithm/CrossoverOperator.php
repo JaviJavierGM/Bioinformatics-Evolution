@@ -8,6 +8,7 @@ use App\Models\EvolutionaryAlgorithm\MutationTypes\Predefined;
 use App\Models\EvolutionaryAlgorithm\MutationTypes\Random;
 use App\Models\EvolutionaryAlgorithm\Conformation;
 use App\Models\EvolutionaryAlgorithm\Generation;
+use App\Models\EvolutionaryAlgorithm\Fitness;
 use App\Helpers\Helpers;
 
 abstract class CrossoverOperator extends Model
@@ -23,27 +24,34 @@ abstract class CrossoverOperator extends Model
     protected $correlatedMatrix;
     protected $hpSecuence;
     protected $mutationType;
+    protected $newGeneration;
+    protected $functionType;
+    protected $alphaValue;
 
     public function __construct(
         $generation,
         $typeSpace,
         $typeDimension,
         $lengthHpString,
-        $conformationsNumber,
+        // $conformationsNumber,
         $crossoverProbability,
         $correlatedMatrix,
         $hpSecuence,
-        $mutationType
+        $mutationType,
+        $functionType,
+        $alphaValue
     ) {
         $this->generation = $generation;
         $this->typeSpace = $typeSpace;
         $this->typeDimension = $typeDimension;
         $this->lengthHpString = $lengthHpString;
-        $this->conformationsNumber = $conformationsNumber;
+        $this->conformationsNumber = sizeof($this->generation->getParentsList());
         $this->crossoverProbability = $crossoverProbability;
         $this->correlatedMatrix = $correlatedMatrix;
         $this->hpSecuence = $hpSecuence;
         $this->mutationType = $mutationType;
+        $this->functionType = $functionType;
+        $this->alphaValue = $alphaValue;
         srand($this->make_seed());
 
         // Generación de una nueva generacion hijos atravez de la generacion padre
@@ -86,10 +94,14 @@ abstract class CrossoverOperator extends Model
 
             $childrenOne = new Conformation($newChildrenOne);
             $childrenOne->setParents($temporalParent);
+            $fitness = new Fitness($childrenOne->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue);
+            $childrenOne->setFitness($fitness->getFitness());
             array_push($conformations, $childrenOne);
 
             $childrenTwo = new Conformation($newChildrenTwo);
             $childrenTwo->setParents($temporalParent);
+            $fitness = new Fitness($childrenTwo->getPoints(), $this->typeDimension, $this->functionType, $this->alphaValue);
+            $childrenTwo->setFitness($fitness->getFitness());
             array_push($conformations, $childrenTwo);
         }
 
@@ -97,10 +109,14 @@ abstract class CrossoverOperator extends Model
             //Recorrer Best Conformations
         } */
 
-        $newGeneration = new Generation($conformations);
+        $this->newGeneration = new Generation($conformations);
         //$newGeneration->setDmaxP();
-        //$newGeneration->setRadioGiroP();
-        return $newGeneration;
+        //$newGeneration->setRadioGiroP();        
+        // return $newGeneration;
+    }
+
+    public function getNewGeneration(){
+        return $this->newGeneration;
     }
 
     abstract public function execute($pointsParentOne, $pointsParentTwo, $newChildrenOne, $newChildrenTwo, $pointsChildren_C);
@@ -451,7 +467,7 @@ abstract class CrossoverOperator extends Model
         }
     }
 
-    public function checkTriangleChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkTriangleChildren(&$pointsChildren_C, $movVectorValue, &$pointsChildren, $j) {
 
         $isOk = true;
         $stringBuilder = "";
@@ -620,12 +636,14 @@ abstract class CrossoverOperator extends Model
 
     }
 
-    public function checkCubeChildren($pointsChildren_C, $movVectorValue, $pointsChildren, $j) {
+    public function checkCubeChildren(&$pointsChildren_C, $movVectorValue, &$pointsChildren, $j) {
 
         $isOk = true;
         $stringBuilder = "";
 
         do {
+
+            $point = Helpers::generateCubePoint($movVectorValue, $this->hpSecuence[$j], $pointsChildren[$j-1]);
             
             switch ($movVectorValue) {
                 

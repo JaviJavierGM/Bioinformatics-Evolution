@@ -27,7 +27,7 @@ class Uniform extends CrossoverOperator
 
         // Generación del primer hijo
         for ($j=1; $j < $this->lengthHpString; $j++) {
-            echo 'Entro a la iteración '.$j.'<br>';
+            // echo 'Entro a la iteración '.$j.'<br>';
             if($cuts[$j] == 0) {
                 if($this->typeDimension == '2D_Square') {
                     $j = $this->checkSquareChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
