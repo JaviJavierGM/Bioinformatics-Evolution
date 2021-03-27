@@ -21,6 +21,11 @@ export class EvolutionaryAlgorithm {
         public max_mutation_probability: number,
         public proximity_pairing: number,
         public final_fitness: number,
+        public i_know_fitness: boolean,
+        public fitness_function: string,
+        public alpha_value: number,
+        public mutation_probability: number,
+        public percent_elitism: number,
     ) {}
 
 }

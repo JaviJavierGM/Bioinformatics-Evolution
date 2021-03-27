@@ -107,4 +107,18 @@ class Generation extends Model
         $this->parentsList = $parentsList;
     }
 
+    public function convertToJson() {
+        $conformations = array();
+        $counter = 0;
+        foreach ($this->conformations as $conformation) {
+            $conformation_json = array(
+                'fitness' => $conformation->getFitness(),
+                'points' => $conformation->getPointsJson()
+            );
+
+            array_push($conformations, $conformation_json);
+        }
+
+        return $conformations;
+    }
 }

@@ -34,7 +34,7 @@ abstract class GeneratePoints extends Model
     }
 
     public function initializeGeneration($conformationsNumbers) {
-        echo 'Este metodo inicializa la generacion/poblacion!<br>';
+        //echo 'Este metodo inicializa la generacion/poblacion!<br>';
 
         // Arreglo que tendra las conformaciones iniciales.
         $conformations = array();

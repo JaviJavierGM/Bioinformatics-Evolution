@@ -69,7 +69,7 @@
                 </select>
             </div>
 
-            <div *ngIf="!isCorrelational()" class="form-group col-md-4">
+            <div *ngIf="evolutionaryAlgorithm.space_type == 'lattice'" class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
                 <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="2D_Square">2D Square</option>
@@ -78,7 +78,7 @@
                 </select>
             </div>
 
-            <div *ngIf="isCorrelational()" class="form-group col-md-4">
+            <div *ngIf="evolutionaryAlgorithm.space_type == 'correlated'"  class="form-group col-md-4">
                 <label for="dimension_type">Dimensions Types</label>
                 <select name="dimension_type" class="form-control" #dimension_type="ngModel" [(ngModel)]="evolutionaryAlgorithm.dimension_type" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
                     <option value="2D_Square">2D Square Correlated</option>
@@ -129,12 +129,31 @@
             </div>
         </div>
 
-        <!-- OTRAS TECNICAS GENETICAS -->
         <div class="form-row justify-content-center justify-content-sm-center">
-            <div class="form-group col-md-center">
+            <!-- FUNCIONES DE APTITUD -->
+            <div class="form-group col-md-4">
+                <label for="fitness_function">Fitness Function</label>
+                <select name="fitness_function" class="form-control" #fitness_function="ngModel" [(ngModel)]="evolutionaryAlgorithm.fitness_function" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
+                    <option value="dill_model">Dill model</option>
+                    <option value="convex">Convex Function</option>
+                </select>
+            </div>
+
+            <!-- VALOR DE ALPHA -->
+            <div class="form-group col-md-3" *ngIf="evolutionaryAlgorithm.fitness_function == 'convex'">
+                <label for="alpha_value">Alpha Value</label>
+                <input type="number" name="alpha_value" step="0.1" class="form-control" #alpha_value="ngModel" [(ngModel)]="evolutionaryAlgorithm.alpha_value" required pattern="[0](.[0-9]+)?" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid">
+
+                <small *ngIf="!alpha_value.valid && alpha_value.touched" class="invalid-feedback d-block sml">
+                    The alpha value isn't valid.
+                </small>
+            </div>
+
+            <!-- OTRAS TECNICAS GENETICAS -->
+            <div class="form-group col-md-5">
                 <label for="">Other genetic techniques</label>
                 <br>
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline mt-1">
                     <input class="form-check-input" type="checkbox" name="elitism" [(ngModel)]="evolutionaryAlgorithm.elitism" [ngModelOptions]="{standalone: true}" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm == 'rankGA' "/>
                     <label class="form-check-label" for="elitism">Elitism</label>
                 </div>
@@ -214,7 +233,7 @@
 
             <div class="form-group col-md-2">
                 <label for="crossover_probability">CrossOver probability</label>
-                <input type="number" name="crossover_probability" step="0.1" class="form-control" #crossover_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_probability" required pattern="([0-9])(.[0-9]+)?" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
+                <input type="number" name="crossover_probability" step="0.1" class="form-control" #crossover_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.crossover_probability" required pattern="[0-1](.[0-9]+)?" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
 
                 <small *ngIf="!crossover_probability.valid && crossover_probability.touched" class="invalid-feedback d-block sml">
                     The crossover probability is not valid.
@@ -252,13 +271,33 @@
            
             <div class="form-group col-md-5">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="final_fitness"  [(ngModel)]="finalFitness" [ngModelOptions]="{standalone: true}" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
+                    <input class="form-check-input" type="checkbox" name="final_fitness"  [(ngModel)]="evolutionaryAlgorithm.i_know_fitness" [ngModelOptions]="{standalone: true}" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
                     <label class="form-check-label" for="inlineCheckbox1">I know the final fitness</label>
                 </div>
 
-                <input type="number" name="final-fitness" class="form-control mt-2" #proximity_pairing="ngModel" [(ngModel)]="evolutionaryAlgorithm.final_fitness" [disabled]="!finalFitness"/>
+                <input type="number" name="final-fitness" class="form-control mt-2" #proximity_pairing="ngModel" [(ngModel)]="evolutionaryAlgorithm.final_fitness" [disabled]="!evolutionaryAlgorithm.i_know_fitness"/>
             </div>
 
+        </div>
+
+        <div class="form-row justify-content-center justify-content-sm-center">
+            <div class="form-group col-md-3">
+                <label for="mutation_probability">Mutation Probability</label>
+                <input type="number" name="mutation_probability" step="0.01" class="form-control" #mutation_probability="ngModel" [(ngModel)]="evolutionaryAlgorithm.mutation_probability" required pattern="[0](.[0-9]+)?" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid || evolutionaryAlgorithm.optimization_algorithm != 'simple'"/>
+
+                <small *ngIf="!mutation_probability.valid && mutation_probability.touched" class="invalid-feedback d-block sml">
+                    The mutation probability isn't valid.
+                </small>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="percent_elitism">Percent Elitism (%)</label>
+                <input type="number" name="percent_elitism" step="2" class="form-control" #percent_elitism="ngModel" [(ngModel)]="evolutionaryAlgorithm.percent_elitism" [disabled]="!evolutionaryAlgorithm.aminoacid || !aminoacid.valid"/>
+
+                <small *ngIf="!percent_elitism.valid && percent_elitism.touched" class="invalid-feedback d-block sml">
+                    The percent elitism isn't valid.
+                </small>
+            </div>
         </div>
 
         <!-- Botones -->

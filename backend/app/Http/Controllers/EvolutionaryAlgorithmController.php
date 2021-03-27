@@ -581,11 +581,12 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     public function testGenPoint() {
-    $hpString = 'HPHHHPPH';
+        $hpString = 'HPHPHHPH';
 
-    $generate = new GenerateSquarePoints($hpString, 'homogeneous', null, '2D_Square', 'convex', 0.2);
-    $generate->initializeGeneration(8);
-    die();
+        $generate = new GenerateSquarePoints($hpString, 'lattice', null, '2D_Square', 'dill_model', 0.2);
+        $newGeneration = $generate->initializeGeneration(100);
+        var_dump($newGeneration);
+        die();
 
     }
 
@@ -886,6 +887,39 @@ class EvolutionaryAlgorithmController extends Controller
 
         // $generate = new GenerateSquarePoints($hpString, 'homogeneous', null, '2D_Square', 'convex', 0.2);
 
+    }
+
+    public function initialGeneration(Request $request) {
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+
+        $data = array(
+            'code' => 404,
+            'status' => 'error',
+            'message' => "Data dosen't sending"
+        );
+
+        if(!empty($params_array)) {           
+            $hpString = $params_array['aminoacid'];
+            $spaceType = $params_array['space_type'];
+            $conformationsNumber = $params_array['conformations'];
+            $dimensionType = $params_array['dimension_type'];
+            $functionType = $params_array['fitness_function'];
+            $alphaValue = $params_array['alpha_value'];
+            
+            $generate = new GenerateSquarePoints($hpString, $spaceType, null, $dimensionType, $functionType, $alphaValue);
+            $newGeneration = $generate->initializeGeneration(100);
+
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'generation' => $newGeneration->convertToJson()
+            );
+
+            //var_dump($newGeneration); die();
+        }
+
+        return response()->json($data, $data['code']);
     }
 
 }
