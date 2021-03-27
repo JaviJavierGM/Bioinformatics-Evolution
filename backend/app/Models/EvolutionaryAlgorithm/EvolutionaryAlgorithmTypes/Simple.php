@@ -121,7 +121,22 @@ class Simple extends EvolutionaryAlgorithm
             default:
                 echo 'Default case';
             break;
-        }        
+        }
+
+        echo "<br> PRIMERA GENERACION <br>";
+                    $cont=0;
+                    foreach($generation->getConformations() as $conformation){
+                        echo "Conformation ".$cont."<br>";
+                        $contPoint=0;
+                        foreach($conformation->getPoints() as $point){
+                            echo "Punto ".$contPoint."<br>";
+                            echo "X: ".$point->getValueX()." , Y: ".$point->getValueY()." , Z: ".$point->getValueZ()."<br>";
+                            // echo "movVect: ".$point->getMovVectorValue()."<br>";
+                            $contPoint++;
+                        }
+                        
+                        $cont++;
+                    }
 
         for($i=0; $i<$this->generationsNumber; $i++) {
             // Seleccion de padres
@@ -185,6 +200,23 @@ class Simple extends EvolutionaryAlgorithm
                     );
                     // var_dump($crossoverOnePoint->getNewGeneration()); die();
                     array_push($this->currentExperiment, $crossoverOnePoint->getNewGeneration());
+
+                    echo "<br> NUEVA GENERACION <br>";
+                    $cont=0;
+                    foreach($crossoverOnePoint->getNewGeneration()->getConformations() as $conformation){
+                        echo "Conformation ".$cont."<br>";
+                        $contPoint=0;
+                        foreach($conformation->getPoints() as $point){
+                            echo "Punto ".$contPoint."<br>";
+                            echo "X: ".$point->getValueX()." , Y: ".$point->getValueY()." , Z: ".$point->getValueZ()."<br>";
+                            // echo "movVect: ".$point->getMovVectorValue()."<br>";
+                            $contPoint++;
+                        }
+                        
+                        $cont++;
+                    }
+                    die();
+
                 break;
 
                 case 'two_points':
@@ -215,21 +247,9 @@ class Simple extends EvolutionaryAlgorithm
                         $this->hpSecuence, 
                         $this->mutationType
                     );
-                    // var_dump($crossoverUniform->getNewGeneration()->getConformations()); die();
-                    echo "<br> NUEVA GENERACION <br>";
-                    $cont=0;
-                    foreach($crossoverUniform->getNewGeneration()->getConformations() as $conformation){
-                        echo "Conformation ".$cont."<br>";
-                        $contPoint=0;
-                        foreach($conformation->getPoints() as $point){
-                            echo "Punto ".$contPoint."<br>";
-                            echo "movVect: ".$point->getMovVectorValue()."<br>";
-                            $contPoint++;
-                        }
-                        
-                        $cont++;
-                    }
+                    // var_dump($crossoverUniform->getNewGeneration()->getConformations()); die();                    
                     array_push($this->currentExperiment, $crossoverUniform->getNewGeneration());
+                    
                 break;
                 
                 default:

@@ -869,7 +869,7 @@ class EvolutionaryAlgorithmController extends Controller
             "population_decimation", // $selectionOperator,
             20, // $percentOfTournament,
             null, // $percentOfTopPercent,
-            "uniform", // $crossoverType,
+            "one_point", // $crossoverType,
             0.1, // $crossoverProbability,
             "predefined", // $mutationType,
             0.01, // $mutationProbability,
