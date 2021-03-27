@@ -33,7 +33,7 @@ abstract class CrossoverOperator extends Model
         $typeSpace,
         $typeDimension,
         $lengthHpString,
-        $conformationsNumber,
+        // $conformationsNumber,
         $crossoverProbability,
         $correlatedMatrix,
         $hpSecuence,
@@ -45,7 +45,7 @@ abstract class CrossoverOperator extends Model
         $this->typeSpace = $typeSpace;
         $this->typeDimension = $typeDimension;
         $this->lengthHpString = $lengthHpString;
-        $this->conformationsNumber = $conformationsNumber;
+        $this->conformationsNumber = sizeof($this->generation->getParentsList());
         $this->crossoverProbability = $crossoverProbability;
         $this->correlatedMatrix = $correlatedMatrix;
         $this->hpSecuence = $hpSecuence;
@@ -56,7 +56,7 @@ abstract class CrossoverOperator extends Model
 
         // Generación de una nueva generacion hijos atravez de la generacion padre
         $conformations = array();
-        for ($i=0; $i < $this->conformationsNumber/2; $i++) { 
+        for ($i=0; $i < $this->conformationsNumber; $i++) { 
             $parentOne = 0;
             $parentTwo = 0;
  
