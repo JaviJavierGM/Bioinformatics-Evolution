@@ -20,6 +20,7 @@ import { UsersManagementComponent } from './components/users-management/users-ma
 import { EngineComponent } from './components/engine/engine.component';
 
 import { Engine3DComponent } from './components/engine3-d/engine3-d.component';
+import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { Engine3DComponent } from './components/engine3-d/engine3-d.component';
     UsersManagementComponent,
     EngineComponent,
 
-    Engine3DComponent
+    Engine3DComponent,
+
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
