@@ -1,0 +1,38 @@
+<div class="container">
+    <h2 class=" login-heading mb-4">{{page_title}}</h2>
+    <p>results works!</p>
+
+    <form class="col-md-12 ml-0 pl-0 " #conformationForm="ngForm" (ngSubmit)="onSubmit(conformationForm)">
+        <div class="form-row">
+            <!-- INPUT DEL EXPERIMENTO -->
+            <div class="form-group col-md-4">
+                <label for="experiment">Experiment</label>
+                <input type="number" name="experiment" class="form-control" #experiment="ngModel" [(ngModel)]="folding.experiment" />
+            </div>
+
+            <!-- INPUT DE LA GENERACIÓN -->
+            <div class="form-group col-md-4">
+                <label for="generation">Generation</label>
+                <input type="number" name="generation" class="form-control" #generation="ngModel" [(ngModel)]="folding.generation"/>
+            </div>
+
+            <!-- INPUT DE LA CONFORMACIÓN -->
+            <div class="form-group col-md-4">
+                <label for="conformation">Conformation</label>
+                <input type="number" name="conformation" class="form-control" #conformation="ngModel" [(ngModel)]="folding.conformation"/>
+            </div>
+
+            
+        </div>
+
+        <!-- Botones -->
+        <div class="container">
+            <div class="row justify-content-center">  
+                <button type="submit" value="" class="btn btn-lg btn-primary btn-result text-uppercase font-weight-bold mb-2 col-md-3 mt-1" [disabled]="conformationForm.invalid">
+                    <i class="fas fa-play-circle"></i>
+                    Folding conformation
+                </button>                
+            </div>
+        </div>
+    </form>
+</div>

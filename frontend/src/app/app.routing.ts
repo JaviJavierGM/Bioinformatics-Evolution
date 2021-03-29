@@ -10,6 +10,7 @@ import { FoldingComponent } from './components/folding/folding.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersManagementComponent } from './components/users-management/users-management.component';
+import { ResultsComponent } from './components/results/results.component';
 import { EngineComponent } from './components/engine/engine.component';
 import { Engine3DComponent } from './components/engine3-d/engine3-d.component' ;
 
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     {path: 'projects', component: ProjectsComponent},
     {path: 'settings', component: UserEditComponent},
     {path: 'users-management', component: UsersManagementComponent},
+    {path: 'results', component: ResultsComponent},
     {path: 'engine', component: EngineComponent},
     {path: 'engine3d', component: Engine3DComponent},
     {path: '**', component: ErrorComponent}
