@@ -34,7 +34,7 @@ class Simple extends EvolutionaryAlgorithm
         $hpSecuence,
         $spaceType,
         $dimensionType,
-        $correlatedSelected,
+        // $correlatedSelected,
         $fileNameCorrelatedNetwork,
         $pointsCorrelatedNetworkSelected,
         $selectionOperator,
@@ -58,7 +58,7 @@ class Simple extends EvolutionaryAlgorithm
         $this->hpSecuence = $hpSecuence;
         $this->spaceType = $spaceType;
         $this->dimensionType = $dimensionType;
-        $this->correlatedSelected = $correlatedSelected;
+        // $this->correlatedSelected = $correlatedSelected;
         $this->fileNameCorrelatedNetwork = $fileNameCorrelatedNetwork;
         $this->pointsCorrelatedNetworkSelected = $pointsCorrelatedNetworkSelected;
         $this->selectionOperator = $selectionOperator;
@@ -84,16 +84,13 @@ class Simple extends EvolutionaryAlgorithm
             $execute = $this->executeVersion2();
         } else {
             $execute = $this->executeVersion1();
-        }
-        die();
+        }        
 
         return $execute;
     }
 
     public function executeVersion1() {
-        echo 'Esta es la version 1 xD la mmlona xD <br>';
-
-        
+        // echo 'Esta es la version 1! <br>';
 
         for($numExp=0; $numExp < $this->experimentsNumber; $numExp++) {
 
@@ -260,15 +257,13 @@ class Simple extends EvolutionaryAlgorithm
             // die();
 
 
-        }
-
-        echo "termino";
+        }        
         
-        var_dump($this->experiments);
+        // var_dump($this->experiments);
 
         
 
-        die();
+        // die();
 
         return true;
         

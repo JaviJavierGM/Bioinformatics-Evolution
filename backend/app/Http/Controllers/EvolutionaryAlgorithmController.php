@@ -837,7 +837,7 @@ class EvolutionaryAlgorithmController extends Controller
     }
 
     public function execute(Request $request) {
-        /*
+        /* 
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
 
@@ -845,7 +845,7 @@ class EvolutionaryAlgorithmController extends Controller
             $data = array(
                 'code' => 404,
                 'status' => 'error',
-                'message' => "Data dosn't sending"
+                'message' => "Data don't sending"
             );
         } else {
             $data = array(
@@ -858,34 +858,95 @@ class EvolutionaryAlgorithmController extends Controller
 
         return response()->json($data, $data['code']);
         */
-        
-        $AESimple = new Simple(
-            "PPHPHHPH", // $hpSecuence,
-            "homogeneous", // $spaceType,
-            "2D_Triangle", // $dimensionType,
-            false, // $correlatedSelected,
-            null, // $fileNameCorrelatedNetwork,
-            null, // $pointsCorrelatedNetworkSelected,
-            "population_decimation", // $selectionOperator,
-            20, // $percentOfTournament,
-            null, // $percentOfTopPercent,
-            "one_point", // $crossoverType,
-            0.1, // $crossoverProbability,
-            "predefined", // $mutationType,
-            0.01, // $mutationProbability,
-            false, // $isKnowBestFitness,
-            null, // $fitnessValue,
-            100, // $conformationsNumber,
-            200, // $generationsNumber,
-            1, // $experimentsNumber,
-            1, // $sampling,
-            false, // $elitismSelected,
-            20, //$percentOfElitism,
-            "convex", // $functionType,
-            0.2 // $alphaValue
+
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+
+        $data = array(
+            'code' => 404,
+            'status' => 'error',
+            'message' => "Data dosen't sending"
         );
 
-        // $generate = new GenerateSquarePoints($hpString, 'homogeneous', null, '2D_Square', 'convex', 0.2);
+        if(!empty($params_array)) {
+            $optimizationAlgorithm = $params_array['optimization_algorithm'];
+
+            $hpSecuence = $params_array['aminoacid'];
+            $spaceType = $params_array['space_type'];
+            $dimensionType = $params_array['dimension_type'];
+            $fileNameCorrelatedNetwork = null;
+            $pointsCorrelatedNetworkSelected = null;
+            $selectionOperator = $params_array['selection_op'];
+            $percentOfTournament = $params_array['percent_tournament'];
+            $percentOfTopPercent = $params_array['percent_best'];
+            $crossoverType = $params_array['crossover_op'];
+            $crossoverProbability = $params_array['crossover_probability'];
+            $mutationType = $params_array['mutation_op'];
+            $mutationProbability = $params_array['mutation_probability'];
+            $isKnowBestFitness = $params_array['i_know_fitness'];
+            $fitnessValue = $params_array['final_fitness'];
+            $conformationsNumber = $params_array['conformations'];
+            $generationsNumber = $params_array['times_algorithm'];
+            $experimentsNumber = $params_array['experiments'];
+            $sampling = $params_array['sampling'];
+            $elitismSelected = $params_array['elitism'];
+            $percentOfElitism = $params_array['percent_elitism'];
+            $functionType = $params_array['fitness_function'];
+            $alphaValue = $params_array['alpha_value'];
+
+            // $caterpillarMutationSelected = $params_array['caterpillar_mutation'];
+            // $clampMutationSelected = $params_array['clamp_mutation'];
+            // $maxMutationProbability = $params_array['max_mutation_probability'];
+            // $minMutationProbability = $params_array['min_mutation_probability'];
+            // $proximityPairing = $params_array['proximity_pairing'];            
+
+            if($optimizationAlgorithm == 'simple') {
+                if(
+                    $AESimple = new Simple(
+                        $hpSecuence,
+                        $spaceType,
+                        $dimensionType,
+                        $fileNameCorrelatedNetwork,
+                        $pointsCorrelatedNetworkSelected,
+                        $selectionOperator,
+                        $percentOfTournament,
+                        $percentOfTopPercent,
+                        $crossoverType,
+                        $crossoverProbability,
+                        $mutationType,
+                        $mutationProbability,
+                        $isKnowBestFitness,
+                        $fitnessValue,
+                        $conformationsNumber,
+                        $generationsNumber,
+                        $experimentsNumber,
+                        $sampling,
+                        $elitismSelected,
+                        $percentOfElitism,
+                        $functionType,
+                        $alphaValue
+                    )
+                ) {
+                    
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'success',
+                        'experiments' => $AESimple->getExperimentsJson()
+                    );
+
+                } else{
+                    $data = array(
+                        'code' => 404,
+                        'status' => 'error',
+                        'message' => "Execution error!"
+                    );
+                }
+
+            }        
+
+        }
+
+        return response()->json($data, $data['code']);
 
     }
 
