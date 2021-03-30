@@ -1,6 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResultsDataService } from 'src/app/services/results-data.service';
 import { EvolutionaryAlgorithm } from '../../models/evolutionaryAlgorithm';
 import { EvolutionaryAlgorithmService } from '../../services/evolutionaryAlgorithm.service';
 import { UserService } from '../../services/user.service';
@@ -19,13 +18,11 @@ export class FoldingComponent implements OnInit, DoCheck {
   public identity;
   public token;
   public status;
-  public loading=false;
 
   constructor(
     private _userService: UserService,
     private _evolutionaryAlgorithmService: EvolutionaryAlgorithmService,
-    private _router: Router,
-    private resultsExperiments: ResultsDataService
+    private _router: Router
   ) { 
     this.page_title = 'Protein folding';
     this.finalFitness = false;
@@ -70,17 +67,15 @@ export class FoldingComponent implements OnInit, DoCheck {
   }
 
   onSubmit(form) {
-    this.loading=true;
     console.log(this.evolutionaryAlgorithm);
     this._evolutionaryAlgorithmService.execute(this.evolutionaryAlgorithm).subscribe(
       response => {
         if(response.status == "success") {
           this.status = response.status;
-          // this.results = JSON.stringify(response.experiments);
-          
+          this.results = JSON.stringify(response.generation);
+
           // Persistir los resultados devuletos por el API
-          // localStorage.setItem('results', this.results);
-          this.resultsExperiments.resultsExperiments = response.experiments;
+          localStorage.setItem('results', this.results);
 
           // Redirecion al componente para visualizar los resultaados del EA.
           this._router.navigate(['results']);
