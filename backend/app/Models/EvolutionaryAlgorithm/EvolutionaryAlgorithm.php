@@ -13,7 +13,7 @@ abstract class EvolutionaryAlgorithm extends Model
 
     protected $spaceType;
     protected $dimensionType;
-    protected $correlatedSelected;
+    // protected $correlatedSelected;
     protected $fileNameCorrelatedNetwork;
     protected $pointsCorrelatedNetworkSelected;
 
@@ -46,6 +46,27 @@ abstract class EvolutionaryAlgorithm extends Model
 
     protected $currentExperiment = array();
     protected $experiments = array();
+
+    public function getExperiments() {
+        return $this->experiments;
+    }
+
+    public function getExperimentsJson() {
+        $experimentsJson = array();
+        foreach($this->experiments as $experiment){
+            
+            $arrayTemp = array();
+
+            foreach($experiment as $generation){
+                array_push($arrayTemp, $generation->convertToJson());
+            }
+
+            array_push($experimentsJson, $arrayTemp);
+
+        }
+
+        return $experimentsJson;
+    }
 
     abstract public function executeVersion1();
 
