@@ -48,7 +48,7 @@ export class EngineService implements OnDestroy {
 
   }
 
-  public createScene(canvas: ElementRef<HTMLCanvasElement>,  num: number): void {
+  public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
     
     // The first step is to get the reference of the canvas element from our HTML document
     this.canvas = canvas.nativeElement;
