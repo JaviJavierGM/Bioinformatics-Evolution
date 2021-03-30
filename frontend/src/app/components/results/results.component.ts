@@ -1,4 +1,5 @@
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
+import { ResultsDataService } from 'src/app/services/results-data.service';
 import { Folding } from '../../models/folding';
 import {EngineService} from '../../services/engine.service';
 
@@ -15,15 +16,16 @@ export class ResultsComponent implements OnInit {
   @ViewChild('rendererCanvas', {static: true})
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
 
-  constructor(private engServ: EngineService) {
+  constructor(private engServ: EngineService, public resultsExperiments: ResultsDataService) {
     this.page_title = 'Results of the Evolutionary Algorithm!!';
     this.folding = new Folding(0, 0, 0);
   }
 
   ngOnInit(): void {
-    this.experiments = localStorage.getItem('results');
-    this.experiments = JSON.parse(this.experiments);
-    localStorage.removeItem('results');
+    // this.experiments = localStorage.getItem('results');
+    // this.experiments = JSON.parse(this.experiments);
+    this.experiments = this.resultsExperiments.resultsExperiments;
+    // localStorage.removeItem('results');
     console.log('Componente de resultados!!');
     console.log(this.experiments);
     
@@ -31,11 +33,13 @@ export class ResultsComponent implements OnInit {
   }
 
   onSubmit(form) {
-    let conformationClone = this.experiments[this.folding.conformation];
+    let generation = this.experiments[this.folding.experiment][this.folding.generation];
+    let conformationClone = generation[this.folding.conformation];
+    console.log(conformationClone);
 
     
 
-    this.engServ.createScene(this.rendererCanvas,conformationClone);
+    this.engServ.createScene(this.rendererCanvas, conformationClone);
     this.engServ.animate();
   }
 
