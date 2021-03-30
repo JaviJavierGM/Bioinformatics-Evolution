@@ -18,6 +18,7 @@ export class FoldingComponent implements OnInit, DoCheck {
   public identity;
   public token;
   public status;
+  public loading=false;
 
   constructor(
     private _userService: UserService,
@@ -67,6 +68,7 @@ export class FoldingComponent implements OnInit, DoCheck {
   }
 
   onSubmit(form) {
+    this.loading=true;
     console.log(this.evolutionaryAlgorithm);
     this._evolutionaryAlgorithmService.execute(this.evolutionaryAlgorithm).subscribe(
       response => {
