@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'node_modules/three/examples/jsm/controls/OrbitControls'
 import {ElementRef, Injectable, NgZone, OnDestroy} from '@angular/core';
 
+
+
 class Conformation {
   posX: number;
   posY: number;
@@ -55,11 +57,16 @@ export class EngineService implements OnDestroy {
    /*  for (let i = 0; i < array_C.points.length; i++) {
       console.log(array_C.points[i]);      
     } */
-    console.log(array_C.points[0].xValue)
+    /* console.log(array_C.points[0].xValue)
     console.log(array_C.points[0].yValue)
     console.log(array_C.points[0].zValue)
-    console.log(array_C.points[0].letter)
-    console.log(array_C.points.length)
+    console.log(array_C.points[0].letter) */
+    //console.log(array_C.points)
+    console.log(array_C.points[0].letter.localeCompare('H') )
+
+    for (var index = 0; index < array_C.points.length; index++) {
+      console.log(typeof array_C.points[index].letter )
+    }
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
@@ -83,9 +90,9 @@ export class EngineService implements OnDestroy {
     this.controls.autoRotate=true;
 
       //Agrega luces
-    for (var index = 0; index < this.arrayAmi.length; index++) {
+    for (var index = 0; index < array_C.points.length; index++) {
       this.light = new THREE.AmbientLight(0x0000ff);
-      this.light.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ );
+      this.light.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
       this.scene.add(this.light);
       
     }
@@ -101,7 +108,7 @@ export class EngineService implements OnDestroy {
     for (var index = 0; index < array_C.points.length; index++) {
       
       const geometry = new THREE.SphereGeometry(2, 20, 20 );
-      if (array_C.points[index].letterr=='H') {
+      if (array_C.points[index].letter.localeCompare('H')) {
         this.cube = new THREE.Mesh(geometry, material);
         this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
       }else{
