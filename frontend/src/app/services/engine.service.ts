@@ -48,10 +48,18 @@ export class EngineService implements OnDestroy {
 
   }
 
-  public createScene(canvas: ElementRef<HTMLCanvasElement>,  num: number): void {
+  public createScene(canvas: ElementRef<HTMLCanvasElement>,  array_C: any): void {
     
     // The first step is to get the reference of the canvas element from our HTML document
     this.canvas = canvas.nativeElement;
+   /*  for (let i = 0; i < array_C.points.length; i++) {
+      console.log(array_C.points[i]);      
+    } */
+    console.log(array_C.points[0].xValue)
+    console.log(array_C.points[0].yValue)
+    console.log(array_C.points[0].zValue)
+    console.log(array_C.points[0].letter)
+    console.log(array_C.points.length)
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
@@ -90,15 +98,15 @@ export class EngineService implements OnDestroy {
     
     //Agrega esferas
 
-    for (var index = 0; index < this.arrayAmi.length; index++) {
+    for (var index = 0; index < array_C.points.length; index++) {
       
-      const geometry = new THREE.SphereGeometry(3, 20, 20 );
-      if (this.arrayAmi[index].letter=='H') {
+      const geometry = new THREE.SphereGeometry(2, 20, 20 );
+      if (array_C.points[index].letterr=='H') {
         this.cube = new THREE.Mesh(geometry, material);
-        this.cube.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ);
+        this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
       }else{
         this.cube = new THREE.Mesh(geometry, material_2);
-        this.cube.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ);
+        this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
       }
       this.scene.add(this.cube);
     } 
@@ -107,11 +115,11 @@ export class EngineService implements OnDestroy {
 
     // Añade enlaces
     const points = []
-    for (var index = 0; index < this.arrayAmi.length; index++) {
-      points.push(new THREE.Vector3(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ));
+    for (var index = 0; index < array_C.points.length; index++) {
+      points.push(new THREE.Vector3(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6));
     }
     var pathBase = new THREE.CatmullRomCurve3(points);
-    var tgeometry = new THREE.TubeGeometry( pathBase, this.arrayAmi.length-1, .8, 20, false );
+    var tgeometry = new THREE.TubeGeometry( pathBase, array_C.points.length-1, .8, 20, false );
     var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
     var tmesh = new THREE.Mesh( tgeometry, tmaterial );
     this.scene.add(tmesh);
