@@ -31,13 +31,11 @@ export class ResultsComponent implements OnInit {
   }
 
   onSubmit(form) {
-    let generation = this.experiments[this.folding.experiment][this.folding.generation];
-    let conformationClone = generation[this.folding.conformation];
-    console.log(conformationClone);
+    let conformationClone = this.experiments[this.folding.conformation];
 
     
 
-    this.engServ.createScene(this.rendererCanvas, conformationClone);
+    this.engServ.createScene(this.rendererCanvas,conformationClone);
     this.engServ.animate();
   }
 

@@ -72,8 +72,8 @@ export class FoldingComponent implements OnInit, DoCheck {
       response => {
         if(response.status == "success") {
           this.status = response.status;
-          this.results = JSON.stringify(response.experiments);
-          
+          this.results = JSON.stringify(response.generation);
+
           // Persistir los resultados devuletos por el API
           localStorage.setItem('results', this.results);
 
