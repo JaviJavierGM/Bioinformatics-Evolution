@@ -931,6 +931,7 @@ class EvolutionaryAlgorithmController extends Controller
                     $data = array(
                         'code' => 200,
                         'status' => 'success',
+                        'space_type' => $spaceType,
                         'experiments' => $AESimple->getExperimentsJson()
                     );
 

@@ -198,6 +198,7 @@ class Simple extends EvolutionaryAlgorithm
                     break;
 
                     case 'two_points':
+
                         $crossoverTwoPoints = new TwoPoints(
                             $generation, 
                             $this->spaceType, 
@@ -206,10 +207,12 @@ class Simple extends EvolutionaryAlgorithm
                             $this->crossoverProbability, 
                             null, 
                             $this->hpSecuence, 
-                            $this->mutationType
+                            $this->mutationType,
+                            $this->functionType,
+                            $this->alphaValue
                         );
                         array_push($this->currentExperiment, $crossoverTwoPoints->getNewGeneration());
-                        $generation = $crossoverOnePoint->getNewGeneration();
+                        $generation = $crossoverTwoPoints->getNewGeneration();
                     break;
 
                     case 'uniform':
@@ -221,10 +224,12 @@ class Simple extends EvolutionaryAlgorithm
                             $this->crossoverProbability, 
                             null, 
                             $this->hpSecuence, 
-                            $this->mutationType
+                            $this->mutationType,
+                            $this->functionType,
+                            $this->alphaValue
                         );
                         array_push($this->currentExperiment, $crossoverUniform->getNewGeneration());
-                        $generation = $crossoverOnePoint->getNewGeneration();
+                        $generation = $crossoverUniform->getNewGeneration();
                     break;
                     
                     default:
