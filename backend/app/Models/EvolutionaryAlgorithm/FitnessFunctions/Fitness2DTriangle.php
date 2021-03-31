@@ -878,7 +878,7 @@ class Fitness2DTriangle extends Model
                         if(Helpers::isH($this->points, $point->getValueX()-0.5, $point->getValueY()-1, $point->getValueZ())) {
                             $this->alphaHH -= 1;
                         }
-                    } elseif($this-nextPosition == 1) {
+                    } elseif($this->nextPosition == 1) {
                         // Verificación hacia adelante
                         if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
                             $this->alphaHH -= 1;
@@ -898,7 +898,7 @@ class Fitness2DTriangle extends Model
                         if(Helpers::isH($this->points, $point->getValueX()-0.5, $point->getValueY()-1, $point->getValueZ())) {
                             $this->alphaHH -= 1;
                         }
-                    } elseif($this-nextPosition == 3) {
+                    } elseif($this->nextPosition == 3) {
                         // Verificación hacia adelante
                         if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
                             $this->alphaHH -= 1;
@@ -918,7 +918,7 @@ class Fitness2DTriangle extends Model
                         if(Helpers::isH($this->points, $point->getValueX()-0.5, $point->getValueY()-1, $point->getValueZ())) {
                             $this->alphaHH -= 1;
                         }
-                    } elseif($this-nextPosition == 4) {
+                    } elseif($this->nextPosition == 4) {
                         // Verificación hacia adelante
                         if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
                             $this->alphaHH -= 1;
@@ -938,7 +938,7 @@ class Fitness2DTriangle extends Model
                         if(Helpers::isH($this->points, $point->getValueX()-0.5, $point->getValueY()-1, $point->getValueZ())) {
                             $this->alphaHH -= 1;
                         }
-                    } elseif($this-nextPosition == 5) {
+                    } elseif($this->nextPosition == 5) {
                         // Verificación hacia adelante
                         if(Helpers::isH($this->points, $point->getValueX()+1, $point->getValueY(), $point->getValueZ())) {
                             $this->alphaHH -= 1;
