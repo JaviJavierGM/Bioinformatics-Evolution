@@ -947,6 +947,8 @@ class EvolutionaryAlgorithmController extends Controller
 
         }
 
+        unset($AESimple);
+
         return response()->json($data, $data['code']);
 
     }

@@ -55,6 +55,7 @@ class Simple extends EvolutionaryAlgorithm
         $functionType,
         $alphaValue
     ) {
+        // set_time_limit(8000000);
         $this->hpSecuence = $hpSecuence;
         $this->spaceType = $spaceType;
         $this->dimensionType = $dimensionType;
@@ -105,20 +106,23 @@ class Simple extends EvolutionaryAlgorithm
                     }else{
                         // Se generan los puntos 2D cuadrado en un medio homogeno
                         $generatePoints = new GenerateSquarePoints($this->hpSecuence, $this->spaceType, null, $this->dimensionType, $this->functionType, $this->alphaValue);
-                        $generation = $generatePoints->initializeGeneration($this->conformationsNumber);                    
+                        $generation = $generatePoints->initializeGeneration($this->conformationsNumber);
+                        unset($generatePoints);
                     }
                 break;
 
                 case '2D_Triangle':
                     // Se generan los puntos 2D triangular en un medio homogeno
                     $generatePoints = new GenerateTrianglePoints($this->hpSecuence, $this->spaceType, null, $this->dimensionType, $this->functionType, $this->alphaValue);
-                    $generation = $generatePoints->initializeGeneration($this->conformationsNumber);                
+                    $generation = $generatePoints->initializeGeneration($this->conformationsNumber);
+                    unset($generatePoints);
                 break;
 
                 case '3D_Cubic':
                     // Se generan los puntos 3D cubico en un medio homogeno
                     $generatePoints = new GenerateCubePoints($this->hpSecuence, $this->spaceType, null, $this->dimensionType, $this->functionType, $this->alphaValue);
                     $generation = $generatePoints->initializeGeneration($this->conformationsNumber);
+                    unset($generatePoints);
                 break;
                 
                 default:
@@ -137,13 +141,16 @@ class Simple extends EvolutionaryAlgorithm
                 if($this->elitismSelected) {
                     if($this->selectionOperator == 'tournament') {
                         $elitism = new Elitism($this->percentOfElitism, $generation, $this->selectionOperator, $this->percentOfTournament);
-                        $elitism->execute();                    
+                        $elitism->execute();
+                        unset($elitism);
                     } elseif($this->selectionOperator == 'top_percent') {
                         $elitism = new Elitism($this->percentOfElitism, $generation, $this->selectionOperator, $this->percentOfTournament);
                         $elitism->execute();
+                        unset($elitism);
                     } else {
                         $elitism = new Elitism($this->percentOfElitism, $generation, $this->selectionOperator, null);
                         $elitism->execute();
+                        unset($elitism);
                     }
                                     
                 } else {
@@ -151,21 +158,25 @@ class Simple extends EvolutionaryAlgorithm
                         case 'roulette':
                             $roulette = new Roulette($generation);
                             $roulette->execute();                        
+                            unset($roulette);
                         break;
 
                         case 'tournament':
                             $tournament = new Tournament($generation, $this->percentOfTournament);
-                            $tournament->execute();                        
+                            $tournament->execute();
+                            unset($tournament);
                         break;
 
                         case 'top_percent':
                             $topPercent = new TopPercent($generation, $this->percentOfTournament);
                             $topPercent->execute();                        
+                            unset($topPercent);
                         break;
 
                         case 'population_decimation':
                             $populationDecimation = new PopulationDecimation($generation);
-                            $populationDecimation->execute();                        
+                            $populationDecimation->execute();
+                            unset($populationDecimation);
                         break;
                             
                         default:
@@ -195,6 +206,7 @@ class Simple extends EvolutionaryAlgorithm
                         );
                         array_push($this->currentExperiment, $crossoverOnePoint->getNewGeneration());
                         $generation = $crossoverOnePoint->getNewGeneration();
+                        unset($crossoverOnePoint);
                     break;
 
                     case 'two_points':
@@ -213,6 +225,7 @@ class Simple extends EvolutionaryAlgorithm
                         );
                         array_push($this->currentExperiment, $crossoverTwoPoints->getNewGeneration());
                         $generation = $crossoverTwoPoints->getNewGeneration();
+                        unset($crossoverTwoPoints);
                     break;
 
                     case 'uniform':
@@ -230,6 +243,7 @@ class Simple extends EvolutionaryAlgorithm
                         );
                         array_push($this->currentExperiment, $crossoverUniform->getNewGeneration());
                         $generation = $crossoverUniform->getNewGeneration();
+                        unset($crossoverUniform);
                     break;
                     
                     default:
