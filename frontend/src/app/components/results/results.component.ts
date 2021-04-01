@@ -38,7 +38,7 @@ export class ResultsComponent implements OnInit {
 
   onSubmit(form) {
     let generation = this.experiments[this.folding.experiment][this.folding.generation];
-    let conformationClone = generation[this.folding.conformation];
+    let conformationClone = generation[0][this.folding.conformation];
     console.log(conformationClone);
 
 
@@ -54,6 +54,9 @@ export class ResultsComponent implements OnInit {
   graphFitnessParticularGeneration(form) {
     console.log('Aqui se hace la grafica el fitness de cada conformacion!!');
     console.log(this.plot);
+
+    let generation =  this.experiments[this.plot.experiment][this.plot.generation];
+    console.log(generation);
     
   }
 

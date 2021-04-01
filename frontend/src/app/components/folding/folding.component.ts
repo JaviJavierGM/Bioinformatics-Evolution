@@ -74,6 +74,7 @@ export class FoldingComponent implements OnInit, DoCheck {
     console.log(this.evolutionaryAlgorithm);
     this._evolutionaryAlgorithmService.execute(this.evolutionaryAlgorithm).subscribe(
       response => {
+        console.log(response);
         if(response.status == "success") {
           this.status = response.status;
           // this.results = JSON.stringify(response.experiments);
