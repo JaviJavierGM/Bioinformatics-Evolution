@@ -12,13 +12,18 @@ export class ResultsComponent implements OnInit {
   public page_title: string;
   public experiments;
   public folding: Folding;
+  public plot: Folding;
 
   @ViewChild('rendererCanvas', {static: true})
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
 
-  constructor(private engServ: EngineService, public resultsExperiments: ResultsDataService) {
+  constructor(
+    private engServ: EngineService, 
+    public resultsExperiments: ResultsDataService
+  ) {
     this.page_title = 'Results of the Evolutionary Algorithm!!';
     this.folding = new Folding(0, 0, 0);
+    this.plot = new Folding(0, 0, 0);
   }
 
   ngOnInit(): void {
@@ -28,7 +33,6 @@ export class ResultsComponent implements OnInit {
     // localStorage.removeItem('results');
     console.log('Componente de resultados!!');
     console.log(this.experiments);
-    
 
   }
 
@@ -41,6 +45,16 @@ export class ResultsComponent implements OnInit {
 
     this.engServ.createScene(this.rendererCanvas, conformationClone);
     this.engServ.animate();
+  }
+
+  graphSumFitness() {
+    console.log('Aqui se hace la grafica de la suma de fitness de cada generacion!!');
+  }
+
+  graphFitnessParticularGeneration(form) {
+    console.log('Aqui se hace la grafica el fitness de cada conformacion!!');
+    console.log(this.plot);
+    
   }
 
 }

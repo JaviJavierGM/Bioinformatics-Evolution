@@ -1,7 +1,80 @@
 <div class="container">
     <h2 class=" login-heading mb-4">{{page_title}}</h2>
-    <p>results works!</p>
+    <p>Consult here the results returned by the Evolutionary Algorithm!</p>
 
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-sm-4 mr-5">
+                <!-- MODAL PARA GRAFICAR LA SUMA DE LA FUNCION DE APTITUD EN CADA GENERACIÓN-->
+                <button class="btn btn-primary btn-block btn-result text-uppercase font-weight-bold mb-2" data-toggle="modal" data-target="#SumFitnessModal">
+                    Graph the fitness sum of each generation.
+                </button>
+                
+                <div class="modal fade bd-example-modal-lg" id="SumFitnessModal" tabindex="-1" role="dialog" aria-labelledby="SumFitnessModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="SumFitnessModalLabel">Visualize the fitness evolution for each generation.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-result text-uppercase font-weight-bold" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-info btn-result text-uppercase font-weight-bold" (click)="graphSumFitness()" >View Graphic</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 mr-5">
+                <!-- MODAL PARA GRAFICAR LA FUNCION DE APTITUD DE LAS CONFORMACIONES PERTENECIENTES A UNA GENERACION EN PARTICULAR-->
+                <button class="btn btn-primary btn-block btn-result text-uppercase font-weight-bold mb-2" data-toggle="modal" data-target="#ParticularGenerationModal">
+                    Graph fitness of particular generation.
+                </button>
+                
+                <div class="modal fade bd-example-modal-lg" id="ParticularGenerationModal" tabindex="-1" role="dialog" aria-labelledby="ParticularGenerationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ParticularGenerationModalLabel">Visualize the fitness evolution of a particular generation.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form #generationP="ngForm" (ngSubmit)="graphFitnessParticularGeneration(generationP)">
+                                    <!-- INPUT DEL EXPERIMENTO -->
+                                    <div class="form-group col-md">
+                                        <label for="experimentP">Experiment</label>
+                                        <input type="number" name="experimentP" class="form-control" #experimentP="ngModel" [(ngModel)]="plot.experiment" />
+                                    </div>
+
+                                    <!-- INPUT DE LA GENERACIÓN -->
+                                    <div class="form-group col-md">
+                                        <label for="generationP">Generation</label>
+                                        <input type="number" name="generationP" class="form-control" #generationP="ngModel" [(ngModel)]="plot.generation"/>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-result text-uppercase font-weight-bold" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-info btn-result text-uppercase font-weight-bold" >Graph particular generation</button>
+                                    </div>
+                                </form>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <h4>Fold a conformation!!</h4>
     <form class="col-md-12 ml-0 pl-0 " #conformationForm="ngForm" (ngSubmit)="onSubmit(conformationForm)">
         <div class="form-row">
             <!-- INPUT DEL EXPERIMENTO -->
