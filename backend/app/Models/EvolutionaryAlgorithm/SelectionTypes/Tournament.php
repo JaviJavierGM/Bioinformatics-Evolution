@@ -38,6 +38,10 @@ class Tournament extends SelectionOperator
 
         $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // son las k conformaciones a elegir con la ruleta
 
+        if($k == 0) {
+            $k = 1;
+        }            
+
         $copyOfGeneration = $this->generation->getCloneGeneration();
         
         // Ejecutamos el Tournament las veces necesarias para conseguir las conformaciones

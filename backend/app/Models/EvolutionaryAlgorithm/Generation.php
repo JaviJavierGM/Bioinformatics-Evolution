@@ -108,8 +108,10 @@ class Generation extends Model
     }
 
     public function convertToJson() {
-        $conformations = array();
-        $counter = 0;
+        $generation = array(
+            'totalFitnessGeneration' => $this->getTotalFitness()
+        );
+        $conformations = array();        
         foreach ($this->conformations as $conformation) {
             $conformation_json = array(
                 'fitness' => $conformation->getFitness(),
@@ -119,6 +121,8 @@ class Generation extends Model
             array_push($conformations, $conformation_json);
         }
 
-        return $conformations;
+        array_push($generation, $conformations);
+
+        return $generation;
     }
 }

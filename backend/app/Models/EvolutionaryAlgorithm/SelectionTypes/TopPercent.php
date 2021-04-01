@@ -35,6 +35,10 @@ class TopPercent extends SelectionOperator
 
         $k = round( (($this->percent / 100) * $sizeGeneration), null, PHP_ROUND_HALF_DOWN); // k mejores coformaciones a seleccionar
 
+        if($k == 0) {
+            $k = 1;
+        }    
+
         // conformaciones de la generacion, ordenadas de forma descendente
         $sublist_L = $this->generation->getOrderedConformations(false);
 

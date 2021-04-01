@@ -47,6 +47,12 @@ abstract class EvolutionaryAlgorithm extends Model
     protected $currentExperiment = array();
     protected $experiments = array();
 
+    protected $execute;
+
+    public function getExecute() {
+        return $this->execute;
+    }
+
     public function getExperiments() {
         return $this->experiments;
     }
