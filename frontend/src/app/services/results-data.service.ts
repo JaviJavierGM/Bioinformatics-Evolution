@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class ResultsDataService {
 
   public resultsExperiments;
+  public dimensionType;
+  public spaceType;
 
   constructor() { }
 

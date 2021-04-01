@@ -11,6 +11,8 @@ import {EngineService} from '../../services/engine.service';
 export class ResultsComponent implements OnInit {
   public page_title: string;
   public experiments;
+  public dimensionType: string;
+  public spaceType: string;
   public folding: Folding;
   public plot: Folding;
 
@@ -19,7 +21,7 @@ export class ResultsComponent implements OnInit {
 
   constructor(
     private engServ: EngineService, 
-    public resultsExperiments: ResultsDataService
+    public resultsData: ResultsDataService
   ) {
     this.page_title = 'Results of the Evolutionary Algorithm!!';
     this.folding = new Folding(0, 0, 0);
@@ -27,12 +29,15 @@ export class ResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.experiments = localStorage.getItem('results');
-    // this.experiments = JSON.parse(this.experiments);
-    this.experiments = this.resultsExperiments.resultsExperiments;
-    // localStorage.removeItem('results');
+  
+    this.experiments = this.resultsData.resultsExperiments;
+    this.dimensionType = this.resultsData.dimensionType;
+    this.spaceType = this.resultsData.spaceType;
+  
     console.log('Componente de resultados!!');
     console.log(this.experiments);
+    console.log(this.dimensionType);
+    console.log(this.spaceType);
 
   }
 

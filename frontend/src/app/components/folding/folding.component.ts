@@ -25,7 +25,7 @@ export class FoldingComponent implements OnInit, DoCheck {
     private _userService: UserService,
     private _evolutionaryAlgorithmService: EvolutionaryAlgorithmService,
     private _router: Router,
-    public resultsExperiments: ResultsDataService
+    public resultsData: ResultsDataService
   ) { 
     this.page_title = 'Protein folding';
     this.finalFitness = false;
@@ -77,12 +77,12 @@ export class FoldingComponent implements OnInit, DoCheck {
         console.log(response);
         if(response.status == "success") {
           this.status = response.status;
-          // this.results = JSON.stringify(response.experiments);
-
+          
           // Persistir los resultados devuletos por el API
-          // localStorage.setItem('results', this.results);
           console.log(response.experiments);
-          this.resultsExperiments.resultsExperiments = response.experiments;
+          this.resultsData.resultsExperiments = response.experiments;
+          this.resultsData.dimensionType = response.dimension_type;
+          this.resultsData.spaceType = response.space_type;
 
           // Redirecion al componente para visualizar los resultaados del EA.
           this._router.navigate(['results']);
