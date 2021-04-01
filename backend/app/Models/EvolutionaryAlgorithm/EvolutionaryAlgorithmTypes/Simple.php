@@ -82,12 +82,11 @@ class Simple extends EvolutionaryAlgorithm
 
         // Caso de saber el mejor fitness del projecto
         if($this->isKnowBestFitness) {
-            $execute = $this->executeVersion2();
+            $this->execute = $this->executeVersion2();
         } else {
-            $execute = $this->executeVersion1();
+            $this->execute = $this->executeVersion1();
         }        
 
-        return $execute;
     }
 
     public function executeVersion1() {
@@ -141,15 +140,21 @@ class Simple extends EvolutionaryAlgorithm
                 if($this->elitismSelected) {
                     if($this->selectionOperator == 'tournament') {
                         $elitism = new Elitism($this->percentOfElitism, $generation, $this->selectionOperator, $this->percentOfTournament);
-                        $elitism->execute();
+                        if(!$elitism->execute()) {
+                            return false;
+                        }
                         unset($elitism);
                     } elseif($this->selectionOperator == 'top_percent') {
                         $elitism = new Elitism($this->percentOfElitism, $generation, $this->selectionOperator, $this->percentOfTournament);
-                        $elitism->execute();
+                        if(!$elitism->execute()) {
+                            return false;
+                        }
                         unset($elitism);
                     } else {
                         $elitism = new Elitism($this->percentOfElitism, $generation, $this->selectionOperator, null);
-                        $elitism->execute();
+                        if(!$elitism->execute()) {
+                            return false;
+                        }
                         unset($elitism);
                     }
                                     
@@ -157,25 +162,33 @@ class Simple extends EvolutionaryAlgorithm
                     switch ($this->selectionOperator) {
                         case 'roulette':
                             $roulette = new Roulette($generation);
-                            $roulette->execute();                        
+                            if(!$roulette->execute()) {
+                               return false;
+                            }
                             unset($roulette);
                         break;
 
                         case 'tournament':
                             $tournament = new Tournament($generation, $this->percentOfTournament);
-                            $tournament->execute();
+                            if(!$tournament->execute()) {
+                                return false;
+                            }
                             unset($tournament);
                         break;
 
                         case 'top_percent':
                             $topPercent = new TopPercent($generation, $this->percentOfTournament);
-                            $topPercent->execute();                        
+                            if(!$topPercent->execute()) {
+                                return false;
+                            }
                             unset($topPercent);
                         break;
 
                         case 'population_decimation':
                             $populationDecimation = new PopulationDecimation($generation);
-                            $populationDecimation->execute();
+                            if(!$populationDecimation->execute()) {
+                                return false;
+                            }
                             unset($populationDecimation);
                         break;
                             

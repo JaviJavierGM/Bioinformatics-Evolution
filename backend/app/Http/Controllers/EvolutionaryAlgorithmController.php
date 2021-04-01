@@ -901,37 +901,38 @@ class EvolutionaryAlgorithmController extends Controller
             // $proximityPairing = $params_array['proximity_pairing'];            
 
             if($optimizationAlgorithm == 'simple') {
-                if(
-                    $AESimple = new Simple(
-                        $hpSecuence,
-                        $spaceType,
-                        $dimensionType,
-                        $fileNameCorrelatedNetwork,
-                        $pointsCorrelatedNetworkSelected,
-                        $selectionOperator,
-                        $percentOfTournament,
-                        $percentOfTopPercent,
-                        $crossoverType,
-                        $crossoverProbability,
-                        $mutationType,
-                        $mutationProbability,
-                        $isKnowBestFitness,
-                        $fitnessValue,
-                        $conformationsNumber,
-                        $generationsNumber,
-                        $experimentsNumber,
-                        $sampling,
-                        $elitismSelected,
-                        $percentOfElitism,
-                        $functionType,
-                        $alphaValue
-                    )
-                ) {
+                $AESimple = new Simple(
+                    $hpSecuence,
+                    $spaceType,
+                    $dimensionType,
+                    $fileNameCorrelatedNetwork,
+                    $pointsCorrelatedNetworkSelected,
+                    $selectionOperator,
+                    $percentOfTournament,
+                    $percentOfTopPercent,
+                    $crossoverType,
+                    $crossoverProbability,
+                    $mutationType,
+                    $mutationProbability,
+                    $isKnowBestFitness,
+                    $fitnessValue,
+                    $conformationsNumber,
+                    $generationsNumber,
+                    $experimentsNumber,
+                    $sampling,
+                    $elitismSelected,
+                    $percentOfElitism,
+                    $functionType,
+                    $alphaValue
+                );
+
+                if($AESimple->getExecute()) {
                     
                     $data = array(
                         'code' => 200,
                         'status' => 'success',
                         'space_type' => $spaceType,
+                        'dimension_type' => $dimensionType,
                         'experiments' => $AESimple->getExperimentsJson()
                     );
 
