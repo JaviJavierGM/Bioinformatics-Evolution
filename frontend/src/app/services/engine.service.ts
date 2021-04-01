@@ -22,7 +22,7 @@ class Conformation {
 
 @Injectable({providedIn: 'root'})
 export class EngineService implements OnDestroy {
-  private canvas: HTMLCanvasElement;
+  public canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
   private scene: THREE.Scene;
@@ -71,7 +71,8 @@ export class EngineService implements OnDestroy {
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       alpha: true,    // transparent background
-      antialias: true // smooth edges
+      antialias: true, // smooth edges
+      preserveDrawingBuffer: true
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     
