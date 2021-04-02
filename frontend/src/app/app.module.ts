@@ -17,9 +17,11 @@ import { AutoFocusDirective } from './auto-focus.directive';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersManagementComponent } from './components/users-management/users-management.component';
-import { EngineComponent } from './components/engine/engine.component';
 
+import { EngineComponent } from './components/engine/engine.component';
 import { Engine3DComponent } from './components/engine3-d/engine3-d.component';
+
+
 import { ResultsComponent } from './components/results/results.component';
 import { SelectCorrelatedNetworkComponent } from './components/select-correlated-network/select-correlated-network.component';
 
@@ -52,6 +54,7 @@ import { SelectCorrelatedNetworkComponent } from './components/select-correlated
     FroalaViewModule.forRoot(),
     AngularFileUploaderModule,
     EditorModule
+
   ],
   providers: [
     appRoutingProviders
