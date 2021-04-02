@@ -104,7 +104,10 @@
                 <button type="submit" value="" class="btn btn-lg btn-primary btn-result text-uppercase font-weight-bold mb-2 col-md-3 mt-1" [disabled]="conformationForm.invalid">
                     <i class="fas fa-play-circle"></i>
                     Folding conformation
-                </button>                
+                </button>            
+                <button class="btn btn-lg btn-primary btn-result text-uppercase font-weight-bold mb-2 col-md-3 mt-1" (click)='GenerateIMG();'>
+                    Download<br>Image
+                </button>
             </div>
         </div>
     </form>
