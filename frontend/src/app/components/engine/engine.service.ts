@@ -65,16 +65,22 @@ export class EngineService implements OnDestroy {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
-      60, window.innerWidth / window.innerHeight, 50, 300
+      this.arrayAmi.length*5, window.innerWidth / window.innerHeight, 1, 1000
     );
-    this.camera.position.set(0,10,60);
+    this.camera.position.set(0,0,100);
+    //move camera
     this.scene.add(this.camera);
 
     this.controls = new OrbitControls(this.camera, this.canvas);
     this.controls.enableKeys = true;
     this.controls.enableRotate = false;
     this.controls.autoRotate=true;
-
+    /* 
+    const oldTargetPosition = this.controls.target.clone();
+    this.controls.target = someNewTarget;
+    const dPosition = oldTargetPosition.sub(this.controls.target);
+    this.camera.position.sub(dPosition);
+     */
       //Agrega luces
     for (var index = 0; index < this.arrayAmi.length; index++) {
       this.light = new THREE.AmbientLight(0x0000ff);

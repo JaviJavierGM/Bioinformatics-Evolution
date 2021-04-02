@@ -2,6 +2,7 @@ import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
 import { ResultsDataService } from 'src/app/services/results-data.service';
 import { Folding } from '../../models/folding';
 import {EngineService} from '../../services/engine.service';
+import {Engine3DService} from '../../services/engine3-d.service'
 
 @Component({
   selector: 'app-results',
@@ -21,7 +22,15 @@ export class ResultsComponent implements OnInit {
 
   GenerateIMG(){
     //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
-    let data = this.engServ.canvas.toDataURL("image/jpg", 1.0);
+    
+    let data:any;
+    if(this.dimensionType == '3D_Cubic' ){
+      data = this.engServ3D.canvas.toDataURL("image/jpg", 1.0);   
+    }else {
+      data = this.engServ.canvas.toDataURL("image/jpg", 1.0);  
+    }
+
+
     let filename = 'my-canvas.jpg';
     let a = document.createElement('a');
     a.href = data;
@@ -32,6 +41,7 @@ export class ResultsComponent implements OnInit {
   
   constructor(
     private engServ: EngineService, 
+    private engServ3D: Engine3DService, 
     public resultsData: ResultsDataService
   ) {
     this.page_title = 'Results of the Evolutionary Algorithm!!';
@@ -44,23 +54,34 @@ export class ResultsComponent implements OnInit {
     this.experiments = this.resultsData.resultsExperiments;
     this.dimensionType = this.resultsData.dimensionType;
     this.spaceType = this.resultsData.spaceType;
+
+    
   
+    
     console.log('Componente de resultados!!');
-    console.log(this.experiments);
+    /* console.log(this.experiments);
     console.log(this.dimensionType);
-    console.log(this.spaceType);
+    console.log(this.spaceType); */
 
   }
 
   onSubmit(form) {
     let generation = this.experiments[this.folding.experiment][this.folding.generation];
     let conformationClone = generation[0][this.folding.conformation];
+
     console.log(conformationClone);
+    
+    if(this.dimensionType == '3D_Cubic' ){
 
+      this.engServ3D.createScene(this.rendererCanvas, conformationClone);
+      this.engServ3D.animate();    
+    }else {
 
+      this.engServ.createScene(this.rendererCanvas, conformationClone);
+      this.engServ.animate();    
+    }
 
-    this.engServ.createScene(this.rendererCanvas, conformationClone);
-    this.engServ.animate();
+    
   }
 
   graphSumFitness() {
