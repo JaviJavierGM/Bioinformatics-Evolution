@@ -28,7 +28,7 @@ class OnePoint extends CrossoverOperator
                 } elseif($this->typeDimension == '2D_Triangle') {
                     $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
                 } elseif($this->typeDimension == '3D_Cubic') {
-
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenOne, $j);
                 }
             } else {
                 // echo 'Iteracion #'.$j.', Entre al J >= corte <br>';
@@ -37,7 +37,7 @@ class OnePoint extends CrossoverOperator
                 } elseif($this->typeDimension == '2D_Triangle') {
                     $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);
                 } elseif($this->typeDimension == '3D_Cubic') {
-
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenOne, $j);                    
                 }
             }
         }
@@ -59,7 +59,7 @@ class OnePoint extends CrossoverOperator
                 } elseif($this->typeDimension == '2D_Triangle') {
                     $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenTwo, $j);
                 } elseif($this->typeDimension == '3D_Cubic') {
-
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentTwo[$j]->getMovVectorValue(), $newChildrenTwo, $j);
                 }
             } else {
                 if($this->typeDimension == '2D_Square') {
@@ -67,7 +67,7 @@ class OnePoint extends CrossoverOperator
                 } elseif($this->typeDimension == '2D_Triangle') {
                     $j = $this->checkTriangleChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenTwo, $j);
                 } elseif($this->typeDimension == '3D_Cubic') {
-
+                    $j = $this->checkCubeChildren($pointsChildren_C, $pointsParentOne[$j]->getMovVectorValue(), $newChildrenTwo, $j);
                 }
             }
         }

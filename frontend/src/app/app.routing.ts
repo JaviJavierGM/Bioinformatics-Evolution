@@ -12,7 +12,8 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersManagementComponent } from './components/users-management/users-management.component';
 import { ResultsComponent } from './components/results/results.component';
 import { EngineComponent } from './components/engine/engine.component';
-import { Engine3DComponent } from './components/engine3-d/engine3-d.component' ;
+import { Engine3DComponent } from './components/engine3-d/engine3-d.component';
+import { SelectCorrelatedNetworkComponent } from "./components/select-correlated-network/select-correlated-network.component";
 
 import { ErrorComponent } from './components/error/error.component';
 import { Route } from '@angular/compiler/src/core';
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
     {path: 'results', component: ResultsComponent},
     {path: 'engine', component: EngineComponent},
     {path: 'engine3d', component: Engine3DComponent},
+    {path: 'select-correlated-network', component: SelectCorrelatedNetworkComponent},
     {path: '**', component: ErrorComponent}
 ];
 
