@@ -2,16 +2,14 @@
 
 <div id="contenedor">
     <canvas width="1000" height="1000" id="boardCorrelatedNetwork" 
-
-        (mouseenter)="onEvent($event)" (mouseleave)="onEvent($event)" (mousemove)="getCoordinates($event)"
-
-        on-click="onEvent($event)" on-dblclick="onEvent($event)" on-contextmenu="onEvent($event)">
-
+        on-mouseup="releaseClick($event)" 
+        on-mousedown="startClick($event)"
+        (mousemove)="drawArea($event)">
         Your browser doesn't support canvas!
     </canvas>
 </div>
 
-<h1>Mouse Events</h1>
+<!-- <h1>Mouse Events</h1>
 <div class="box" (mouseenter)="onEvent($event)" (mouseleave)="onEvent($event)" (mousemove)="coordinates($event)"
     on-click="onEvent($event)" on-dblclick="onEvent($event)" on-contextmenu="onEvent($event)">
     
@@ -19,4 +17,4 @@
     <p>x: {{clientX}}, y: {{clientY}}</p>
     <p>ctrl: {{event?.ctrlKey}}, shift: {{event?.shiftKey}}, meta: {{event?.metaKey}}</p>
     
-</div>
+</div> -->
