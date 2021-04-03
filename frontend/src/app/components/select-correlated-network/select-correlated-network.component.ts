@@ -53,7 +53,7 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
     if(this.initialClientX != null && this.initialClientY && this.flagDraw) {
       console.log('Iniciar dibujar area');
       // console.log(event);
-      var canvas = document.getElementById("boardCorrelatedNetwork");
+      var canvas = <HTMLCanvasElement> document.getElementById("boardCorrelatedNetwork");
       var ctx = canvas.getContext('2d');
 
       var boardCorrelatedNetwork = document.getElementById("boardCorrelatedNetwork");
