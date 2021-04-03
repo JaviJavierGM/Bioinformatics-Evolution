@@ -100,29 +100,26 @@
 
         <!-- Botones -->
         <div class="container">
-            <div class="row justify-content-center">  
-                <button type="submit" value="" class="btn btn-lg btn-primary btn-result text-uppercase font-weight-bold mb-2 col-md-3 mt-1 mr-2" [disabled]="conformationForm.invalid">
+            <div class="row justify-content-center">
+                <button type="submit" value="" class="btn btn-lg btn-info btn-result text-uppercase font-weight-bold mb-2 col-md-3 mt-1 mr-2" [disabled]="conformationForm.invalid">
                     <i class="fas fa-play-circle"></i>
                     Folding conformation
-                </button>            
-                <button class="btn btn-lg btn-primary btn-result text-uppercase font-weight-bold mb-2 col-md-3 mt-1" (click)='GenerateIMG();'>
-                    <i class="fas fa-download"></i>
-                    Download Image
                 </button>
 
-                <!--<div class="dropdown">
-                    <button class="btn btn-lg btn-primary btn-result text-uppercase font-weight-bold mb-2 col-sm mt-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!-- DROPDOWN PARA EXPORTAR LA CONFORMACION COMO IMAGEN -->
+                <div class="btn-group dropright">
+                    <button type="button" class="btn btn-info btn-result dropdown-toggle text-uppercase font-weight-bold mb-2 col-sm mt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-download"></i>
                         Export Conformation
                     </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" (click)="GenerateIMG();">Export as JPG</a>
-                            <a class="dropdown-item" href="#">Export as PNG</a>
-                            <a class="dropdown-item" href="#">Export as GIF</a>
-                        </div>
-                </div>  -->              
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" (click)="GenerateIMG();">Export as JPG</a>
+                        <a class="dropdown-item" (click)="GenerateIMGasJPEG();">Export as JPEG</a>
+                        <a class="dropdown-item" (click)="GenerateIMGasPNG();">Export as PNG</a>
+                        <a class="dropdown-item" (click)="GenerateIMGasGIF();">Export as GIF</a>
+                    </div>
+                </div>             
             </div>
-
         </div>
     </form>
 </div>
