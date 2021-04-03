@@ -1,15 +1,4 @@
 #boardCorrelatedNetwork{    
     border: 1px solid orange;
-    /* background-image: url("../../../assets/images/correlatedNetworks/XMS37/icp37.jpg"); */
+    background-image: url("../../../assets/images/correlatedNetworks/XMS37/icp37.jpg");
 }
-
-.box {
-    width: 300px;
-    height: 200px;
-    border: 1px solid LightGray;
-    padding: 10px;
-  }
-  .type {
-    font-size: 30px;
-  }
-  

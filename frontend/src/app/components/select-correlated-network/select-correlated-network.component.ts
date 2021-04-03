@@ -21,9 +21,15 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
   public yEvent = null;
 
   public flagDraw = true;
+  public previouslyDrawn = false;
 
   startClick(event: MouseEvent): any {
-    // console.log("initial:",event);
+
+    if(this.flagDraw == false){
+      this.initialClientX = null;
+      this.initialClientY = null;
+      this.flagDraw = true;
+    }
 
     var boardCorrelatedNetwork = document.getElementById("boardCorrelatedNetwork");
     var ClientRect = boardCorrelatedNetwork.getBoundingClientRect();
@@ -50,8 +56,9 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
   }
 
   drawArea(event: MouseEvent): any {
+
     if(this.initialClientX != null && this.initialClientY && this.flagDraw) {
-      console.log('Iniciar dibujar area');
+      // console.log('Iniciar dibujar area');
       // console.log(event);
       var canvas = <HTMLCanvasElement> document.getElementById("boardCorrelatedNetwork");
       var ctx = canvas.getContext('2d');
@@ -63,26 +70,19 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
       ctx.strokeStyle = "#A91F1F";
 
       if(this.xEvent == null && this.yEvent == null && this.xEvent == event.clientX - ClientRect.left && this.yEvent == event.clientY - ClientRect.top) {
+        // Dibuja
         ctx.strokeRect(this.initialClientX, this.initialClientY, this.xEvent-this.initialClientX, this.yEvent-this.initialClientY);
       } else {
-        // ctx.clearRect(this.initialClientX, this.initialClientY, this.xEvent-this.initialClientX, this.yEvent-this.initialClientY);
+        // Borra primero
         ctx.clearRect(0, 0, 1000, 1000);
+        // Actualiza datos
         this.xEvent = event.clientX - ClientRect.left;
         this.yEvent = event.clientY - ClientRect.top;
+        // Dibuja
         ctx.strokeRect(this.initialClientX, this.initialClientY, this.xEvent-this.initialClientX, this.yEvent-this.initialClientY);
       }
-
-      
-      
-
-      
-
-
-
-    }else{
-      console.log('AUN NO dibujar area!!!!');
-      // console.log(event);
     }
+
   }
 
   ngOnInit(): void {
