@@ -19,25 +19,6 @@ export class ResultsComponent implements OnInit {
 
   @ViewChild('rendererCanvas', {static: true})
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
-
-  GenerateIMG(){
-    //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
-    
-    let data:any;
-    if(this.dimensionType == '3D_Cubic' ){
-      data = this.engServ3D.canvas.toDataURL("image/jpg", 1.0);   
-    }else {
-      data = this.engServ.canvas.toDataURL("image/jpg", 1.0);  
-    }
-
-
-    let filename = 'my-canvas.jpg';
-    let a = document.createElement('a');
-    a.href = data;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-  }
   
   constructor(
     private engServ: EngineService, 
@@ -95,6 +76,37 @@ export class ResultsComponent implements OnInit {
     let generation =  this.experiments[this.plot.experiment][this.plot.generation];
     console.log(generation);
     
+  }
+
+  GenerateIMG(){
+    //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
+    
+    let data:any;
+    if(this.dimensionType == '3D_Cubic' ){
+      data = this.engServ3D.canvas.toDataURL("image/jpg", 1.0);   
+    } else {
+      data = this.engServ.canvas.toDataURL("image/jpg", 1.0);  
+    }
+
+
+    let filename = 'my-canvas.jpg';
+    let a = document.createElement('a');
+    a.href = data;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+  }
+
+  GenerateIMGasJPEG() {
+    console.log('Voy a exportar la imagen como JPEG');
+  }
+
+  GenerateIMGasPNG() {
+    console.log('Voy a exportar la imagen como PNG');
+  }
+
+  GenerateIMGasGIF() {
+    console.log('Voy a exportar la imagen como GIF');
   }
 
 
