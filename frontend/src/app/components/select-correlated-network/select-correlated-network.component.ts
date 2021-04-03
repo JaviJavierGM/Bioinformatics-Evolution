@@ -7,35 +7,82 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class SelectCorrelatedNetworkComponent implements OnInit {
 
-  // @ViewChild('boardCorrelatedNetwork', {static: true}) 
-  // public boardCorrelatedNetwork: ElementRef; 
-
   constructor() { }
 
   event: MouseEvent;
-  clientX = 0;
-  clientY = 0;
-  // canvas = get
 
-  onEvent(event: MouseEvent): void {
-      this.event = event;
-  }
+  public initialClientX = null;
+  public initialClientY = null;
 
-  coordinates(event: MouseEvent): void {
-      this.clientX = event.clientX;
-      this.clientY = event.clientY;
-  }
+  public finalClientX = 0;
+  public finalClientY = 0;
 
-  getCoordinates(event: MouseEvent): any {
-    // console.log(this.boardCorrelatedNetwork.nativeElement.getBoundingClientRect());
+  public xEvent = null;
+  public yEvent = null;
+
+  public flagDraw = true;
+
+  startClick(event: MouseEvent): any {
+    // console.log("initial:",event);
+
     var boardCorrelatedNetwork = document.getElementById("boardCorrelatedNetwork");
     var ClientRect = boardCorrelatedNetwork.getBoundingClientRect();
-    // console.log(ClientRect);
-    this.clientX = event.clientX - ClientRect.left;
-    this.clientY = event.clientY - ClientRect.top;
+    
+    this.initialClientX = event.clientX - ClientRect.left;
+    this.initialClientY = event.clientY - ClientRect.top;
 
-    console.log("x:",this.clientX," y:",this.clientY);
-    // console.log(this.clientY);
+    console.log("Initial -- x:",this.initialClientX," y:",this.initialClientY);
+  }
+
+  releaseClick(event: MouseEvent): any {
+    // console.log("final:",event);
+     
+    var boardCorrelatedNetwork = document.getElementById("boardCorrelatedNetwork");
+    var ClientRect = boardCorrelatedNetwork.getBoundingClientRect();
+    
+    this.finalClientX = event.clientX - ClientRect.left;
+    this.finalClientY = event.clientY - ClientRect.top;
+    
+    console.log("Final -- x:",this.finalClientX," y:",this.finalClientY);
+
+    this.flagDraw = false;
+    
+  }
+
+  drawArea(event: MouseEvent): any {
+    if(this.initialClientX != null && this.initialClientY && this.flagDraw) {
+      console.log('Iniciar dibujar area');
+      // console.log(event);
+      var canvas = document.getElementById("boardCorrelatedNetwork");
+      var ctx = canvas.getContext('2d');
+
+      var boardCorrelatedNetwork = document.getElementById("boardCorrelatedNetwork");
+      var ClientRect = boardCorrelatedNetwork.getBoundingClientRect();
+
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#A91F1F";
+
+      if(this.xEvent == null && this.yEvent == null && this.xEvent == event.clientX - ClientRect.left && this.yEvent == event.clientY - ClientRect.top) {
+        ctx.strokeRect(this.initialClientX, this.initialClientY, this.xEvent-this.initialClientX, this.yEvent-this.initialClientY);
+      } else {
+        // ctx.clearRect(this.initialClientX, this.initialClientY, this.xEvent-this.initialClientX, this.yEvent-this.initialClientY);
+        ctx.clearRect(0, 0, 1000, 1000);
+        this.xEvent = event.clientX - ClientRect.left;
+        this.yEvent = event.clientY - ClientRect.top;
+        ctx.strokeRect(this.initialClientX, this.initialClientY, this.xEvent-this.initialClientX, this.yEvent-this.initialClientY);
+      }
+
+      
+      
+
+      
+
+
+
+    }else{
+      console.log('AUN NO dibujar area!!!!');
+      // console.log(event);
+    }
   }
 
   ngOnInit(): void {
