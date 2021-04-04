@@ -9,10 +9,10 @@ export class ResultsDataService {
   public dimensionType;
   public spaceType;
 
-  public upperRightPoint;
-  public upperLeftPoint;
-  public lowerRightPoint;
-  public lowerLeftPoint;
+  public upperRightPoint: number[];
+  public upperLeftPoint: number[];
+  public lowerRightPoint: number[];
+  public lowerLeftPoint: number[];
 
   constructor() { }
 

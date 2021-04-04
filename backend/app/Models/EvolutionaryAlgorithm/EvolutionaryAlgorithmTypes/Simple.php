@@ -34,7 +34,6 @@ class Simple extends EvolutionaryAlgorithm
         $hpSecuence,
         $spaceType,
         $dimensionType,
-        // $correlatedSelected,
         $fileNameCorrelatedNetwork,
         $pointsCorrelatedNetworkSelected,
         $selectionOperator,

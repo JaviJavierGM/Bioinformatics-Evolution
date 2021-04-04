@@ -874,8 +874,16 @@ class EvolutionaryAlgorithmController extends Controller
             $hpSecuence = $params_array['aminoacid'];
             $spaceType = $params_array['space_type'];
             $dimensionType = $params_array['dimension_type'];
-            $fileNameCorrelatedNetwork = null;
-            $pointsCorrelatedNetworkSelected = null;
+            $fileNameCorrelatedNetwork = null; // ************************ FALTA AGREGAR NOMBRE DE ARCHIVO
+            if($spaceType == "correlated") {
+                $pointUpperLeft = new Point($params_array['upperLeftPoint'][0] , $params_array['upperLeftPoint'][1], null, null, null);
+                $pointUpperRight = new Point($params_array['upperRightPoint'][0] , $params_array['upperRightPoint'][1], null, null, null);
+                $pointLowerLeft = new Point($params_array['lowerLeftPoint'][0] , $params_array['lowerLeftPoint'][1], null, null, null);
+                $pointLowerRight = new Point($params_array['lowerRightPoint'][0] , $params_array['lowerRightPoint'][1], null, null, null);
+                $pointsCorrelatedNetworkSelected = array($pointUpperLeft, $pointUpperRight, $pointLowerLeft, $pointLowerRight);
+            } else {
+                $pointsCorrelatedNetworkSelected = null;
+            }
             $selectionOperator = $params_array['selection_op'];
             $percentOfTournament = $params_array['percent_tournament'];
             $percentOfTopPercent = $params_array['percent_best'];

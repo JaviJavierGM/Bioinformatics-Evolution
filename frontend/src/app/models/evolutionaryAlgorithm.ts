@@ -26,6 +26,18 @@ export class EvolutionaryAlgorithm {
         public alpha_value: number,
         public mutation_probability: number,
         public percent_elitism: number,
+        // Puntos red correlacionada 2D
+        public upperLeftPoint: number[],
+        public upperRightPoint: number[],
+        public lowerLeftPoint: number[],
+        public lowerRightPoint: number[],
     ) {}
+
+    setPointsCorrelatedNetwork2D(upperLeftPoint, upperRightPoint, lowerLeftPoint, lowerRightPoint): void {
+        this.upperLeftPoint = upperLeftPoint;
+        this.upperRightPoint = upperRightPoint;
+        this.lowerLeftPoint = lowerLeftPoint;
+        this.lowerRightPoint = lowerRightPoint;
+    }
 
 }

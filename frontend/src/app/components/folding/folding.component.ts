@@ -55,7 +55,11 @@ export class FoldingComponent implements OnInit, DoCheck {
       'dill_model',
       0.1,
       0.01,
-      2
+      2,
+      this.resultsData.upperLeftPoint,
+      this.resultsData.upperRightPoint,
+      this.resultsData.lowerLeftPoint,
+      this.resultsData.lowerRightPoint
     );
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -72,6 +76,10 @@ export class FoldingComponent implements OnInit, DoCheck {
   onSubmit(form) {
     this.loading=true;
     console.log(this.evolutionaryAlgorithm);
+    if(this.evolutionaryAlgorithm.space_type == "correlated") {
+      // Setear los puntos de la red correlacionada
+      this.evolutionaryAlgorithm.setPointsCorrelatedNetwork2D(this.resultsData.upperLeftPoint, this.resultsData.upperRightPoint, this.resultsData.lowerLeftPoint, this.resultsData.lowerRightPoint);
+    }    
     this._evolutionaryAlgorithmService.execute(this.evolutionaryAlgorithm).subscribe(
       response => {
         console.log(response);
