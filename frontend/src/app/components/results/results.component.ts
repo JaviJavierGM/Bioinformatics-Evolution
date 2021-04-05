@@ -77,12 +77,12 @@ export class ResultsComponent implements OnInit {
     
   }
 
-  graphSumFitness() {
+  graphSumFitness(form) {
 
     console.log('Aqui se hace la grafica de la suma de fitness de cada generacion!!');
     let mydata =[];
 
-    for (let i = 0; i < this.experiments[0].length; i++) {
+    for (let i = 0; i < this.experiments[this.plot.experiment].length; i++) {
       mydata.push({
         'x': i,
         'y': this.experiments[0][i].totalFitnessGeneration*-1
