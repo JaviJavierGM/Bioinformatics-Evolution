@@ -5,16 +5,21 @@
         <div class="row col-sm-12 p-0">
             <p class="col-sm col-md">Enter the aminoacid or HP sequence of the protein to fold!</p>
             
-            <button (click)="saveProject()" class="btn btn-lg btn-success btn-folding text-uppercase font-weight-bold col-sm-3 col-md-3" *ngIf="identity && identity.role=='ROLE_USER'" [disabled]="foldingForm.invalid">
+            <!--<button (click)="saveProject()" class="btn btn-lg btn-success btn-folding text-uppercase font-weight-bold col-sm-3 col-md-3" *ngIf="identity && identity.role=='ROLE_USER'" [disabled]="foldingForm.invalid">
                 <i class="fas fa-save"></i>
                 Save as project
-            </button>
+            </button>-->
+            <div *ngIf="evolutionaryAlgorithm.space_type == 'correlated'">
+                <button type="button" class="btn btn-lg btn-info btn-folding text-uppercase font-weight-bold col-sm" data-toggle="modal" data-target=".bd-correlatedNetworks-modal-xl" [disabled]="foldingForm.invalid">
+                    <i class="fas fa-save"></i>
+                    Select Correlated Network
+                </button>
+            </div>
+            
         </div>
     </div>
 
     <!--INICIO MODAL SELECCION RED CORRELACIONADA-->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-correlatedNetworks-modal-xl">Select Correlated Network</button>
-
     <div class="modal fade bd-correlatedNetworks-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -73,6 +78,7 @@
     </div>
     <!--FIN MODAL SELECCION RED CORRELACIONADA-->
     
+
     <hr/>
 
     <!-- FORMULARIO DE FOLDING -->
