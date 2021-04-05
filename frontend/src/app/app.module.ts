@@ -23,7 +23,7 @@ import { EngineComponent } from './components/engine/engine.component';
 import { Engine3DComponent } from './components/engine3-d/engine3-d.component';
 import { ResultsComponent } from './components/results/results.component';
 import { SelectCorrelatedNetworkComponent } from './components/select-correlated-network/select-correlated-network.component';
-import { GraficaComponent } from './components/grafica/grafica.component';
+
 
 
 @NgModule({
@@ -45,7 +45,7 @@ import { GraficaComponent } from './components/grafica/grafica.component';
     ResultsComponent,
 
     SelectCorrelatedNetworkComponent,
-      GraficaComponent
+      
   ],
   imports: [
     BrowserModule,
