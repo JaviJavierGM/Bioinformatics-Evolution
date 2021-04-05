@@ -31,6 +31,7 @@ export class EvolutionaryAlgorithm {
         public upperRightPoint: number[],
         public lowerLeftPoint: number[],
         public lowerRightPoint: number[],
+        public fileNameCorrelatedNetwork: string,
     ) {}
 
     setPointsCorrelatedNetwork2D(upperLeftPoint, upperRightPoint, lowerLeftPoint, lowerRightPoint): void {

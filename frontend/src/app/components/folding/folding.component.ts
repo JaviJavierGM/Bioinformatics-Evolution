@@ -20,6 +20,8 @@ export class FoldingComponent implements OnInit, DoCheck {
   public token;
   public status;
   public loading=false;
+  public correlatedNetworks: string[];
+  public url: string;
 
   constructor(
     private _userService: UserService,
@@ -59,10 +61,13 @@ export class FoldingComponent implements OnInit, DoCheck {
       this.resultsData.upperLeftPoint,
       this.resultsData.upperRightPoint,
       this.resultsData.lowerLeftPoint,
-      this.resultsData.lowerRightPoint
+      this.resultsData.lowerRightPoint,
+      null
     );
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.correlatedNetworks = Array("icp37", "icp38", "icp39", "icp40", "icp41", "icp42", "icp43", "icp44", "icp45", "icp46", "icp47", "icp48", "icp49", "icp50");
+    this.url = "../../../assets/images/correlatedNetworks/";
   }
 
   ngOnInit(): void {
@@ -114,5 +119,15 @@ export class FoldingComponent implements OnInit, DoCheck {
   saveProject() {
     console.log('Se guardara el proyecto en la DB');
     console.log(this.evolutionaryAlgorithm);
+  }
+
+  selectCorrelatedNetwork(nameFile) {
+    this.evolutionaryAlgorithm.fileNameCorrelatedNetwork = nameFile;
+    console.log(this.evolutionaryAlgorithm.fileNameCorrelatedNetwork);
+
+  }
+
+  test() {
+    console.log('Esto es un metodo de prueba para el modal xD');
   }
 }
