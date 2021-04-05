@@ -127,14 +127,77 @@ export class ResultsComponent implements OnInit {
 
   GenerateIMGasJPEG() {
     console.log('Voy a exportar la imagen como JPEG');
+
+    let data:any;
+    if(this.dimensionType == '3D_Cubic' ){
+      data = this.engServ3D.canvas.toDataURL("image/jpeg", 1.0);   
+    } else {
+      data = this.engServ.canvas.toDataURL("image/jpeg", 1.0);  
+    }
+
+
+    let filename = 'my-canvas.jpeg';
+    let a = document.createElement('a');
+    a.href = data;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
   }
 
   GenerateIMGasPNG() {
     console.log('Voy a exportar la imagen como PNG');
+    let data:any;
+    if(this.dimensionType == '3D_Cubic' ){
+      data = this.engServ3D.canvas.toDataURL("image/png", 1.0);   
+    } else {
+      data = this.engServ.canvas.toDataURL("image/png", 1.0);  
+    }
+
+
+    let filename = 'my-canvas.png';
+    let a = document.createElement('a');
+    a.href = data;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
   }
 
   GenerateIMGasGIF() {
     console.log('Voy a exportar la imagen como GIF');
+
+    let data:any;
+    if(this.dimensionType == '3D_Cubic' ){
+      data = this.engServ3D.canvas.toDataURL("image/gif", 1.0);   
+    } else {
+      data = this.engServ.canvas.toDataURL("image/gif", 1.0);  
+    }
+
+
+    let filename = 'my-canvas.gif';
+    let a = document.createElement('a');
+    a.href = data;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+  }
+
+  GenerateIMGasTIFF() {
+    console.log('Voy a exportar la imagen como TIFF');
+
+    let data:any;
+    if(this.dimensionType == '3D_Cubic' ){
+      data = this.engServ3D.canvas.toDataURL("image/tiff", 1.0);   
+    } else {
+      data = this.engServ.canvas.toDataURL("image/tiff", 1.0);  
+    }
+
+
+    let filename = 'my-canvas.tiff';
+    let a = document.createElement('a');
+    a.href = data;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
   }
 
 
