@@ -19,18 +19,20 @@ abstract class GeneratePoints extends Model
     protected $rand;
     protected $typeSpace;
     protected $correlatedMatrix;
+    protected $startingPoint;
     protected $dimension_type;
     protected $function_type;
     protected $alphaValue;
 
-    public function __construct($hpString, $typeSpace, $correlatedMatrix, $dimension_type, $function_type, $alphaValue) {
+    public function __construct($hpString, $typeSpace, $correlatedMatrix, $dimension_type, $function_type, $alphaValue, $startingPoint = null) {
         $this->hpSecuence = $hpString;
         $this->typeSpace = $typeSpace;
         $this->correlatedMatrix = $correlatedMatrix;
         $this->hpLength = strlen($this->hpSecuence);    
         $this->dimension_type = $dimension_type;
         $this->function_type = $function_type;
-        $this->alphaValue = $alphaValue;    
+        $this->alphaValue = $alphaValue;
+        $this->startingPoint = $startingPoint;
     }
 
     public function initializeGeneration($conformationsNumbers) {
@@ -80,9 +82,8 @@ abstract class GeneratePoints extends Model
         // echo 'Este metodo genera los puntos';
 
         if($this->typeSpace == 'correlated') {
-            // Obtener el x & y en caso de ser correlated
-            // points.add(new Point(main.getBoard().getOrigen().x, main.getBoard().getOrigen().y, 0, 0, HPsec.charAt(0)));
-            array_push($this->points, new Point(0, 2, 0, $this->hpSecuence[0], 0));
+            // Obtener el x & y en caso de ser correlated            
+            array_push($this->points, new Point($this->startingPoint->getValueX(), $this->startingPoint->getValueY(), 0, $this->hpSecuence[0], 0));
         } else {            
             array_push($this->points, new Point(0, 0, 0, $this->hpSecuence[0], 0));
         }

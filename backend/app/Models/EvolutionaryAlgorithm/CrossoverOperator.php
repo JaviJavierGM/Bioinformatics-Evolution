@@ -22,6 +22,8 @@ abstract class CrossoverOperator extends Model
     protected $conformationsNumber;
     protected $crossoverProbability;
     protected $correlatedMatrix;
+    protected $origenX;
+    protected $origenY;
     protected $hpSecuence;
     protected $mutationType;
     protected $newGeneration;
@@ -39,7 +41,9 @@ abstract class CrossoverOperator extends Model
         $hpSecuence,
         $mutationType,
         $functionType,
-        $alphaValue
+        $alphaValue,
+        $origenX = null,
+        $origenY = null
     ) {
         $this->generation = $generation;
         $this->typeSpace = $typeSpace;
@@ -53,6 +57,8 @@ abstract class CrossoverOperator extends Model
         $this->functionType = $functionType;
         $this->alphaValue = $alphaValue;
         srand($this->make_seed());
+        $this->origenX = $origenX;
+        $this->origenY = $origenY;
 
         // Generación de una nueva generacion hijos atravez de la generacion padre
         $conformations = array();
@@ -83,7 +89,7 @@ abstract class CrossoverOperator extends Model
 
             // Generación del primer punto del hijo #1.
             if($this->typeSpace == 'correlated') {
-                array_push($newChildrenOne, new Point($origenX = 0, $origenY = 0, 0, $pointsParentOne[0]->getLetter(), 0));
+                array_push($newChildrenOne, new Point($this->origenX, $this->origenY, 0, $pointsParentOne[0]->getLetter(), 0));                
             } else {
                 array_push($newChildrenOne, new Point(0, 0, 0, $pointsParentOne[0]->getLetter(), 0));
             }

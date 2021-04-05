@@ -51,7 +51,7 @@ class Uniform extends CrossoverOperator
 
         // Generación del primer punto del hijo #2.
         if($this->typeSpace == 'correlated') {
-            array_push($newChildrenTwo, new Point($origenX = 0, $origenY = 0, 0, $pointsParentTwo[0]->getLetter(), 0));
+            array_push($newChildrenTwo, new Point($this->origenX, $this->origenY, 0, $pointsParentTwo[0]->getLetter(), 0));
         } else {
             array_push($newChildrenTwo, new Point(0, 0, 0, $pointsParentTwo[0]->getLetter(), 0));
         }

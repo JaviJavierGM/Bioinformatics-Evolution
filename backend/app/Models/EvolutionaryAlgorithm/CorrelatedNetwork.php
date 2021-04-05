@@ -39,12 +39,30 @@ class CorrelatedNetwork extends Model
 
     }
 
-    public function readMatrix(){
-        $stringFileName = 'correlatedMatrixs/'.$this->fileName.'.txt';
+    public function getCorrelatedMatrix() {
+        return $this->correlatedMatrix;
+    }
+
+    public function setCorrelatedMatrix($correlatedMatrix){
+        $this->correlatedMatrix = $correlatedMatrix;
+    }
+
+    public function getStartingPoint() {
+        return $this->startingPoint;
+    }
+
+    public function readMatrix() {  
+        
+        $stringFileName = "correlatedNetworks/cp".$this->fileName[3].$this->fileName[4].'.txt';
+        // var_dump($stringFileName); die();
+
+        // var_dump($stringFileName);
+        // var_dump($this->upperLeft);
+        // var_dump($this->upperRight);
+        // var_dump($this->lowerLeft);
+        // var_dump($this->lowerRight);
         
         $contents = Storage::get($stringFileName);
-        // $contents = Storage::get('correlatedMatrixs/pruebaMatriz01.txt');
-        // $contents = Storage::get('correlatedMatrixs/cp37.txt');
 
         $contents .= "\n";
 
@@ -91,11 +109,23 @@ class CorrelatedNetwork extends Model
         $this->width = sizeof($this->correlatedMatrix[0]);
         $this->height = sizeof($this->correlatedMatrix);
 
+        // for($i=0; $i<$this->height; $i++){
+        //     for($j=0; $j<$this->width; $j++){
+        //         echo $this->correlatedMatrix[$i][$j];
+        //     }
+        //     echo "<br>";
+        // }
+
+        // die();
+
         unset($contents, $arrayTemp, $matrix);
 
     }
 
     public function generateStartingPoint() {
+
+        $this->width = sizeof($this->correlatedMatrix[0]);
+        $this->height = sizeof($this->correlatedMatrix);
         
         for($i=0; $i<4; $i++) {
             array_push($this->amount, 0);
@@ -157,6 +187,11 @@ class CorrelatedNetwork extends Model
                 $this->higher = $this->density2[$i];
             }
         }
+
+        // var_dump($this->higher);
+        // var_dump($this->density);
+        // var_dump($this->density2);
+        // die();
 
         if($this->higher == $this->density2[0]) {
             do {                
