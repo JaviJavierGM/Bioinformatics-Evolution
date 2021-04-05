@@ -21,8 +21,20 @@
                                 
                             </div>
                             <div class="modal-body">
-                                <div class="engine-wrapper">
+                                <form #sumGeneration="ngForm" (ngSubmit)="graphSumFitness(sumGeneration)">
+                                    <!-- INPUT DEL EXPERIMENTO -->
+                                    <div class="form-group col-md">
+                                        <label for="experimentSum">Experiment</label>
+                                        <input type="number" name="experimentSum" class="form-control" #experimentSum="ngModel" [(ngModel)]="plot.experiment" />
+                                    </div>   
                                     
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-result text-uppercase font-weight-bold" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-info btn-result text-uppercase font-weight-bold" (click)="graphSumFitness()" >View Graphic</button>
+                                    </div>
+                                </form>
+
+                                <div class="engine-wrapper">                                    
                                     <div *ngIf="scatterChartData" style="display: block">
                                         <canvas baseChart width="400" height="400"
                                             [datasets]="scatterChartData"
@@ -33,10 +45,6 @@
                                     </div>
 
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-result text-uppercase font-weight-bold" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-info btn-result text-uppercase font-weight-bold" (click)="graphSumFitness()" >View Graphic</button>
                             </div>
                         </div>
                     </div>
