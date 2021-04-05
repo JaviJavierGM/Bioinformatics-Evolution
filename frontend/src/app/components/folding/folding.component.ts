@@ -123,7 +123,7 @@ export class FoldingComponent implements OnInit, DoCheck {
 
   selectCorrelatedNetwork(nameFile) {
     this.evolutionaryAlgorithm.fileNameCorrelatedNetwork = nameFile;
-    console.log(this.evolutionaryAlgorithm.fileNameCorrelatedNetwork);
+    this.resultsData.fileNameCorrelatedNetwork = this.evolutionaryAlgorithm.fileNameCorrelatedNetwork;
 
   }
 

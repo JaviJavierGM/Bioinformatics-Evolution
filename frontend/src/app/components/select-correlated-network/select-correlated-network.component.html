@@ -2,7 +2,9 @@
     <canvas width="1000" height="1000" id="boardCorrelatedNetwork" 
         on-mouseup="releaseClick($event)" 
         on-mousedown="startClick($event)"
-        (mousemove)="drawArea($event)">
+        (mousemove)="drawArea($event)"
+        class="{{this.resultsData.fileNameCorrelatedNetwork}}">
         Your browser doesn't support canvas!
     </canvas>
 </div>
+

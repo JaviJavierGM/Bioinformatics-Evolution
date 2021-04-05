@@ -14,6 +14,8 @@ export class ResultsDataService {
   public lowerRightPoint: number[];
   public lowerLeftPoint: number[];
 
+  public fileNameCorrelatedNetwork: string;
+
   constructor() { }
 
 }
