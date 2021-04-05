@@ -874,8 +874,7 @@ class EvolutionaryAlgorithmController extends Controller
             $hpSecuence = $params_array['aminoacid'];
             $spaceType = $params_array['space_type'];
             $dimensionType = $params_array['dimension_type'];
-            // $fileNameCorrelatedNetwork = null; // ************************ FALTA AGREGAR NOMBRE DE ARCHIVO
-            $fileNameCorrelatedNetwork = "icp37";
+            $fileNameCorrelatedNetwork = $params_array['fileNameCorrelatedNetwork'];
             if($spaceType == "correlated") {
                 $pointUpperLeft = new Point($params_array['upperLeftPoint'][1] , $params_array['upperLeftPoint'][0], null, null, null);
                 $pointUpperRight = new Point($params_array['upperRightPoint'][1] , $params_array['upperRightPoint'][0], null, null, null);
