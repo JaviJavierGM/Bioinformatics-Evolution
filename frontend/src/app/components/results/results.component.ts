@@ -58,7 +58,7 @@ export class ResultsComponent implements OnInit {
 
   }
 
-  onSubmit(form: any) {
+  onSubmit(form) {
     let generation = this.experiments[this.folding.experiment][this.folding.generation];
     let conformationClone = generation[0][this.folding.conformation];
 
@@ -77,7 +77,7 @@ export class ResultsComponent implements OnInit {
     
   }
 
-  graphSumFitness(form) {
+  graphSumFitness(form:any) {
 
     console.log('Aqui se hace la grafica de la suma de fitness de cada generacion!!');
     let mydata =[];
@@ -85,14 +85,14 @@ export class ResultsComponent implements OnInit {
     for (let i = 0; i < this.experiments[this.plot.experiment].length; i++) {
       mydata.push({
         'x': i,
-        'y': this.experiments[0][i].totalFitnessGeneration*-1
+        'y': this.experiments[this.plot.experiment][i].totalFitnessGeneration*-1
       });   
     }
 
     this.scatterChartData =[ { data: mydata,pointRadius: 3 }, ];
   }
 
-  graphFitnessParticularGeneration(form: any) {
+  graphFitnessParticularGeneration(form:any) {
    
     let generation =  this.experiments[this.plot.experiment][this.plot.generation];
     let mydata =[]; 
