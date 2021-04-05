@@ -13,9 +13,11 @@ abstract class EvolutionaryAlgorithm extends Model
 
     protected $spaceType;
     protected $dimensionType;
-    // protected $correlatedSelected;
     protected $fileNameCorrelatedNetwork;
     protected $pointsCorrelatedNetworkSelected;
+
+    protected $correlatedMatrix;
+    protected $startingPoint;
 
     protected $selectionOperator;
     protected $percentOfTournament;

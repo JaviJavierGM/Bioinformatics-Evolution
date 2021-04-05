@@ -5,6 +5,7 @@ namespace App\Models\EvolutionaryAlgorithm\EvolutionaryAlgorithmTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EvolutionaryAlgorithm\EvolutionaryAlgorithm;
+use App\Models\EvolutionaryAlgorithm\CorrelatedNetwork;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateSquarePoints;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateTrianglePoints;
 use App\Models\EvolutionaryAlgorithm\GeneratePointsTypes\GenerateCubePoints;
@@ -14,8 +15,6 @@ use App\Models\EvolutionaryAlgorithm\SelectionTypes\Tournament;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\TopPercent;
 use App\Models\EvolutionaryAlgorithm\SelectionTypes\PopulationDecimation;
 use App\Models\EvolutionaryAlgorithm\CoupleFormationTypes\SimplexCoupleFormation;
-
-
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\OnePoint;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\TwoPoints;
 use App\Models\EvolutionaryAlgorithm\CrossoverTypes\Uniform;
@@ -54,11 +53,9 @@ class Simple extends EvolutionaryAlgorithm
         $functionType,
         $alphaValue
     ) {
-        // set_time_limit(8000000);
         $this->hpSecuence = $hpSecuence;
         $this->spaceType = $spaceType;
         $this->dimensionType = $dimensionType;
-        // $this->correlatedSelected = $correlatedSelected;
         $this->fileNameCorrelatedNetwork = $fileNameCorrelatedNetwork;
         $this->pointsCorrelatedNetworkSelected = $pointsCorrelatedNetworkSelected;
         $this->selectionOperator = $selectionOperator;
@@ -78,6 +75,14 @@ class Simple extends EvolutionaryAlgorithm
         $this->percentOfElitism = $percentOfElitism;
         $this->functionType = $functionType;
         $this->alphaValue = $alphaValue;
+        
+        // Leer y guardar la matriz de correlacion
+        if($this->spaceType == "correlated") {            
+            $correlatedNetwork = new CorrelatedNetwork($this->fileNameCorrelatedNetwork, $this->pointsCorrelatedNetworkSelected[0], $this->pointsCorrelatedNetworkSelected[1], $this->pointsCorrelatedNetworkSelected[2], $this->pointsCorrelatedNetworkSelected[3]);
+            $correlatedNetwork->readMatrix();
+            $this->correlatedMatrix = $correlatedNetwork->getCorrelatedMatrix();
+            unset($correlatedNetwork);
+        }
 
         // Caso de saber el mejor fitness del projecto
         if($this->isKnowBestFitness) {
@@ -100,7 +105,17 @@ class Simple extends EvolutionaryAlgorithm
                 case '2D_Square':
                     if($this->spaceType == "correlated") {
                         // Se generan los puntos 2D cuadrado en un medio correlacionado
-                        // ------- PENDIENTE ------- 
+                        
+                        // Segenera el punto inicial
+                        $correlatedNetwork = new CorrelatedNetwork(null, null, null, null, null);
+                        $correlatedNetwork->setCorrelatedMatrix($this->correlatedMatrix);
+                        $correlatedNetwork->generateStartingPoint();
+                        $this->startingPoint = $correlatedNetwork->getStartingPoint();
+                       
+                        $generatePoints = new GenerateSquarePoints($this->hpSecuence, $this->spaceType, $correlatedNetwork->getCorrelatedMatrix(), $this->dimensionType, $this->functionType, $this->alphaValue, $this->startingPoint);
+                        $generation = $generatePoints->initializeGeneration($this->conformationsNumber);
+                        unset($generatePoints);
+                        
                     }else{
                         // Se generan los puntos 2D cuadrado en un medio homogeno
                         $generatePoints = new GenerateSquarePoints($this->hpSecuence, $this->spaceType, null, $this->dimensionType, $this->functionType, $this->alphaValue);
@@ -130,9 +145,6 @@ class Simple extends EvolutionaryAlgorithm
 
             // Agregamos la primera generacion            
             array_push($this->currentExperiment, $generation);
-
-            // if($numExp == 1)
-            //     die();
 
             for($i=0; $i<$this->generationsNumber; $i++) {
                 // Seleccion de padres
@@ -204,55 +216,106 @@ class Simple extends EvolutionaryAlgorithm
                 // Cruce, mutacion
                 switch ($this->crossoverType) {
                     case 'one_point':
-                        $crossoverOnePoint = new OnePoint(
-                            $generation, 
-                            $this->spaceType, 
-                            $this->dimensionType, 
-                            strlen($this->hpSecuence), 
-                            $this->crossoverProbability, 
-                            null, 
-                            $this->hpSecuence, 
-                            $this->mutationType,
-                            $this->functionType,
-                            $this->alphaValue
-                        );
+                        if($this->spaceType == "correlated") {
+                            $crossoverOnePoint = new OnePoint(
+                                $generation, 
+                                $this->spaceType, 
+                                $this->dimensionType, 
+                                strlen($this->hpSecuence), 
+                                $this->crossoverProbability, 
+                                $this->correlatedMatrix, 
+                                $this->hpSecuence, 
+                                $this->mutationType,
+                                $this->functionType,
+                                $this->alphaValue,
+                                $this->startingPoint->getValueX(),
+                                $this->startingPoint->getValueY()
+                            );
+                        } else {
+                            $crossoverOnePoint = new OnePoint(
+                                $generation, 
+                                $this->spaceType, 
+                                $this->dimensionType, 
+                                strlen($this->hpSecuence), 
+                                $this->crossoverProbability, 
+                                null, 
+                                $this->hpSecuence, 
+                                $this->mutationType,
+                                $this->functionType,
+                                $this->alphaValue
+                            );
+                        }
+                        
                         array_push($this->currentExperiment, $crossoverOnePoint->getNewGeneration());
                         $generation = $crossoverOnePoint->getNewGeneration();
                         unset($crossoverOnePoint);
                     break;
 
                     case 'two_points':
-
-                        $crossoverTwoPoints = new TwoPoints(
-                            $generation, 
-                            $this->spaceType, 
-                            $this->dimensionType, 
-                            strlen($this->hpSecuence), 
-                            $this->crossoverProbability, 
-                            null, 
-                            $this->hpSecuence, 
-                            $this->mutationType,
-                            $this->functionType,
-                            $this->alphaValue
-                        );
+                        if($this->spaceType == "correlated") {
+                            $crossoverTwoPoints = new TwoPoints(
+                                $generation, 
+                                $this->spaceType, 
+                                $this->dimensionType, 
+                                strlen($this->hpSecuence), 
+                                $this->crossoverProbability, 
+                                $this->correlatedMatrix, 
+                                $this->hpSecuence, 
+                                $this->mutationType,
+                                $this->functionType,
+                                $this->alphaValue,
+                                $this->startingPoint->getValueX(),
+                                $this->startingPoint->getValueY()
+                            );
+                        } else {
+                            $crossoverTwoPoints = new TwoPoints(
+                                $generation, 
+                                $this->spaceType, 
+                                $this->dimensionType, 
+                                strlen($this->hpSecuence), 
+                                $this->crossoverProbability, 
+                                null, 
+                                $this->hpSecuence, 
+                                $this->mutationType,
+                                $this->functionType,
+                                $this->alphaValue
+                            );
+                        }
                         array_push($this->currentExperiment, $crossoverTwoPoints->getNewGeneration());
                         $generation = $crossoverTwoPoints->getNewGeneration();
                         unset($crossoverTwoPoints);
                     break;
 
                     case 'uniform':
-                        $crossoverUniform = new Uniform(
-                            $generation, 
-                            $this->spaceType, 
-                            $this->dimensionType, 
-                            strlen($this->hpSecuence),
-                            $this->crossoverProbability, 
-                            null, 
-                            $this->hpSecuence, 
-                            $this->mutationType,
-                            $this->functionType,
-                            $this->alphaValue
-                        );
+                        if($this->spaceType == "correlated") {
+                            $crossoverUniform = new Uniform(
+                                $generation, 
+                                $this->spaceType, 
+                                $this->dimensionType, 
+                                strlen($this->hpSecuence), 
+                                $this->crossoverProbability, 
+                                $this->correlatedMatrix, 
+                                $this->hpSecuence, 
+                                $this->mutationType,
+                                $this->functionType,
+                                $this->alphaValue,
+                                $this->startingPoint->getValueX(),
+                                $this->startingPoint->getValueY()
+                            );
+                        } else {
+                            $crossoverUniform = new Uniform(
+                                $generation, 
+                                $this->spaceType, 
+                                $this->dimensionType, 
+                                strlen($this->hpSecuence), 
+                                $this->crossoverProbability, 
+                                null, 
+                                $this->hpSecuence, 
+                                $this->mutationType,
+                                $this->functionType,
+                                $this->alphaValue
+                            );
+                        }
                         array_push($this->currentExperiment, $crossoverUniform->getNewGeneration());
                         $generation = $crossoverUniform->getNewGeneration();
                         unset($crossoverUniform);
