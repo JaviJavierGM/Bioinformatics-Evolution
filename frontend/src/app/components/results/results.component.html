@@ -23,17 +23,14 @@
                             <div class="modal-body">
                                 <div class="engine-wrapper">
                                     
-                                    <div *ngIf="lineChartData" style="display: block">
+                                    <div *ngIf="scatterChartData" style="display: block">
                                         <canvas baseChart width="400" height="400"
-                                            [datasets]="lineChartData"
-                                            [labels]="lineChartLabels"
-                                            [options]="lineChartOptions"
-                                            [colors]="lineChartColors"
-                                            [legend]="lineChartLegend"
-                                            [chartType]="lineChartType"
-                                            [plugins]="lineChartPlugins">
-                                    </canvas>
-                                  </div>
+                                            [datasets]="scatterChartData"
+                                            [options]="scatterChartOptions"
+                                            [labels]="scatterChartLabels"
+                                            [chartType]="scatterChartType">
+                                         </canvas>
+                                    </div>
 
                                 </div>
                             </div>
@@ -81,17 +78,15 @@
                                     </div>
                                 </form>
                                 <div class="engine-wrapper">
-                                    <div *ngIf="lineChartData" style="display: block">
+                                    <div *ngIf="scatterChartData" style="display: block">
                                         <canvas baseChart width="400" height="400"
-                                            [datasets]="lineChartData"
-                                            [labels]="lineChartLabels"
-                                            [options]="lineChartOptions"
-                                            [colors]="lineChartColors"
-                                            [legend]="lineChartLegend"
-                                            [chartType]="lineChartType"
-                                            [plugins]="lineChartPlugins">
-                                    </canvas>
-                                  </div>
+                                            [datasets]="scatterChartData"
+                                            [options]="scatterChartOptions"
+                                            [labels]="scatterChartLabels"
+                                            [chartType]="scatterChartType">
+                                         </canvas>
+                                    </div>
+
                                 </div>
                             </div>   
                         </div>

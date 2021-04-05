@@ -4,8 +4,8 @@ import { Folding } from '../../models/folding';
 import {EngineService} from '../../services/engine.service';
 import {Engine3DService} from '../../services/engine3-d.service'
 
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
 
 
 @Component({
@@ -22,20 +22,12 @@ export class ResultsComponent implements OnInit {
   public folding: Folding;
   public plot: Folding;
 
-  public lineChartData: ChartDataSets[];
-  public lineChartLabels: Label[] ;
-  public lineChartOptions: ChartOptions = {
+  //variables to graphs
+  public scatterChartOptions: ChartOptions = {
     responsive: true,
   };
-  public lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
-    },
-  ];
-  public lineChartLegend = true;
-  public lineChartType = 'line';
-  public lineChartPlugins = [];
+  public scatterChartData: ChartDataSets[] ;
+  public scatterChartType: ChartType = 'scatter';
 
 
 
@@ -86,39 +78,32 @@ export class ResultsComponent implements OnInit {
   }
 
   graphSumFitness() {
+
     console.log('Aqui se hace la grafica de la suma de fitness de cada generacion!!');
+    let mydata =[];
 
+    for (let i = 0; i < this.experiments[0].length; i++) {
+      mydata.push({
+        'x': i,
+        'y': this.experiments[0][i].totalFitnessGeneration*-1
+      });   
+    }
 
+    this.scatterChartData =[ { data: mydata,pointRadius: 3 }, ];
   }
 
   graphFitnessParticularGeneration(form: any) {
    
-     /*  console.log('Aqui se hace la grafica el fitness de cada conformacion!!');
-    console.log(this.plot);  */
-
     let generation =  this.experiments[this.plot.experiment][this.plot.generation];
-    console.log(generation);
-    console.log(generation[0][0].fitness);
-    let mydata =[];
-    generation[0].forEach(element => { mydata.push(element.fitness*-1);
-      
-    });
-    console.log(generation[0][0]);
+    let mydata =[]; 
 
-   /*  let data =[{number,number}];
-    for (let index = 0; index < generation.length; index++) {
-      let element = generation[index];
-      data.push({index,element})
-      
-    } */
-
-    this.lineChartData=[ { data: mydata, label: 'Series A' }  ];
-    
-
-
-    
-  
-    
+    for (let i = 0; i < generation[0].length; i++) {
+      mydata.push({
+        'x': i,
+        'y': generation[0][i].fitness*-1 
+      });   
+    }
+    this.scatterChartData =[ { data: mydata, pointRadius: 3 } ];  
   }
 
   GenerateIMG(){
