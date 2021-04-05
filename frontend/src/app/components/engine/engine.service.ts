@@ -67,14 +67,23 @@ export class EngineService implements OnDestroy {
     this.camera = new THREE.PerspectiveCamera(
       this.arrayAmi.length*5, window.innerWidth / window.innerHeight, 1, 1000
     );
-    this.camera.position.set(0,0,100);
+    this.camera.position.set(0,50,100);
+    
+    
+    
+    //this.camera.lookAt(0,0,100)
     //move camera
     this.scene.add(this.camera);
 
     this.controls = new OrbitControls(this.camera, this.canvas);
     this.controls.enableKeys = true;
     this.controls.enableRotate = false;
-    this.controls.autoRotate=true;
+  /*   this.controls.mouseButtons = {
+      LEFT: THREE.MOUSE.ROTATE,
+      MIDDLE: THREE.MOUSE.DOLLY,
+      RIGHT: THREE.MOUSE.PAN
+    } */
+    //this.controls.autoRotate=true;
     /* 
     const oldTargetPosition = this.controls.target.clone();
     this.controls.target = someNewTarget;
@@ -163,5 +172,6 @@ export class EngineService implements OnDestroy {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(width, height);
+    
   }
 }
