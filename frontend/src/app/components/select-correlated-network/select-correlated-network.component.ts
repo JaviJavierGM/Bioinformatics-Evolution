@@ -10,7 +10,9 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
 
   constructor(
     public resultsData: ResultsDataService
-  ) { }
+  ) {
+    this.url = "../../../assets/images/correlatedNetworks/";
+   }
 
   event: MouseEvent;
 
@@ -30,6 +32,8 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
 
   public flagDraw = true;
   public previouslyDrawn = false;
+
+  public url: string;
 
   startClick(event: MouseEvent): void {
 
