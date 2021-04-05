@@ -3,7 +3,7 @@
         on-mouseup="releaseClick($event)" 
         on-mousedown="startClick($event)"
         (mousemove)="drawArea($event)"
-        class="{{this.resultsData.fileNameCorrelatedNetwork}}">
+        style="background-image: url('{{url}}{{this.resultsData.fileNameCorrelatedNetwork}}.jpg')">
         Your browser doesn't support canvas!
     </canvas>
 </div>
