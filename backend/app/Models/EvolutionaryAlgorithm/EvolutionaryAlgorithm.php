@@ -71,7 +71,7 @@ abstract class EvolutionaryAlgorithm extends Model
 
     public function saveExperimentsJson(){                
         array_push($this->experimentsJson, $this->generationsJson);        
-        $this->generationJson = array();
+        $this->generationsJson = array();
     }
 
     public function getExperimentsJson2(){
