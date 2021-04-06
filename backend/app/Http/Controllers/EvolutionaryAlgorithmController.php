@@ -941,7 +941,7 @@ class EvolutionaryAlgorithmController extends Controller
                         'status' => 'success',
                         'space_type' => $spaceType,
                         'dimension_type' => $dimensionType,
-                        'experiments' => $AESimple->getExperimentsJson()
+                        'experiments' => $AESimple->getExperimentsJson2()
                     );
 
                 } else{

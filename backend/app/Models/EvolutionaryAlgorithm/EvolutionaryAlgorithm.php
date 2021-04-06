@@ -51,12 +51,31 @@ abstract class EvolutionaryAlgorithm extends Model
 
     protected $execute;
 
+    protected $generationsJson = array();
+    protected $experimentsJson = array();
+
     public function getExecute() {
         return $this->execute;
     }
 
     public function getExperiments() {
         return $this->experiments;
+    }
+
+    public function saveGenerationsJson(){        
+        foreach($this->currentExperiment as $generation){
+            array_push($this->generationsJson,  $generation->convertToJson());
+        }        
+        $this->currentExperiment = array();
+    }
+
+    public function saveExperimentsJson(){                
+        array_push($this->experimentsJson, $this->generationsJson);        
+        $this->generationJson = array();
+    }
+
+    public function getExperimentsJson2(){
+        return $this->experimentsJson;
     }
 
     public function getExperimentsJson() {

@@ -94,7 +94,8 @@ class Simple extends EvolutionaryAlgorithm
     }
 
     public function executeVersion1() {
-        // echo 'Esta es la version 1! <br>';
+        // echo 'Esta es la version 1! <br>';         
+        $cont = intdiv($this->generationsNumber , 4);
 
         for($numExp=0; $numExp < $this->experimentsNumber; $numExp++) {
 
@@ -332,6 +333,12 @@ class Simple extends EvolutionaryAlgorithm
                     }
                     $j = $i + 1;
                 }
+                
+                if($i == $cont){
+                    // Borrar las conformaciones que no se necesitan
+                    $this->saveGenerationsJson();
+                    $cont += intdiv($this->generationsNumber , 4);                    
+                }
 
             }
 
@@ -342,7 +349,11 @@ class Simple extends EvolutionaryAlgorithm
             }
             // var_dump($this->currentExperiment);
             
-            array_push($this->experiments, $this->currentExperiment);
+            // Guardar los experimentos en JSON
+            // array_push($this->experiments, $this->currentExperiment);
+            $this->saveExperimentsJson();
+
+
             // unset($this->currentExperiment);
             $this->currentExperiment = array();
             // var_dump($this->currentExperiment);
