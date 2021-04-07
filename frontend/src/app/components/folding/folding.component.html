@@ -41,7 +41,10 @@
                                     </div>
                                     <!--  Botones -->
                                     <div class="row mt-2  justify-content-center justify-content-sm-center">
-                                        <button type="button" class="btn btn-dark" (click)="selectCorrelatedNetwork(correlatedNetwork)" data-toggle="modal" data-target=".bd-example-modal-xl">Select</button>
+                                        <button type="button" class="btn btn-lg btn-info btn-folding text-uppercase font-weight-bold mt-2" (click)="selectCorrelatedNetwork(correlatedNetwork)" data-toggle="modal" data-target=".bd-example-modal-xl">
+                                            <i class="fas fa-check-circle"></i>
+                                            Select
+                                        </button>
                                     </div>
                                 </div>
                             </article>
@@ -49,7 +52,10 @@
                     </div>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-lg btn-secondary btn-folding text-uppercase font-weight-bold" data-dismiss="modal">
+                        <i class="fas fa-times-circle"></i>
+                        Close
+                    </button>
 
                     <!-- INICIO SELECCION DEL AREA DE LA RED CORRELACIONADA ELEGIDA PREVIAMENTE -->                    
 
@@ -67,6 +73,12 @@
                                     <div class="row justify-content-center">
                                         <app-select-correlated-network></app-select-correlated-network>
                                     </div>                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-lg btn-primary btn-folding text-uppercase font-weight-bold col-sm-3" data-dismiss="modal">
+                                        <i class="fas fa-check-circle"></i>
+                                        Confirm selected area
+                                    </button>
                                 </div>
                             </div>
                         </div>
