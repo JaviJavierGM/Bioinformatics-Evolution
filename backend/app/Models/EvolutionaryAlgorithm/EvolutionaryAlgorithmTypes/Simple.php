@@ -147,7 +147,7 @@ class Simple extends EvolutionaryAlgorithm
             // Agregamos la primera generacion            
             array_push($this->currentExperiment, $generation);
 
-            for($i=0; $i<$this->generationsNumber; $i++) {
+            for($i=1; $i<=$this->generationsNumber; $i++) {
                 // Seleccion de padres
                 if($this->elitismSelected) {
                     if($this->selectionOperator == 'tournament') {
