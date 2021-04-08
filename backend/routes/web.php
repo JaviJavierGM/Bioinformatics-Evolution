@@ -64,28 +64,4 @@ Route::get('/api/project/image/{filename}', [ProjectController::class, 'getImage
 Route::get('/api/project/user/{id}', [ProjectController::class, 'getProjectsByUser']);
 
     //Rutas del controlador del algoritmo evolutivo
-Route::post('/api/EA/uniform', [EvolutionaryAlgorithmController::class, 'testUniformCrossover']);
-Route::post('/api/EA/onepoint', [EvolutionaryAlgorithmController::class, 'testOnePointCrossover']);
-Route::post('/api/EA/twopoints', [EvolutionaryAlgorithmController::class, 'testTwoPointsCrossover']);
-Route::post('/api/EA/ruleta', [EvolutionaryAlgorithmController::class, 'testRouletteSelection']);
-Route::post('/api/EA/torneo', [EvolutionaryAlgorithmController::class, 'testTournamentSelection']);
-Route::post('/api/EA/top-percent', [EvolutionaryAlgorithmController::class, 'testTopPercentSelection']);
-Route::post('/api/EA/pop-decimation', [EvolutionaryAlgorithmController::class, 'testPopulationDecimation']);
-Route::post('/api/EA/elitismo', [EvolutionaryAlgorithmController::class, 'testElitism']);
-Route::post('/api/EA/GenarateSquarePoints', [EvolutionaryAlgorithmController::class, 'testGenerateSquarePoints']);
-Route::post('/api/EA/GenarateTrianglePoints', [EvolutionaryAlgorithmController::class, 'testGenerateTrianglePoints']);
-Route::post('/api/EA/GenarateCubePoints', [EvolutionaryAlgorithmController::class, 'testGenerateCubePoints']);
-Route::post('/api/EA/readmatrix', [EvolutionaryAlgorithmController::class, 'testReadMatrix']);
-Route::post('/api/EA/startingpoint', [EvolutionaryAlgorithmController::class, 'testStartingPoint']);
-Route::post('/api/EA/gen-point', [EvolutionaryAlgorithmController::class, 'testGenPoint']);
-Route::post('/api/EA/randomMut', [EvolutionaryAlgorithmController::class, 'testRandomMutation']);
-Route::post('/api/EA/fitness', [EvolutionaryAlgorithmController::class, 'testFitness']);
-Route::post('/api/EA/coupleformation-simplex', [EvolutionaryAlgorithmController::class, 'testCoupleFormationSimplex']);
-Route::post('/api/EA/checksquare', [EvolutionaryAlgorithmController::class, 'testCheckSquare']);
-Route::post('/api/EA/checktriangle', [EvolutionaryAlgorithmController::class, 'testCheckTriangle']);
-Route::post('/api/EA/predefined', [EvolutionaryAlgorithmController::class, 'testOpMutationPredefined']);
-Route::post('/api/EA/random', [EvolutionaryAlgorithmController::class, 'testOpMutationRandom']);
-Route::post('/api/EA/simple', [EvolutionaryAlgorithmController::class, 'testEASimple']);
-Route::post('/api/EA/generatePr', [EvolutionaryAlgorithmController::class, 'initialGeneration']);
-
 Route::post('/api/EA/execute', [EvolutionaryAlgorithmController::class, 'execute']);
