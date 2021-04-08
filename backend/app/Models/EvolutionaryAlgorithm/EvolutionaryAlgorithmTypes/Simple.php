@@ -94,8 +94,12 @@ class Simple extends EvolutionaryAlgorithm
     }
 
     public function executeVersion1() {
-        // echo 'Esta es la version 1! <br>';         
-        $cont = intdiv($this->generationsNumber , 4);
+        // echo 'Esta es la version 1! <br>';                        
+        if(($this->generationsNumber % 4) != 0) {
+            $cont = $this->generationsNumber % 4;
+        } else {
+            $cont = intdiv($this->generationsNumber , 4);
+        }        
 
         for($numExp=0; $numExp < $this->experimentsNumber; $numExp++) {
 
