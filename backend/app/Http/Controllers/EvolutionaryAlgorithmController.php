@@ -16,7 +16,7 @@ class EvolutionaryAlgorithmController extends Controller
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
 
-        $evolutionaryAlgorithmManager = new EvolutionaryAlgortihmManager($params_array);
+        $evolutionaryAlgorithmManager = new EvolutionaryAlgorithmManager($params_array);
         $data = $evolutionaryAlgorithmManager->executeEvolutionaryAlgorithm();
 
         return response()->json($data, $data['code']);
