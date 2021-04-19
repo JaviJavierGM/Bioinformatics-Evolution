@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'node_modules/three/examples/jsm/controls/OrbitControls'
 import {ElementRef, Injectable, NgZone, OnDestroy} from '@angular/core';
+import { createTrue } from 'typescript';
 
 class Conformation {
   posX: number;
@@ -23,21 +24,43 @@ export class EngineService implements OnDestroy {
   public canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
+  private camera_dos: THREE.PerspectiveCamera;
+  private helper: THREE.CameraHelper;
   private scene: THREE.Scene;
   private light: THREE.AmbientLight;
   private controls: OrbitControls;
   private cube: THREE.Mesh;
   private arrayAmi: Array<Conformation>;
+  private arrayMesh: Array<Conformation>;
+  private posXCam: number;
+  private posYCam: number;
+  private posZCam: number;
 
   private frameId: number = null;
   
   public constructor(private ngZone: NgZone) {
-    this.arrayAmi = new Array(new Conformation(-10,0,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(0,0,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(0,10,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation(10,10,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(10,20,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation(20,20,0,[1,0],'H'));
+    this.arrayAmi = new Array(new Conformation(5*6,28*6,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation(5*6,29*6,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation(4*6,29*6,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation(4*6,28*6,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation(4*6,27*6,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation(4*6,26*6,0,[1,0],'H'));
+
+    this.arrayMesh = new Array(new Conformation(7*6,28*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(7*6,29*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(6*6,29*6,0,[1,0],'P'));
+    this.arrayMesh.push(new Conformation(6*6,28*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(6*6,27*6,0,[1,0],'P'));
+    this.arrayMesh.push(new Conformation(6*6,26*6,0,[1,0],'H'));
+    
+    this.arrayMesh.push(new Conformation(3*6,26*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(3*6,27*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(3*6,28*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(3*6,29*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(2*6,29*6,0,[1,0],'P'));
+    this.arrayMesh.push(new Conformation(2*6,28*6,0,[1,0],'H'));
+    this.arrayMesh.push(new Conformation(2*6,27*6,0,[1,0],'P'));
+    this.arrayMesh.push(new Conformation(2*6,26*6,0,[1,0],'H'));
     
   }
 
@@ -48,11 +71,11 @@ export class EngineService implements OnDestroy {
 
   }
 
+  
   public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
-    
     // The first step is to get the reference of the canvas element from our HTML document
     this.canvas = canvas.nativeElement;
-
+  
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       alpha: true,    // transparent background
@@ -61,36 +84,35 @@ export class EngineService implements OnDestroy {
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     
+
     // create the scene
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
-      this.arrayAmi.length*5, window.innerWidth / window.innerHeight, 1, 1000
+      90, window.innerWidth / window.innerHeight, 1, 200
     );
-    this.camera.position.set(0,50,100);
-    
-    
-    
-    //this.camera.lookAt(0,0,100)
-    //move camera
-    this.scene.add(this.camera);
 
-    this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.enableKeys = true;
-    this.controls.enableRotate = false;
-  /*   this.controls.mouseButtons = {
-      LEFT: THREE.MOUSE.ROTATE,
-      MIDDLE: THREE.MOUSE.DOLLY,
-      RIGHT: THREE.MOUSE.PAN
-    } */
-    //this.controls.autoRotate=true;
-    /* 
-    const oldTargetPosition = this.controls.target.clone();
-    this.controls.target = someNewTarget;
-    const dPosition = oldTargetPosition.sub(this.controls.target);
-    this.camera.position.sub(dPosition);
-     */
-      //Agrega luces
+    let middleCam=Math.round( this.arrayAmi.length/2); 
+    this.posXCam=this.arrayAmi[middleCam].posX ;
+    this.posYCam=this.arrayAmi[middleCam].posY ;
+    this.posZCam=0;
+
+/*     this.camera_dos = new THREE.PerspectiveCamera(
+      90, window.innerWidth / window.innerHeight, 25, 800
+    );
+
+    
+    this.camera_dos.position.set(this.posXCam,this.posYCam,50);
+    this.helper = new THREE.CameraHelper(this.camera_dos);
+    this.scene.add(this.helper);
+ */
+    this.camera.position.set(this.posXCam,this.posYCam,100);
+    this.scene.add(this.camera);
+    
+    
+    
+    
+     // soft white light
     for (var index = 0; index < this.arrayAmi.length; index++) {
       this.light = new THREE.AmbientLight(0x0000ff);
       this.light.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ );
@@ -98,9 +120,6 @@ export class EngineService implements OnDestroy {
       
     }
 
-    
-
-    //Material para H o P
     const material = new THREE.MeshMatcapMaterial( {color: 'red'} );
     const material_2 = new THREE.MeshToonMaterial({color:0xff4444})
     
@@ -108,7 +127,7 @@ export class EngineService implements OnDestroy {
 
     for (var index = 0; index < this.arrayAmi.length; index++) {
       
-      const geometry = new THREE.SphereGeometry(3, 20, 20 );
+      const geometry = new THREE.SphereGeometry(2, 20, 20 );
       if (this.arrayAmi[index].letter=='H') {
         this.cube = new THREE.Mesh(geometry, material);
         this.cube.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ);
@@ -118,10 +137,8 @@ export class EngineService implements OnDestroy {
       }
       this.scene.add(this.cube);
     } 
-     
 
-
-    // Añade enlaces
+    //Add ligths
     const points = []
     for (var index = 0; index < this.arrayAmi.length; index++) {
       points.push(new THREE.Vector3(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ));
@@ -131,9 +148,40 @@ export class EngineService implements OnDestroy {
     var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
     var tmesh = new THREE.Mesh( tgeometry, tmaterial );
     this.scene.add(tmesh);
-        
-    
+     
 
+    //Add mesh
+
+    const material_3 = new THREE.MeshNormalMaterial( { } );
+
+    for (var index = 0; index < this.arrayMesh.length; index++) {
+      
+      const geometry = new THREE.BoxGeometry(6, 6, 6 );
+      
+      this.cube = new THREE.Mesh(geometry, material_3);
+      this.cube.position.set(this.arrayMesh[index].posX, this.arrayMesh[index].posY,this.arrayMesh[index].posZ);
+     
+      this.scene.add(this.cube);
+    } 
+
+
+    this.controls = new OrbitControls(this.camera, this.canvas);
+    this.controls.target= new THREE.Vector3(this.posXCam,this.posYCam,0);
+    this.camera.lookAt(this.posXCam,this.posYCam,0);
+    this.controls.enableKeys = true;
+    this.controls.enableRotate = false;
+    this.controls.autoRotate=false;
+    
+    /*    
+     this.controls.mouseButtons = {
+      LEFT: THREE.MOUSE.ROTATE,
+      MIDDLE: THREE.MOUSE.DOLLY,
+      RIGHT: THREE.MOUSE.PAN
+    } */
+
+
+    
+    
   }
 
   public animate(): void {
@@ -148,9 +196,9 @@ export class EngineService implements OnDestroy {
         });
       }
 
-     // window.addEventListener('resize', () => {
-      //  this.resize();
-     // });
+      window.addEventListener('resize', () => {
+        this.resize();
+      });
     });
   }
 
@@ -158,20 +206,21 @@ export class EngineService implements OnDestroy {
     this.frameId = requestAnimationFrame(() => {
       this.render();
     });
-    /* this.controls.update();
-    this.cube.rotation.x += 0.1;
-    this.cube.rotation.y += 0.1; */
+
+    //this.camera.position.x= Math.cos(this.camera.position.x+0.01)*10 ;
+    //this.camera.position.z= Math.sin(this.camera.position.x+0.01)*10 ;
+    this.controls.update();
+    
     this.renderer.render(this.scene, this.camera);
   }
 
   public resize(): void {
     const width = window.innerWidth;
     const height = window.innerHeight;
-
+    this.controls.update();
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(width, height);
-    
   }
 }

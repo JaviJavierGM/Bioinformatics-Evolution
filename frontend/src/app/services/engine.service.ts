@@ -30,6 +30,9 @@ export class EngineService implements OnDestroy {
   private controls: OrbitControls;
   private cube: THREE.Mesh;
   private arrayAmi: Array<Conformation>;
+  private posXCam: number;
+  private posYCam: number;
+  private posZCam: number;
 
   private frameId: number = null;
   
@@ -52,21 +55,9 @@ export class EngineService implements OnDestroy {
 
   public createScene(canvas: ElementRef<HTMLCanvasElement>,  array_C: any): void {
     
-    // The first step is to get the reference of the canvas element from our HTML document
-    this.canvas = canvas.nativeElement;
-   /*  for (let i = 0; i < array_C.points.length; i++) {
-      console.log(array_C.points[i]);      
-    } */
-    /* console.log(array_C.points[0].xValue)
-    console.log(array_C.points[0].yValue)
-    console.log(array_C.points[0].zValue)
-    console.log(array_C.points[0].letter) */
-    //console.log(array_C.points)
-    //console.log(array_C.points[0].letter.localeCompare('H') )
 
-    /* for (var index = 0; index < array_C.points.length; index++) {
-      console.log(typeof array_C.points[index].letter )
-    } */
+    this.canvas = canvas.nativeElement;
+
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
@@ -80,16 +71,26 @@ export class EngineService implements OnDestroy {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
-      this.arrayAmi.length*5, window.innerWidth / window.innerHeight, 1, 1000
+      80, window.innerWidth / window.innerHeight, 1, 500
     );
-    this.camera.position.set(0,0,100);
+
+    let middleCam=Math.round(array_C.points.length/2); 
+    
+    
+    
+    this.posXCam=array_C.points[middleCam].xValue*6;
+    this.posYCam=array_C.points[middleCam].yValue*6;
+    this.posZCam=0;
+
+    this.camera.position.set(this.posXCam,this.posYCam,100);
+    
+    
+
+    
     this.scene.add(this.camera);
 
-    this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.enableKeys = true;
-    this.controls.enableRotate = false;
-    this.controls.autoRotate=true;
-
+    
+   
       //Agrega luces
     for (var index = 0; index < array_C.points.length; index++) {
       this.light = new THREE.AmbientLight(0x0000ff);
@@ -131,9 +132,25 @@ export class EngineService implements OnDestroy {
     var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
     var tmesh = new THREE.Mesh( tgeometry, tmaterial );
     this.scene.add(tmesh);
-        
     
-
+    this.controls = new OrbitControls(this.camera, this.canvas);
+    this.controls.target= new THREE.Vector3(this.posXCam,this.posYCam,0);
+    this.camera.lookAt(this.posXCam,this.posYCam,1);
+    
+    this.controls.enableKeys = true;
+    this.controls.enableRotate = false;
+    this.controls.autoRotate=false;
+    
+    /*
+    this.controls.mouseButtons = {
+      LEFT: THREE.MOUSE.ROTATE,
+      MIDDLE: THREE.MOUSE.DOLLY,
+      RIGHT: THREE.MOUSE.PAN
+    }
+     */
+    
+    
+    
   }
 
   public animate(): void {
@@ -148,20 +165,23 @@ export class EngineService implements OnDestroy {
         });
       }
 
-     // window.addEventListener('resize', () => {
-      //  this.resize();
-     // });
+      window.addEventListener('resize', () => {
+        this.resize();
+      });
     });
   }
 
   public render(): void {
+    
     this.frameId = requestAnimationFrame(() => {
+      
       this.render();
     });
-    /* this.controls.update();
-    this.cube.rotation.x += 0.1;
-    this.cube.rotation.y += 0.1; */
+    
+    
+    this.controls.update()
     this.renderer.render(this.scene, this.camera);
+   
   }
 
   public resize(): void {
