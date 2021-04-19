@@ -84,6 +84,7 @@ export class FoldingComponent implements OnInit, DoCheck {
     if(this.evolutionaryAlgorithm.space_type == "correlated") {
       // Setear los puntos de la red correlacionada
       this.evolutionaryAlgorithm.setPointsCorrelatedNetwork2D(this.resultsData.upperLeftPoint, this.resultsData.upperRightPoint, this.resultsData.lowerLeftPoint, this.resultsData.lowerRightPoint);
+      this.resultsData.fileNameCorrelatedNetwork = this.evolutionaryAlgorithm.fileNameCorrelatedNetwork;
     }    
     this._evolutionaryAlgorithmService.execute(this.evolutionaryAlgorithm).subscribe(
       response => {

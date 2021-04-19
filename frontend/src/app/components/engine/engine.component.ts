@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EngineService} from './engine.service';
+import { ResultsDataService } from 'src/app/services/results-data.service';
 
 @Component({
   selector: 'app-engine',
@@ -21,11 +22,26 @@ export class EngineComponent implements OnInit {
     a.click();
   }
   
-  public constructor(private engServ: EngineService) {
+  public constructor(private engServ: EngineService, public resultsData: ResultsDataService) {
   }
 
 
   public ngOnInit(): void {
+
+    // Datos de la red donde si se puede plegar
+    console.log('Datos red correlacionada')
+    this.resultsData.fileNameCorrelatedNetwork = "icp47";
+    this.resultsData.upperLeftPoint = [594,208.89999389648438];
+    this.resultsData.upperRightPoint = [681,208.89999389648438];
+    this.resultsData.lowerLeftPoint = [594,261.8999938964844];
+    this.resultsData.lowerRightPoint = [681,261.8999938964844];
+
+    console.log(this.resultsData.fileNameCorrelatedNetwork);
+    console.log(this.resultsData.upperLeftPoint);
+    console.log(this.resultsData.upperRightPoint);
+    console.log(this.resultsData.lowerLeftPoint);
+    console.log(this.resultsData.lowerRightPoint);
+
     this.engServ.createScene(this.rendererCanvas);
     this.engServ.animate();
   }
