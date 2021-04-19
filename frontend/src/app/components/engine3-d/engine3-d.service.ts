@@ -65,7 +65,7 @@ export class Engine3DService implements OnDestroy {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
-      60, window.innerWidth / window.innerHeight, 10, 200
+      25, window.innerWidth / window.innerHeight, 10, 4000
     );
     this.camera.position.set(10,10,15);
     this.scene.add(this.camera);
