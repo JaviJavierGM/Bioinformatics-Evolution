@@ -18,6 +18,20 @@ class Conformation {
   }
 }
 
+class axisTocube {
+  posX: number;
+  posY: number;
+  posZ: number;
+  value: boolean;
+  constructor(X:number,Y:number,Z:number,value: boolean){
+    this.posX=X;
+    this.posY=Y;
+    this.posZ=Z;
+    this.value=value;
+  }
+}
+
+
 
 @Injectable({providedIn: 'root'})
 export class EngineService implements OnDestroy {
@@ -72,7 +86,9 @@ export class EngineService implements OnDestroy {
   }
 
   
-  public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
+  public createScene(canvas: ElementRef<HTMLCanvasElement>,arrayCubes: Array<axisTocube>): void {
+
+    
     // The first step is to get the reference of the canvas element from our HTML document
     this.canvas = canvas.nativeElement;
   
@@ -154,12 +170,12 @@ export class EngineService implements OnDestroy {
 
     const material_3 = new THREE.MeshNormalMaterial( { } );
 
-    for (var index = 0; index < this.arrayMesh.length; index++) {
+    for (var index = 0; index < arrayCubes.length; index++) {
       
       const geometry = new THREE.BoxGeometry(6, 6, 6 );
       
       this.cube = new THREE.Mesh(geometry, material_3);
-      this.cube.position.set(this.arrayMesh[index].posX, this.arrayMesh[index].posY,this.arrayMesh[index].posZ);
+      this.cube.position.set(arrayCubes[index].posX , arrayCubes[index].posY,arrayCubes[index].posZ);
      
       this.scene.add(this.cube);
     } 

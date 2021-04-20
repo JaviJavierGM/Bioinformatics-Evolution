@@ -16,6 +16,7 @@ class axisTocube {
   }
 }
 
+
 @Component({
   selector: 'app-engine',
   templateUrl: './engine.component.html'
@@ -87,8 +88,8 @@ export class EngineComponent implements OnInit {
     console.log(this.resultsData.lowerRightPoint);
 
     this.matriz_to_Axis();
-    console.log(this.arrayCubes)
-    this.engServ.createScene(this.rendererCanvas);
+
+    this.engServ.createScene(this.rendererCanvas,this.arrayCubes);
     this.engServ.animate();
 
   }
@@ -102,7 +103,6 @@ export class EngineComponent implements OnInit {
     for (let i = 0; i < this.resultsData.upperRightPoint[0]-this.resultsData.upperLeftPoint[0] ; i++) {
       for (let k = 0; k < this.resultsData.lowerRightPoint[1]-this.resultsData.upperLeftPoint[1] ; k++) {
       
-        console.log(this.resultsData.upperLeftPoint[0]+i*6,this.resultsData.upperLeftPoint[1]+k*6)
 
         this.arrayCubes.push(new axisTocube(this.resultsData.upperLeftPoint[0]+i*6,this.resultsData.upperLeftPoint[1]+k*6,0,false))
       }
