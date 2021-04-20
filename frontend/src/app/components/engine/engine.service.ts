@@ -105,7 +105,7 @@ export class EngineService implements OnDestroy {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
-      90, window.innerWidth / window.innerHeight, 1, 200
+      90, window.innerWidth / window.innerHeight, 1, 1000
     );
 
     let middleCam=Math.round( this.arrayAmi.length/2); 
@@ -113,6 +113,7 @@ export class EngineService implements OnDestroy {
     this.posYCam=this.arrayAmi[middleCam].posY ;
     this.posZCam=0;
 
+    let middleCam_cubes=Math.round( arrayCubes.length/2); 
 /*     this.camera_dos = new THREE.PerspectiveCamera(
       90, window.innerWidth / window.innerHeight, 25, 800
     );
@@ -122,7 +123,7 @@ export class EngineService implements OnDestroy {
     this.helper = new THREE.CameraHelper(this.camera_dos);
     this.scene.add(this.helper);
  */
-    this.camera.position.set(this.posXCam,this.posYCam,100);
+    this.camera.position.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,100);
     this.scene.add(this.camera);
     
     
@@ -173,17 +174,20 @@ export class EngineService implements OnDestroy {
     for (var index = 0; index < arrayCubes.length; index++) {
       
       const geometry = new THREE.BoxGeometry(6, 6, 6 );
+      if (arrayCubes[index].value==false) {
+        this.cube = new THREE.Mesh(geometry, material_3);
+        this.cube.position.set(arrayCubes[index].posX , arrayCubes[index].posY,arrayCubes[index].posZ);
       
-      this.cube = new THREE.Mesh(geometry, material_3);
-      this.cube.position.set(arrayCubes[index].posX , arrayCubes[index].posY,arrayCubes[index].posZ);
-     
-      this.scene.add(this.cube);
+        this.scene.add(this.cube);
+      }
+      
     } 
 
 
     this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.target= new THREE.Vector3(this.posXCam,this.posYCam,0);
-    this.camera.lookAt(this.posXCam,this.posYCam,0);
+    this.controls.target.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0) 
+    //= new THREE.Vector3(this.posXCam,this.posYCam,0);
+    this.camera.lookAt(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0);
     this.controls.enableKeys = true;
     this.controls.enableRotate = false;
     this.controls.autoRotate=false;

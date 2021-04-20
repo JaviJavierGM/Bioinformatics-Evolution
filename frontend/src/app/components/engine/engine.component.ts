@@ -58,66 +58,29 @@ export class EngineComponent implements OnInit {
     this.resultsData.lowerRightPoint = [681,261];
 
 
-    // let linea=String;
-    let linea=Array();
-    let matriz=Array();
+    var linea=Array();
+    var Matriz=Array();
 
-    this.httpClient.get('assets/correlatedNetworks/cp37.txt', { responseType: 'text' })
-      .subscribe(
-        data => {
-
-          // leer la matriz
-          var salto=data[2000];
-          data=data+salto;
-
-          for(var i=0; i<data.length; i++){
-            if(data[i] == salto){
-            
-              var arrayTemp = Array();
-              for(var j=0; j<linea.length; j++){
-                arrayTemp[j] = linea[j];
-              }
-              matriz.push(arrayTemp);
-              linea.splice(0, linea.length);
-
-            }else{
-              if(data[i]=="0" || data[i]=="1"){
-                linea.push(parseInt(data[i], 10));
-              }
-            }            
+    this.httpClient.get('assets/correlatedNetworks/cp45.txt', { responseType: 'text' })
+    .subscribe(data =>
+      {
+        this.matrix = data;
+        for (let index = 0; index < data.length+1; index++) {
+          if (data[index]=='\n' ) {
+            Matriz.push(linea);
+            linea=Array();
           }
-          console.log(matriz);
-
-          // seleccionar solo una parte          
-          let verticalSide = Math.sqrt( Math.pow(this.resultsData.lowerLeftPoint[0]-this.resultsData.upperLeftPoint[0], 2) +  Math.pow(this.resultsData.lowerLeftPoint[1]-this.resultsData.upperLeftPoint[1] , 2) ) + 1;
-          console.log("verticalSide "+verticalSide);          
-          let horizontalSide = Math.sqrt( Math.pow(this.resultsData.upperRightPoint[0]-this.resultsData.upperLeftPoint[0], 2) +  Math.pow(this.resultsData.upperRightPoint[1]-this.resultsData.upperLeftPoint[1] , 2) ) + 1;
-          console.log("horizontalSide "+horizontalSide);
-
-          let matrixSeleted = Array();
-          let lineTemp = Array();
-
-          for(var i=this.resultsData.upperLeftPoint[0]; i<this.resultsData.upperLeftPoint[0]+verticalSide; i++){
-
-            for(var j=this.resultsData.upperLeftPoint[1]; j<this.resultsData.upperLeftPoint[1]+horizontalSide; j++){
-
-              lineTemp.push(matriz[i][j]);
-
-            }
-
-            var arrayTemp2 = Array();
-            for(var x=0; x<lineTemp.length; x++){
-              arrayTemp2[x] = lineTemp[x];
-            }
-            matrixSeleted.push(arrayTemp2);
-            lineTemp.splice(0, lineTemp.length);
-
+          if (data[index]=='0' ) {
+            linea.push(0)
           }
-
-          console.log(matrixSeleted);
-
+          if (data[index]=='1' ) {
+            linea.push(1)
+          }
         }
-    );
+        this.matriz_to_Axis(Matriz);
+
+      } 
+      );
 
     // console.log(data[0]);
     // console.log(Matriz);    
@@ -127,27 +90,33 @@ export class EngineComponent implements OnInit {
     console.log(this.resultsData.lowerLeftPoint);
     console.log(this.resultsData.lowerRightPoint);
 
-    this.matriz_to_Axis();
+    
 
-    this.engServ.createScene(this.rendererCanvas,this.arrayCubes);
-    this.engServ.animate();
+    
 
   }
 
-  matriz_to_Axis(){
-    this.resultsData.upperLeftPoint = [594,208]; //x1,y1
-    this.resultsData.upperRightPoint = [681,208]; //x2,y1
-    this.resultsData.lowerLeftPoint = [594,261]; //x1,y2
-    this.resultsData.lowerRightPoint = [681,261]; //x2,y2
-    
+  matriz_to_Axis(Matriz:Array<Array<number>>){
+    this.resultsData.upperLeftPoint = [498,417]; //x1,y1
+    this.resultsData.upperRightPoint = [518,417]; //x2,y1
+    this.resultsData.lowerLeftPoint = [498,435]; //x1,y2
+    this.resultsData.lowerRightPoint = [518,435]; //x2,y2
+    let canFolding_there;
     for (let i = 0; i < this.resultsData.upperRightPoint[0]-this.resultsData.upperLeftPoint[0] ; i++) {
       for (let k = 0; k < this.resultsData.lowerRightPoint[1]-this.resultsData.upperLeftPoint[1] ; k++) {
-      
-
-        this.arrayCubes.push(new axisTocube(this.resultsData.upperLeftPoint[0]+i*6,this.resultsData.upperLeftPoint[1]+k*6,0,false))
+        console.log(Matriz[i][k])
+        if (Matriz[i][k]==1) {
+          this.arrayCubes.push(new axisTocube(this.resultsData.upperLeftPoint[0]+i*6,this.resultsData.upperLeftPoint[1]+k*6,0,true))
+        }else{
+          this.arrayCubes.push(new axisTocube(this.resultsData.upperLeftPoint[0]+i*6,this.resultsData.upperLeftPoint[1]+k*6,0,false))
+        }
+        
       }
       
     }
+
+    this.engServ.createScene(this.rendererCanvas,this.arrayCubes);
+    this.engServ.animate();
 
 
 
