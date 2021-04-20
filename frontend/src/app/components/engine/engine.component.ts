@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EngineService} from './engine.service';
 import { ResultsDataService } from 'src/app/services/results-data.service';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-engine',
@@ -10,6 +12,8 @@ export class EngineComponent implements OnInit {
 
   @ViewChild('rendererCanvas', {static: true})
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
+  private httpClient: HttpClient;
+  private matrix: string;
 
   GenerateIMG(){
     //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
@@ -20,12 +24,14 @@ export class EngineComponent implements OnInit {
     a.download = filename;
     document.body.appendChild(a);
     a.click();
-  }
+
+  } 
   
-  public constructor(private engServ: EngineService, public resultsData: ResultsDataService) {
+  public constructor(private engServ: EngineService, public resultsData: ResultsDataService,http: HttpClient) {
+    this.httpClient = http;
   }
 
-
+  
   public ngOnInit(): void {
 
     // Datos de la red donde si se puede plegar
@@ -36,14 +42,35 @@ export class EngineComponent implements OnInit {
     this.resultsData.lowerLeftPoint = [594,261.8999938964844];
     this.resultsData.lowerRightPoint = [681,261.8999938964844];
 
+
+    let linea=String;
+    let Matriz=Array();
+
+    this.httpClient.get('assets/correlatedNetworks/cp37.txt', { responseType: 'text' })
+      .subscribe(data =>console.log(data)
+
+      );
+
+    console.log(Matriz);
     console.log(this.resultsData.fileNameCorrelatedNetwork);
     console.log(this.resultsData.upperLeftPoint);
     console.log(this.resultsData.upperRightPoint);
     console.log(this.resultsData.lowerLeftPoint);
     console.log(this.resultsData.lowerRightPoint);
 
+    
+    
+    
+    
+    
+      
+    
+
     this.engServ.createScene(this.rendererCanvas);
     this.engServ.animate();
+
   }
 
+
 }
+
