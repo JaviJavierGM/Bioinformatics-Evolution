@@ -126,6 +126,7 @@ export class EngineService implements OnDestroy {
     this.scene.add(this.helper);
  */
     this.camera.position.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,100);
+
     this.scene.add(this.camera);
     
     
@@ -198,8 +199,9 @@ export class EngineService implements OnDestroy {
     this.controls.target.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0) 
     //= new THREE.Vector3(this.posXCam,this.posYCam,0);
     this.camera.lookAt(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0);
+    
     this.controls.enableKeys = true;
-    this.controls.enableRotate = false;
+    //this.controls.enableRotate = false;
     this.controls.autoRotate=false;
     
     /*    
@@ -236,9 +238,11 @@ export class EngineService implements OnDestroy {
     this.frameId = requestAnimationFrame(() => {
       this.render();
     });
+    
 
     //this.camera.position.x= Math.cos(this.camera.position.x+0.01)*10 ;
     //this.camera.position.z= Math.sin(this.camera.position.x+0.01)*10 ;
+    
     this.controls.update();
     
     this.renderer.render(this.scene, this.camera);

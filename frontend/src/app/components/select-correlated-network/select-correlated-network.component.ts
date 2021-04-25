@@ -149,7 +149,7 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
 
   subtractDot5(number): number{
     if((number % 1) != 0){
-      number -= .5;
+      number -= (number % 1);
     }
     return number;
   }

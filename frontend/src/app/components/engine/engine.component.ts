@@ -88,7 +88,7 @@ export class EngineComponent implements OnInit {
       );
 
     // console.log(data[0]);
-    // console.log(Matriz);    
+    console.log(Matriz);    
     console.log(this.resultsData.fileNameCorrelatedNetwork);
     console.log(this.resultsData.upperLeftPoint);
     console.log(this.resultsData.upperRightPoint);
@@ -106,17 +106,21 @@ export class EngineComponent implements OnInit {
     this.resultsData.upperRightPoint = [518,417]; //x2,y1
     this.resultsData.lowerLeftPoint = [498,435]; //x1,y2
     this.resultsData.lowerRightPoint = [518,435]; //x2,y2 */
-    let canFolding_there;
-    for (let i = 0; i < this.resultsData.upperRightPoint[0]-this.resultsData.upperLeftPoint[0] ; i++) {
-      for (let k = 0; k < this.resultsData.lowerRightPoint[1]-this.resultsData.upperLeftPoint[1] ; k++) {
-        //console.log(Matriz[i][k])
-        if (Matriz[i][k]==1) {
-          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+i)*6,(this.resultsData.upperLeftPoint[1]+k)*6,0,true))
+    let cont=0;
+    console.log(this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1]);
+    console.log(this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]);
+
+    for (let i = 0; i < this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1] ; i++) {
+      for (let k = 0; k < this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]  ; k++) {
+        //console.log(this.resultsData.upperLeftPoint[0]+k,"  ", this.resultsData.upperLeftPoint[1]+i );
+        if (Matriz[this.resultsData.upperLeftPoint[1]+i][this.resultsData.upperLeftPoint[0]+k]==1) {
+          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+k)*6,(this.resultsData.upperLeftPoint[1]+i)*6,0,true))
         }else{
-          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+i)*6,(this.resultsData.upperLeftPoint[1]+k)*6,0,false))
+          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+k)*6,(this.resultsData.upperLeftPoint[1]+i)*6,0,false))
         }
         
       }
+
       
     }
 
