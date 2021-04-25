@@ -51,17 +51,22 @@ export class EngineComponent implements OnInit {
 
     // Datos de la red donde si se puede plegar
     console.log('Datos red correlacionada')
-    this.resultsData.fileNameCorrelatedNetwork = "icp37";
-    this.resultsData.upperLeftPoint = [594,208];
+    this.resultsData.fileNameCorrelatedNetwork = this.resultsData.fileNameCorrelatedNetwork.replace('i','');
+    /* this.resultsData.upperLeftPoint = [594,208];
     this.resultsData.upperRightPoint = [681,208];
     this.resultsData.lowerLeftPoint = [594,261];
     this.resultsData.lowerRightPoint = [681,261];
+     */
+    console.log(this.resultsData.fileNameCorrelatedNetwork.replace('i',''));
+    console.log(this.resultsData.upperRightPoint);
+    console.log(this.resultsData.lowerLeftPoint);
+    console.log(this.resultsData.lowerRightPoint);
 
 
     var linea=Array();
     var Matriz=Array();
 
-    this.httpClient.get('assets/correlatedNetworks/cp45.txt', { responseType: 'text' })
+    this.httpClient.get('assets/correlatedNetworks/'+this.resultsData.fileNameCorrelatedNetwork+'.txt', { responseType: 'text' })
     .subscribe(data =>
       {
         this.matrix = data;
@@ -97,18 +102,18 @@ export class EngineComponent implements OnInit {
   }
 
   matriz_to_Axis(Matriz:Array<Array<number>>){
-    this.resultsData.upperLeftPoint = [498,417]; //x1,y1
+    /* this.resultsData.upperLeftPoint = [498,417]; //x1,y1
     this.resultsData.upperRightPoint = [518,417]; //x2,y1
     this.resultsData.lowerLeftPoint = [498,435]; //x1,y2
-    this.resultsData.lowerRightPoint = [518,435]; //x2,y2
+    this.resultsData.lowerRightPoint = [518,435]; //x2,y2 */
     let canFolding_there;
     for (let i = 0; i < this.resultsData.upperRightPoint[0]-this.resultsData.upperLeftPoint[0] ; i++) {
       for (let k = 0; k < this.resultsData.lowerRightPoint[1]-this.resultsData.upperLeftPoint[1] ; k++) {
-        console.log(Matriz[i][k])
+        //console.log(Matriz[i][k])
         if (Matriz[i][k]==1) {
-          this.arrayCubes.push(new axisTocube(this.resultsData.upperLeftPoint[0]+i*6,this.resultsData.upperLeftPoint[1]+k*6,0,true))
+          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+i)*6,(this.resultsData.upperLeftPoint[1]+k)*6,0,true))
         }else{
-          this.arrayCubes.push(new axisTocube(this.resultsData.upperLeftPoint[0]+i*6,this.resultsData.upperLeftPoint[1]+k*6,0,false))
+          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+i)*6,(this.resultsData.upperLeftPoint[1]+k)*6,0,false))
         }
         
       }

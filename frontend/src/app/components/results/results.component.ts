@@ -62,7 +62,11 @@ export class ResultsComponent implements OnInit {
     let generation = this.experiments[this.folding.experiment][this.folding.generation];
     let conformationClone = generation[0][this.folding.conformation];
 
-    console.log(conformationClone);
+    console.log(this.dimensionType);
+    console.log(this.resultsData.upperLeftPoint);
+    console.log(this.resultsData.upperRightPoint);
+    console.log(this.resultsData.lowerLeftPoint);
+    console.log(this.resultsData.lowerRightPoint);
     
     if(this.dimensionType == '3D_Cubic' ){
 

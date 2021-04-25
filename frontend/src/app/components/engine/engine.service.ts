@@ -53,12 +53,13 @@ export class EngineService implements OnDestroy {
   private frameId: number = null;
   
   public constructor(private ngZone: NgZone) {
-    this.arrayAmi = new Array(new Conformation(5*6,28*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(5*6,29*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(4*6,29*6,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation(4*6,28*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation(4*6,27*6,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation(4*6,26*6,0,[1,0],'H'));
+    this.arrayAmi = new Array(new Conformation((498+10)*6,433*6,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation((498+10)*6,434*6,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation((497+10)*6,434*6,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation((497+10)*6,433*6,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation((497+10)*6,432*6,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation((497+10)*6,431*6,0,[1,0],'H'));
+
 
     this.arrayMesh = new Array(new Conformation(7*6,28*6,0,[1,0],'H'));
     this.arrayMesh.push(new Conformation(7*6,29*6,0,[1,0],'H'));
@@ -103,14 +104,15 @@ export class EngineService implements OnDestroy {
 
     // create the scene
     this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color("rgb(255, 255, 255)")
 
     this.camera = new THREE.PerspectiveCamera(
       90, window.innerWidth / window.innerHeight, 1, 1000
     );
 
-    let middleCam=Math.round( this.arrayAmi.length/2); 
-    this.posXCam=this.arrayAmi[middleCam].posX ;
-    this.posYCam=this.arrayAmi[middleCam].posY ;
+    let middleCam=Math.round( arrayCubes.length/2); 
+    this.posXCam=arrayCubes[middleCam].posX ;
+    this.posYCam=arrayCubes[middleCam].posY ;
     this.posZCam=0;
 
     let middleCam_cubes=Math.round( arrayCubes.length/2); 
@@ -169,16 +171,24 @@ export class EngineService implements OnDestroy {
 
     //Add mesh
 
-    const material_3 = new THREE.MeshNormalMaterial( { } );
+    const material_3 = new THREE.MeshMatcapMaterial( {color: '#0E1126'} );
+    const material_4 = new THREE.MeshMatcapMaterial( {color: '#d9d9d9'} );
+
 
     for (var index = 0; index < arrayCubes.length; index++) {
       
-      const geometry = new THREE.BoxGeometry(6, 6, 6 );
-      if (arrayCubes[index].value==false) {
+      const geometry = new THREE.SphereGeometry(1.8, 20, 20 );
+      if (arrayCubes[index].value==true) {
         this.cube = new THREE.Mesh(geometry, material_3);
         this.cube.position.set(arrayCubes[index].posX , arrayCubes[index].posY,arrayCubes[index].posZ);
       
         this.scene.add(this.cube);
+      }else{
+        this.cube = new THREE.Mesh(geometry, material_4);
+        this.cube.position.set(arrayCubes[index].posX , arrayCubes[index].posY,arrayCubes[index].posZ);
+      
+        this.scene.add(this.cube);
+
       }
       
     } 
