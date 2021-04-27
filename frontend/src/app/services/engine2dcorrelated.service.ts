@@ -34,7 +34,7 @@ class axisTocube {
 
 
 @Injectable({providedIn: 'root'})
-export class EngineService implements OnDestroy {
+export class Engine2DCorrelatedService implements OnDestroy {
   public canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
@@ -87,7 +87,7 @@ export class EngineService implements OnDestroy {
   }
 
   
-  public createScene(canvas: ElementRef<HTMLCanvasElement>,arrayCubes: Array<axisTocube>): void {
+  public createScene(canvas: ElementRef<HTMLCanvasElement>,array_C: any,arrayCubes: Array<axisTocube>): void {
 
     
     // The first step is to get the reference of the canvas element from our HTML document
@@ -110,12 +110,14 @@ export class EngineService implements OnDestroy {
       90, window.innerWidth / window.innerHeight, 1, 1000
     );
 
-    let middleCam=Math.round( arrayCubes.length/2); 
-    this.posXCam=arrayCubes[middleCam].posX ;
-    this.posYCam=arrayCubes[middleCam].posY ;
-    this.posZCam=0;
+    let middleCam=Math.round(  array_C.points.length/2); 
+    //this.posXCam=arrayCubes[middleCam].posX ;
+    //this.posYCam=arrayCubes[middleCam].posY ;
+    //this.posZCam=0;
 
-    let middleCam_cubes=Math.round( arrayCubes.length/2); 
+    //let middleCam_cubes=Math.round( arrayCubes.length/2); 
+    this.posXCam=array_C.points[middleCam].xValue*6;
+    this.posYCam=array_C.points[middleCam].yValue*6;
 /*     this.camera_dos = new THREE.PerspectiveCamera(
       90, window.innerWidth / window.innerHeight, 25, 800
     );
@@ -125,7 +127,7 @@ export class EngineService implements OnDestroy {
     this.helper = new THREE.CameraHelper(this.camera_dos);
     this.scene.add(this.helper);
  */
-    this.camera.position.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,100);
+    this.camera.position.set(this.posXCam ,this.posYCam,100);
 
     this.scene.add(this.camera);
     
@@ -133,38 +135,42 @@ export class EngineService implements OnDestroy {
     
     
      // soft white light
-    for (var index = 0; index < this.arrayAmi.length; index++) {
-      this.light = new THREE.AmbientLight(0x0000ff);
-      this.light.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ );
-      this.scene.add(this.light);
+     for (var index = 0; index < array_C.points.length; index++) {
+        this.light = new THREE.AmbientLight(0x0000ff);
+        this.light.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
+        this.scene.add(this.light);
+        
+      }
+  
       
-    }
-
-    const material = new THREE.MeshMatcapMaterial( {color: 'red'} );
-    const material_2 = new THREE.MeshToonMaterial({color:0xff4444})
+  
+      //Material para H o P
+      const material = new THREE.MeshMatcapMaterial( {color: 'red'} );
+      const material_2 = new THREE.MeshToonMaterial({color:0xff4444})
     
     //Agrega esferas
 
-    for (var index = 0; index < this.arrayAmi.length; index++) {
+    for (var index = 0; index < array_C.points.length; index++) {
       
-      const geometry = new THREE.SphereGeometry(2, 20, 20 );
-      if (this.arrayAmi[index].letter=='H') {
-        this.cube = new THREE.Mesh(geometry, material);
-        this.cube.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ);
-      }else{
-        this.cube = new THREE.Mesh(geometry, material_2);
-        this.cube.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ);
-      }
-      this.scene.add(this.cube);
-    } 
+        const geometry = new THREE.SphereGeometry(2, 20, 20 );
+        if (array_C.points[index].letter.localeCompare('H')) {
+          this.cube = new THREE.Mesh(geometry, material);
+          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
+        }else{
+          this.cube = new THREE.Mesh(geometry, material_2);
+          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
+        }
+        this.scene.add(this.cube);
+      } 
+       
 
     //Add ligths
     const points = []
-    for (var index = 0; index < this.arrayAmi.length; index++) {
-      points.push(new THREE.Vector3(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ));
+    for (var index = 0; index < array_C.points.length; index++) {
+      points.push(new THREE.Vector3(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6));
     }
     var pathBase = new THREE.CatmullRomCurve3(points);
-    var tgeometry = new THREE.TubeGeometry( pathBase, this.arrayAmi.length-1, .8, 20, false );
+    var tgeometry = new THREE.TubeGeometry( pathBase, array_C.points.length-1, .8, 20, false );
     var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
     var tmesh = new THREE.Mesh( tgeometry, tmaterial );
     this.scene.add(tmesh);
@@ -172,7 +178,7 @@ export class EngineService implements OnDestroy {
 
     //Add mesh
 
-    const material_3 = new THREE.MeshMatcapMaterial( {color: '#0E1126'} );
+    const material_3 = new THREE.MeshMatcapMaterial( {color: '#141a1f'} );
     const material_4 = new THREE.MeshMatcapMaterial( {color: '#d9d9d9'} );
 
 
@@ -196,12 +202,12 @@ export class EngineService implements OnDestroy {
 
 
     this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.target.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0) 
+    this.controls.target.set(this.posXCam ,this.posYCam,0) 
     //= new THREE.Vector3(this.posXCam,this.posYCam,0);
-    this.camera.lookAt(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0);
+    this.camera.lookAt(this.posXCam ,this.posYCam,0);
     
     this.controls.enableKeys = true;
-    //this.controls.enableRotate = false;
+    this.controls.enableRotate = false;
     this.controls.autoRotate=false;
     
     /*    

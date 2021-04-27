@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EngineService} from './engine.service';
 import { ResultsDataService } from 'src/app/services/results-data.service';
 import { HttpClient } from '@angular/common/http';
+import {DevRequestService} from '../../services/DevRequest.service'
 
 class axisTocube {
   posX: number;
@@ -26,8 +27,12 @@ export class EngineComponent implements OnInit {
   @ViewChild('rendererCanvas', {static: true})
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
   private httpClient: HttpClient;
-  private matrix: string;
+  private matrix: Array<any>;
+  private dataTEXT:string;
   private arrayCubes: Array<axisTocube>;
+  //private matrix_get :DevRequestService
+  
+
 
   GenerateIMG(){
     //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
@@ -41,9 +46,11 @@ export class EngineComponent implements OnInit {
 
   } 
   
-  public constructor(private engServ: EngineService, public resultsData: ResultsDataService,http: HttpClient) {
+  public constructor(private matrix_get :DevRequestService,private engServ: EngineService, public resultsData: ResultsDataService,http: HttpClient) {
     this.httpClient = http;
     this.arrayCubes = new Array();
+    //this.matrix_get =matrix_get;
+
   }
 
   
@@ -57,19 +64,46 @@ export class EngineComponent implements OnInit {
     this.resultsData.lowerLeftPoint = [594,261];
     this.resultsData.lowerRightPoint = [681,261];
      */
+    
+   /*  console.log(this.resultsData.upperRightPoint);
+    console.log(this.resultsData.lowerLeftPoint);
+    console.log(this.resultsData.lowerRightPoint); */
+
+
+   /* resultJSON: ResultJson;
+   ResultJsonString : any; */
+
+ this.matrix_get
+     .getText()
+     .subscribe((data) => {
+          this.dataTEXT = data;
+        });
+    
+    //console.log(this.matrix_get.getmatrix(this.resultsData.fileNameCorrelatedNetwork));
+
+    // console.log(data[0]);
     console.log(this.resultsData.fileNameCorrelatedNetwork.replace('i',''));
+    console.log(this.dataTEXT);    
+    console.log(this.resultsData.fileNameCorrelatedNetwork);
+    console.log(this.resultsData.upperLeftPoint);
     console.log(this.resultsData.upperRightPoint);
     console.log(this.resultsData.lowerLeftPoint);
     console.log(this.resultsData.lowerRightPoint);
 
+    
 
+    
+
+  }
+
+  getMAtrix(){
     var linea=Array();
     var Matriz=Array();
 
     this.httpClient.get('assets/correlatedNetworks/'+this.resultsData.fileNameCorrelatedNetwork+'.txt', { responseType: 'text' })
     .subscribe(data =>
       {
-        this.matrix = data;
+        
         for (let index = 0; index < data.length+1; index++) {
           if (data[index]=='\n' ) {
             Matriz.push(linea);
@@ -82,23 +116,14 @@ export class EngineComponent implements OnInit {
             linea.push(1)
           }
         }
-        this.matriz_to_Axis(Matriz);
-
+        this.matrix=Matriz;
+        //return Matriz;
+        //this.matriz_to_Axis(Matriz);
+        //return data;
       } 
       );
 
-    // console.log(data[0]);
-    console.log(Matriz);    
-    console.log(this.resultsData.fileNameCorrelatedNetwork);
-    console.log(this.resultsData.upperLeftPoint);
-    console.log(this.resultsData.upperRightPoint);
-    console.log(this.resultsData.lowerLeftPoint);
-    console.log(this.resultsData.lowerRightPoint);
-
     
-
-    
-
   }
 
   matriz_to_Axis(Matriz:Array<Array<number>>){

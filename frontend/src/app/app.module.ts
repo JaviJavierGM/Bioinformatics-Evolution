@@ -23,6 +23,7 @@ import { EngineComponent } from './components/engine/engine.component';
 import { Engine3DComponent } from './components/engine3-d/engine3-d.component';
 import { ResultsComponent } from './components/results/results.component';
 import { SelectCorrelatedNetworkComponent } from './components/select-correlated-network/select-correlated-network.component';
+import { ReadMatrixComponent } from './components/read-matrix/read-matrix.component';
 
 
 
@@ -45,6 +46,7 @@ import { SelectCorrelatedNetworkComponent } from './components/select-correlated
     ResultsComponent,
 
     SelectCorrelatedNetworkComponent,
+      ReadMatrixComponent,
       
   ],
   imports: [

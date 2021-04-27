@@ -3,10 +3,26 @@ import { ResultsDataService } from 'src/app/services/results-data.service';
 import { Folding } from '../../models/folding';
 import {EngineService} from '../../services/engine.service';
 import {Engine3DService} from '../../services/engine3-d.service'
+import {Engine2DCorrelatedService} from '../../services/engine2dcorrelated.service'
 
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import { HttpClient } from '@angular/common/http';
 import { Label } from 'ng2-charts';
+import { FileLoader } from 'three';
+import {map} from 'rxjs/operators';
 
+class axisTocube {
+  posX: number;
+  posY: number;
+  posZ: number;
+  value: boolean;
+  constructor(X:number,Y:number,Z:number,value: boolean){
+    this.posX=X;
+    this.posY=Y;
+    this.posZ=Z;
+    this.value=value;
+  }
+}
 
 @Component({
   selector: 'app-results',
@@ -21,7 +37,10 @@ export class ResultsComponent implements OnInit {
   public spaceType: string;
   public folding: Folding;
   public plot: Folding;
+  public myDatatxt:string;
 
+
+  data: Array<any> = new Array<any>();
   //variables to graphs
   public scatterChartOptions: ChartOptions = {
     responsive: true,
@@ -33,16 +52,25 @@ export class ResultsComponent implements OnInit {
 
   @ViewChild('rendererCanvas', {static: true})
   public rendererCanvas: ElementRef<HTMLCanvasElement>;
+  private httpClient: HttpClient;
+  private arrayCubes: Array<axisTocube>;
+  private counter_NET:number;
   
   constructor(
     private engServ: EngineService, 
     private engServ3D: Engine3DService, 
+    private engServ2D_Correlated:Engine2DCorrelatedService ,
+    
 
-    public resultsData: ResultsDataService
+    public resultsData: ResultsDataService,
+    http: HttpClient
   ) {
     this.page_title = 'Results of the Evolutionary Algorithm!!';
     this.folding = new Folding(0, 0, 0);
     this.plot = new Folding(0, 0, 0);
+    this.httpClient = http;
+    this.arrayCubes = new Array();
+    this.counter_NET=0;
   }
 
   ngOnInit(): void {
@@ -58,17 +86,39 @@ export class ResultsComponent implements OnInit {
 
   }
 
-  onSubmit(form) {
+   onSubmit(form) {
     let generation = this.experiments[this.folding.experiment][this.folding.generation];
     let conformationClone = generation[0][this.folding.conformation];
 
-    console.log(this.dimensionType);
+    ;
     console.log(this.resultsData.upperLeftPoint);
     console.log(this.resultsData.upperRightPoint);
     console.log(this.resultsData.lowerLeftPoint);
     console.log(this.resultsData.lowerRightPoint);
-    
-    if(this.dimensionType == '3D_Cubic' ){
+    if(this.spaceType=='correlated'){
+      //console.log(this.counter_NET++);
+
+      this.resultsData.fileNameCorrelatedNetwork = this.resultsData.fileNameCorrelatedNetwork.replace('i','');
+
+      //this.myDatatxt="h";
+       if(this.counter_NET==0){
+        this.counter_NET++;
+       this.getFile();
+       console.log("este xD ",this.data);
+       this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
+        this.engServ2D_Correlated.animate();
+      }else{
+        
+
+        this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
+        this.engServ2D_Correlated.animate();
+      }
+
+      
+      
+
+      console.log('llama el servicio de correlated');
+    }else if(this.dimensionType == '3D_Cubic' ){
 
       this.engServ3D.createScene(this.rendererCanvas, conformationClone);
       this.engServ3D.animate();    
@@ -80,6 +130,56 @@ export class ResultsComponent implements OnInit {
 
     
   }
+
+  getFile(){
+    var linea=Array();
+    var Matriz=Array();
+
+    this.httpClient.get('assets/correlatedNetworks/' + this.resultsData.fileNameCorrelatedNetwork + '.txt', { responseType: 'text' })
+      .subscribe(data => {
+        //this.matrix = data;
+        for (let index = 0; index < data.length + 1; index++) {
+          if (data[index] == '\n') {
+            this.data.push(linea);
+            linea = Array();
+          }
+          if (data[index] == '0') {
+            linea.push(0);
+          }
+          if (data[index] == '1') {
+            linea.push(1);
+          }
+        }
+        //this.data = Matriz;
+        this.matriz_to_Axis(this.data);
+      }
+      );
+  }
+
+  matriz_to_Axis(Matriz:Array<Array<number>> ){
+    
+    let cont=0;
+    console.log(this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1]);
+    console.log(this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]);
+
+    for (let i = 0; i < this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1] +1; i++) {
+      for (let k = 0; k < this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]  +1; k++) {
+        //console.log(this.resultsData.upperLeftPoint[0]+k,"  ", this.resultsData.upperLeftPoint[1]+i );
+        if (Matriz[this.resultsData.upperLeftPoint[1]+i][this.resultsData.upperLeftPoint[0]+k]==1) {
+          this.arrayCubes.push(new axisTocube(k*6,i*6,0,false))
+        }else{
+          this.arrayCubes.push(new axisTocube(k*6,i*6,0,true))
+        }
+        
+      }
+
+      
+    }
+    
+    //new axisTocube(5*6,28*6,0,false)
+  }
+
+
 
   graphSumFitness(form:any) {
 
@@ -114,7 +214,11 @@ export class ResultsComponent implements OnInit {
     //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
     
     let data:any;
-    if(this.dimensionType == '3D_Cubic' ){
+  if(this.spaceType=='correlated'){
+    data=this.engServ2D_Correlated.canvas.toDataURL("image/jpg",1.0);
+
+  }
+    else     if(this.dimensionType == '3D_Cubic' ){
       data = this.engServ3D.canvas.toDataURL("image/jpg", 1.0);   
     } else {
       data = this.engServ.canvas.toDataURL("image/jpg", 1.0);  
@@ -133,7 +237,11 @@ export class ResultsComponent implements OnInit {
     console.log('Voy a exportar la imagen como JPEG');
 
     let data:any;
-    if(this.dimensionType == '3D_Cubic' ){
+    if(this.spaceType=='correlated'){
+      data=this.engServ2D_Correlated.canvas.toDataURL("image/jpeg",1.0);
+
+    }
+    else if(this.dimensionType == '3D_Cubic' ){
       data = this.engServ3D.canvas.toDataURL("image/jpeg", 1.0);   
     } else {
       data = this.engServ.canvas.toDataURL("image/jpeg", 1.0);  
@@ -151,7 +259,11 @@ export class ResultsComponent implements OnInit {
   GenerateIMGasPNG() {
     console.log('Voy a exportar la imagen como PNG');
     let data:any;
-    if(this.dimensionType == '3D_Cubic' ){
+    if(this.spaceType=='correlated'){
+      data=this.engServ2D_Correlated.canvas.toDataURL("image/png",1.0);
+
+    }
+    else if(this.dimensionType == '3D_Cubic' ){
       data = this.engServ3D.canvas.toDataURL("image/png", 1.0);   
     } else {
       data = this.engServ.canvas.toDataURL("image/png", 1.0);  
@@ -170,7 +282,11 @@ export class ResultsComponent implements OnInit {
     console.log('Voy a exportar la imagen como GIF');
 
     let data:any;
-    if(this.dimensionType == '3D_Cubic' ){
+    if(this.spaceType=='correlated'){
+      data=this.engServ2D_Correlated.canvas.toDataURL("image/gif",1.0);
+
+    }
+    else if(this.dimensionType == '3D_Cubic' ){
       data = this.engServ3D.canvas.toDataURL("image/gif", 1.0);   
     } else {
       data = this.engServ.canvas.toDataURL("image/gif", 1.0);  
@@ -189,7 +305,11 @@ export class ResultsComponent implements OnInit {
     console.log('Voy a exportar la imagen como TIFF');
 
     let data:any;
-    if(this.dimensionType == '3D_Cubic' ){
+    if(this.spaceType=='correlated'){
+      data=this.engServ2D_Correlated.canvas.toDataURL("image/tiff",1.0);
+
+    }
+    else if(this.dimensionType == '3D_Cubic' ){
       data = this.engServ3D.canvas.toDataURL("image/tiff", 1.0);   
     } else {
       data = this.engServ.canvas.toDataURL("image/tiff", 1.0);  
