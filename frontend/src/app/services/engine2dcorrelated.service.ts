@@ -185,7 +185,7 @@ export class Engine2DCorrelatedService implements OnDestroy {
     for (var index = 0; index < arrayCubes.length; index++) {
       
       const geometry = new THREE.SphereGeometry(1.8, 20, 20 );
-      if (arrayCubes[index].value==true) {
+      if (arrayCubes[index].value==false) {
         this.cube = new THREE.Mesh(geometry, material_3);
         this.cube.position.set(arrayCubes[index].posX , arrayCubes[index].posY,arrayCubes[index].posZ);
       

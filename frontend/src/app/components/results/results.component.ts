@@ -90,7 +90,7 @@ export class ResultsComponent implements OnInit {
     let generation = this.experiments[this.folding.experiment][this.folding.generation];
     let conformationClone = generation[0][this.folding.conformation];
 
-    ;
+    
     console.log(this.resultsData.upperLeftPoint);
     console.log(this.resultsData.upperRightPoint);
     console.log(this.resultsData.lowerLeftPoint);
@@ -104,15 +104,15 @@ export class ResultsComponent implements OnInit {
        if(this.counter_NET==0){
         this.counter_NET++;
        this.getFile();
-       console.log("este xD ",this.data);
-       this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
-        this.engServ2D_Correlated.animate();
-      }else{
+       //console.log("este xD ",this.data);
+       /* this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
+        this.engServ2D_Correlated.animate(); */
+      }
         
 
-        this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
-        this.engServ2D_Correlated.animate();
-      }
+      this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
+      this.engServ2D_Correlated.animate();
+      
 
       
       

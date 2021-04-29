@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EngineService} from './engine.service';
 import { ResultsDataService } from 'src/app/services/results-data.service';
 import { HttpClient } from '@angular/common/http';
-import {DevRequestService} from '../../services/DevRequest.service'
+
 
 class axisTocube {
   posX: number;
@@ -46,7 +46,7 @@ export class EngineComponent implements OnInit {
 
   } 
   
-  public constructor(private matrix_get :DevRequestService,private engServ: EngineService, public resultsData: ResultsDataService,http: HttpClient) {
+  public constructor(private engServ: EngineService, public resultsData: ResultsDataService,http: HttpClient) {
     this.httpClient = http;
     this.arrayCubes = new Array();
     //this.matrix_get =matrix_get;
@@ -72,12 +72,31 @@ export class EngineComponent implements OnInit {
 
    /* resultJSON: ResultJson;
    ResultJsonString : any; */
+   var linea=Array();
+   var Matriz=Array();
 
- this.matrix_get
-     .getText()
-     .subscribe((data) => {
-          this.dataTEXT = data;
-        });
+   this.httpClient.get('assets/correlatedNetworks/'+this.resultsData.fileNameCorrelatedNetwork+'.txt', { responseType: 'text' })
+   .subscribe(data =>
+     {
+       
+       for (let index = 0; index < data.length+1; index++) {
+         if (data[index]=='\n' ) {
+           Matriz.push(linea);
+           linea=Array();
+         }
+         if (data[index]=='0' ) {
+           linea.push(0)
+         }
+         if (data[index]=='1' ) {
+           linea.push(1)
+         }
+       }
+     
+       
+       //this.matriz_to_Axis(Matriz);
+      
+     } 
+     );
     
     //console.log(this.matrix_get.getmatrix(this.resultsData.fileNameCorrelatedNetwork));
 
@@ -97,31 +116,7 @@ export class EngineComponent implements OnInit {
   }
 
   getMAtrix(){
-    var linea=Array();
-    var Matriz=Array();
-
-    this.httpClient.get('assets/correlatedNetworks/'+this.resultsData.fileNameCorrelatedNetwork+'.txt', { responseType: 'text' })
-    .subscribe(data =>
-      {
-        
-        for (let index = 0; index < data.length+1; index++) {
-          if (data[index]=='\n' ) {
-            Matriz.push(linea);
-            linea=Array();
-          }
-          if (data[index]=='0' ) {
-            linea.push(0)
-          }
-          if (data[index]=='1' ) {
-            linea.push(1)
-          }
-        }
-        this.matrix=Matriz;
-        //return Matriz;
-        //this.matriz_to_Axis(Matriz);
-        //return data;
-      } 
-      );
+    
 
     
   }
