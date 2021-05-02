@@ -44,8 +44,7 @@ export class Engine2DCorrelatedService implements OnDestroy {
   private light: THREE.AmbientLight;
   private controls: OrbitControls;
   private cube: THREE.Mesh;
-  private arrayAmi: Array<Conformation>;
-  private arrayMesh: Array<Conformation>;
+
   private posXCam: number;
   private posYCam: number;
   private posZCam: number;
@@ -53,29 +52,7 @@ export class Engine2DCorrelatedService implements OnDestroy {
   private frameId: number = null;
   
   public constructor(private ngZone: NgZone) {
-    this.arrayAmi = new Array(new Conformation((498+10)*6,433*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation((498+10)*6,434*6,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation((497+10)*6,434*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation((497+10)*6,433*6,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation((497+10)*6,432*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation((497+10)*6,431*6,0,[1,0],'H'));
-
-
-    this.arrayMesh = new Array(new Conformation(7*6,28*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(7*6,29*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(6*6,29*6,0,[1,0],'P'));
-    this.arrayMesh.push(new Conformation(6*6,28*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(6*6,27*6,0,[1,0],'P'));
-    this.arrayMesh.push(new Conformation(6*6,26*6,0,[1,0],'H'));
-    
-    this.arrayMesh.push(new Conformation(3*6,26*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(3*6,27*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(3*6,28*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(3*6,29*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(2*6,29*6,0,[1,0],'P'));
-    this.arrayMesh.push(new Conformation(2*6,28*6,0,[1,0],'H'));
-    this.arrayMesh.push(new Conformation(2*6,27*6,0,[1,0],'P'));
-    this.arrayMesh.push(new Conformation(2*6,26*6,0,[1,0],'H'));
+   
     
   }
 
@@ -111,23 +88,12 @@ export class Engine2DCorrelatedService implements OnDestroy {
     );
 
     let middleCam=Math.round(  array_C.points.length/2); 
-    //this.posXCam=arrayCubes[middleCam].posX ;
-    //this.posYCam=arrayCubes[middleCam].posY ;
-    //this.posZCam=0;
-
-    //let middleCam_cubes=Math.round( arrayCubes.length/2); 
+   
+   
     this.posXCam=array_C.points[middleCam].xValue*6;
     this.posYCam=array_C.points[middleCam].yValue*6;
-/*     this.camera_dos = new THREE.PerspectiveCamera(
-      90, window.innerWidth / window.innerHeight, 25, 800
-    );
 
-    
-    this.camera_dos.position.set(this.posXCam,this.posYCam,50);
-    this.helper = new THREE.CameraHelper(this.camera_dos);
-    this.scene.add(this.helper);
- */
-    this.camera.position.set(this.posXCam ,this.posYCam,100);
+    this.camera.position.set(this.posXCam ,this.posYCam*-1,100);
 
     this.scene.add(this.camera);
     
@@ -155,19 +121,19 @@ export class Engine2DCorrelatedService implements OnDestroy {
         const geometry = new THREE.SphereGeometry(2, 20, 20 );
         if (array_C.points[index].letter.localeCompare('H')) {
           this.cube = new THREE.Mesh(geometry, material);
-          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
+          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*-6,array_C.points[index].zValue*6);
         }else{
           this.cube = new THREE.Mesh(geometry, material_2);
-          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6);
+          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*-6,array_C.points[index].zValue*6);
         }
         this.scene.add(this.cube);
       } 
        
 
-    //Add ligths
+    //Add union
     const points = []
     for (var index = 0; index < array_C.points.length; index++) {
-      points.push(new THREE.Vector3(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6));
+      points.push(new THREE.Vector3(array_C.points[index].xValue*6, array_C.points[index].yValue*-6,array_C.points[index].zValue*6));
     }
     var pathBase = new THREE.CatmullRomCurve3(points);
     var tgeometry = new THREE.TubeGeometry( pathBase, array_C.points.length-1, .8, 20, false );
@@ -178,8 +144,8 @@ export class Engine2DCorrelatedService implements OnDestroy {
 
     //Add mesh
 
-    const material_3 = new THREE.MeshMatcapMaterial( {color: '#141a1f'} );
-    const material_4 = new THREE.MeshMatcapMaterial( {color: '#d9d9d9'} );
+    const material_3 = new THREE.MeshMatcapMaterial( {color: '#141a1f'} ); // black
+    const material_4 = new THREE.MeshMatcapMaterial( {color: '#d9d9d9'} ); ///gray
 
 
     for (var index = 0; index < arrayCubes.length; index++) {
@@ -202,23 +168,15 @@ export class Engine2DCorrelatedService implements OnDestroy {
 
 
     this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.target.set(this.posXCam ,this.posYCam,0) 
-    //= new THREE.Vector3(this.posXCam,this.posYCam,0);
-    this.camera.lookAt(this.posXCam ,this.posYCam,0);
+    this.controls.target.set(this.posXCam ,this.posYCam*-1,0) 
+    
+    this.camera.lookAt(this.posXCam ,this.posYCam*-1,0);
     
     this.controls.enableKeys = true;
     this.controls.enableRotate = false;
     this.controls.autoRotate=false;
     
-    /*    
-     this.controls.mouseButtons = {
-      LEFT: THREE.MOUSE.ROTATE,
-      MIDDLE: THREE.MOUSE.DOLLY,
-      RIGHT: THREE.MOUSE.PAN
-    } */
-
-
-    
+   
     
   }
 

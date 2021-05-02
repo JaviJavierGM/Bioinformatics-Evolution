@@ -58,7 +58,7 @@ export class EngineComponent implements OnInit {
 
     // Datos de la red donde si se puede plegar
     console.log('Datos red correlacionada')
-    this.resultsData.fileNameCorrelatedNetwork = this.resultsData.fileNameCorrelatedNetwork.replace('i','');
+    //this.resultsData.fileNameCorrelatedNetwork = this.resultsData.fileNameCorrelatedNetwork.replace('i','');
     /* this.resultsData.upperLeftPoint = [594,208];
     this.resultsData.upperRightPoint = [681,208];
     this.resultsData.lowerLeftPoint = [594,261];
@@ -70,8 +70,7 @@ export class EngineComponent implements OnInit {
     console.log(this.resultsData.lowerRightPoint); */
 
 
-   /* resultJSON: ResultJson;
-   ResultJsonString : any; */
+   /*  
    var linea=Array();
    var Matriz=Array();
 
@@ -93,15 +92,16 @@ export class EngineComponent implements OnInit {
        }
      
        
-       //this.matriz_to_Axis(Matriz);
+       this.matriz_to_Axis();
       
      } 
-     );
+     ); */
     
+     this.matriz_to_Axis();
     //console.log(this.matrix_get.getmatrix(this.resultsData.fileNameCorrelatedNetwork));
 
     // console.log(data[0]);
-    console.log(this.resultsData.fileNameCorrelatedNetwork.replace('i',''));
+    //console.log(this.resultsData.fileNameCorrelatedNetwork.replace('i',''));
     console.log(this.dataTEXT);    
     console.log(this.resultsData.fileNameCorrelatedNetwork);
     console.log(this.resultsData.upperLeftPoint);
@@ -115,34 +115,32 @@ export class EngineComponent implements OnInit {
 
   }
 
-  getMAtrix(){
-    
 
-    
-  }
 
-  matriz_to_Axis(Matriz:Array<Array<number>>){
+  matriz_to_Axis(){
     /* this.resultsData.upperLeftPoint = [498,417]; //x1,y1
     this.resultsData.upperRightPoint = [518,417]; //x2,y1
     this.resultsData.lowerLeftPoint = [498,435]; //x1,y2
     this.resultsData.lowerRightPoint = [518,435]; //x2,y2 */
-    let cont=0;
-    console.log(this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1]);
-    console.log(this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]);
-
-    for (let i = 0; i < this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1] ; i++) {
-      for (let k = 0; k < this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]  ; k++) {
-        //console.log(this.resultsData.upperLeftPoint[0]+k,"  ", this.resultsData.upperLeftPoint[1]+i );
-        if (Matriz[this.resultsData.upperLeftPoint[1]+i][this.resultsData.upperLeftPoint[0]+k]==1) {
-          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+k)*6,(this.resultsData.upperLeftPoint[1]+i)*6,0,true))
+    let Matriz= [[1,0,0],[1,1,0],[1,1,1]];
+    
+    console.log(Matriz);
+    for (let i = 0; i < Matriz.length; i++) {
+      for (let j = 0; j < Matriz[0].length; j++) {
+        //console.log(this.resultsData.upperLeftPoint[0]+j,"  ", this.resultsData.upperLeftPoint[1]+i );
+        console.log('\n'+Matriz[i][j],j,i);
+        if (Matriz[i][j]==1) {
+          this.arrayCubes.push(new axisTocube(j*6,i*6*-1,0,true))
         }else{
-          this.arrayCubes.push(new axisTocube((this.resultsData.upperLeftPoint[0]+k)*6,(this.resultsData.upperLeftPoint[1]+i)*6,0,false))
+          this.arrayCubes.push(new axisTocube(j*6,i*6*-1,0,false))
         }
         
       }
 
       
     }
+
+    console.log(this.arrayCubes)
 
     this.engServ.createScene(this.rendererCanvas,this.arrayCubes);
     this.engServ.animate();

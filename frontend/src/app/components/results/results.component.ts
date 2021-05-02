@@ -7,9 +7,7 @@ import {Engine2DCorrelatedService} from '../../services/engine2dcorrelated.servi
 
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
-import { Label } from 'ng2-charts';
-import { FileLoader } from 'three';
-import {map} from 'rxjs/operators';
+
 
 class axisTocube {
   posX: number;
@@ -91,31 +89,22 @@ export class ResultsComponent implements OnInit {
     let conformationClone = generation[0][this.folding.conformation];
 
     
-    console.log(this.resultsData.upperLeftPoint);
-    console.log(this.resultsData.upperRightPoint);
-    console.log(this.resultsData.lowerLeftPoint);
-    console.log(this.resultsData.lowerRightPoint);
+   
     if(this.spaceType=='correlated'){
-      //console.log(this.counter_NET++);
-
-      this.resultsData.fileNameCorrelatedNetwork = this.resultsData.fileNameCorrelatedNetwork.replace('i','');
-
-      //this.myDatatxt="h";
-       if(this.counter_NET==0){
+      
+      if(this.counter_NET==0){
+        console.log(this.resultsData.upperLeftPoint);
+        console.log(this.resultsData.upperRightPoint);
+        console.log(this.resultsData.lowerLeftPoint);
+        console.log(this.resultsData.lowerRightPoint);
+        this.resultsData.fileNameCorrelatedNetwork = this.resultsData.fileNameCorrelatedNetwork.replace('i','');
         this.counter_NET++;
-       this.getFile();
-       //console.log("este xD ",this.data);
-       /* this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
-        this.engServ2D_Correlated.animate(); */
+        this.getFile();
       }
-        
+   
 
       this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
       this.engServ2D_Correlated.animate();
-      
-
-      
-      
 
       console.log('llama el servicio de correlated');
     }else if(this.dimensionType == '3D_Cubic' ){
@@ -131,13 +120,10 @@ export class ResultsComponent implements OnInit {
     
   }
 
-  getFile(){
+  private getFile(){
     var linea=Array();
-    var Matriz=Array();
-
     this.httpClient.get('assets/correlatedNetworks/' + this.resultsData.fileNameCorrelatedNetwork + '.txt', { responseType: 'text' })
       .subscribe(data => {
-        //this.matrix = data;
         for (let index = 0; index < data.length + 1; index++) {
           if (data[index] == '\n') {
             this.data.push(linea);
@@ -150,33 +136,28 @@ export class ResultsComponent implements OnInit {
             linea.push(1);
           }
         }
-        //this.data = Matriz;
         this.matriz_to_Axis(this.data);
       }
       );
   }
 
-  matriz_to_Axis(Matriz:Array<Array<number>> ){
+  private matriz_to_Axis(Matriz:Array<Array<number>> ){
     
     let cont=0;
-    console.log(this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1]);
-    console.log(this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]);
-
+   
     for (let i = 0; i < this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1] +1; i++) {
       for (let k = 0; k < this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]  +1; k++) {
-        //console.log(this.resultsData.upperLeftPoint[0]+k,"  ", this.resultsData.upperLeftPoint[1]+i );
         if (Matriz[this.resultsData.upperLeftPoint[1]+i][this.resultsData.upperLeftPoint[0]+k]==1) {
-          this.arrayCubes.push(new axisTocube(k*6,i*6,0,false))
+          this.arrayCubes.push(new axisTocube(k*6,i*6*-1,0,false))
         }else{
-          this.arrayCubes.push(new axisTocube(k*6,i*6,0,true))
+          this.arrayCubes.push(new axisTocube(k*6,i*6*-1,0,true))
         }
         
       }
 
       
     }
-    
-    //new axisTocube(5*6,28*6,0,false)
+
   }
 
 
