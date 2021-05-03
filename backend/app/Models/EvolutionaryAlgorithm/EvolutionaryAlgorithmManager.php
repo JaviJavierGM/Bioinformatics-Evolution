@@ -34,10 +34,10 @@ class EvolutionaryAlgorithmManager extends Model
             $dimensionType = $this->params_array['dimension_type'];
             $fileNameCorrelatedNetwork = $this->params_array['fileNameCorrelatedNetwork'];
             if($spaceType == "correlated") {
-                $pointUpperLeft = new Point($this->params_array['upperLeftPoint'][0] , $this->params_array['upperLeftPoint'][1], null, null, null);
-                $pointUpperRight = new Point($this->params_array['upperRightPoint'][0] , $this->params_array['upperRightPoint'][1], null, null, null);
-                $pointLowerLeft = new Point($this->params_array['lowerLeftPoint'][0] , $this->params_array['lowerLeftPoint'][1], null, null, null);
-                $pointLowerRight = new Point($this->params_array['lowerRightPoint'][0] , $this->params_array['lowerRightPoint'][1], null, null, null);                
+                $pointUpperLeft = new Point($this->params_array['upperLeftPoint'][1] , $this->params_array['upperLeftPoint'][0], null, null, null);
+                $pointUpperRight = new Point($this->params_array['upperRightPoint'][1] , $this->params_array['upperRightPoint'][0], null, null, null);
+                $pointLowerLeft = new Point($this->params_array['lowerLeftPoint'][1] , $this->params_array['lowerLeftPoint'][0], null, null, null);
+                $pointLowerRight = new Point($this->params_array['lowerRightPoint'][1] , $this->params_array['lowerRightPoint'][0], null, null, null);                
                 $pointsCorrelatedNetworkSelected = array($pointUpperLeft, $pointUpperRight, $pointLowerLeft, $pointLowerRight);
             } else {
                 $pointsCorrelatedNetworkSelected = null;

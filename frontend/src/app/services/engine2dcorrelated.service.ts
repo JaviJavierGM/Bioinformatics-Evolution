@@ -93,7 +93,7 @@ export class Engine2DCorrelatedService implements OnDestroy {
     this.posXCam=array_C.points[middleCam].xValue*6;
     this.posYCam=array_C.points[middleCam].yValue*6;
 
-    this.camera.position.set(this.posXCam ,this.posYCam*-1,100);
+    this.camera.position.set(this.posYCam ,this.posXCam*-1,100);
 
     this.scene.add(this.camera);
     
@@ -121,11 +121,12 @@ export class Engine2DCorrelatedService implements OnDestroy {
         const geometry = new THREE.SphereGeometry(2, 20, 20 );
         if (array_C.points[index].letter.localeCompare('H')) {
           this.cube = new THREE.Mesh(geometry, material);
-          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*-6,array_C.points[index].zValue*6);
+          
         }else{
           this.cube = new THREE.Mesh(geometry, material_2);
-          this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*-6,array_C.points[index].zValue*6);
+         // this.cube.position.set(array_C.points[index].xValue*6, array_C.points[index].yValue*-6,array_C.points[index].zValue*6);
         }
+        this.cube.position.set(array_C.points[index].yValue*6, array_C.points[index].xValue*-6,array_C.points[index].zValue*6);
         this.scene.add(this.cube);
       } 
        
@@ -133,7 +134,7 @@ export class Engine2DCorrelatedService implements OnDestroy {
     //Add union
     const points = []
     for (var index = 0; index < array_C.points.length; index++) {
-      points.push(new THREE.Vector3(array_C.points[index].xValue*6, array_C.points[index].yValue*-6,array_C.points[index].zValue*6));
+      points.push(new THREE.Vector3(array_C.points[index].yValue*6, array_C.points[index].xValue*-6,array_C.points[index].zValue*6));
     }
     var pathBase = new THREE.CatmullRomCurve3(points);
     var tgeometry = new THREE.TubeGeometry( pathBase, array_C.points.length-1, .8, 20, false );
@@ -168,9 +169,9 @@ export class Engine2DCorrelatedService implements OnDestroy {
 
 
     this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.target.set(this.posXCam ,this.posYCam*-1,0) 
+    this.controls.target.set(this.posYCam ,this.posXCam*-1,0) 
     
-    this.camera.lookAt(this.posXCam ,this.posYCam*-1,0);
+    this.camera.lookAt(this.posYCam ,this.posXCam*-1,0);
     
     this.controls.enableKeys = true;
     this.controls.enableRotate = false;
