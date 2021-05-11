@@ -84,6 +84,9 @@ class Simple extends EvolutionaryAlgorithm
             unset($correlatedNetwork);
         }
 
+        // Calcular si debe aplicar sampleo automatico o no
+        $this->calculateSampling();
+
         // Caso de saber el mejor fitness del projecto
         if($this->isKnowBestFitness) {
             $this->execute = $this->executeVersion2();
@@ -93,17 +96,16 @@ class Simple extends EvolutionaryAlgorithm
 
     }
 
-    public function executeVersion1() {
-        // echo 'Esta es la version 1! <br>';                        
+    public function executeVersion1() {   
+        
+        // Contador para ir almacenando generaciones y ahorrar memoria
         if(($this->generationsNumber % 4) != 0) {
             $cont = $this->generationsNumber % 4;
         } else {
             $cont = intdiv($this->generationsNumber , 4);
-        }        
+        }
 
         for($numExp=0; $numExp < $this->experimentsNumber; $numExp++) {
-
-            $j = 1;
 
             // Generar  la generacion inicial
             switch ($this->dimensionType) {
@@ -331,49 +333,31 @@ class Simple extends EvolutionaryAlgorithm
                     break;
                 }
 
-                if(($i % $this->sampling) == 0) {
-                    for($k=$j; $k<$i; $k++) {
+                if(($i % $this->sampling) == 0 && $this->sampling != 1) {
+                    for($k=1; $k<$i; $k++) {
                         $this->currentExperiment[$k] = null;
                     }
-                    $j = $i + 1;
+                    $this->saveGenerationsJson();
+                }
+                                
+                if($i == $cont && $this->sampling == 1) {                    
+                    // La i es del for de las generaciones
+                    // Borrar las conformaciones que no se necesitan para ahorrar memoria
+                    $this->saveGenerationsJson();
+                    $cont += intdiv($this->generationsNumber , 4);
                 }
                 
-                if($i == $cont){
-                    // Borrar las conformaciones que no se necesitan
-                    $this->saveGenerationsJson();
-                    $cont += intdiv($this->generationsNumber , 4);                    
-                }
 
             }
-
-            $b = sizeof($this->currentExperiment);
-            // var_dump($j);
-            for($k=$j; $k<$b-1; $k++) {
-                $this->currentExperiment[$k] = null;
-            }
-            // var_dump($this->currentExperiment);
             
             // Guardar los experimentos en JSON
-            // array_push($this->experiments, $this->currentExperiment);
             $this->saveExperimentsJson();
-
 
             // unset($this->currentExperiment);
             $this->currentExperiment = array();
-            // var_dump($this->currentExperiment);
-
-            // echo "Termino exp: ".$numExp."<br>";
-            // die();
-
 
         }        
         
-        // var_dump($this->experiments);
-
-        
-
-        // die();
-
         return true;
         
     }

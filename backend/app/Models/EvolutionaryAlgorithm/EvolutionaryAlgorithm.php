@@ -39,6 +39,7 @@ abstract class EvolutionaryAlgorithm extends Model
     protected $generationsNumber;
     protected $experimentsNumber;
     protected $sampling;
+    protected $appliedSampling;
         
     protected $elitismSelected;
     protected $percentOfElitism;
@@ -54,8 +55,42 @@ abstract class EvolutionaryAlgorithm extends Model
     protected $generationsJson = array();
     protected $experimentsJson = array();
 
+    public function getAppliedSampling() {
+        return $this->appliedSampling;
+    }
+
+    public function getValueSampling() {
+        return $this->sampling;
+    }
+
     public function getExecute() {
         return $this->execute;
+    }
+
+    public function calculateSampling(){
+        $sizeSecuence = strlen($this->hpSecuence);
+        if($this->sampling == 1) {
+            // Verificar si la cadena es muy larga y son muchas generaciones            
+            if($sizeSecuence > 15 && $this->generationsNumber > 400) {
+                $this->sampling = 100;
+                $this->appliedSampling = true;
+            }
+        } else {
+            // Si el sampleo es diferente de 1, se verifica que si son parametros muy grandes
+            // se verifica si el sampleo es de menor de 100, entonces se aplica minimo de 100
+            if($sizeSecuence > 15 && $this->generationsNumber > 400) {
+                if($this->sampling < 100) {
+                    $this->sampling = 100;
+                    $this->appliedSampling = true;
+                } else {
+                    $this->appliedSampling = true;
+                }                
+            } else {
+                // Si no, solo se activa la bandera de sampleo aplicado
+                $this->appliedSampling = true;
+            }
+        }
+        
     }
 
     public function getExperiments() {
@@ -64,12 +99,15 @@ abstract class EvolutionaryAlgorithm extends Model
 
     public function saveGenerationsJson(){        
         foreach($this->currentExperiment as $generation){
-            array_push($this->generationsJson,  $generation->convertToJson());
-        }        
+            if($generation != null){                
+                array_push($this->generationsJson,  $generation->convertToJson());
+            }
+        }
+
         $this->currentExperiment = array();
     }
 
-    public function saveExperimentsJson(){                
+    public function saveExperimentsJson(){    
         array_push($this->experimentsJson, $this->generationsJson);        
         $this->generationsJson = array();
     }

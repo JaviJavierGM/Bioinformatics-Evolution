@@ -98,6 +98,8 @@ class EvolutionaryAlgorithmManager extends Model
                         'status' => 'success',
                         'space_type' => $spaceType,
                         'dimension_type' => $dimensionType,
+                        'applied_sampling' => $AESimple->getAppliedSampling(),
+                        'sampling_value' => $AESimple->getValueSampling(),
                         'experiments' => $AESimple->getExperimentsJson2()
                     );
                 } else{
