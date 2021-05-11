@@ -2,14 +2,45 @@
     <h2 class=" login-heading mb-4">{{page_title}}</h2>
     <p>Consult here the results returned by the Evolutionary Algorithm!</p>
 
+    <!-- BOTONES DROPDOWM-->
+    <div class="col-md-12 ml-0 pl-0 ">
+        <div class="container">
+            <div class="row justify-content-center">                    
+                <button type="submit" value="" class="btn btn-lg btn-primary btn-result text-uppercase font-weight-bold mb-2 col-md-3 mt-1 mr-2 botn" [disabled]="conformationForm.invalid" data-toggle="modal" data-target="#Migration">
+                    <i class="fas fa-syringe"></i>
+                    inject new material
+                </button>
+    
+                <!-- DROPDOWN PARA GRAFICAR LAS FUNCIONES DE APTITUD -->
+                <div class="btn-group dropright">
+                    <button type="button" class="btn btn-primary btn-result dropdown-toggle text-uppercase font-weight-bold mb-2 col-sm mt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-chart-area"></i>                    
+                        Graph The Fitness Of ..
+                        
+                    </button>
+                    <div class="dropdown-menu">
+                        <!-- BOTON PARA GRAFICAR LA SUMA TOTAL DE FITNESS PARA CADA GENERACION -->
+                        <button class="dropdown-item" data-toggle="modal" data-target="#SumFitnessModal">
+                            <i class="fas fa-chart-bar"></i>
+                            Sum of each generation.
+                        </button>
+                        
+                        <!-- BOTON PARA GRAFICAR LOS FITNESS DE UNA GENERACION -->
+                        <button class="dropdown-item" data-toggle="modal" data-target="#ParticularGenerationModal">
+                            <i class="fas fa-chart-bar"></i>
+                            Particular generation.
+                        </button>
+                    </div>
+                </div>             
+            </div>
+        </div>
+    </div>
+    
+    <!-- FIN BOTONES DROPDOWN -->
+
     <div class="container mt-4">
         <div class="row justify-content-center">
-            <div class="col-sm-4 mr-5">
-                <!-- MODAL PARA GRAFICAR LA SUMA DE LA FUNCION DE APTITUD EN CADA GENERACIÓN-->
-                <button class="btn btn-primary btn-block btn-result text-uppercase font-weight-bold mb-2" data-toggle="modal" data-target="#SumFitnessModal">
-                    Graph the fitness sum of each generation.
-                </button>
-                
+            <div class="col-sm-4 mr-5">                
                 <div class="modal fade bd-example-modal-lg" id="SumFitnessModal" tabindex="-1" role="dialog" aria-labelledby="SumFitnessModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -50,12 +81,8 @@
                 </div>
             </div>
 
+            <!-- INICIO MODAL PARA GRAFICAR UNA GENERACIÖN EN PARTICULAR -->
             <div class="col-sm-4 mr-5">
-                <!-- MODAL PARA GRAFICAR LA FUNCION DE APTITUD DE LAS CONFORMACIONES PERTENECIENTES A UNA GENERACION EN PARTICULAR-->
-                <button class="btn btn-primary btn-block btn-result text-uppercase font-weight-bold mb-2" data-toggle="modal" data-target="#ParticularGenerationModal">
-                    Graph fitness of particular generation.
-                </button>
-                
                 <div class="modal fade bd-example-modal-lg" id="ParticularGenerationModal" tabindex="-1" role="dialog" aria-labelledby="ParticularGenerationModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -81,7 +108,7 @@
                                     
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary btn-result text-uppercase font-weight-bold" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-info btn-result text-uppercase font-weight-bold" >Graph particular generation</button>
+                                        <button type="submit" class="btn btn-info btn-result text-uppercase font-weight-bold" >View Graphic</button>
                                     </div>
                                 </form>
                                 <div class="engine-wrapper">
@@ -100,6 +127,55 @@
                     </div>
                 </div>
             </div>
+            <!-- FIN MODAL PARA GRAFICAR UNA GENERACIÖN EN PARTICULAR -->
+
+            <!-- INICIO MODAL PARA INYECTAR NUEVO MATERIAL GENETICO -->
+            <div class="col-sm-4 mr-5">
+                <div class="modal fade bd-example-modal-lg" id="Migration" tabindex="-1" role="dialog" aria-labelledby="MigrationLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="MigrationLabel">Visualize the fitness evolution of a particular generation.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form #migrationForm="ngForm" (ngSubmit)="graphFitnessParticularGeneration(migrationForm)">
+                                    <!-- INPUT DEL EXPERIMENTO -->
+                                    <div class="form-group col-md">
+                                        <label for="experimentP">Experiment</label>
+                                        <input type="number" name="experimentP" class="form-control" #experimentP="ngModel" [(ngModel)]="plot.experiment" />
+                                    </div>
+
+                                    <!-- INPUT DE LA GENERACIÓN -->
+                                    <div class="form-group col-md">
+                                        <label for="generationP">Generation</label>
+                                        <input type="number" name="generationP" class="form-control" #generationP="ngModel" [(ngModel)]="plot.generation"/>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-result text-uppercase font-weight-bold" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-info btn-result text-uppercase font-weight-bold" >Inject Genetic Material</button>
+                                    </div>
+                                </form>
+                                <div class="engine-wrapper">
+                                    <div *ngIf="scatterChartData" style="display: block">
+                                        <canvas baseChart width="400" height="400"
+                                            [datasets]="scatterChartData"
+                                            [options]="scatterChartOptions"
+                                            [labels]="scatterChartLabels"
+                                            [chartType]="scatterChartType">
+                                         </canvas>
+                                    </div>
+
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN MODAL PARA INYECTAR NUEVO MATERIAL GENETICO -->
         </div>
     </div>
 
@@ -170,6 +246,6 @@
     </form>
 </div>
 <div class="engine-wrapper">
-    <canvas #rendererCanvas id="renderCanvas" class="w-100 h-75 bg-dark mt-5"></canvas>
+    <canvas #rendererCanvas id="renderCanvas" class="w-100 h-75 bg-dark mt-5 rounded"></canvas>
 </div>
   
