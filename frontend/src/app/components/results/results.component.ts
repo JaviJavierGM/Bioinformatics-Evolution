@@ -305,6 +305,8 @@ export class ResultsComponent implements OnInit {
     a.click();
   }
 
-
+  test() {
+    console.log("Esta es mi función!!");
+  }
 
 }
