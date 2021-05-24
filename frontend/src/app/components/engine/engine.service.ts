@@ -53,12 +53,13 @@ export class EngineService implements OnDestroy {
   private frameId: number = null;
   
   public constructor(private ngZone: NgZone) {
-    this.arrayAmi = new Array(new Conformation((498+10)*6,433*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation((498+10)*6,434*6,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation((497+10)*6,434*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation((497+10)*6,433*6,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation((497+10)*6,432*6,0,[1,0],'H'));
-    this.arrayAmi.push(new Conformation((497+10)*6,431*6,0,[1,0],'H'));
+    this.arrayAmi = new Array(new Conformation(1*12,0*12,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation(0*12,0*12,0,[1,0],'H'));
+    this.arrayAmi.push(new Conformation(-1*12,0*12,0,[1,0],'P'));
+
+    this.arrayAmi.push(new Conformation(-1*12,1*12,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation(0*12,1*12,0,[1,0],'P'));
+    this.arrayAmi.push(new Conformation(1*12,1*12,0,[1,0],'P'));
 
 
     this.arrayMesh = new Array(new Conformation(7*6,28*6,0,[1,0],'H'));
@@ -104,28 +105,29 @@ export class EngineService implements OnDestroy {
 
     // create the scene
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color("rgb(255, 255, 255)")
+    //this.scene.background = new THREE.Color("rgb(255, 255, 255)")
 
     this.camera = new THREE.PerspectiveCamera(
-      90, window.innerWidth / window.innerHeight, 1, 1000
+      75, window.innerWidth / window.innerHeight, 1, 120
     );
 
-    let middleCam=Math.round( arrayCubes.length/2); 
-    this.posXCam=arrayCubes[middleCam].posX ;
-    this.posYCam=arrayCubes[middleCam].posY ;
+    let middleCam=Math.round( this.arrayAmi.length/2); 
+    this.posXCam=this.arrayAmi[middleCam].posX ;
+    this.posYCam=this.arrayAmi[middleCam].posY ;
     this.posZCam=0;
 
-    let middleCam_cubes=Math.round( arrayCubes.length/2); 
-/*     this.camera_dos = new THREE.PerspectiveCamera(
-      90, window.innerWidth / window.innerHeight, 25, 800
+    let middleCam_cubes=Math.round( this.arrayAmi.length/2); 
+    this.camera_dos = new THREE.PerspectiveCamera(
+      90, window.innerWidth / window.innerHeight, 25, 500
     );
 
-    
-    this.camera_dos.position.set(this.posXCam,this.posYCam,50);
-    this.helper = new THREE.CameraHelper(this.camera_dos);
+      
+    this.camera_dos.position.set(this.posXCam,this.posYCam,300);
+    this.helper = new THREE.CameraHelper(this.camera);
     this.scene.add(this.helper);
- */
-    this.camera.position.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,100);
+
+    //this.camera.position.set(this.arrayAmi[middleCam_cubes].posX , this.arrayAmi[middleCam_cubes].posY,100);
+    this.camera.position.set(0,0,100);
 
     this.scene.add(this.camera);
     
@@ -147,7 +149,7 @@ export class EngineService implements OnDestroy {
 
     for (var index = 0; index < this.arrayAmi.length; index++) {
       
-      const geometry = new THREE.SphereGeometry(2, 20, 20 );
+      const geometry = new THREE.SphereGeometry(4, 20, 20 );
       if (this.arrayAmi[index].letter=='H') {
         this.cube = new THREE.Mesh(geometry, material);
         this.cube.position.set(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ);
@@ -159,16 +161,21 @@ export class EngineService implements OnDestroy {
     } 
 
     //Add ligths
-    const points = []
-    for (var index = 0; index < this.arrayAmi.length; index++) {
-      points.push(new THREE.Vector3(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ));
+    for(var conta=0; conta<this.arrayAmi.length-1;conta++ ){
+
+      const points = []
+
+      for (var index = 0; index < 2; index++) {
+        points.push(new THREE.Vector3(this.arrayAmi[conta+index].posX, this.arrayAmi[conta+index].posY,this.arrayAmi[conta+index].posZ));
+
+      }
+      
+      var pathBase = new THREE.CatmullRomCurve3(points);
+      var tgeometry = new THREE.TubeGeometry( pathBase, this.arrayAmi.length-1, .3, 20, false );
+      var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
+      var tmesh = new THREE.Mesh( tgeometry, tmaterial );
+      this.scene.add(tmesh);
     }
-    var pathBase = new THREE.CatmullRomCurve3(points);
-    var tgeometry = new THREE.TubeGeometry( pathBase, this.arrayAmi.length-1, .8, 20, false );
-    var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
-    var tmesh = new THREE.Mesh( tgeometry, tmaterial );
-    this.scene.add(tmesh);
-     
 
     //Add mesh
 
@@ -176,7 +183,7 @@ export class EngineService implements OnDestroy {
     const material_4 = new THREE.MeshMatcapMaterial( {color: '#d9d9d9'} );
 
 
-    for (var index = 0; index < arrayCubes.length; index++) {
+   /*  for (var index = 0; index < arrayCubes.length; index++) {
       
       const geometry = new THREE.SphereGeometry(1.8, 20, 20 );
       if (arrayCubes[index].value==true) {
@@ -192,13 +199,13 @@ export class EngineService implements OnDestroy {
 
       }
       
-    } 
+    }  */
 
 
     this.controls = new OrbitControls(this.camera, this.canvas);
-    this.controls.target.set(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0) 
+    this.controls.target.set(this.arrayAmi[middleCam_cubes].posX , this.arrayAmi[middleCam_cubes].posY,0) 
     //= new THREE.Vector3(this.posXCam,this.posYCam,0);
-    this.camera.lookAt(arrayCubes[middleCam_cubes].posX , arrayCubes[middleCam_cubes].posY,0);
+    this.camera.lookAt(0 , 0,0);
     
     this.controls.enableKeys = true;
     //this.controls.enableRotate = false;

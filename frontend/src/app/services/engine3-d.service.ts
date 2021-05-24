@@ -140,16 +140,24 @@ export class Engine3DService implements OnDestroy {
 
 
     // Añade enlaces
-    const points = []
-    for (var index = 0; index < array_C.points.length; index++) {
-      points.push(new THREE.Vector3(array_C.points[index].xValue*6, array_C.points[index].yValue*6,array_C.points[index].zValue*6));
+
+    
+    for(var conta=0; conta<array_C.points.length-1;conta++ ){
+
+      const points = []
+
+      for (var index = 0; index < 2; index++) {
+        points.push(new THREE.Vector3(array_C.points[conta+index].xValue*6, array_C.points[conta+index].yValue*6,array_C.points[conta+index].zValue*6));
+
+      }
+      
+      var pathBase = new THREE.CatmullRomCurve3(points);
+      var tgeometry = new THREE.TubeGeometry( pathBase, 1, .2, 3, false );
+      var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
+      var tmesh = new THREE.Mesh( tgeometry, tmaterial );
+      this.scene.add(tmesh);
     }
-    var pathBase = new THREE.CatmullRomCurve3(points);
-    var tgeometry = new THREE.TubeGeometry( pathBase, array_C.points.length-1, .2, 3, false );
-    var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
-    var tmesh = new THREE.Mesh( tgeometry, tmaterial );
-    this.scene.add(tmesh);
-        
+
     
 
   }

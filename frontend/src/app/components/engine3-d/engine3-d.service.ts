@@ -21,7 +21,7 @@ class Conformation {
 
 @Injectable({providedIn: 'root'})
 export class Engine3DService implements OnDestroy {
-  private canvas: HTMLCanvasElement;
+  public canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
   private scene: THREE.Scene;
@@ -34,12 +34,12 @@ export class Engine3DService implements OnDestroy {
   
   public constructor(private ngZone: NgZone) {
     this.arrayAmi = new Array(new Conformation(-4,0,0,[1,0],'P'));
-    this.arrayAmi.push(new Conformation(0,0,0,[1,0],'H'));
+    /* this.arrayAmi.push(new Conformation(0,0,0,[1,0],'H'));
     this.arrayAmi.push(new Conformation(0,0,4,[2,0],'P'));
     this.arrayAmi.push(new Conformation(0,4,4,[1,0],'H'));
     this.arrayAmi.push(new Conformation(0,4,0,[1,0],'P'));
     this.arrayAmi.push(new Conformation(-4,4,0,[1,0],'P'));
-    
+     */
   }
 
   public ngOnDestroy(): void {
@@ -57,7 +57,8 @@ export class Engine3DService implements OnDestroy {
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       alpha: true,    // transparent background
-      antialias: true // smooth edges
+      antialias: true, // smooth edges
+      preserveDrawingBuffer: true
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     
@@ -138,7 +139,7 @@ export class Engine3DService implements OnDestroy {
      
 
 
-    // Añade enlaces
+/*     // Añade enlaces
     const points = []
     for (var index = 0; index < this.arrayAmi.length; index++) {
       points.push(new THREE.Vector3(this.arrayAmi[index].posX, this.arrayAmi[index].posY,this.arrayAmi[index].posZ));
@@ -147,7 +148,7 @@ export class Engine3DService implements OnDestroy {
     var tgeometry = new THREE.TubeGeometry( pathBase, this.arrayAmi.length-1, .2, 3, false );
     var tmaterial = new THREE.MeshBasicMaterial( { color: 0xCCCCCC } );
     var tmesh = new THREE.Mesh( tgeometry, tmaterial );
-    this.scene.add(tmesh);
+    this.scene.add(tmesh); */
         
     
 
