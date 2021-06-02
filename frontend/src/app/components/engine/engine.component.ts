@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EngineService} from './engine.service';
 import { ResultsDataService } from 'src/app/services/results-data.service';
 import { HttpClient } from '@angular/common/http';
+import { jsPDF } from 'jspdf'
+import html2canvas from 'html2canvas'
 
 
 class axisTocube {
@@ -36,13 +38,24 @@ export class EngineComponent implements OnInit {
 
   GenerateIMG(){
     //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
-    let data = this.engServ.canvas.toDataURL("image/jpg", 1.0);
-    let filename = 'my-canvas.jpeg';
+    let data = this.engServ.canvas.toDataURL("image/svg", 1.0);
+    let filename = 'my-canvas.pdf';
     let a = document.createElement('a');
-    a.href = data;
+
+    var doc = new jsPDF('p', 'mm');
+    const pageWidth = doc.internal.pageSize.getWidth();
+
+    
+    doc.addImage(data,'SVG',15,40,200,250);
+
+    
+    //doc.addImage(data,'svg',150,40,width, height);
+    doc.save(filename)
+
+    /* a.href = data;
     a.download = filename;
     document.body.appendChild(a);
-    a.click();
+    a.click(); */
 
   } 
   

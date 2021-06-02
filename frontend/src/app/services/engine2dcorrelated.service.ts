@@ -37,7 +37,7 @@ class axisTocube {
 export class Engine2DCorrelatedService implements OnDestroy {
   public canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
-  private camera: THREE.PerspectiveCamera;
+  private camera: THREE.OrthographicCamera;
   private camera_dos: THREE.PerspectiveCamera;
   private helper: THREE.CameraHelper;
   private scene: THREE.Scene;
@@ -83,17 +83,19 @@ export class Engine2DCorrelatedService implements OnDestroy {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color("rgb(255, 255, 255)")
 
-    this.camera = new THREE.PerspectiveCamera(
+    /* this.camera = new THREE.PerspectiveCamera(
       90, window.innerWidth / window.innerHeight, 1, 1000
     );
-
+ */
+    this.camera =  new THREE.OrthographicCamera( window.innerWidth / - 40, window.innerWidth / 40,  window.innerHeight / 40,  window.innerHeight / - 40, 5, 50
+      );
     let middleCam=Math.round(  array_C.points.length/2); 
    
    
     this.posXCam=array_C.points[middleCam].xValue*6;
     this.posYCam=array_C.points[middleCam].yValue*6;
 
-    this.camera.position.set(this.posYCam ,this.posXCam*-1,100);
+    this.camera.position.set(this.posYCam ,this.posXCam*-1,10);
 
     this.scene.add(this.camera);
     
@@ -219,7 +221,7 @@ export class Engine2DCorrelatedService implements OnDestroy {
     const width = window.innerWidth;
     const height = window.innerHeight;
     this.controls.update();
-    this.camera.aspect = width / height;
+    //this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(width, height);

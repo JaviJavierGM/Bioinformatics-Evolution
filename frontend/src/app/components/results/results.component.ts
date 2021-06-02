@@ -174,7 +174,7 @@ export class ResultsComponent implements OnInit {
       });   
     }
 
-    this.scatterChartData =[ { data: mydata,pointRadius: 3 }, ];
+    this.scatterChartData =[ { data: mydata,label: 'Particular generation vs Sum fitness',pointRadius: 3 }, ];
   }
 
   graphFitnessParticularGeneration(form:any) {
@@ -188,7 +188,7 @@ export class ResultsComponent implements OnInit {
         'y': generation[0][i].fitness*-1 
       });   
     }
-    this.scatterChartData =[ { data: mydata, pointRadius: 3 } ];  
+    this.scatterChartData =[ { data: mydata,label: 'Particular generation vs particular fitness ', pointRadius: 3 } ];  
   }
 
   GenerateIMG(){

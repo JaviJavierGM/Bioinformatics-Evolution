@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "html2canvas": "*",
+    "jspdf": "^2.3.1"
+  }
+}

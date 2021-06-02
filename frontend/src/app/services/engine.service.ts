@@ -24,7 +24,7 @@ class Conformation {
 export class EngineService implements OnDestroy {
   public canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
-  private camera: THREE.PerspectiveCamera;
+  private camera: THREE.OrthographicCamera;
   private scene: THREE.Scene;
   private light: THREE.AmbientLight;
   private controls: OrbitControls;
@@ -70,9 +70,12 @@ export class EngineService implements OnDestroy {
     // create the scene
     this.scene = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(
+    /* this.camera = new THREE.PerspectiveCamera(
       80, window.innerWidth / window.innerHeight, 1, 500
-    );
+    ); */
+
+    this.camera =  new THREE.OrthographicCamera( window.innerWidth / - 40, window.innerWidth / 40,  window.innerHeight / 40,  window.innerHeight / - 40, 5, 50
+      );
 
     let middleCam=Math.round(array_C.points.length/2); 
     
@@ -82,7 +85,7 @@ export class EngineService implements OnDestroy {
     this.posYCam=array_C.points[middleCam].yValue*6;
     this.posZCam=0;
 
-    this.camera.position.set(this.posXCam,this.posYCam,100);
+    this.camera.position.set(this.posXCam,this.posYCam,10);
     
     
 
@@ -198,7 +201,7 @@ export class EngineService implements OnDestroy {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    this.camera.aspect = width / height;
+    //this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(width, height);

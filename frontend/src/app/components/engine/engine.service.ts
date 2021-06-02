@@ -37,7 +37,7 @@ class axisTocube {
 export class EngineService implements OnDestroy {
   public canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
-  private camera: THREE.PerspectiveCamera;
+  private camera: THREE.OrthographicCamera;
   private camera_dos: THREE.PerspectiveCamera;
   private helper: THREE.CameraHelper;
   private scene: THREE.Scene;
@@ -106,9 +106,8 @@ export class EngineService implements OnDestroy {
     // create the scene
     this.scene = new THREE.Scene();
     //this.scene.background = new THREE.Color("rgb(255, 255, 255)")
-
-    this.camera = new THREE.PerspectiveCamera(
-      75, window.innerWidth / window.innerHeight, 1, 120
+   
+    this.camera =  new THREE.OrthographicCamera( window.innerWidth / - 10, window.innerWidth / 10,  window.innerHeight / 10,  window.innerHeight / - 10, 5, 10
     );
 
     let middleCam=Math.round( this.arrayAmi.length/2); 
@@ -122,12 +121,12 @@ export class EngineService implements OnDestroy {
     );
 
       
-    this.camera_dos.position.set(this.posXCam,this.posYCam,300);
+    this.camera_dos.position.set(this.posXCam,this.posYCam,5);
     this.helper = new THREE.CameraHelper(this.camera);
     this.scene.add(this.helper);
 
     //this.camera.position.set(this.arrayAmi[middleCam_cubes].posX , this.arrayAmi[middleCam_cubes].posY,100);
-    this.camera.position.set(0,0,100);
+    this.camera.position.set(0,0,50);
 
     this.scene.add(this.camera);
     
@@ -255,7 +254,7 @@ export class EngineService implements OnDestroy {
     const width = window.innerWidth;
     const height = window.innerHeight;
     this.controls.update();
-    this.camera.aspect = width / height;
+    //this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(width, height);
