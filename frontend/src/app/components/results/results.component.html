@@ -1,6 +1,44 @@
-<div class="container">
-    <h2 class=" login-heading mb-4">{{page_title}}</h2>
-    <p>Consult here the results returned by the Evolutionary Algorithm!</p>
+<div class="container-fluid mt-3">
+    <h2 class="title_page_compos mb-4">{{page_title}}</h2>
+    <div class="container">
+        <div class="row col-sm-12 p-0">
+            <p class="col-sm col-md">Consult here the results returned by the Evolutionary Algorithm!</p>
+            <button class="col-sm-3 col-md-3 btn btn-lg btn-success btn-block btn-result text-uppercase font-weight-bold mb-2" data-toggle="modal" data-target=".modal-project">
+                <i class="fas fa-file-upload mr-2"></i>
+                Save as project!
+            </button>
+
+            <div class="modal fade modal-project" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="save-Project">Enter the name of the project.</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form #projectForm="ngForm" (ngSubmit)="saveProject()">
+                            <!-- INPUT DEL EXPERIMENTO -->
+                            <div class="form-group col-md">
+                                <label for="projectName">Project name:</label>
+                                <input type="text" name="projectName" class="form-control" #projectName="ngModel" [(ngModel)]="project" />
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-result text-uppercase font-weight-bold" data-dismiss="modal">Close</button>
+                                <button (click)="saveProject()" type="submit" class="btn btn-info btn-result text-uppercase font-weight-bold" data-dismiss="modal">Save project</button>
+                            </div>
+                        </form>                        
+                    </div>   
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+
+    <p>Inject new genetic material or consult the graphs of the aptitude functions!</p>
 
     <!-- BOTONES DROPDOWM-->
     <div class="col-md-12 ml-0 pl-0 ">

@@ -36,6 +36,7 @@ export class ResultsComponent implements OnInit {
   public folding: Folding;
   public plot: Folding;
   public myDatatxt:string;
+  public project: string;
 
 
   data: Array<any> = new Array<any>();
@@ -307,6 +308,11 @@ export class ResultsComponent implements OnInit {
 
   test() {
     console.log("Esta es mi función!!");
+  }
+
+  saveProject() {
+    console.log("EL proyectos se va a guardar!")
+    console.log(this.project);
   }
 
 }
