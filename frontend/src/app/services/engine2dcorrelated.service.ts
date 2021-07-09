@@ -9,7 +9,7 @@ class Conformation {
   posZ: number;
   vectorMov: number[];
   letter: string;
-  constructor(X:number,Y:number,Z:number,vectorMov: number[],letter: string){
+  constructor( X:number, Y:number, Z:number, vectorMov: number[],letter: string){
     this.posX=X;
     this.posY=Y;
     this.posZ=Z;
