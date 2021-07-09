@@ -15,8 +15,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Projectos lanzados correctamente!');
-    console.log(this.projects);
+    
   }
 
 }

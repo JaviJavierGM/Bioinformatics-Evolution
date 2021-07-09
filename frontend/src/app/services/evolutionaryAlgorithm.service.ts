@@ -23,8 +23,6 @@ export class EvolutionaryAlgorithmService {
         let json = JSON.stringify(EA);
         let params = 'json='+json;
 
-        console.log(params);
-
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(this.url+'EA/execute', params, {headers: headers});
     }

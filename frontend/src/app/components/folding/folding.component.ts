@@ -71,7 +71,7 @@ export class FoldingComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    console.log("Plegamiento!!!");
+    
   }
 
   ngDoCheck() {
@@ -80,7 +80,6 @@ export class FoldingComponent implements OnInit, DoCheck {
 
   onSubmit(form) {
     this.loading=true;
-    console.log(this.evolutionaryAlgorithm);
     if(this.evolutionaryAlgorithm.space_type == "correlated") {
       // Setear los puntos de la red correlacionada
       this.evolutionaryAlgorithm.setPointsCorrelatedNetwork2D(this.resultsData.upperLeftPoint, this.resultsData.upperRightPoint, this.resultsData.lowerLeftPoint, this.resultsData.lowerRightPoint);
@@ -88,12 +87,11 @@ export class FoldingComponent implements OnInit, DoCheck {
     }    
     this._evolutionaryAlgorithmService.execute(this.evolutionaryAlgorithm).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         if(response.status == "success") {
           this.status = response.status;
           
           // Persistir los resultados devuletos por el API
-          console.log(response.experiments);
           this.resultsData.resultsExperiments = response.experiments;
           this.resultsData.dimensionType = response.dimension_type;
           this.resultsData.spaceType = response.space_type;
@@ -120,18 +118,9 @@ export class FoldingComponent implements OnInit, DoCheck {
     }
   }
 
-  saveProject() {
-    console.log('Se guardara el proyecto en la DB');
-    console.log(this.evolutionaryAlgorithm);
-  }
-
   selectCorrelatedNetwork(nameFile) {
     this.evolutionaryAlgorithm.fileNameCorrelatedNetwork = nameFile;
     this.resultsData.fileNameCorrelatedNetwork = this.evolutionaryAlgorithm.fileNameCorrelatedNetwork;
 
-  }
-
-  test() {
-    console.log('Esto es un metodo de prueba para el modal xD');
   }
 }

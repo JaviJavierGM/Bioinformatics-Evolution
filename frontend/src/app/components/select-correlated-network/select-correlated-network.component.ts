@@ -48,20 +48,15 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
     
     this.initialClientX = event.clientX - ClientRect.left;
     this.initialClientY = event.clientY - ClientRect.top;
-
-    console.log("Initial -- x:",this.initialClientX," y:",this.initialClientY);
   }
 
   releaseClick(event: MouseEvent): void {
-    // console.log("final:",event);
-     
     var boardCorrelatedNetwork = document.getElementById("boardCorrelatedNetwork");
     var ClientRect = boardCorrelatedNetwork.getBoundingClientRect();
     
     this.finalClientX = event.clientX - ClientRect.left;
     this.finalClientY = event.clientY - ClientRect.top;
     
-    console.log("Final -- x:",this.finalClientX," y:",this.finalClientY);
 
     this.flagDraw = false;
 
@@ -70,14 +65,7 @@ export class SelectCorrelatedNetworkComponent implements OnInit {
     this.resultsData.upperLeftPoint = this.upperLeftPoint;
     this.resultsData.upperRightPoint = this.upperRightPoint;
     this.resultsData.lowerLeftPoint = this.lowerLeftPoint;
-    this.resultsData.lowerRightPoint = this.lowerRightPoint;
-
-    console.log("upper Left:",this.upperLeftPoint);
-    console.log("upper Right:",this.upperRightPoint);
-
-    console.log("lower Left:",this.lowerLeftPoint);
-    console.log("lower Right:",this.lowerRightPoint);
-    
+    this.resultsData.lowerRightPoint = this.lowerRightPoint;    
   }
 
   drawArea(event: MouseEvent): void {

@@ -86,10 +86,10 @@ export class ResultsComponent implements OnInit {
 
     if(this.spaceType=='correlated'){      
       if(this.counter_NET == 0){
-        console.log(this.resultsData.upperLeftPoint);
-        console.log(this.resultsData.upperRightPoint);
-        console.log(this.resultsData.lowerLeftPoint);
-        console.log(this.resultsData.lowerRightPoint);
+        //console.log(this.resultsData.upperLeftPoint);
+        //console.log(this.resultsData.upperRightPoint);
+        //console.log(this.resultsData.lowerLeftPoint);
+        //console.log(this.resultsData.lowerRightPoint);
         this.resultsData.fileNameCorrelatedNetwork = this.resultsData.fileNameCorrelatedNetwork.replace('i','');
         this.counter_NET++;
         this.getFile();
@@ -146,8 +146,6 @@ export class ResultsComponent implements OnInit {
 
 
   graphSumFitness(form:any) {
-
-    console.log('Aqui se hace la grafica de la suma de fitness de cada generacion!!');
     let mydata =[];
 
     for (let i = 0; i < this.experiments[this.plot.experiment].length; i++) {
@@ -160,8 +158,7 @@ export class ResultsComponent implements OnInit {
     this.scatterChartData =[ { data: mydata,label: 'Particular generation vs Sum fitness',pointRadius: 3 }, ];
   }
 
-  graphFitnessParticularGeneration(form:any) {
-   
+  graphFitnessParticularGeneration(form:any) {   
     let generation =  this.experiments[this.plot.experiment][this.plot.generation];
     let mydata =[]; 
 
@@ -276,7 +273,7 @@ export class ResultsComponent implements OnInit {
   }
 
   saveProject() {
-    console.log("EL proyectos se va a guardar!")
+    console.log("EL proyectos se va a guardar xD!")
     this.project.results = this.experiments;
     console.log(this.project);
   }

@@ -5,10 +5,6 @@
         <div class="row col-sm-12 p-0">
             <p class="col-sm col-md">Enter the aminoacid or HP sequence of the protein to fold!</p>
             
-            <!--<button (click)="saveProject()" class="btn btn-lg btn-success btn-folding text-uppercase font-weight-bold col-sm-3 col-md-3" *ngIf="identity && identity.role=='ROLE_USER'" [disabled]="foldingForm.invalid">
-                <i class="fas fa-save"></i>
-                Save as project
-            </button>-->
             <div *ngIf="evolutionaryAlgorithm.space_type == 'correlated'">
                 <button type="button" class="btn btn-lg btn-info btn-folding text-uppercase font-weight-bold col-sm" data-toggle="modal" data-target=".bd-correlatedNetworks-modal-xl" [disabled]="foldingForm.invalid">
                     <i class="far fa-object-ungroup"></i>
@@ -358,7 +354,6 @@
             <div class="fa-1x loading-icon" *ngIf="loading">                    
                 <i class="fas fa-cog fa-spin"></i>
             </div>
-        </div>
-        
+        </div> 
     </form>
 </div>
