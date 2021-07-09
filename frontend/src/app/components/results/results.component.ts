@@ -1,6 +1,7 @@
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
 import { ResultsDataService } from 'src/app/services/results-data.service';
 import { Folding } from '../../models/folding';
+import { Project } from '../../models/project';
 import {EngineService} from '../../services/engine.service';
 import {Engine3DService} from '../../services/engine3-d.service'
 import {Engine2DCorrelatedService} from '../../services/engine2dcorrelated.service'
@@ -36,7 +37,8 @@ export class ResultsComponent implements OnInit {
   public folding: Folding;
   public plot: Folding;
   public myDatatxt:string;
-  public project: string;
+  public project: Project;
+  public params;
 
 
   data: Array<any> = new Array<any>();
@@ -59,8 +61,6 @@ export class ResultsComponent implements OnInit {
     private engServ: EngineService, 
     private engServ3D: Engine3DService, 
     private engServ2D_Correlated:Engine2DCorrelatedService ,
-    
-
     public resultsData: ResultsDataService,
     http: HttpClient
   ) {
@@ -70,30 +70,22 @@ export class ResultsComponent implements OnInit {
     this.httpClient = http;
     this.arrayCubes = new Array();
     this.counter_NET=0;
+    this.params = JSON.parse(localStorage.getItem('params'));
+    this.project = new Project(0, '', this.params.aminoacid, this.params.space_type, this.params.dimension_type, this.params.optimization_algorithm, this.params.selection_op, this.params.crossover_op, this.params.mutation_op, this.params.elitism, this.params.clamp_mutation, this.params.caterpillar_mutation, this.params.conformations, this.params.times_algorithm, this.params.experiments, this.params.sampling, this.params.percent_tournament, this.params.percent_best, this.params.crossover_probability, this.params.min_mutation_probability, this.params.max_mutation_probability, this.params.proximity_pairing, this.params.final_fitness, this.params.i_know_fitness, this.params.fitness_function, this.params.alpha_value, this.params.mutation_probability, this.params.percent_elitism, this.params.upperLeftPoint, this.params.upperRightPoint, this.params.lowerLeftPoint, this.params.lowerRightPoint, this.params.fileNameCorrelatedNetwork, this.experiments);
   }
 
   ngOnInit(): void {
-  
     this.experiments = this.resultsData.resultsExperiments;
     this.dimensionType = this.resultsData.dimensionType;
     this.spaceType = this.resultsData.spaceType;
-       
-    console.log('Componente de resultados!!');
-    /* console.log(this.experiments);
-    console.log(this.dimensionType);
-    console.log(this.spaceType); */
-
   }
 
-   onSubmit(form) {
+  onSubmit(form) {
     let generation = this.experiments[this.folding.experiment][this.folding.generation];
     let conformationClone = generation[0][this.folding.conformation];
 
-    
-   
-    if(this.spaceType=='correlated'){
-      
-      if(this.counter_NET==0){
+    if(this.spaceType=='correlated'){      
+      if(this.counter_NET == 0){
         console.log(this.resultsData.upperLeftPoint);
         console.log(this.resultsData.upperRightPoint);
         console.log(this.resultsData.lowerLeftPoint);
@@ -102,18 +94,13 @@ export class ResultsComponent implements OnInit {
         this.counter_NET++;
         this.getFile();
       }
-   
-
       this.engServ2D_Correlated.createScene(this.rendererCanvas,conformationClone ,this.arrayCubes);
       this.engServ2D_Correlated.animate();
 
-      console.log('llama el servicio de correlated');
-    }else if(this.dimensionType == '3D_Cubic' ){
-
+    } else if(this.dimensionType == '3D_Cubic' ){
       this.engServ3D.createScene(this.rendererCanvas, conformationClone);
       this.engServ3D.animate();    
-    }else {
-
+    } else {
       this.engServ.createScene(this.rendererCanvas, conformationClone);
       this.engServ.animate();    
     }
@@ -143,8 +130,7 @@ export class ResultsComponent implements OnInit {
   }
 
   private matriz_to_Axis(Matriz:Array<Array<number>> ){
-    
-    let cont=0;
+    let cont = 0;
    
     for (let i = 0; i < this.resultsData.lowerLeftPoint[1]- this.resultsData.upperLeftPoint[1] +1; i++) {
       for (let k = 0; k < this.resultsData.upperRightPoint[0] - this.resultsData.upperLeftPoint[0]  +1; k++) {
@@ -153,12 +139,8 @@ export class ResultsComponent implements OnInit {
         }else{
           this.arrayCubes.push(new axisTocube(k*6,i*6*-1,0,true))
         }
-        
-      }
-
-      
+      }      
     }
-
   }
 
 
@@ -193,19 +175,14 @@ export class ResultsComponent implements OnInit {
   }
 
   GenerateIMG(){
-    //console.log(this.engServ.canvas.toDataURL("image/jpeg", 1.0));
-    
     let data:any;
-  if(this.spaceType=='correlated'){
-    data=this.engServ2D_Correlated.canvas.toDataURL("image/jpg",1.0);
-
-  }
-    else     if(this.dimensionType == '3D_Cubic' ){
+    if(this.spaceType=='correlated'){
+      data=this.engServ2D_Correlated.canvas.toDataURL("image/jpg",1.0);
+    } else if(this.dimensionType == '3D_Cubic' ){
       data = this.engServ3D.canvas.toDataURL("image/jpg", 1.0);   
     } else {
       data = this.engServ.canvas.toDataURL("image/jpg", 1.0);  
     }
-
 
     let filename = 'my-canvas.jpg';
     let a = document.createElement('a');
@@ -216,8 +193,6 @@ export class ResultsComponent implements OnInit {
   }
 
   GenerateIMGasJPEG() {
-    console.log('Voy a exportar la imagen como JPEG');
-
     let data:any;
     if(this.spaceType=='correlated'){
       data=this.engServ2D_Correlated.canvas.toDataURL("image/jpeg",1.0);
@@ -239,7 +214,6 @@ export class ResultsComponent implements OnInit {
   }
 
   GenerateIMGasPNG() {
-    console.log('Voy a exportar la imagen como PNG');
     let data:any;
     if(this.spaceType=='correlated'){
       data=this.engServ2D_Correlated.canvas.toDataURL("image/png",1.0);
@@ -261,8 +235,6 @@ export class ResultsComponent implements OnInit {
   }
 
   GenerateIMGasGIF() {
-    console.log('Voy a exportar la imagen como GIF');
-
     let data:any;
     if(this.spaceType=='correlated'){
       data=this.engServ2D_Correlated.canvas.toDataURL("image/gif",1.0);
@@ -284,12 +256,9 @@ export class ResultsComponent implements OnInit {
   }
 
   GenerateIMGasTIFF() {
-    console.log('Voy a exportar la imagen como TIFF');
-
     let data:any;
     if(this.spaceType=='correlated'){
       data=this.engServ2D_Correlated.canvas.toDataURL("image/tiff",1.0);
-
     }
     else if(this.dimensionType == '3D_Cubic' ){
       data = this.engServ3D.canvas.toDataURL("image/tiff", 1.0);   
@@ -306,12 +275,9 @@ export class ResultsComponent implements OnInit {
     a.click();
   }
 
-  test() {
-    console.log("Esta es mi función!!");
-  }
-
   saveProject() {
     console.log("EL proyectos se va a guardar!")
+    this.project.results = this.experiments;
     console.log(this.project);
   }
 

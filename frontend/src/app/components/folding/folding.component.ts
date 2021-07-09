@@ -98,6 +98,9 @@ export class FoldingComponent implements OnInit, DoCheck {
           this.resultsData.dimensionType = response.dimension_type;
           this.resultsData.spaceType = response.space_type;
 
+          // Persistir los parametros
+          localStorage.setItem('params', JSON.stringify(this.evolutionaryAlgorithm));
+
           // Redirecion al componente para visualizar los resultaados del EA.
           this._router.navigate(['results']);
         } else {

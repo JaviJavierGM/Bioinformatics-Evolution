@@ -4,7 +4,7 @@
         <div class="row col-sm-12 p-0">
             <p class="col-sm col-md">Consult here the results returned by the Evolutionary Algorithm!</p>
             <button class="col-sm-3 col-md-3 btn btn-lg btn-success btn-block btn-result text-uppercase font-weight-bold mb-2" data-toggle="modal" data-target=".modal-project">
-                <i class="fas fa-file-upload mr-2"></i>
+                <i class="fas fa-save mr-2"></i>
                 Save as project!
             </button>
 
@@ -22,7 +22,7 @@
                             <!-- INPUT DEL EXPERIMENTO -->
                             <div class="form-group col-md">
                                 <label for="projectName">Project name:</label>
-                                <input type="text" name="projectName" class="form-control" #projectName="ngModel" [(ngModel)]="project" />
+                                <input type="text" name="projectName" class="form-control" #projectName="ngModel" [(ngModel)]="project.title" placeholder="Enter a name with alphanumeric characters"/>
                             </div>
 
                             <div class="modal-footer">
@@ -38,7 +38,7 @@
     </div>
     <hr/>
 
-    <p>Inject new genetic material or consult the graphs of the aptitude functions!</p>
+    <h4 class="h4-titles mb-3">Analysis and improvement of results!!</h4>
 
     <!-- BOTONES DROPDOWM-->
     <div class="col-md-12 ml-0 pl-0 ">
@@ -173,7 +173,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="MigrationLabel">Visualize the fitness evolution of a particular generation.</h5>
+                                <h5 class="modal-title" id="MigrationLabel">Inject new genetic material to have a greater diversity of optimal conformations.</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -218,7 +218,7 @@
     </div>
 
     <hr/>
-    <h4>Fold a conformation!!</h4>
+    <h4 class="h4-titles mb-3">Fold a conformation!!</h4>
     <form class="col-md-12 ml-0 pl-0 " #conformationForm="ngForm" (ngSubmit)="onSubmit(conformationForm)">
         <div class="form-row">
             <!-- INPUT DEL EXPERIMENTO -->
