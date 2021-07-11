@@ -35,6 +35,16 @@ class Project extends Model
         'max_mutation_probability',
         'proximity_pairing',
         'final_fitness',
+        'i_know_fitness',
+        'fitness_function',
+        'alpha_value',
+        'mutation_probability',
+        'percent_elitism',
+        'upperLeftPoint',
+        'upperRightPoint',
+        'lowerLeftPoint',
+        'lowerRightPoint',
+        'fileNameCorrelatedNetwork',
         'image',
     ];
 

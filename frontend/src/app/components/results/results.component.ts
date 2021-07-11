@@ -1,5 +1,7 @@
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
 import { ResultsDataService } from 'src/app/services/results-data.service';
+import { ProjectService } from '../../services/project.service';
+import { UserService } from '../../services/user.service';
 import { Folding } from '../../models/folding';
 import { Project } from '../../models/project';
 import {EngineService} from '../../services/engine.service';
@@ -26,7 +28,8 @@ class axisTocube {
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  styleUrls: ['./results.component.css']
+  styleUrls: ['./results.component.css'],
+  providers: [ProjectService, UserService]
 })
 
 export class ResultsComponent implements OnInit {
@@ -38,7 +41,9 @@ export class ResultsComponent implements OnInit {
   public plot: Folding;
   public myDatatxt:string;
   public project: Project;
+  public status: string;
   public params;
+  public token;
 
 
   data: Array<any> = new Array<any>();
@@ -60,18 +65,21 @@ export class ResultsComponent implements OnInit {
   constructor(
     private engServ: EngineService, 
     private engServ3D: Engine3DService, 
-    private engServ2D_Correlated:Engine2DCorrelatedService ,
+    private engServ2D_Correlated: Engine2DCorrelatedService,
+    private _projectService: ProjectService,
+    private _userService: UserService,
     public resultsData: ResultsDataService,
     http: HttpClient
   ) {
     this.page_title = 'Results of the Evolutionary Algorithm!!';
+    this.token = this._userService.getToken();
     this.folding = new Folding(0, 0, 0);
     this.plot = new Folding(0, 0, 0);
     this.httpClient = http;
     this.arrayCubes = new Array();
     this.counter_NET=0;
     this.params = JSON.parse(localStorage.getItem('params'));
-    this.project = new Project(0, '', this.params.aminoacid, this.params.space_type, this.params.dimension_type, this.params.optimization_algorithm, this.params.selection_op, this.params.crossover_op, this.params.mutation_op, this.params.elitism, this.params.clamp_mutation, this.params.caterpillar_mutation, this.params.conformations, this.params.times_algorithm, this.params.experiments, this.params.sampling, this.params.percent_tournament, this.params.percent_best, this.params.crossover_probability, this.params.min_mutation_probability, this.params.max_mutation_probability, this.params.proximity_pairing, this.params.final_fitness, this.params.i_know_fitness, this.params.fitness_function, this.params.alpha_value, this.params.mutation_probability, this.params.percent_elitism, this.params.upperLeftPoint, this.params.upperRightPoint, this.params.lowerLeftPoint, this.params.lowerRightPoint, this.params.fileNameCorrelatedNetwork, this.experiments);
+    this.project = new Project(0, '', this.params.aminoacid, this.params.space_type, this.params.dimension_type, this.params.optimization_algorithm, this.params.selection_op, this.params.crossover_op, this.params.mutation_op, this.params.elitism, this.params.clamp_mutation, this.params.caterpillar_mutation, this.params.conformations, this.params.times_algorithm, this.params.experiments, this.params.sampling, this.params.percent_tournament, this.params.percent_best, this.params.crossover_probability, this.params.min_mutation_probability, this.params.max_mutation_probability, this.params.proximity_pairing, this.params.final_fitness, this.params.i_know_fitness, this.params.fitness_function, this.params.alpha_value, this.params.mutation_probability, this.params.percent_elitism, this.params.upperLeftPoint, this.params.upperRightPoint, this.params.lowerLeftPoint, this.params.lowerRightPoint, this.params.fileNameCorrelatedNetwork, this.experiments, null);
   }
 
   ngOnInit(): void {
@@ -273,9 +281,22 @@ export class ResultsComponent implements OnInit {
   }
 
   saveProject() {
-    console.log("EL proyectos se va a guardar xD!")
+    console.log(this.token);
     this.project.results = this.experiments;
-    console.log(this.project);
+    this._projectService.save(this.project, this.token).subscribe(
+      response => {
+        if(response.status == 'success') {
+          this.status = 'success';
+          console.log(response);
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        this.status = 'error';
+        console.log(<any>error);
+      }
+    );
   }
 
 }

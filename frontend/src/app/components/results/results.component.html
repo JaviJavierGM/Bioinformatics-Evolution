@@ -1,5 +1,17 @@
 <div class="container-fluid mt-3">
     <h2 class="title_page_compos mb-4">{{page_title}}</h2>
+    <div class="col-sm-12">
+        <!-- Alerta Success -->
+        <div class="alert alert-success alert-dismissable" *ngIf="status == 'success'">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            The project was saved successfully.
+        </div>
+        <!-- Alerta Error -->
+        <div class="alert alert-danger alert-dismissable" *ngIf="status == 'error'">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            The project wasn't saved correctly.
+        </div>
+    </div>
     <div class="container">
         <div class="row col-sm-12 p-0">
             <p class="col-sm col-md">Consult here the results returned by the Evolutionary Algorithm!</p>

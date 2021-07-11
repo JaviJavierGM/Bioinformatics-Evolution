@@ -34,5 +34,6 @@ export class Project {
         public lowerRightPoint: number[],
         public fileNameCorrelatedNetwork: string,
         public results: any,
+        public image: string,
     ) {}
 }

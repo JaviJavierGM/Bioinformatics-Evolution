@@ -59,3 +59,13 @@ CREATE TABLE projects(
     CONSTRAINT pk_projects PRIMARY KEY(id),
     CONSTRAINT fk_project_user FOREIGN KEY(user_id) REFERENCES users(id)
 )ENGINE=InnoDb;
+
+CREATE TABLE results(
+    id INT(255) AUTO_INCREMENT NOT NULL,
+    project_id INT(255) NOT NULL,
+    results JSON NOT NULL,
+    created_at DATETIME DEFAULT NULL,
+    updated_at DATETIME DEFAULT NULL,
+    CONSTRAINT pk_results PRIMARY KEY(id),
+    CONSTRAINT fk_results_project FOREIGN KEY(project_id) REFERENCES projects(id)
+)ENGINE=InnoDb;

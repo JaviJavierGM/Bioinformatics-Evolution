@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use App\Models\Data\Project;
+use App\Models\Data\Results;
 use App\Helpers\JwtAuth;
 
 class ProjectsManager extends Model
@@ -55,7 +56,9 @@ class ProjectsManager extends Model
                 'conformations' => 'required',
                 'times_algorithm' => 'required',
                 'experiments' => 'required',
-                'crossover_probability' => 'required'
+                'crossover_probability' => 'required',
+                'fitness_function' => 'required',
+                'mutation_probability' => 'required'
             ]);
 
             // Guardar el projecto
@@ -91,13 +94,34 @@ class ProjectsManager extends Model
                 $project->max_mutation_probability = $params->max_mutation_probability;
                 $project->proximity_pairing = $params->proximity_pairing;
                 $project->final_fitness = $params->final_fitness;
+                $project->i_know_fitness = $params->i_know_fitness;
+                $project->fitness_function = $params->fitness_function;
+                $project->alpha_value = $params->alpha_value;
+                $project->mutation_probability = $params->mutation_probability;
+                $project->percent_elitism = $params->percent_elitism;
+
+                if($project->space_type == 'correlated') {
+                    $project->upperLeftPoint = implode(",", $params->upperLeftPoint);
+                    $project->upperRightPoint = implode(",", $params->upperRightPoint);
+                    $project->lowerLeftPoint = implode(",", $params->lowerLeftPoint);
+                    $project->lowerRightPoint = implode(",", $params->lowerRightPoint);
+                    $project->fileNameCorrelatedNetwork = $params->fileNameCorrelatedNetwork;
+                }
+                
                 $project->image = $params->image;
                 $project->save();
+
+                $results = new Results();
+                $results->project_id = $project->id;
+                $results->data = json_encode($params->results);
+                $results->save();
+                
 
                 $data = array(
                     'code'  =>  200,
                     'status' => 'success',
-                    'project' => $project
+                    'project' => $project,
+                    'results' => $results
                 );
             }
         } else {
